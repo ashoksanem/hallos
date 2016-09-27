@@ -1,0 +1,554 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585601D9AF71C00294506 /* AppDelegate.swift */; };
+		CC2585631D9AF71C00294506 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585621D9AF71C00294506 /* ViewController.swift */; };
+		CC2585661D9AF71C00294506 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC2585641D9AF71C00294506 /* Main.storyboard */; };
+		CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */; };
+		CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC25856A1D9AF71C00294506 /* Assets.xcassets */; };
+		CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */; };
+		CC2585791D9AF71C00294506 /* HAL_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585781D9AF71C00294506 /* HAL_iOSTests.swift */; };
+		CC2585841D9AF71C00294506 /* HAL_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC2585751D9AF71C00294506 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC2585551D9AF71B00294506 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC25855C1D9AF71C00294506;
+			remoteInfo = "HAL-iOS";
+		};
+		CC2585801D9AF71C00294506 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC2585551D9AF71B00294506 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC25855C1D9AF71C00294506;
+			remoteInfo = "HAL-iOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CC25855D1D9AF71C00294506 /* HAL-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HAL-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC2585601D9AF71C00294506 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CC2585621D9AF71C00294506 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CC2585651D9AF71C00294506 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CC2585681D9AF71C00294506 /* HAL_iOS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HAL_iOS.xcdatamodel; sourceTree = "<group>"; };
+		CC25856A1D9AF71C00294506 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC25856D1D9AF71C00294506 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CC25856F1D9AF71C00294506 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC2585741D9AF71C00294506 /* HAL-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HAL-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC2585781D9AF71C00294506 /* HAL_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAL_iOSTests.swift; sourceTree = "<group>"; };
+		CC25857A1D9AF71C00294506 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC25857F1D9AF71C00294506 /* HAL-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HAL-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAL_iOSUITests.swift; sourceTree = "<group>"; };
+		CC2585851D9AF71C00294506 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC25855A1D9AF71C00294506 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC2585711D9AF71C00294506 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC25857C1D9AF71C00294506 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC2585541D9AF71B00294506 = {
+			isa = PBXGroup;
+			children = (
+				CC25855F1D9AF71C00294506 /* HAL-iOS */,
+				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
+				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
+				CC25855E1D9AF71C00294506 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CC25855E1D9AF71C00294506 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC25855D1D9AF71C00294506 /* HAL-iOS.app */,
+				CC2585741D9AF71C00294506 /* HAL-iOSTests.xctest */,
+				CC25857F1D9AF71C00294506 /* HAL-iOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
+				CC2585621D9AF71C00294506 /* ViewController.swift */,
+				CC2585641D9AF71C00294506 /* Main.storyboard */,
+				CC25856A1D9AF71C00294506 /* Assets.xcassets */,
+				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
+				CC25856F1D9AF71C00294506 /* Info.plist */,
+				CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */,
+			);
+			path = "HAL-iOS";
+			sourceTree = "<group>";
+		};
+		CC2585771D9AF71C00294506 /* HAL-iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				CC2585781D9AF71C00294506 /* HAL_iOSTests.swift */,
+				CC25857A1D9AF71C00294506 /* Info.plist */,
+			);
+			path = "HAL-iOSTests";
+			sourceTree = "<group>";
+		};
+		CC2585821D9AF71C00294506 /* HAL-iOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */,
+				CC2585851D9AF71C00294506 /* Info.plist */,
+			);
+			path = "HAL-iOSUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CC25855C1D9AF71C00294506 /* HAL-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC2585881D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOS" */;
+			buildPhases = (
+				CC2585591D9AF71C00294506 /* Sources */,
+				CC25855A1D9AF71C00294506 /* Frameworks */,
+				CC25855B1D9AF71C00294506 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HAL-iOS";
+			productName = "HAL-iOS";
+			productReference = CC25855D1D9AF71C00294506 /* HAL-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CC2585731D9AF71C00294506 /* HAL-iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC25858B1D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOSTests" */;
+			buildPhases = (
+				CC2585701D9AF71C00294506 /* Sources */,
+				CC2585711D9AF71C00294506 /* Frameworks */,
+				CC2585721D9AF71C00294506 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC2585761D9AF71C00294506 /* PBXTargetDependency */,
+			);
+			name = "HAL-iOSTests";
+			productName = "HAL-iOSTests";
+			productReference = CC2585741D9AF71C00294506 /* HAL-iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CC25857E1D9AF71C00294506 /* HAL-iOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC25858E1D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOSUITests" */;
+			buildPhases = (
+				CC25857B1D9AF71C00294506 /* Sources */,
+				CC25857C1D9AF71C00294506 /* Frameworks */,
+				CC25857D1D9AF71C00294506 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC2585811D9AF71C00294506 /* PBXTargetDependency */,
+			);
+			name = "HAL-iOSUITests";
+			productName = "HAL-iOSUITests";
+			productReference = CC25857F1D9AF71C00294506 /* HAL-iOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC2585551D9AF71B00294506 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0800;
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = macys;
+				TargetAttributes = {
+					CC25855C1D9AF71C00294506 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 8AS67DFAXH;
+						ProvisioningStyle = Automatic;
+					};
+					CC2585731D9AF71C00294506 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 8AS67DFAXH;
+						ProvisioningStyle = Automatic;
+						TestTargetID = CC25855C1D9AF71C00294506;
+					};
+					CC25857E1D9AF71C00294506 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 8AS67DFAXH;
+						ProvisioningStyle = Automatic;
+						TestTargetID = CC25855C1D9AF71C00294506;
+					};
+				};
+			};
+			buildConfigurationList = CC2585581D9AF71B00294506 /* Build configuration list for PBXProject "HAL-iOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CC2585541D9AF71B00294506;
+			productRefGroup = CC25855E1D9AF71C00294506 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC25855C1D9AF71C00294506 /* HAL-iOS */,
+				CC2585731D9AF71C00294506 /* HAL-iOSTests */,
+				CC25857E1D9AF71C00294506 /* HAL-iOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CC25855B1D9AF71C00294506 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
+				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
+				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC2585721D9AF71C00294506 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC25857D1D9AF71C00294506 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC2585591D9AF71C00294506 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC2585631D9AF71C00294506 /* ViewController.swift in Sources */,
+				CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */,
+				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC2585701D9AF71C00294506 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC2585791D9AF71C00294506 /* HAL_iOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC25857B1D9AF71C00294506 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC2585841D9AF71C00294506 /* HAL_iOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC2585761D9AF71C00294506 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC25855C1D9AF71C00294506 /* HAL-iOS */;
+			targetProxy = CC2585751D9AF71C00294506 /* PBXContainerItemProxy */;
+		};
+		CC2585811D9AF71C00294506 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC25855C1D9AF71C00294506 /* HAL-iOS */;
+			targetProxy = CC2585801D9AF71C00294506 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CC2585641D9AF71C00294506 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC2585651D9AF71C00294506 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC25856D1D9AF71C00294506 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CC2585861D9AF71C00294506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CC2585871D9AF71C00294506 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CC2585891D9AF71C00294506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8AS67DFAXH;
+				INFOPLIST_FILE = "HAL-iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		CC25858A1D9AF71C00294506 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8AS67DFAXH;
+				INFOPLIST_FILE = "HAL-iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		CC25858C1D9AF71C00294506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8AS67DFAXH;
+				INFOPLIST_FILE = "HAL-iOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HAL-iOS.app/HAL-iOS";
+			};
+			name = Debug;
+		};
+		CC25858D1D9AF71C00294506 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8AS67DFAXH;
+				INFOPLIST_FILE = "HAL-iOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HAL-iOS.app/HAL-iOS";
+			};
+			name = Release;
+		};
+		CC25858F1D9AF71C00294506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 8AS67DFAXH;
+				INFOPLIST_FILE = "HAL-iOSUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "HAL-iOS";
+			};
+			name = Debug;
+		};
+		CC2585901D9AF71C00294506 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 8AS67DFAXH;
+				INFOPLIST_FILE = "HAL-iOSUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOSUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = "HAL-iOS";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CC2585581D9AF71B00294506 /* Build configuration list for PBXProject "HAL-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC2585861D9AF71C00294506 /* Debug */,
+				CC2585871D9AF71C00294506 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC2585881D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC2585891D9AF71C00294506 /* Debug */,
+				CC25858A1D9AF71C00294506 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CC25858B1D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC25858C1D9AF71C00294506 /* Debug */,
+				CC25858D1D9AF71C00294506 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CC25858E1D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC25858F1D9AF71C00294506 /* Debug */,
+				CC2585901D9AF71C00294506 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CC2585681D9AF71C00294506 /* HAL_iOS.xcdatamodel */,
+			);
+			currentVersion = CC2585681D9AF71C00294506 /* HAL_iOS.xcdatamodel */;
+			path = HAL_iOS.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = CC2585551D9AF71B00294506 /* Project object */;
+}

@@ -15,6 +15,7 @@
 		CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */; };
 		CC2585791D9AF71C00294506 /* HAL_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585781D9AF71C00294506 /* HAL_iOSTests.swift */; };
 		CC2585841D9AF71C00294506 /* HAL_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */; };
+		CC2585921D9B049E00294506 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = CC2585911D9B049E00294506 /* test.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		CC25857F1D9AF71C00294506 /* HAL-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HAL-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAL_iOSUITests.swift; sourceTree = "<group>"; };
 		CC2585851D9AF71C00294506 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC2585911D9B049E00294506 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = test.html; path = "HAL-iOS/test.html"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 		CC2585541D9AF71B00294506 = {
 			isa = PBXGroup;
 			children = (
+				CC2585911D9B049E00294506 /* test.html */,
 				CC25855F1D9AF71C00294506 /* HAL-iOS */,
 				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
@@ -238,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC2585921D9B049E00294506 /* test.html in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
@@ -421,6 +425,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -434,6 +439,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";

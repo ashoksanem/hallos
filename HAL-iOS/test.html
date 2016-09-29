@@ -1,0 +1,30 @@
+<html>
+<head>
+<style>
+    body{
+    background-color:#D2D3D4;
+    color:#fff;
+    }
+    input{
+        background-color:#D54222;
+    color:#000;
+}</style>
+<script type="text/javascript">
+    
+    function showIOSAlert(){
+        webkit.messageHandlers.showIOSAlert.postMessage(" ");
+}
+
+function amInHal(){
+    document.getElementById("halmsg").innerHTML="you got a message from HAL";
+}</script>
+</head>
+<body>
+    <p id="halmsg"> </p>
+    <p>Web page</p>
+    <div>
+        <input type="button" value="send message to hal" onClick="showIOSAlert()"/>
+        </div>
+</body>
+<script> amInHal() </script>
+</html>

@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKScriptMessageHandler {
+class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDelegate {
     
     @IBOutlet var containerView : UIView? = nil
     var webView: WKWebView?
@@ -17,12 +17,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
-        let userScript = WKUserScript(
-            source: "amInHAL()",
-            injectionTime: WKUserScriptInjectionTime.atDocumentEnd,
-            forMainFrameOnly: true
-        )
-        contentController.addUserScript(userScript)
+       
         contentController.add(
             self,
             name: "showIOSAlert"
@@ -31,7 +26,10 @@ class ViewController: UIViewController, WKScriptMessageHandler {
             self,
             name: "amInHal"
         )
-        
+        contentController.add(
+            self,
+            name: "amInHal1"
+        )
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
         
@@ -39,19 +37,40 @@ class ViewController: UIViewController, WKScriptMessageHandler {
             frame: (self.containerView?.bounds)!,
             configuration: config
         )
-        self.view = self.webView!
+                self.view = self.webView!
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let url = Bundle.main.url(forResource: "test", withExtension:"html")
         let req = NSURLRequest(url:url!)
+        self.webView!.navigationDelegate = self
+
         self.webView!.load(req as URLRequest)
+        
     }
+           func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            
+                 webView.evaluateJavaScript("passDataToWeb(\(Assembly.halJson()));") { result, error in
+                    guard error == nil else {
+                        print(error)
+                        return
+                    }
+                    
+                }
+            }
+    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if(message.name == "showIOSAlert") {
             let alertController = UIAlertController(title: "Message From HAL", message:
                 "Hello user!", preferredStyle: UIAlertControllerStyle.alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+        if(message.name == "amInHal") {
+            let alertController = UIAlertController(title: "Initial Launch of HAL", message:
+                "Alert from HAL!", preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
             
             self.present(alertController, animated: true, completion: nil)

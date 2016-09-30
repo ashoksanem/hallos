@@ -16,6 +16,7 @@
 		CC2585791D9AF71C00294506 /* HAL_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585781D9AF71C00294506 /* HAL_iOSTests.swift */; };
 		CC2585841D9AF71C00294506 /* HAL_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */; };
 		CC2585921D9B049E00294506 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = CC2585911D9B049E00294506 /* test.html */; };
+		CCB404921D9D82C600A314FC /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB404911D9D82C600A314FC /* Assembly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAL_iOSUITests.swift; sourceTree = "<group>"; };
 		CC2585851D9AF71C00294506 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC2585911D9B049E00294506 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = test.html; path = "HAL-iOS/test.html"; sourceTree = "<group>"; };
+		CCB404911D9D82C600A314FC /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
 				CC25856F1D9AF71C00294506 /* Info.plist */,
 				CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */,
+				CCB404911D9D82C600A314FC /* Assembly.swift */,
 			);
 			path = "HAL-iOS";
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC2585631D9AF71C00294506 /* ViewController.swift in Sources */,
+				CCB404921D9D82C600A314FC /* Assembly.swift in Sources */,
 				CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */,
 				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,
 			);
@@ -524,6 +528,7 @@
 				CC25858A1D9AF71C00294506 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CC25858B1D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +537,7 @@
 				CC25858D1D9AF71C00294506 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CC25858E1D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOSUITests" */ = {
 			isa = XCConfigurationList;
@@ -540,6 +546,7 @@
 				CC2585901D9AF71C00294506 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0">
+<style>
+    body{
+    background-color:#D2D3D4;
+    color:#fff;
+    }
+    input{
+        background-color:#D54222;
+    color:#000;
+}</style>
+
+<script src="HAL.js"></script>
+
+<script type="text/javascript">
+    
+function showIOSAlert(){
+    webkit.messageHandlers.showIOSAlert.postMessage(" ");
+}
+function authenticateUser(){
+    webkit.messageHandlers.authenticateUser.postMessage(" ");
+}
+function amInHal(message){
+   webkit.messageHandlers.amInHal.postMessage(" ");
+}
+function passSSOData(message){
+   document.getElementById("halmsg").innerHTML=message;
+}
+function launchSSOPage(message){
+    webkit.messageHandlers.launchSSOPage.postMessage(" ");
+}
+function clear() {
+    alert("clearing");
+    document.getElementById("halmsg").innerHTML="";
+}
+function isSSOAuthenticated() {
+    webkit.messageHandlers.isSSOAuthenticated.postMessage(" ");
+}
+</script>
+
+</head>
+<body>
+    <p>Web page</p>
+    <p> </p>
+    <p id="halmsg"> </p>
+    <p id="SSOMessage"> </p>
+    <div>
+        <input type="button" value="send message to hal" onClick="showIOSAlert()"/>
+        <input type="button" value="Authenticate User" onClick="HAL.sso.authenticateAssociate()"/>
+        <input type="button" value="check Authentication" onClick="isSSOAuthenticated()"/>
+        <input type="button" value="amIinHal?" onClick="amInHal()"/>
+        </div>
+    <script type="text/javascript">
+        function passDataToWeb(message){
+            jsonStr = JSON.stringify(message),  // THE OBJECT STRINGIFIED
+            regeStr = '', // A EMPTY STRING TO EVENTUALLY HOLD THE FORMATTED STRINGIFIED OBJECT
+            f = {
+                brace: 0
+            };
+            var regeStr = jsonStr.replace(/({|}[,]*|[^{}:]+:[^{}:,]*[,{]*)/g, function (m, p1) {
+                                      var rtnFn = function() {
+                                      return '<div style="text-indent: ' + (f['brace'] * 20) + 'px;">' + p1 + '</div>';
+                                      },
+                                      rtnStr = 0;
+                                      if (p1.lastIndexOf('{') === (p1.length - 1)) {
+                                      rtnStr = rtnFn();
+                                      f['brace'] += 1;
+                                      } else if (p1.indexOf('}') === 0) {
+                                      f['brace'] -= 1;
+                                      rtnStr = rtnFn();
+                                      } else {
+                                      rtnStr = rtnFn();
+                                      }
+                                      return rtnStr;
+                                      });
+            document.getElementById("halmsg").innerHTML=regeStr;
+        }
+    function sendSSOAuthenticationMessageToWeb(message){
+        jsonStr = JSON.stringify(message),
+        regeStr = '',
+        f = {
+            brace: 0
+        };
+        var regeStr = jsonStr.replace(/({|}[,]*|[^{}:]+:[^{}:,]*[,{]*)/g, function (m, p1) {
+                                      var rtnFn = function() {
+                                      return '<div style="text-indent: ' + (f['brace'] * 20) + 'px;">' + p1 + '</div>';
+                                      },
+                                      rtnStr = 0;
+                                      if (p1.lastIndexOf('{') === (p1.length - 1)) {
+                                      rtnStr = rtnFn();
+                                      f['brace'] += 1;
+                                      } else if (p1.indexOf('}') === 0) {
+                                      f['brace'] -= 1;
+                                      rtnStr = rtnFn();
+                                      } else {
+                                      rtnStr = rtnFn();
+                                      }
+                                      return rtnStr;
+                                      });
+                                      document.getElementById("SSOMessage").innerHTML=regeStr;
+    }</script>
+</body>
+</html>

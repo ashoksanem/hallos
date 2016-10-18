@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width; initial-scale=1.0">
+<style>
+    body{
+        background: #fff;
+        color: #000;
+        font-weight: 500;
+        font-size: 16px;
+        height: 45px;
+    }
+input{background: #000;
+    border: 1px solid #000;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+    height: 45px;
+    margin-top: 15px;
+    line-height: 5px;
+    padding: rem-calc(0) rem-calc(0) rem-calc(0) rem-calc(20);
+
+}</style>
+
+</head>
+<body>
+    <script src="HAL.js"></script>
+
+    <p>Web page</p>
+    <p> </p>
+    <p id="halmsg"> </p>
+    <p id="SSOMessage"> </p>
+    <div>
+        <input type="button" value="send message to hal" onClick="showIOSAlert()"/>
+        <input type="button" value="Authenticate User" onClick="HAL.sso.authenticateAssociate()"/>
+        <input type="button" value="check Authentication" onClick="isSSOAuthenticated()"/>
+        <input type="button" value="amIinHal?" onClick="amInHal()"/>
+        </div>
+    
+</body>
+</html>

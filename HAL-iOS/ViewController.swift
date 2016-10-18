@@ -56,6 +56,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         super.viewDidLoad()
         let url = Bundle.main.url(forResource: "webAssets/test", withExtension:"html")
         loadWebView(url: url!)
+        CommonUtils.setCurrentPage(value: url!)
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.evaluateJavaScript("passDataToWeb(\(Assembly.halJson()));") { result, error in
@@ -98,8 +99,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
     }
     
     func loadWebView(url: URL){
-        if(!(self.webView!.url==nil)){
-            CommonUtils.setCurrentPage(value: self.webView!.url!)}
+        
         let req = NSURLRequest(url:url)
         self.webView!.navigationDelegate = self
         self.webView!.load(req as URLRequest)
@@ -118,7 +118,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
                 self.loadPreviousWebPage()
             }
             else{
-                self.showAlert(title: "Authentication Failed", message: "Please enter valid credentials")
+                self.showAlert(title: "Authentication Failed", message:result)
             }
         }
         

@@ -70,7 +70,7 @@ var windowsConnector = (function windowsConnector() {
             // if no parameters are passed the sign on page has empty text fields
             // if a user parameter is passed that user will be prepopulated in the user text field
             // if a forceRacf parameter is passed as true we will force the user to enter a RACF (more than 4 characters)
-            _this.sso.authenticateAssociate = function (user = "", forceRacf = false) {
+            _this.sso.authenticateAssociate = function (user, forceRacf) {
                 console.log(`user: ${user}`);
                 console.log(`forceRacf: ${forceRacf}`);
 
@@ -147,7 +147,7 @@ function iosConnector() {
         // if no parameters are passed the sign on page has empty text fields
         // if a user parameter is passed that user will be prepopulated in the user text field
         // if a forceRacf parameter is passed as true we will force the user to enter a RACF (more than 4 characters)
-        this.sso.authenticateAssociate = function (user = "", forceRacf = false) {
+        this.sso.authenticateAssociate = function (user, forceRacf) {
             console.log(`user: ${user}`);
             console.log(`forceRacf: ${forceRacf}`);
             webkit.messageHandlers.launchSSOPage.postMessage(" ");
@@ -216,3 +216,77 @@ function MSTWebBrowserConnector() {
 }
 
 var HAL = new MSTWebBrowserConnector().getInstance();
+
+function showIOSAlert(){
+    webkit.messageHandlers.showIOSAlert.postMessage(" ");
+}
+
+function authenticateUser(){
+    webkit.messageHandlers.authenticateUser.postMessage(" ");
+}
+function amInHal(message){
+    webkit.messageHandlers.amInHal.postMessage(" ");
+}
+function passSSOData(message){
+    document.getElementById("halmsg").innerHTML=message;
+}
+function launchSSOPage(message){
+    webkit.messageHandlers.launchSSOPage.postMessage(" ");
+}
+function clear() {
+    alert("clearing");
+    document.getElementById("halmsg").innerHTML="";
+}
+function isSSOAuthenticated() {
+    webkit.messageHandlers.isSSOAuthenticated.postMessage(" ");
+}
+function passDataToWeb(message){
+    jsonStr = JSON.stringify(message),  // THE OBJECT STRINGIFIED
+    regeStr = '', // A EMPTY STRING TO EVENTUALLY HOLD THE FORMATTED STRINGIFIED OBJECT
+    f = {
+    brace: 0
+    };
+    var regeStr = jsonStr.replace(/({|}[,]*|[^{}:]+:[^{}:,]*[,{]*)/g, function (m, p1) {
+                                  var rtnFn = function() {
+                                  return '<div style="text-indent: ' + (f['brace'] * 20) + 'px;">' + p1 + '</div>';
+                                  },
+                                  rtnStr = 0;
+                                  if (p1.lastIndexOf('{') === (p1.length - 1)) {
+                                  rtnStr = rtnFn();
+                                  f['brace'] += 1;
+                                  } else if (p1.indexOf('}') === 0) {
+                                  f['brace'] -= 1;
+                                  rtnStr = rtnFn();
+                                  } else {
+                                  rtnStr = rtnFn();
+                                  }
+                                  return rtnStr;
+                                  });
+    document.getElementById("halmsg").innerHTML=regeStr;
+}
+function sendSSOAuthenticationMessageToWeb(message){
+    jsonStr = JSON.stringify(message),
+    regeStr = '',
+    f = {
+    brace: 0
+    };
+    var regeStr = jsonStr.replace(/({|}[,]*|[^{}:]+:[^{}:,]*[,{]*)/g, function (m, p1) {
+                                  var rtnFn = function() {
+                                  return '<div style="text-indent: ' + (f['brace'] * 20) + 'px;">' + p1 + '</div>';
+                                  },
+                                  rtnStr = 0;
+                                  if (p1.lastIndexOf('{') === (p1.length - 1)) {
+                                  rtnStr = rtnFn();
+                                  f['brace'] += 1;
+                                  } else if (p1.indexOf('}') === 0) {
+                                  f['brace'] -= 1;
+                                  rtnStr = rtnFn();
+                                  } else {
+                                  rtnStr = rtnFn();
+                                  }
+                                  return rtnStr;
+                                  });
+    document.getElementById("SSOMessage").innerHTML=regeStr;
+}
+
+

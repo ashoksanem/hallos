@@ -18,6 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         CommonUtils.setUpSSODefaults()
+        
+        NotificationCenter.default.addObserver( self,
+                                                selector: #selector(readMDMValues),
+                                                name: UserDefaults.didChangeNotification,
+                                                object: nil);
+        
+        
         return true
     }
 
@@ -37,7 +44,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        NotificationCenter.default.addObserver( self,
+                                                selector: #selector(readMDMValues),
+                                                name: UserDefaults.didChangeNotification,
+                                                object: nil);
     }
+    
+    func readMDMValues()
+    {
+        NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil);
+        let userDefaults = UserDefaults.standard;
+        if let answersSaved = userDefaults.dictionary(forKey: "com.apple.configuration.managed") as? [String : String] {
+            if let landingPage = answersSaved["landingPage"] {
+                print("Current landing page: " + landingPage); // value
+            }
+        }
+    };
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

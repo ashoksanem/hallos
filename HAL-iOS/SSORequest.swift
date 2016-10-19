@@ -61,8 +61,5 @@ class SSORequest{
                 
                 print("data: \(strData)")}})
         task.resume()
-        
     }
-    
-    
 }

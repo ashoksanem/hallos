@@ -58,13 +58,13 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         loadWebView(url: url!)
         CommonUtils.setCurrentPage(value: url!)
     }
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.evaluateJavaScript("passDataToWeb(\(Assembly.halJson()));") { result, error in
             guard error == nil else {
                 print(error)
                 return
             }
-            
         }
     }
     

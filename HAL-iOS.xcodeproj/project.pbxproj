@@ -16,7 +16,6 @@
 		CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */; };
 		CC2585791D9AF71C00294506 /* HAL_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585781D9AF71C00294506 /* HAL_iOSTests.swift */; };
 		CC2585841D9AF71C00294506 /* HAL_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */; };
-		CC2585921D9B049E00294506 /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = CC2585911D9B049E00294506 /* test.html */; };
 		CC41EF241DB54CA90059C7C5 /* webAssets in Resources */ = {isa = PBXBuildFile; fileRef = CC41EF231DB54CA90059C7C5 /* webAssets */; };
 		CC41EF2E1DB54D6B0059C7C5 /* AssociateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */; };
 		CC41EF2F1DB54D6B0059C7C5 /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */; };
@@ -63,7 +62,6 @@
 		CC25857F1D9AF71C00294506 /* HAL-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HAL-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAL_iOSUITests.swift; sourceTree = "<group>"; };
 		CC2585851D9AF71C00294506 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC2585911D9B049E00294506 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = test.html; path = "HAL-iOS/test.html"; sourceTree = "<group>"; };
 		CC41EF231DB54CA90059C7C5 /* webAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = webAssets; sourceTree = "<group>"; };
 		CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateInfo.swift; sourceTree = "<group>"; };
 		CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
@@ -102,10 +100,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BCD698231DB7B91400F856CE /* Git Projects */ = {
+			isa = PBXGroup;
+			children = (
+				CC14AF411DB56F93007208F7 /* sso */,
+			);
+			name = "Git Projects";
+			sourceTree = "<group>";
+		};
+		BCD698241DB7B92E00F856CE /* Project Files */ = {
+			isa = PBXGroup;
+			children = (
+				CC25856A1D9AF71C00294506 /* Assets.xcassets */,
+				CC25856F1D9AF71C00294506 /* Info.plist */,
+				CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */,
+			);
+			name = "Project Files";
+			sourceTree = "<group>";
+		};
 		CC2585541D9AF71B00294506 = {
 			isa = PBXGroup;
 			children = (
-				CC2585911D9B049E00294506 /* test.html */,
 				CC25855F1D9AF71C00294506 /* HAL-iOS */,
 				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
@@ -126,25 +141,23 @@
 		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				CC14AF411DB56F93007208F7 /* sso */,
+				BCD698241DB7B92E00F856CE /* Project Files */,
+				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
+				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
 				CC41EF271DB54D6B0059C7C5 /* Error.swift */,
 				CC41EF281DB54D6B0059C7C5 /* File.swift */,
+				BCD698231DB7B91400F856CE /* Git Projects */,
 				CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */,
 				CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */,
+				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
+				CC2585641D9AF71C00294506 /* Main.storyboard */,
 				CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */,
 				CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */,
-				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
-				CC41EF231DB54CA90059C7C5 /* webAssets */,
-				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
 				CC2585621D9AF71C00294506 /* ViewController.swift */,
-				CC2585641D9AF71C00294506 /* Main.storyboard */,
-				CC25856A1D9AF71C00294506 /* Assets.xcassets */,
-				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
-				CC25856F1D9AF71C00294506 /* Info.plist */,
-				CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */,
+				CC41EF231DB54CA90059C7C5 /* webAssets */,
 			);
 			path = "HAL-iOS";
 			sourceTree = "<group>";
@@ -278,7 +291,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
-				CC2585921D9B049E00294506 /* test.html in Resources */,
 				CC41EF241DB54CA90059C7C5 /* webAssets in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
 				CC14AF421DB56F93007208F7 /* sso in Resources */,

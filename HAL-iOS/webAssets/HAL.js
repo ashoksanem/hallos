@@ -156,7 +156,7 @@ function iosConnector() {
         
         // remove all information about the user and display the sign on page
         this.sso.logoutAssociate  = function() {
-            console.log(`logoutAssociate: associate is logged out.`);
+            webkit.messageHandlers.logoutAssociate.postMessage(" ");
         };
         
         this.sso.getJwtPublicKey = function () {

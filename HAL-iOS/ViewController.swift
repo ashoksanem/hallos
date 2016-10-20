@@ -41,6 +41,10 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
             self,
             name: "sendSSOAuthenticationMessageToWeb"
         )
+        contentController.add(
+            self,
+            name: "logoutAssociate"
+        )
         
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
@@ -73,8 +77,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
             let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
             loadWebView(url: url!)
         }
-        
-        if(message.name == "authenticateUser") {
+        else if(message.name == "authenticateUser") {
             print(message.body)
             if let messageBody:NSDictionary = message.body as? NSDictionary {
                 let associateNumber:String = messageBody["associateNumber"] as! String
@@ -83,7 +86,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
             }
             //authenticateUser(associateNumber: "7123456",associatePin: "1001")
         }
-        if(message.name == "isSSOAuthenticated") {
+        else if(message.name == "isSSOAuthenticated") {
             print(CommonUtils.isSSOAuthenticatedMessage())
             self.webView?.evaluateJavaScript("sendSSOAuthenticationMessageToWeb(\(CommonUtils.isSSOAuthenticatedMessage()));") { result, error in
                 guard error == nil else {
@@ -92,9 +95,11 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
                 }
             }
         }
-        
-        if(message.name == "amInHal") {
+        else if(message.name == "amInHal") {
             showAlert(title: "Message from HAL",message: "hello user")
+        }
+        else if(message.name == "logoutAssociate" ) {
+            CommonUtils.setIsSSOAuthenticated( value: false );
         }
     }
     

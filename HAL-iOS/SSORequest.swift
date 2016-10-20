@@ -30,6 +30,7 @@ class SSORequest{
         request.addValue("0.0.1", forHTTPHeaderField: "RequesterInfo.version")
         request.addValue("POS", forHTTPHeaderField: "RequesterInfo.clientId")
         request.addValue("POS", forHTTPHeaderField: "RequesterInfo.subclientId")
+        
         let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
             if(error != nil) {
                 print(error!.localizedDescription)

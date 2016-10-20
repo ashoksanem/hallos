@@ -32,9 +32,10 @@ input{background: #000;
     <p id="halmsg"> </p>
     <p id="SSOMessage"> </p>
     <div>
-        <input type="button" value="send message to hal" onClick="showIOSAlert()"/>
+        <input type="button" value="send message to Hal" onClick="showIOSAlert()"/>
         <input type="button" value="Authenticate User" onClick="HAL.sso.authenticateAssociate()"/>
         <input type="button" value="check Authentication" onClick="isSSOAuthenticated()"/>
+        <input type="button" value="Logout user" onClick="HAL.sso.logoutAssociate()"/>
         <input type="button" value="amIinHal?" onClick="amInHal()"/>
         </div>
     

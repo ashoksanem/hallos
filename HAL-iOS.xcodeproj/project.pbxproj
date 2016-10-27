@@ -27,7 +27,10 @@
 		CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */; };
 		CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */; };
 		CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */; };
+		CC6EEEAE1DBFE374003D895B /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */; };
 		CCB404921D9D82C600A314FC /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB404911D9D82C600A314FC /* Assembly.swift */; };
+		CCD0115B1DC13C060074E380 /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD0115A1DC13C060074E380 /* libdtdev.a */; };
+		CCD05EE41DBFE02900AECCE3 /* sled in Resources */ = {isa = PBXBuildFile; fileRef = CCD05EE31DBFE02900AECCE3 /* sled */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +77,12 @@
 		CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSORequest.swift; sourceTree = "<group>"; };
 		CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ssosuccess.json; sourceTree = "<group>"; };
 		CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		CCB404911D9D82C600A314FC /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
+		CCD011581DC13C060074E380 /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTDevices.h; path = sled/DTDevices.h; sourceTree = "<group>"; };
+		CCD011591DC13C060074E380 /* HAL-iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HAL-iOS-Bridging-Header.h"; path = "sled/HAL-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		CCD0115A1DC13C060074E380 /* libdtdev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdtdev.a; path = sled/libdtdev.a; sourceTree = "<group>"; };
+		CCD05EE31DBFE02900AECCE3 /* sled */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sled; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC6EEEAE1DBFE374003D895B /* ExternalAccessory.framework in Frameworks */,
+				CCD0115B1DC13C060074E380 /* libdtdev.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,6 +138,7 @@
 				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
 				CC25855E1D9AF71C00294506 /* Products */,
+				CC6EEEAC1DBFE374003D895B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,6 +155,10 @@
 		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CCD011581DC13C060074E380 /* DTDevices.h */,
+				CCD011591DC13C060074E380 /* HAL-iOS-Bridging-Header.h */,
+				CCD0115A1DC13C060074E380 /* libdtdev.a */,
+				CCD05EE31DBFE02900AECCE3 /* sled */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
 				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
@@ -181,6 +196,14 @@
 				CC2585851D9AF71C00294506 /* Info.plist */,
 			);
 			path = "HAL-iOSUITests";
+			sourceTree = "<group>";
+		};
+		CC6EEEAC1DBFE374003D895B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +275,7 @@
 					CC25855C1D9AF71C00294506 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 8AS67DFAXH;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					CC2585731D9AF71C00294506 = {
@@ -297,6 +321,7 @@
 				CC41EF241DB54CA90059C7C5 /* webAssets in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
 				CC14AF421DB56F93007208F7 /* sso in Resources */,
+				CCD05EE41DBFE02900AECCE3 /* sled in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
@@ -487,12 +512,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS/sled",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HAL-iOS/sled/HAL-iOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -501,12 +533,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS/sled",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HAL-iOS/sled/HAL-iOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

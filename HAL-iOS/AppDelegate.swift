@@ -10,21 +10,19 @@ import UIKit
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var sled: DTDevices?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         CommonUtils.setUpSSODefaults()
-        
+        detectDevice()
         NotificationCenter.default.addObserver( self,
                                                 selector: #selector(readMDMValues),
                                                 name: UserDefaults.didChangeNotification,
                                                 object: nil);
-        
-        
         return true
     }
 
@@ -55,14 +53,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil);
         let userDefaults = UserDefaults.standard;
-        if let answersSaved = userDefaults.dictionary(forKey: "com.apple.configuration.managed") as? [String : String] {
+        if let answersSaved = userDefaults.dictionary(forKey: CommonUtils.landingPage) as? [String : String] {
             if let landingPage = answersSaved["landingPage"] {
                 print("Current landing page: " + landingPage); // value
             }
         }
     };
-
-    func applicationWillTerminate(_ application: UIApplication) {
+       func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         if #available(iOS 10.0, *) {
@@ -117,6 +114,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    func getSled()-> Any?
+    {
+        if(isLineaConnected())
+        {
+            return sled!
+        }
+        else{
+            return nil
+        }
+    }
+    func detectDevice()
+    {
+        sled = DTDevices.sharedDevice() as? DTDevices
+        sled?.addDelegate(self)
+        sled?.connect()
+    }
+    func isLineaConnected()->Bool
+    {
+        return (sled!.connstate==2)
     }
 
 }

@@ -46,5 +46,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-</dict>
+    <key>UISupportedExternalAccessoryProtocols</key>
+    <array>
+        <string>com.datecs.linea.pro.msr</string>
+        <string>com.datecs.linea.pro.bar</string>
+    </array>
+    </dict>
 </plist>

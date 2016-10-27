@@ -167,6 +167,18 @@ function iosConnector() {
     }; // _this.sso
     this.sso();
     
+    /***********************/
+    // a collection of functions for utils
+    this.util = function () {
+        
+        this.util.goToLandingPage = function () {
+            webkit.messageHandlers.goToLandingPage.postMessage(" ");
+        };
+        //this.util.goToLandingPage()
+                
+    };
+    this.util();
+    /**********************/
     function enableScanner( val ) {
         if( webInterface === undefined )
             return ({"amIinHal" : "false"});
@@ -240,6 +252,7 @@ function clear() {
 function isSSOAuthenticated() {
     webkit.messageHandlers.isSSOAuthenticated.postMessage(" ");
 }
+
 function passDataToWeb(message){
     jsonStr = JSON.stringify(message),  // THE OBJECT STRINGIFIED
     regeStr = '', // A EMPTY STRING TO EVENTUALLY HOLD THE FORMATTED STRINGIFIED OBJECT

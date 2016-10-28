@@ -62,10 +62,17 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = Bundle.main.url(forResource: "webAssets/test", withExtension:"html")
-        loadWebView(url: url!)
-        CommonUtils.setCurrentPage(value: url!)
         
+        var url = CommonUtils.getLandingPage()
+        
+        //for debugging
+        if( true ) // load test webpage
+        {
+            url = Bundle.main.url(forResource: "webAssets/test", withExtension:"html")!
+        }
+
+        loadWebView(url: url)
+        CommonUtils.setCurrentPage(value: url)
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

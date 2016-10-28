@@ -12,7 +12,7 @@ class CommonUtils
     static let ssoSignedInKey = "ssoSignedInKey";
     static let ssoAssociateInfo = "ssoAssociateInfo";
     static let currentPage = "currentPage";
-    
+    static let landingPage = "com.apple.configuration.managed";
     class func setUpSSODefaults() -> Void
     {
         let defaults = UserDefaults.standard
@@ -43,6 +43,20 @@ class CommonUtils
         if( value == false ) {
             defaults.setValue([:], forKey: ssoAssociateInfo)
         }
+    }
+    class func setLandingPage(value: URL) -> Void {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: landingPage)
+    }
+    
+    class func getLandingPage() -> URL {
+        let defaults = UserDefaults.standard
+        if let landingPageDict = defaults.dictionary(forKey: landingPage) as? [String : String] {
+            if let landingPage = landingPageDict["landingPage"] {
+                return URL(string: landingPage)!
+            }
+        }
+        return defaults.url(forKey: landingPage)!
     }
     
     class func setCurrentPage(value: URL) -> Void {

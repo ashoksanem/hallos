@@ -8,8 +8,8 @@
 
 import UIKit
 import WebKit
-
-class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDelegate {
+//import DTDevices.h
+class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler,WKNavigationDelegate {
     
     @IBOutlet var containerView : UIView? = nil
     var webView: WKWebView?
@@ -45,6 +45,10 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
             self,
             name: "logoutAssociate"
         )
+        contentController.add(
+            self,
+            name: "goToLandingPage"
+        )
         
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
@@ -61,6 +65,7 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         let url = Bundle.main.url(forResource: "webAssets/test", withExtension:"html")
         loadWebView(url: url!)
         CommonUtils.setCurrentPage(value: url!)
+        
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -84,7 +89,6 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
                 let associatePin:String = messageBody["associatePin"] as! String
                 authenticateUser(associateNumber: associateNumber,associatePin: associatePin)
             }
-            //authenticateUser(associateNumber: "7123456",associatePin: "1001")
         }
         else if(message.name == "isSSOAuthenticated") {
             print(CommonUtils.isSSOAuthenticatedMessage())
@@ -97,6 +101,9 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
         }
         else if(message.name == "amInHal") {
             showAlert(title: "Message from HAL",message: "hello user")
+        }
+        else if(message.name == "goToLandingPage") {
+            self.loadWebView(url: CommonUtils.getLandingPage())
         }
         else if(message.name == "logoutAssociate" ) {
             CommonUtils.setIsSSOAuthenticated( value: false );
@@ -119,14 +126,21 @@ class ViewController: UIViewController, WKScriptMessageHandler,WKNavigationDeleg
             (result: String) in
             //printing SSO response in console
             print("sso response: \(result)")
+            self.webView?.evaluateJavaScript("sendSSOAuthenticationMessageToWeb(\(CommonUtils.isSSOAuthenticatedMessage()));") { result, error in
+                guard error == nil else {
+                    print(error)
+                    return
+                }
+            }
             if(CommonUtils.isSSOAuthenticated()){
                 self.loadPreviousWebPage()
             }
             else{
                 self.showAlert(title: "Authentication Failed", message:result)
             }
+            
+
         }
-        
     }
     func showAlert(title: String,message:String)
     {

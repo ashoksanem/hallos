@@ -26,11 +26,7 @@ input{background: #000;
 </head>
 <body>
     <script src="HAL.js"></script>
-    <script>
-        function receiveDeviceId(message) {
-            document.getElementById("halmsg").innerHTML = "deviceId: " + message.deviceId;
-        }
-    </script>
+    <script src="test.js"></script>
 
     <p>Web page in webAssets</p>
     <p> </p>
@@ -39,7 +35,7 @@ input{background: #000;
     <div>
         <input type="button" value="Send Message to Hal" onClick="showIOSAlert()"/>
         <input type="button" value="Authenticate User" onClick="HAL.sso.authenticateAssociate()"/>
-        <input type="button" value="Check Authentication" onClick="isSSOAuthenticated()"/>
+        <input type="button" value="Check Authentication" onClick="HAL.sso.getAuthenticatedAssociate('sendSSOAuthenticationMessageToWeb')"/>
         <input type="button" value="Logout user" onClick="HAL.sso.logoutAssociate()"/>
         <input type="button" value="Go to Airwatch Landing Page" onClick="HAL.util.goToLandingPage()"/>
         <input type="button" value="Get Device ID" onClick="HAL.util.getDeviceId('receiveDeviceId')"/>

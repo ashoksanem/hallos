@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+
 class CommonUtils
 {
     static let ssoSignedInKey = "ssoSignedInKey";
@@ -110,6 +111,7 @@ class CommonUtils
         }
     }
     
+
     class func getDeviceId() -> String {
         let defaults = UserDefaults.standard;
         let device = defaults.dictionary(forKey: deviceId)! as [String:Any];
@@ -117,5 +119,12 @@ class CommonUtils
         let deviceData = try! JSONSerialization.data(withJSONObject: device, options: [])
         let deviceString = String(data: deviceData, encoding: String.Encoding.utf8)
         return deviceString!;
+    }
+    
+
+    class func getSSOData() -> [String:Any]
+    {
+        let defaults = UserDefaults.standard
+        return defaults.value(forKey: ssoAssociateInfo) as! [String:Any]
     }
 }

@@ -53,6 +53,11 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             self,
             name: "getDeviceId"
         )
+        contentController.add(
+            self,
+            //name: "authenticationMessage"
+            name: "getIsAuthenticated"
+        )
         
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
@@ -66,14 +71,17 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var url = CommonUtils.getLandingPage()
+
+        var url = CommonUtils.getLandingPage();
         
         //for debugging
         if( true ) // load test webpage
         {
             url = Bundle.main.url(forResource: "webAssets/test", withExtension:"html")!
         }
+        
+        //url = URL(string: "http://ln001xsssp0003:11000")!;
+        
 
         loadWebView(url: url)
         CommonUtils.setCurrentPage(value: url)
@@ -101,9 +109,14 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 authenticateUser(associateNumber: associateNumber,associatePin: associatePin)
             }
         }
-        else if(message.name == "isSSOAuthenticated") {
-            print(CommonUtils.isSSOAuthenticatedMessage())
-            self.webView?.evaluateJavaScript("sendSSOAuthenticationMessageToWeb(\(CommonUtils.isSSOAuthenticatedMessage()));") { result, error in
+        else if(message.name == "isSSOAuthenticated" ) {
+            let callback = message.body as! NSString;
+            let callback2 = "(\(CommonUtils.isSSOAuthenticatedMessage()));";
+            
+            let junk = (callback as String) + callback2;
+            print("callback: " + junk);
+            
+            self.webView?.evaluateJavaScript( junk ) { result, error in
                 guard error == nil else {
                     print(error)
                     return
@@ -151,17 +164,18 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             (result: String) in
             //printing SSO response in console
             print("sso response: \(result)")
-            self.webView?.evaluateJavaScript("sendSSOAuthenticationMessageToWeb(\(CommonUtils.isSSOAuthenticatedMessage()));") { result, error in
-                guard error == nil else {
-                    print(error)
-                    return
-                }
-            }
+
             if(CommonUtils.isSSOAuthenticated()){
                 self.loadPreviousWebPage()
             }
             else{
-                self.showAlert(title: "Authentication Failed", message:result)
+                //self.showAlert(title: "Authentication Failed", message:result)
+                self.webView?.evaluateJavaScript("switchErrorState(true);") { result, error in
+                    guard error == nil else {
+                        print(error)
+                        return
+                    }
+                }
             }
             
 

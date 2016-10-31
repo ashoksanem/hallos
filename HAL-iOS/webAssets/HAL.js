@@ -137,6 +137,8 @@ function iosConnector() {
         return 13;
     };
     this.passDataToWeb = passDataToWeb;
+    
+    
     function launchSSOPage() {
         document.getElementById("halmsg").innerHTML="";
         webkit.messageHandlers.launchSSOPage.postMessage(" ");
@@ -147,28 +149,10 @@ function iosConnector() {
     this.sso = function () {
         
         // returns the currently logged in associate. If nobody is logged in throw exception
-        this.sso.getAuthenticatedAssociate = function () {
-            //if( false )
-            //throw new Error();
-            
-            var junkAssociate = `{
-                "Associate": {
-                    "ErrorInfo": { "errorCode": "0" },
-                    "JWTTokenInfo": { "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6Imp3dCJ9.eyJhdXRobWV0aG9kIjoiYWQiLCJDb21tb25OYW1lIjoiQjQxNTU3MCIsImlzcyI6ImNvbS5tYWN5cy5hc3NvY2lhdGVhdXRoZW50aWNhdGUiLCJTYW1BY2NvdW50TmFtZSI6IkI0MTU1NzAiLCJVc2VyTmFtZSI6IkI0MTU1NzAiLCJEaXNwbGF5TmFtZSI6IkJyaWFuIERlbWJpbnNraSIsIkRpc3Rpbmd1aXNoZWROYW1lIjoiQ049QjQxNTU3MCxPVT1Vc2VycyxPVT1GU0csREM9ZmVkZXJhdGVkLERDPWZkcyIsIkxhc3ROYW1lIjoiRGVtYmluc2tpIiwiRW1wbG95ZWVJRCI6IjAxNDE1NTcwIiwiZXhwIjoxNDczODgxNjMzLCJHaXZlbk5hbWUiOiJCcmlhbiIsIk1lbWJlck9mIjoiQ049TVNULVN0b3Jlc0RvbWFpbi1Vc2VycyxPVT1Hcm91cHMsT1U9X0ZlZGVyYXRlZCxEQz1mZWRlcmF0ZWQsREM9ZmRzIiwiVXNlclByaW5jaXBhbE5hbWUiOiJCNDE1NTcwQGZlZGVyYXRlZC5mZHMiLCJNYWlsIjoiYnJpYW4uZGVtYmluc2tpQG1hY3lzLmNvbSIsIlVpZCI6bnVsbH0.ksOHA1ULHGgB3UT3YZhxZ-HB8ObvsJHe1jXCGyuVA_xzU7tu_HTNqerUmQuaN6TZv5DtyDJ1mjqOr_oa3Q3q0hwK43G1ZQL0tNWrecVkKYd6YuKmslMUU6xUVEk-itvPxFeMceNu1KwFlGjtUpakUGH1O_T1hNNRrE8LwY-BTDOaGmylGQTLRgPQbJcKv_k0GoNlpnimLwMsGr8OWhVSTBqbVJB98dbO0ebH-4exertfko2Xn7Kunn9WMUDTil08Xb99Nj1M7NR-_qexlbBmdwr_XrNH74bCum12zGSVPIlT2_M2kpUb5oLRpoNof5ANJI-eqN0WGsfevqL2NajrCw" },
-                    "AssociateInfo": { "userid": "B415570" },
-                    "ADGrpList": {
-                        "adGrp": [
-                                  "Users",
-                                  "Domain Users",
-                                  "WEBSENSE_FULL"
-                                  ]
-                    }
-                }
-            }`;
-            
-            return junkAssociate;
+        this.sso.getAuthenticatedAssociate = function ( callback) {
+            webkit.messageHandlers.isSSOAuthenticated.postMessage( String ( callback ) );
         };
-        this.sso.getAuthenticatedAssociate()
+        
         // if no parameters are passed the sign on page has empty text fields
         // if a user parameter is passed that user will be prepopulated in the user text field
         // if a forceRacf parameter is passed as true we will force the user to enter a RACF (more than 4 characters)
@@ -255,8 +239,6 @@ function MSTWebBrowserConnector() {
 var HAL = new MSTWebBrowserConnector().getInstance();
 
 
-
-
 function showIOSAlert(){
     webkit.messageHandlers.showIOSAlert.postMessage(" ");
 }
@@ -264,70 +246,14 @@ function showIOSAlert(){
 function authenticateUser(){
     webkit.messageHandlers.authenticateUser.postMessage(" ");
 }
+
 function amInHal(message){
     webkit.messageHandlers.amInHal.postMessage(" ");
 }
-function passSSOData(message){
-    document.getElementById("halmsg").innerHTML=message;
-}
+
 function launchSSOPage(message){
     webkit.messageHandlers.launchSSOPage.postMessage(" ");
 }
-function clear() {
-    alert("clearing");
-    document.getElementById("halmsg").innerHTML="";
-}
-function isSSOAuthenticated() {
-    webkit.messageHandlers.isSSOAuthenticated.postMessage(" ");
-}
 
-function passDataToWeb(message){
-    jsonStr = JSON.stringify(message),  // THE OBJECT STRINGIFIED
-    regeStr = '', // A EMPTY STRING TO EVENTUALLY HOLD THE FORMATTED STRINGIFIED OBJECT
-    f = {
-    brace: 0
-    };
-    var regeStr = jsonStr.replace(/({|}[,]*|[^{}:]+:[^{}:,]*[,{]*)/g, function (m, p1) {
-                                  var rtnFn = function() {
-                                  return '<div style="text-indent: ' + (f['brace'] * 20) + 'px;">' + p1 + '</div>';
-                                  },
-                                  rtnStr = 0;
-                                  if (p1.lastIndexOf('{') === (p1.length - 1)) {
-                                  rtnStr = rtnFn();
-                                  f['brace'] += 1;
-                                  } else if (p1.indexOf('}') === 0) {
-                                  f['brace'] -= 1;
-                                  rtnStr = rtnFn();
-                                  } else {
-                                  rtnStr = rtnFn();
-                                  }
-                                  return rtnStr;
-                                  });
-    document.getElementById("halmsg").innerHTML=regeStr;
-}
-function sendSSOAuthenticationMessageToWeb(message){
-    jsonStr = JSON.stringify(message),
-    regeStr = '',
-    f = {
-    brace: 0
-    };
-    var regeStr = jsonStr.replace(/({|}[,]*|[^{}:]+:[^{}:,]*[,{]*)/g, function (m, p1) {
-                                  var rtnFn = function() {
-                                  return '<div style="text-indent: ' + (f['brace'] * 20) + 'px;">' + p1 + '</div>';
-                                  },
-                                  rtnStr = 0;
-                                  if (p1.lastIndexOf('{') === (p1.length - 1)) {
-                                  rtnStr = rtnFn();
-                                  f['brace'] += 1;
-                                  } else if (p1.indexOf('}') === 0) {
-                                  f['brace'] -= 1;
-                                  rtnStr = rtnFn();
-                                  } else {
-                                  rtnStr = rtnFn();
-                                  }
-                                  return rtnStr;
-                                  });
-    document.getElementById("SSOMessage").innerHTML=regeStr;
-}
 
 

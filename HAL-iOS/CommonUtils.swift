@@ -7,17 +7,36 @@
 //
 
 import Foundation
+import UIKit
 class CommonUtils
 {
     static let ssoSignedInKey = "ssoSignedInKey";
     static let ssoAssociateInfo = "ssoAssociateInfo";
     static let currentPage = "currentPage";
     static let landingPage = "com.apple.configuration.managed";
-    class func setUpSSODefaults() -> Void
+    static let deviceId = "deviceId";
+    
+    class func setUpUserDefaults() -> Void
     {
         let defaults = UserDefaults.standard
-        defaults.setValue(false, forKey: ssoSignedInKey)
-        defaults.setValue([:], forKey: ssoAssociateInfo)
+        defaults.setValue(false, forKey: ssoSignedInKey);
+        defaults.setValue([:], forKey: ssoAssociateInfo);
+        defaults.setValue("", forKey: currentPage);
+        
+        //BJD No, this isn't perfet. It needs to be stored persistently where others can't easily overwrite it. That functionality is coming in
+        //SDF-208 so hopefully this will suffice for now. I'll come back and fix it later.
+        var uuid = "";
+        if( UIPasteboard.general.string != "" && UIPasteboard.general.string?.lengthOfBytes(using: String.Encoding.utf8) == 36 ) {
+            uuid = UIPasteboard.general.string!;
+        }
+        else {
+            uuid = UUID().uuidString;
+            UIPasteboard.general.string = uuid;
+        }
+        
+        print(uuid.lengthOfBytes(using: String.Encoding.utf8));
+        
+        defaults.setValue(["deviceId":uuid], forKey: deviceId);
     }
     
     class func isSSOAuthenticated() -> Bool
@@ -89,5 +108,14 @@ class CommonUtils
             CommonUtils.setIsSSOAuthenticated(value: false)
             defaults.setValue([:], forKey: ssoAssociateInfo)
         }
+    }
+    
+    class func getDeviceId() -> String {
+        let defaults = UserDefaults.standard;
+        let device = defaults.dictionary(forKey: deviceId)! as [String:Any];
+        
+        let deviceData = try! JSONSerialization.data(withJSONObject: device, options: [])
+        let deviceString = String(data: deviceData, encoding: String.Encoding.utf8)
+        return deviceString!;
     }
 }

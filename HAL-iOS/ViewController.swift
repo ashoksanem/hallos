@@ -49,6 +49,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             self,
             name: "goToLandingPage"
         )
+        contentController.add(
+            self,
+            name: "getDeviceId"
+        )
         
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
@@ -115,10 +119,23 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "logoutAssociate" ) {
             CommonUtils.setIsSSOAuthenticated( value: false );
         }
+        else if(message.name == "getDeviceId" ) {
+            let callback = message.body as! NSString;
+            let callback2 = "(\(CommonUtils.getDeviceId()));";
+
+            let junk = (callback as String) + callback2;
+            print("callback: " + junk);
+            
+            self.webView?.evaluateJavaScript( junk ) { result, error in
+                guard error == nil else {
+                    print(error)
+                    return
+                }
+            }
+        }
     }
     
     func loadWebView(url: URL){
-        
         let req = NSURLRequest(url:url)
         self.webView!.navigationDelegate = self
         self.webView!.load(req as URLRequest)
@@ -127,6 +144,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     func loadPreviousWebPage(){
         loadWebView(url: CommonUtils.getCurrentPage())
     }
+    
     //Function to authenticate user based on the associate number and associatePin
     func authenticateUser(associateNumber: String,associatePin: String){
         SSORequest.makeSSORequest(associateNumber: associateNumber, associatePin: associatePin){
@@ -149,6 +167,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
 
         }
     }
+    
     func showAlert(title: String,message:String)
     {
         let alertController = UIAlertController(title: title, message:
@@ -156,6 +175,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

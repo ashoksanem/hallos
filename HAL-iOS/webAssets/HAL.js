@@ -25,7 +25,7 @@ var windowsConnector = (function windowsConnector() {
 
             _this.util.restoreData = function (key) {
                 return webInterface.restoreData(key);
-            }
+            };
 
             _this.util.getLocationInformation = function () {
                 var junk = `{
@@ -36,6 +36,31 @@ var windowsConnector = (function windowsConnector() {
                 }`;
 
                 return junk;
+            };
+                        
+            _this.util.objectToString = function( object ) {
+                 jsonStr = JSON.stringify(message),  // THE OBJECT STRINGIFIED
+                 regeStr = '', // A EMPTY STRING TO EVENTUALLY HOLD THE FORMATTED STRINGIFIED OBJECT
+                     f = {
+                         brace: 0
+                     };
+                     var regeStr = jsonStr.replace(/({|}[,]*|[^{}:]+:[^{}:,]*[,{]*)/g, function (m, p1) {
+                                                      var rtnFn = function() {
+                                                      return '<div style="text-indent: ' + (f['brace'] * 20) + 'px;">' + p1 + '</div>';
+                                                      },
+                                                      rtnStr = 0;
+                                                      if (p1.lastIndexOf('{') === (p1.length - 1)) {
+                                                      rtnStr = rtnFn();
+                                                      f['brace'] += 1;
+                                                      } else if (p1.indexOf('}') === 0) {
+                                                      f['brace'] -= 1;
+                                                      rtnStr = rtnFn();
+                                                      } else {
+                                                      rtnStr = rtnFn();
+                                                      }
+                                                      return rtnStr;
+                                                      });
+                    return regeStr;
             };
 
         }; // _this.util
@@ -167,6 +192,13 @@ function iosConnector() {
     }; // _this.sso
     this.sso();
     
+    this.util = function () {
+        this.util.getDeviceId = function ( callback ) {
+            webkit.messageHandlers.getDeviceId.postMessage( String( callback ) );
+        };
+    };
+    this.util();
+    
     function enableScanner( val ) {
         if( webInterface === undefined )
             return ({"amIinHal" : "false"});
@@ -216,6 +248,9 @@ function MSTWebBrowserConnector() {
 }
 
 var HAL = new MSTWebBrowserConnector().getInstance();
+
+
+
 
 function showIOSAlert(){
     webkit.messageHandlers.showIOSAlert.postMessage(" ");

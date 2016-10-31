@@ -26,18 +26,24 @@ input{background: #000;
 </head>
 <body>
     <script src="HAL.js"></script>
+    <script>
+        function receiveDeviceId(message) {
+            document.getElementById("halmsg").innerHTML = "deviceId: " + message.deviceId;
+        }
+    </script>
 
     <p>Web page in webAssets</p>
     <p> </p>
     <p id="halmsg"> </p>
     <p id="SSOMessage"> </p>
     <div>
-        <input type="button" value="send message to Hal" onClick="showIOSAlert()"/>
+        <input type="button" value="Send Message to Hal" onClick="showIOSAlert()"/>
         <input type="button" value="Authenticate User" onClick="HAL.sso.authenticateAssociate()"/>
-        <input type="button" value="check Authentication" onClick="isSSOAuthenticated()"/>
+        <input type="button" value="Check Authentication" onClick="isSSOAuthenticated()"/>
         <input type="button" value="Logout user" onClick="HAL.sso.logoutAssociate()"/>
-        <input type="button" value="amIinHal?" onClick="amInHal()"/>
-        </div>
+        <input type="button" value="Get Device ID" onClick="HAL.util.getDeviceId('receiveDeviceId')"/>
+        <input type="button" value="Am I In Hal?" onClick="amInHal()"/>
+    </div>
     
 </body>
 </html>

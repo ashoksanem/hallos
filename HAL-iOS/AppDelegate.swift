@@ -17,8 +17,9 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        CommonUtils.setUpSSODefaults()
+        CommonUtils.setUpUserDefaults()
         detectDevice()
+        
         NotificationCenter.default.addObserver( self,
                                                 selector: #selector(readMDMValues),
                                                 name: UserDefaults.didChangeNotification,

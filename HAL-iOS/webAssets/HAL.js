@@ -197,11 +197,11 @@ function iosConnector() {
         this.util.goToLandingPage = function () {
             webkit.messageHandlers.goToLandingPage.postMessage(" ");
         };
-    
+        
         this.util.getDeviceId = function ( callback ) {
             webkit.messageHandlers.getDeviceId.postMessage( String( callback ) );
         };
-    };
+    }
     this.util();
     
     function enableScanner( val ) {

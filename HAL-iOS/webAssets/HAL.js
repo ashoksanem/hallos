@@ -254,6 +254,14 @@ function amInHal(message){
 function launchSSOPage(message){
     webkit.messageHandlers.launchSSOPage.postMessage(" ");
 }
-
+function getIpodBatteryLevel(){
+    webkit.messageHandlers.getIpodBatteryLevel.postMessage(" ");
+}
+function getSledBatteryLevel(){
+    webkit.messageHandlers.getSledBatteryLevel.postMessage(" ");
+}
+function checkScanner(){
+    webkit.messageHandlers.checkScanner.postMessage(" ");
+}
 
 

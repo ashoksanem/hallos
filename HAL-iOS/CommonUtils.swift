@@ -14,6 +14,7 @@ class CommonUtils
     static let ssoSignedInKey = "ssoSignedInKey";
     static let ssoAssociateInfo = "ssoAssociateInfo";
     static let currentPage = "currentPage";
+    static let allowScan = "allowScan";
     static let landingPage = "com.apple.configuration.managed";
     static let deviceId = "deviceId";
     
@@ -46,6 +47,19 @@ class CommonUtils
         return defaults.bool(forKey: ssoSignedInKey)
     }
     
+    class func isScanEnabled() -> Bool
+    {
+        let defaults = UserDefaults.standard
+        return defaults.bool(forKey: allowScan)
+    }
+    class func setScanEnabled(value: Bool)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: allowScan)
+       
+            print(value)
+       
+    }
     class func isSSOAuthenticatedMessage() -> String {
         
         let defaults = UserDefaults.standard

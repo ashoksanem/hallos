@@ -4,53 +4,36 @@ function clear() {
 }
 
 function passDataToWeb(message){
-    jsonStr = JSON.stringify(message),  // THE OBJECT STRINGIFIED
-        regeStr = '', // A EMPTY STRING TO EVENTUALLY HOLD THE FORMATTED STRINGIFIED OBJECT
-        f = {
-            brace: 0
-        };
-        var regeStr = jsonStr.replace(/({|}[,]*|[^{}:]+:[^{}:,]*[,{]*)/g, function (m, p1) {
-        var rtnFn = function() {
-            return '<div style="text-indent: ' + (f['brace'] * 20) + 'px;">' + p1 + '</div>';
-        },
-        rtnStr = 0;
-        if (p1.lastIndexOf('{') === (p1.length - 1)) {
-            rtnStr = rtnFn();
-            f['brace'] += 1;
-        } else if (p1.indexOf('}') === 0) {
-            f['brace'] -= 1;
-            rtnStr = rtnFn();
-        } else {
-            rtnStr = rtnFn();
-        }
-        return rtnStr;
-    });
-    document.getElementById("halmsg").innerHTML=regeStr;
+    document.getElementById("halmsg").innerHTML=stringifyData(message);
 }
 
 function sendSSOAuthenticationMessageToWeb(message){
+    document.getElementById("SSOMessage").innerHTML=stringifyData(message);
+}
+
+function stringifyData(message) {
     jsonStr = JSON.stringify(message),
-        regeStr = '',
-        f = {
-            brace: 0
-        };
-        var regeStr = jsonStr.replace(/({|}[,]*|[^{}:]+:[^{}:,]*[,{]*)/g, function (m, p1) {
-        var rtnFn = function() {
-            return '<div style="text-indent: ' + (f['brace'] * 20) + 'px;">' + p1 + '</div>';
-        },
-        rtnStr = 0;
-        if (p1.lastIndexOf('{') === (p1.length - 1)) {
-            rtnStr = rtnFn();
-            f['brace'] += 1;
-        } else if (p1.indexOf('}') === 0) {
-            f['brace'] -= 1;
-            rtnStr = rtnFn();
-        } else {
-            rtnStr = rtnFn();
-        }
-        return rtnStr;
-    });
-    document.getElementById("SSOMessage").innerHTML=regeStr;
+    regeStr = '',
+    f = {
+    brace: 0
+    };
+    var regeStr = jsonStr.replace(/({|}[,]*|[^{}:]+:[^{}:,]*[,{]*)/g, function (m, p1) {
+                                  var rtnFn = function() {
+                                  return '<div style="text-indent: ' + (f['brace'] * 20) + 'px;">' + p1 + '</div>';
+                                  },
+                                  rtnStr = 0;
+                                  if (p1.lastIndexOf('{') === (p1.length - 1)) {
+                                  rtnStr = rtnFn();
+                                  f['brace'] += 1;
+                                  } else if (p1.indexOf('}') === 0) {
+                                  f['brace'] -= 1;
+                                  rtnStr = rtnFn();
+                                  } else {
+                                  rtnStr = rtnFn();
+                                  }
+                                  return rtnStr;
+                                  });
+    return regeStr;
 }
 
 function receiveDeviceId(message) {
@@ -59,5 +42,23 @@ function receiveDeviceId(message) {
 
 function passSSOData(message){
     document.getElementById("halmsg").innerHTML=message;
+}
+
+
+function updateSledBattery(message){
+    document.getElementById("sledbatterypercentage").innerHTML=stringifyData(message);
+}
+
+function updateIpodBattery(message){
+    document.getElementById("ipodbatterypercentage").innerHTML=stringifyData(message);
+}
+function updateSledStatus(message){
+    if ( message ) {
+    document.getElementById("scannerstatus").innerHTML="connected";
+    }
+    else
+    {
+    document.getElementById("scannerstatus").innerHTML="not connected";
+    }
 }
 

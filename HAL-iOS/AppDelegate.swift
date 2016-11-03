@@ -137,28 +137,47 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     {
         return (sled!.connstate==2)
     }
+    
+    func barcodeData(_ barcode: String!, type: Int32) {
+        updateBarcodeData(barcode: barcode)    }
+    func barcodeData(_ barcode: String!, isotype: String!) {
+        updateBarcodeData(barcode: barcode)
+    }
+    func barcodeNSData(_ barcode: Data!, type: Int32) {
+        let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue)
+        updateBarcodeData(barcode: strData as! String)
+    }
+    func barcodeNSData(_ barcode: Data!, isotype: String!) {
+        let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue)
+        updateBarcodeData(barcode: strData as! String)
+    }
+    
+    func updateBarcodeData(barcode: String)
+    {
+        if(CommonUtils.isScanEnabled())
+        {
+            let viewController:ViewController = window!.rootViewController as! ViewController;
+            viewController.updateBarcodeData(barcode: barcode)
+        }
+    }
     func connectionState(_ state: Int32) {
         let viewController:ViewController = window!.rootViewController as! ViewController;
         viewController.connectionState(state)
         if(state==2)
         {
-        viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
-            enableScanner()
-            disableScanner()
+        //viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
+            print("sled firmware version: "+(sled?.firmwareRevision)!)
+            print("sled SDK version: "+String(describing: sled?.sdkVersion))
         }
     }
     func enableScanner()
     {
-       //let buttonValue = (-1);
-        do{
-        //try sled?.barcodeSetScanButtonMode(Int32(buttonValue))
+       do{
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.ENABLED.rawValue)
             CommonUtils.setScanEnabled(value: true)
-                   }
+            }
         catch {
-            let viewController:ViewController = window!.rootViewController as! ViewController;
-            viewController.showAlert(title: "scan",message:"eror")
-        print(error)
+            print(error)
         }
     }
     func disableScanner()

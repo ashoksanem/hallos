@@ -263,5 +263,11 @@ function getSledBatteryLevel(){
 function checkScanner(){
     webkit.messageHandlers.checkScanner.postMessage(" ");
 }
+function enableScanner(){
+    webkit.messageHandlers.enableScanner.postMessage(" ");
+}
+function disableScanner(){
+    webkit.messageHandlers.disableScanner.postMessage(" ");
+}
 
 

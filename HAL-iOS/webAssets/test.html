@@ -30,14 +30,17 @@ input{background: #000;
 
     <p>Web page in webAssets</p>
     <p>sled connection status: </p>
-    <p id="scannerstatus"> </p>
+    <p id="sledstatus"> </p>
     <p>sled battery percentage: </p>
     <p id="sledbatterypercentage"> </p>
     <p>ipod battery percentage: </p>
     <p id="ipodbatterypercentage"> </p>
+    <p>scanner status: </p>
+    <p id="scannerstatus"> </p>
     <p id="halmsg"> </p>
     <p id="SSOMessage"> </p>
     <div>
+        <input id="enablescan" type="button" value="enable scanner" onClick="enableScannertest()"/>
         <input type="button" value="Send Message to Hal" onClick="showIOSAlert()"/>
         <input type="button" value="Authenticate User" onClick="HAL.sso.authenticateAssociate()"/>
         <input type="button" value="Check Authentication" onClick="HAL.sso.getAuthenticatedAssociate('sendSSOAuthenticationMessageToWeb')"/>
@@ -48,6 +51,7 @@ input{background: #000;
         <input type="button" value="get Sled Battery Percentage" onClick="getSledBatteryLevel()"/>
         <input type="button" value="get Ipod Battery Percentage" onClick="getIpodBatteryLevel()"/>
         <input type="button" value="check scanner connection" onClick="checkScanner()"/>
+        
     </div>
     
 </body>

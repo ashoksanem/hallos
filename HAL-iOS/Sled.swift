@@ -25,6 +25,13 @@ class Sled
         let delegate = UIApplication.shared.delegate as? AppDelegate
         return String(delegate!.getIpodBatteryLevel()*100)
     }
-    
+    class func enableScanner() -> Void {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.enableScanner()
+    }
+    class func disableScanner() -> Void {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.disableScanner()
+    }
 }
 

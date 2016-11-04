@@ -60,7 +60,8 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             }
         }
     };
-       func applicationWillTerminate(_ application: UIApplication) {
+    
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         if #available(iOS 10.0, *) {
@@ -116,37 +117,42 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             }
         }
     }
+    
     func getSled()-> Any?
     {
-        if(isLineaConnected())
-        {
+        if(isLineaConnected()) {
             return sled!
         }
-        else{
+        else {
             return nil
         }
     }
+    
     func detectDevice()
     {
         sled = DTDevices.sharedDevice() as? DTDevices
         sled?.addDelegate(self)
         sled?.connect()
-        
     }
+    
     func isLineaConnected()->Bool
     {
         return (sled!.connstate==2)
     }
     
     func barcodeData(_ barcode: String!, type: Int32) {
-        updateBarcodeData(barcode: barcode)    }
+        updateBarcodeData(barcode: barcode)
+    }
+    
     func barcodeData(_ barcode: String!, isotype: String!) {
         updateBarcodeData(barcode: barcode)
     }
+    
     func barcodeNSData(_ barcode: Data!, type: Int32) {
         let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue)
         updateBarcodeData(barcode: strData as! String)
     }
+    
     func barcodeNSData(_ barcode: Data!, isotype: String!) {
         let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue)
         updateBarcodeData(barcode: strData as! String)
@@ -156,20 +162,31 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     {
         if(CommonUtils.isScanEnabled())
         {
+            print(barcode);
             let viewController:ViewController = window!.rootViewController as! ViewController;
             viewController.updateBarcodeData(barcode: barcode)
         }
     }
+    
     func connectionState(_ state: Int32) {
         let viewController:ViewController = window!.rootViewController as! ViewController;
         viewController.connectionState(state)
+        
         if(state==2)
         {
         //viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
             print("sled firmware version: "+(sled?.firmwareRevision)!)
-            print("sled SDK version: "+String(describing: sled?.sdkVersion))
+            print("sled SDK version: " + String(describing: sled?.sdkVersion))
+            
+            do {
+                try sled?.setPassThroughSync(false);
+            }
+            catch {
+                print(error)
+            }
         }
     }
+    
     func enableScanner()
     {
        do{
@@ -180,18 +197,19 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             print(error)
         }
     }
+    
     func disableScanner()
     {
         do{
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.DISABLED.rawValue)
             CommonUtils.setScanEnabled(value: false)
-                    }
+   
+        }
         catch {
             print(error)
         }
-    
-        
     }
+    
     func getSledBatteryLevel() -> Int32
     {
         if( isLineaConnected() )
@@ -203,10 +221,10 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             catch {
                 print(error)
             }
-            
-    }
+        }
         return 0;
     }
+    
     func getIpodBatteryLevel() -> Float
     {
         UIDevice.current.isBatteryMonitoringEnabled = true

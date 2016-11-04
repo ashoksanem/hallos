@@ -20,10 +20,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner"]
         for message in messageHandlers
         {
-        contentController.add(
-            self,
-            name: message
-        )
+            contentController.add(
+                self,
+                name: message
+            )
         }
         
         let config = WKWebViewConfiguration()
@@ -143,6 +143,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
+    
     func evaluateJavaScript(javascriptMessage: String){
         self.webView?.evaluateJavaScript(javascriptMessage) { result, error in
             guard error == nil else {
@@ -151,20 +152,22 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             }
         }
     }
-     func connectionState(_ state: Int32) {
+    
+    func connectionState(_ state: Int32) {
         evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
         evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
         evaluateJavaScript(javascriptMessage: "updateSledBattery(\(Sled.getSledBatteryLevel()));");
         evaluateJavaScript(javascriptMessage: "updateIpodBattery(\(Sled.getIpodBatteryLevel()));");
-    
     }
+    
     func updateBarcodeData(barcode: String)
     {
-        evaluateJavaScript(javascriptMessage: "passBarcodeDataToWeb(\(barcode));");
+        let junk = "passBarcodeDataToWeb(\"" + barcode + "\");";
+        evaluateJavaScript(javascriptMessage: junk);
         showAlert(title: "scanned data", message: barcode);
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
 }

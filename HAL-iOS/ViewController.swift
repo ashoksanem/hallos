@@ -17,7 +17,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
-        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel"]
+        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner"]
         for message in messageHandlers
         {
         contentController.add(
@@ -52,7 +52,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        //evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
+        evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
         evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
     }
     
@@ -102,6 +102,14 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "getIpodBatteryLevel"){
             evaluateJavaScript(javascriptMessage: "updateIpodBattery(\(Sled.getIpodBatteryLevel()));");
         }
+        else if(message.name == "enableScanner"){
+            Sled.enableScanner()
+            evaluateJavaScript(javascriptMessage: "sendScannerStatus(\(CommonUtils.isScanEnabled()));");
+        }
+        else if(message.name == "disableScanner"){
+            Sled.disableScanner()
+            evaluateJavaScript(javascriptMessage: "sendScannerStatus(\(CommonUtils.isScanEnabled()));");
+        }
         
     }
     
@@ -148,12 +156,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
         evaluateJavaScript(javascriptMessage: "updateSledBattery(\(Sled.getSledBatteryLevel()));");
         evaluateJavaScript(javascriptMessage: "updateIpodBattery(\(Sled.getIpodBatteryLevel()));");
-        
-        if(!(Sled.isConnected()))
-        {
-            CommonUtils.setScanEnabled(value: false)
-        }
-        
+    
+    }
+    func updateBarcodeData(barcode: String)
+    {
+        evaluateJavaScript(javascriptMessage: "passBarcodeDataToWeb(\(barcode));");
+        showAlert(title: "scanned data", message: barcode);
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

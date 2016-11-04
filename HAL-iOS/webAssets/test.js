@@ -52,13 +52,37 @@ function updateSledBattery(message){
 function updateIpodBattery(message){
     document.getElementById("ipodbatterypercentage").innerHTML=stringifyData(message);
 }
-function updateSledStatus(message){
+function passBarcodeDataToWeb(message){
+    document.getElementById("halmsg").innerHTML=message;
+}
+
+function sendScannerStatus(message){
     if ( message ) {
-    document.getElementById("scannerstatus").innerHTML="connected";
+        document.getElementById("scannerstatus").innerHTML="enabled";
     }
     else
     {
-    document.getElementById("scannerstatus").innerHTML="not connected";
+        document.getElementById("scannerstatus").innerHTML="disabled";
     }
+}
+function updateSledStatus(message){
+    if ( message ) {
+    document.getElementById("sledstatus").innerHTML="connected";
+    }
+    else
+    {
+    document.getElementById("sledstatus").innerHTML="not connected";
+    }
+}
+function enableScannertest(){
+    console.log(document.getElementById("enablescan").value);
+    if(document.getElementById("enablescan").value=="enable scanner"){
+        enableScanner()
+        document.getElementById("enablescan").value="disable scanner";
+    }
+    else{
+        disableScanner()
+        document.getElementById("enablescan").value="enable scanner";
+        }
 }
 

@@ -18,8 +18,8 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         CommonUtils.setUpUserDefaults()
-        detectDevice();
         
+        detectDevice();
         NotificationCenter.default.addObserver( self,
                                                 selector: #selector(readMDMValues),
                                                 name: UserDefaults.didChangeNotification,
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        
+        detectDevice();
         NotificationCenter.default.addObserver( self,
                                                 selector: #selector(readMDMValues),
                                                 name: UserDefaults.didChangeNotification,
@@ -131,11 +131,67 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         sled = DTDevices.sharedDevice() as? DTDevices
         sled?.addDelegate(self)
         sled?.connect()
+        
     }
     func isLineaConnected()->Bool
     {
         return (sled!.connstate==2)
     }
-
+    func connectionState(_ state: Int32) {
+        let viewController:ViewController = window!.rootViewController as! ViewController;
+        viewController.connectionState(state)
+        if(state==2)
+        {
+        viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
+            enableScanner()
+            disableScanner()
+        }
+    }
+    func enableScanner()
+    {
+       //let buttonValue = (-1);
+        do{
+        //try sled?.barcodeSetScanButtonMode(Int32(buttonValue))
+            try sled?.barcodeSetScanButtonMode(BUTTON_STATES.ENABLED.rawValue)
+            CommonUtils.setScanEnabled(value: true)
+                   }
+        catch {
+            let viewController:ViewController = window!.rootViewController as! ViewController;
+            viewController.showAlert(title: "scan",message:"eror")
+        print(error)
+        }
+    }
+    func disableScanner()
+    {
+        do{
+            try sled?.barcodeSetScanButtonMode(BUTTON_STATES.DISABLED.rawValue)
+            CommonUtils.setScanEnabled(value: false)
+                    }
+        catch {
+            print(error)
+        }
+    
+        
+    }
+    func getSledBatteryLevel() -> Int32
+    {
+        if( isLineaConnected() )
+        {
+            do{
+                let battery = try (sled?.getBatteryInfo().capacity)! as Int32
+                return battery
+            }
+            catch {
+                print(error)
+            }
+            
+    }
+        return 0;
+    }
+    func getIpodBatteryLevel() -> Float
+    {
+        UIDevice.current.isBatteryMonitoringEnabled = true
+        print(UIDevice.current.batteryLevel)
+        return UIDevice.current.batteryLevel;
+    }
 }
-

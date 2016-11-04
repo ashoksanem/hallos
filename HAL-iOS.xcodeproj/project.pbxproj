@@ -21,12 +21,12 @@
 		CC41EF2E1DB54D6B0059C7C5 /* AssociateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */; };
 		CC41EF2F1DB54D6B0059C7C5 /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */; };
 		CC41EF301DB54D6B0059C7C5 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF271DB54D6B0059C7C5 /* Error.swift */; };
-		CC41EF311DB54D6B0059C7C5 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF281DB54D6B0059C7C5 /* File.swift */; };
 		CC41EF321DB54D6B0059C7C5 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */; };
 		CC41EF331DB54D6B0059C7C5 /* Jwt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */; };
 		CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */; };
 		CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */; };
 		CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */; };
+		CC50DB261DCA21AF00A46576 /* Sled.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC50DB251DCA21AF00A46576 /* Sled.swift */; };
 		CC6EEEAE1DBFE374003D895B /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */; };
 		CCB404921D9D82C600A314FC /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB404911D9D82C600A314FC /* Assembly.swift */; };
 		CCD0115B1DC13C060074E380 /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD0115A1DC13C060074E380 /* libdtdev.a */; };
@@ -71,12 +71,12 @@
 		CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateInfo.swift; sourceTree = "<group>"; };
 		CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
 		CC41EF271DB54D6B0059C7C5 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		CC41EF281DB54D6B0059C7C5 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
 		CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jwt.swift; sourceTree = "<group>"; };
 		CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSORequest.swift; sourceTree = "<group>"; };
 		CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ssosuccess.json; sourceTree = "<group>"; };
 		CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		CC50DB251DCA21AF00A46576 /* Sled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sled.swift; sourceTree = "<group>"; };
 		CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		CCB404911D9D82C600A314FC /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		CCD011581DC13C060074E380 /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTDevices.h; path = sled/DTDevices.h; sourceTree = "<group>"; };
@@ -165,7 +165,6 @@
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
 				CC41EF271DB54D6B0059C7C5 /* Error.swift */,
-				CC41EF281DB54D6B0059C7C5 /* File.swift */,
 				BCD698231DB7B91400F856CE /* Git Projects */,
 				CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */,
 				CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */,
@@ -176,6 +175,7 @@
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
 				CC2585621D9AF71C00294506 /* ViewController.swift */,
 				CC41EF231DB54CA90059C7C5 /* webAssets */,
+				CC50DB251DCA21AF00A46576 /* Sled.swift */,
 			);
 			path = "HAL-iOS";
 			sourceTree = "<group>";
@@ -352,11 +352,11 @@
 				CC2585631D9AF71C00294506 /* ViewController.swift in Sources */,
 				CCB404921D9D82C600A314FC /* Assembly.swift in Sources */,
 				CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */,
+				CC50DB261DCA21AF00A46576 /* Sled.swift in Sources */,
 				CC41EF321DB54D6B0059C7C5 /* Json4Swift_Base.swift in Sources */,
 				CC41EF2E1DB54D6B0059C7C5 /* AssociateInfo.swift in Sources */,
 				CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */,
 				CC41EF2F1DB54D6B0059C7C5 /* CommonUtils.swift in Sources */,
-				CC41EF311DB54D6B0059C7C5 /* File.swift in Sources */,
 				CC41EF301DB54D6B0059C7C5 /* Error.swift in Sources */,
 				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,
 				CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */,

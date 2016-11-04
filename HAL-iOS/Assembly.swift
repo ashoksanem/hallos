@@ -40,7 +40,7 @@ class Assembly{
         return halJsonString!
     }
     class func isScannerAvailable() -> Bool {
-        return true;
+        return Sled.isConnected();
     }
     class func isCameraAvailable() -> Bool {
         return true;

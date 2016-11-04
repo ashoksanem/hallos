@@ -17,47 +17,14 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
+        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel"]
+        for message in messageHandlers
+        {
         contentController.add(
             self,
-            name: "launchSSOPage"
+            name: message
         )
-        contentController.add(
-            self,
-            name: "passDataToWeb"
-        )
-        contentController.add(
-            self,
-            name: "amInHal"
-        )
-        contentController.add(
-            self,
-            name: "isSSOAuthenticated"
-        )
-        contentController.add(
-            self,
-            name: "authenticateUser"
-        )
-        contentController.add(
-            self,
-            name: "sendSSOAuthenticationMessageToWeb"
-        )
-        contentController.add(
-            self,
-            name: "logoutAssociate"
-        )
-        contentController.add(
-            self,
-            name: "goToLandingPage"
-        )
-        contentController.add(
-            self,
-            name: "getDeviceId"
-        )
-        contentController.add(
-            self,
-            //name: "authenticationMessage"
-            name: "getIsAuthenticated"
-        )
+        }
         
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
@@ -71,7 +38,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         var url = CommonUtils.getLandingPage();
         
         //for debugging
@@ -79,21 +45,15 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             url = Bundle.main.url(forResource: "webAssets/test", withExtension:"html")!
         }
-        
         //url = URL(string: "http://ln001xsssp0003:11000")!;
-        
-
-        loadWebView(url: url)
         CommonUtils.setCurrentPage(value: url)
+        loadWebView(url: url)
+        
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.evaluateJavaScript("passDataToWeb(\(Assembly.halJson()));") { result, error in
-            guard error == nil else {
-                print(error)
-                return
-            }
-        }
+        //evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
+        evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -115,17 +75,11 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             
             let junk = (callback as String) + callback2;
             print("callback: " + junk);
-            
-            self.webView?.evaluateJavaScript( junk ) { result, error in
-                guard error == nil else {
-                    print(error)
-                    return
-                }
-            }
+            evaluateJavaScript(javascriptMessage: junk);
         }
         else if(message.name == "amInHal") {
-            showAlert(title: "Message from HAL",message: "hello user")
-        }
+            evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
+            }
         else if(message.name == "goToLandingPage") {
             self.loadWebView(url: CommonUtils.getLandingPage())
         }
@@ -135,17 +89,20 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "getDeviceId" ) {
             let callback = message.body as! NSString;
             let callback2 = "(\(CommonUtils.getDeviceId()));";
-
             let junk = (callback as String) + callback2;
             print("callback: " + junk);
-            
-            self.webView?.evaluateJavaScript( junk ) { result, error in
-                guard error == nil else {
-                    print(error)
-                    return
-                }
-            }
+            evaluateJavaScript(javascriptMessage: junk);
         }
+            else if(message.name == "checkScanner"){
+            evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
+            }
+        else if(message.name == "getSledBatteryLevel"){
+             evaluateJavaScript(javascriptMessage: "updateSledBattery(\(Sled.getSledBatteryLevel()));");
+        }
+        else if(message.name == "getIpodBatteryLevel"){
+            evaluateJavaScript(javascriptMessage: "updateIpodBattery(\(Sled.getIpodBatteryLevel()));");
+        }
+        
     }
     
     func loadWebView(url: URL){
@@ -162,23 +119,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     func authenticateUser(associateNumber: String,associatePin: String){
         SSORequest.makeSSORequest(associateNumber: associateNumber, associatePin: associatePin){
             (result: String) in
-            //printing SSO response in console
-            print("sso response: \(result)")
-
             if(CommonUtils.isSSOAuthenticated()){
                 self.loadPreviousWebPage()
             }
             else{
-                //self.showAlert(title: "Authentication Failed", message:result)
-                self.webView?.evaluateJavaScript("switchErrorState(true);") { result, error in
-                    guard error == nil else {
-                        print(error)
-                        return
-                    }
-                }
+                self.evaluateJavaScript(javascriptMessage: "switchErrorState(true);");
             }
-            
-
         }
     }
     
@@ -189,7 +135,26 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
-    
+    func evaluateJavaScript(javascriptMessage: String){
+        self.webView?.evaluateJavaScript(javascriptMessage) { result, error in
+            guard error == nil else {
+                print(error)
+                return
+            }
+        }
+    }
+     func connectionState(_ state: Int32) {
+        evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
+        evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
+        evaluateJavaScript(javascriptMessage: "updateSledBattery(\(Sled.getSledBatteryLevel()));");
+        evaluateJavaScript(javascriptMessage: "updateIpodBattery(\(Sled.getIpodBatteryLevel()));");
+        
+        if(!(Sled.isConnected()))
+        {
+            CommonUtils.setScanEnabled(value: false)
+        }
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

@@ -198,8 +198,12 @@ function iosConnector() {
             webkit.messageHandlers.clearData.postMessage(key);
         };
         
-        this.util.restoreData = function (key) {
-            webkit.messageHandlers.restoreData.postMessage(key);
+        this.util.restoreData = function (key,callback) {
+            var data = {
+            key: key,
+            callback: callback
+            };
+            webkit.messageHandlers.restoreData.postMessage(data);
         };
     }
     this.util();

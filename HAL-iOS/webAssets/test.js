@@ -52,8 +52,9 @@ function updateSledBattery(message){
 function updateIpodBattery(message){
     document.getElementById("ipodbatterypercentage").innerHTML=stringifyData(message);
 }
+
 function passBarcodeDataToWeb(message){
-    document.getElementById("halmsg").innerHTML=message;
+    document.getElementById("halmsg").innerText=message;
 }
 
 function sendScannerStatus(message){
@@ -85,4 +86,6 @@ function enableScannertest(){
         document.getElementById("enablescan").value="enable scanner";
         }
 }
-
+function saveData(){
+  HAL.util.saveData('testkey','inputdata')
+}

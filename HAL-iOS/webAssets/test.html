@@ -39,7 +39,11 @@ input{background: #000;
     <p id="scannerstatus"> </p>
     <p id="halmsg"> </p>
     <p id="SSOMessage"> </p>
+    <p id="storedvalue"> </p>
     <div>
+        <input type="button" value="Save data" onClick="saveData()"/>
+        <input type="button" value="clear data" onClick="HAL.util.clearData('testkey')"/>
+        <input type="button" value="restore data" onClick="HAL.util.restoreData('testkey','passDataToWeb')"/>
         <input id="enablescan" type="button" value="enable scanner" onClick="enableScannertest()"/>
         <input type="button" value="Send Message to Hal" onClick="showIOSAlert()"/>
         <input type="button" value="Authenticate User" onClick="HAL.sso.authenticateAssociate()"/>

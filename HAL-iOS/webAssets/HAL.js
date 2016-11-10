@@ -185,6 +185,26 @@ function iosConnector() {
         this.util.getDeviceId = function ( callback ) {
             webkit.messageHandlers.getDeviceId.postMessage( String( callback ) );
         };
+        
+        this.util.saveData = function (key,value) {
+            var data = {
+            key: key,
+            value: value
+            };
+            webkit.messageHandlers.saveData.postMessage(data);
+        };
+        
+        this.util.clearData = function (key) {
+            webkit.messageHandlers.clearData.postMessage(key);
+        };
+        
+        this.util.restoreData = function (key,callback) {
+            var data = {
+            key: key,
+            callback: callback
+            };
+            webkit.messageHandlers.restoreData.postMessage(data);
+        };
     }
     this.util();
     

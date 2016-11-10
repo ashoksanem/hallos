@@ -17,7 +17,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
-        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner"]
+        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner","saveData","clearData","restoreData"]
         for message in messageHandlers
         {
             contentController.add(
@@ -63,6 +63,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "authenticateUser") {
             print(message.body)
+            
             if let messageBody:NSDictionary = message.body as? NSDictionary {
                 let associateNumber:String = messageBody["associateNumber"] as! String
                 let associatePin:String = messageBody["associatePin"] as! String
@@ -110,7 +111,23 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             Sled.disableScanner()
             evaluateJavaScript(javascriptMessage: "sendScannerStatus(\(CommonUtils.isScanEnabled()));");
         }
-        
+        else if(message.name == "saveData"){
+            if let messageBody:NSDictionary = message.body as? NSDictionary {
+                SharedContainer.saveData(data: messageBody)
+            }
+        }
+        else if(message.name == "clearData"){
+            SharedContainer.removeData(key: (message.body as? String)!)
+        }
+        else if(message.name == "restoreData"){
+            let data = message.body as! NSDictionary;
+            let callback = data["callback"]
+            let key = data["key"]
+            let callbackInput = "(\(SharedContainer.restoreData(key: key as! String)));";
+            let javascriptMessage = (callback as! String) + callbackInput;
+            evaluateJavaScript(javascriptMessage: javascriptMessage);
+            
+        }
     }
     
     func loadWebView(url: URL){

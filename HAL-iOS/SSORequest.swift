@@ -37,7 +37,7 @@ class SSORequest{
                 
                 
                 /*test code for dummy data*/
-                if let file = Bundle.main.path(forResource: "ssosuccess", ofType: "json") {
+               /* if let file = Bundle.main.path(forResource: "ssosuccess", ofType: "json") {
                     do {
                         let data = try Data(contentsOf: URL(fileURLWithPath: file))
                          let strData = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
@@ -47,7 +47,7 @@ class SSORequest{
                         //viewController.json = JSON.null
                     }
                 }
-                
+                */
                 /*test code for dummy data*/
                onCompletion(error!.localizedDescription)
                 

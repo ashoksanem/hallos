@@ -31,6 +31,7 @@
 		CCB404921D9D82C600A314FC /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB404911D9D82C600A314FC /* Assembly.swift */; };
 		CCD0115B1DC13C060074E380 /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD0115A1DC13C060074E380 /* libdtdev.a */; };
 		CCD05EE41DBFE02900AECCE3 /* sled in Resources */ = {isa = PBXBuildFile; fileRef = CCD05EE31DBFE02900AECCE3 /* sled */; };
+		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSORequest.swift; sourceTree = "<group>"; };
 		CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ssosuccess.json; sourceTree = "<group>"; };
 		CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		CC43DCB41DD39AD000CC4BD2 /* HAL-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HAL-iOS.entitlements"; sourceTree = "<group>"; };
 		CC50DB251DCA21AF00A46576 /* Sled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sled.swift; sourceTree = "<group>"; };
 		CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		CCB404911D9D82C600A314FC /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 		CCD011591DC13C060074E380 /* HAL-iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HAL-iOS-Bridging-Header.h"; path = "sled/HAL-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		CCD0115A1DC13C060074E380 /* libdtdev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdtdev.a; path = sled/libdtdev.a; sourceTree = "<group>"; };
 		CCD05EE31DBFE02900AECCE3 /* sled */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sled; sourceTree = "<group>"; };
+		CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +158,7 @@
 		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CC43DCB41DD39AD000CC4BD2 /* HAL-iOS.entitlements */,
 				CCD011581DC13C060074E380 /* DTDevices.h */,
 				CCD011591DC13C060074E380 /* HAL-iOS-Bridging-Header.h */,
 				CCD0115A1DC13C060074E380 /* libdtdev.a */,
@@ -164,6 +168,7 @@
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
+				CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */,
 				CC41EF271DB54D6B0059C7C5 /* Error.swift */,
 				BCD698231DB7B91400F856CE /* Git Projects */,
 				CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */,
@@ -277,6 +282,11 @@
 						DevelopmentTeam = 8AS67DFAXH;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					CC2585731D9AF71C00294506 = {
 						CreatedOnToolsVersion = 8.0;
@@ -360,6 +370,7 @@
 				CC41EF301DB54D6B0059C7C5 /* Error.swift in Sources */,
 				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,
 				CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */,
+				CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */,
 				CC41EF331DB54D6B0059C7C5 /* Jwt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,6 +524,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "HAL-iOS/HAL-iOS.entitlements";
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
@@ -535,6 +547,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "HAL-iOS/HAL-iOS.entitlements";
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";

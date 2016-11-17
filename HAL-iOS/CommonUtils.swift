@@ -11,6 +11,7 @@ import UIKit
 
 class CommonUtils
 {
+    static let autoLogout = "autoLogout";
     static let ssoSignedInKey = "ssoSignedInKey";
     static let ssoAssociateInfo = "ssoAssociateInfo";
     static let currentPage = "currentPage";
@@ -85,9 +86,9 @@ class CommonUtils
     
     class func getLandingPage() -> URL {
         let defaults = UserDefaults.standard
-        if let landingPageDict = defaults.dictionary(forKey: landingPage) as? [String : String] {
+        if let landingPageDict = defaults.dictionary(forKey: landingPage)  {
             if let landingPage = landingPageDict["landingPage"] {
-                return URL(string: landingPage)!
+                return URL(string: landingPage as! String)!
             }
         }
         return defaults.url(forKey: landingPage)!
@@ -141,4 +142,26 @@ class CommonUtils
         let defaults = UserDefaults.standard
         return defaults.value(forKey: ssoAssociateInfo) as! [String:Any]
     }
+    
+    class func getAutoLogoutTimeinterval() -> Int
+    {
+        let defaults = UserDefaults.standard
+        if( defaults.integer(forKey: autoLogout)==0)
+        {
+            return 1200;
+        }
+        else
+        {
+            return defaults.integer(forKey: autoLogout);
+        }
+    }
+    class func setAutoLogoutTimeinterval(value: Int)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: autoLogout)
+        
+        print(value)
+        
+    }
+
 }

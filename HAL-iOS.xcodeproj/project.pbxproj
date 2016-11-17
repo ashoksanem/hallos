@@ -131,9 +131,10 @@
 			isa = PBXGroup;
 			children = (
 				CC25856A1D9AF71C00294506 /* Assets.xcassets */,
+				CC43DCB41DD39AD000CC4BD2 /* HAL-iOS.entitlements */,
+				CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */,
 				BCD6982A1DB7C34600F856CE /* icons */,
 				CC25856F1D9AF71C00294506 /* Info.plist */,
-				CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */,
 			);
 			name = "Project Files";
 			sourceTree = "<group>";
@@ -162,7 +163,6 @@
 		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				CC43DCB41DD39AD000CC4BD2 /* HAL-iOS.entitlements */,
 				CCD011581DC13C060074E380 /* DTDevices.h */,
 				CCD011591DC13C060074E380 /* HAL-iOS-Bridging-Header.h */,
 				CCD0115A1DC13C060074E380 /* libdtdev.a */,
@@ -181,12 +181,12 @@
 				CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */,
 				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
 				CC2585641D9AF71C00294506 /* Main.storyboard */,
+				CC50DB251DCA21AF00A46576 /* Sled.swift */,
 				CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */,
 				CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */,
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
 				CC2585621D9AF71C00294506 /* ViewController.swift */,
 				CC41EF231DB54CA90059C7C5 /* webAssets */,
-				CC50DB251DCA21AF00A46576 /* Sled.swift */,
 			);
 			path = "HAL-iOS";
 			sourceTree = "<group>";

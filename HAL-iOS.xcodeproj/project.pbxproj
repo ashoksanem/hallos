@@ -28,6 +28,8 @@
 		CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */; };
 		CC50DB261DCA21AF00A46576 /* Sled.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC50DB251DCA21AF00A46576 /* Sled.swift */; };
 		CC6EEEAE1DBFE374003D895B /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */; };
+		CC8872EE1DDE3A930042F089 /* HALApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8872EC1DDE3A930042F089 /* HALApplication.swift */; };
+		CC8872EF1DDE3A930042F089 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8872ED1DDE3A930042F089 /* main.swift */; };
 		CCB404921D9D82C600A314FC /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB404911D9D82C600A314FC /* Assembly.swift */; };
 		CCD0115B1DC13C060074E380 /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD0115A1DC13C060074E380 /* libdtdev.a */; };
 		CCD05EE41DBFE02900AECCE3 /* sled in Resources */ = {isa = PBXBuildFile; fileRef = CCD05EE31DBFE02900AECCE3 /* sled */; };
@@ -80,6 +82,8 @@
 		CC43DCB41DD39AD000CC4BD2 /* HAL-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HAL-iOS.entitlements"; sourceTree = "<group>"; };
 		CC50DB251DCA21AF00A46576 /* Sled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sled.swift; sourceTree = "<group>"; };
 		CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		CC8872EC1DDE3A930042F089 /* HALApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HALApplication.swift; sourceTree = "<group>"; };
+		CC8872ED1DDE3A930042F089 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CCB404911D9D82C600A314FC /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		CCD011581DC13C060074E380 /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTDevices.h; path = sled/DTDevices.h; sourceTree = "<group>"; };
 		CCD011591DC13C060074E380 /* HAL-iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HAL-iOS-Bridging-Header.h"; path = "sled/HAL-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -165,6 +169,8 @@
 				CCD05EE31DBFE02900AECCE3 /* sled */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
 				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
+				CC8872EC1DDE3A930042F089 /* HALApplication.swift */,
+				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
@@ -367,8 +373,10 @@
 				CC41EF2E1DB54D6B0059C7C5 /* AssociateInfo.swift in Sources */,
 				CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */,
 				CC41EF2F1DB54D6B0059C7C5 /* CommonUtils.swift in Sources */,
+				CC8872EE1DDE3A930042F089 /* HALApplication.swift in Sources */,
 				CC41EF301DB54D6B0059C7C5 /* Error.swift in Sources */,
 				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,
+				CC8872EF1DDE3A930042F089 /* main.swift in Sources */,
 				CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */,
 				CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */,
 				CC41EF331DB54D6B0059C7C5 /* Jwt.swift in Sources */,

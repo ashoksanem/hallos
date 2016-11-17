@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-@UIApplicationMain
+//@UIApplicationMain
 class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -18,7 +18,8 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         CommonUtils.setUpUserDefaults()
-        
+        let app = application as! HALApplication;
+        app.startTimer()
         detectDevice();
         NotificationCenter.default.addObserver( self,
                                                 selector: #selector(readMDMValues),
@@ -54,9 +55,13 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     {
         NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil);
         let userDefaults = UserDefaults.standard;
-        if let answersSaved = userDefaults.dictionary(forKey: CommonUtils.landingPage) as? [String : String] {
+        if let answersSaved = userDefaults.dictionary(forKey: CommonUtils.landingPage)  {
             if let landingPage = answersSaved["landingPage"] {
-                print("Current landing page: " + landingPage); // value
+                print("Current landing page: " + (landingPage as! String)); // value
+                
+            }
+            if let timertime = answersSaved["autoLogout"] {
+                CommonUtils.setAutoLogoutTimeinterval(value: timertime as! Int)
             }
         }
     };

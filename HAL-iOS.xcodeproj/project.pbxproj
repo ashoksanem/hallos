@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BCB0EBA81DDE667300E6A3F7 /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCB0EBA71DDE667300E6A3F7 /* libdtdev.a */; };
 		BCD6982B1DB7C34600F856CE /* icons in Resources */ = {isa = PBXBuildFile; fileRef = BCD6982A1DB7C34600F856CE /* icons */; };
 		CC0FCB781DEDD42D0084123C /* ZPLConnector.mm in Sources */ = {isa = PBXBuildFile; fileRef = CC0FCB771DEDD42D0084123C /* ZPLConnector.mm */; };
 		CC14AF421DB56F93007208F7 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = CC14AF411DB56F93007208F7 /* sso */; };
@@ -57,6 +58,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BCB0EBA51DDE666200E6A3F7 /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTDevices.h; path = sled/DTDevices.h; sourceTree = "<group>"; };
+		BCB0EBA61DDE666C00E6A3F7 /* HAL-iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HAL-iOS-Bridging-Header.h"; path = "sled/HAL-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		BCB0EBA71DDE667300E6A3F7 /* libdtdev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdtdev.a; path = sled/libdtdev.a; sourceTree = "<group>"; };
 		BCD6982A1DB7C34600F856CE /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = "Project Files/icons"; sourceTree = "<group>"; };
 		CC0FCB771DEDD42D0084123C /* ZPLConnector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZPLConnector.mm; sourceTree = "<group>"; };
 		CC14AF411DB56F93007208F7 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projets/sso"; sourceTree = "<group>"; };
@@ -105,7 +109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC6EEEAE1DBFE374003D895B /* ExternalAccessory.framework in Frameworks */,
-				CCD0115B1DC13C060074E380 /* libdtdev.a in Frameworks */,
+				BCB0EBA81DDE667300E6A3F7 /* libdtdev.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +130,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BCB0EBA41DDE665600E6A3F7 /* sled */ = {
+			isa = PBXGroup;
+			children = (
+				BCB0EBA51DDE666200E6A3F7 /* DTDevices.h */,
+				BCB0EBA61DDE666C00E6A3F7 /* HAL-iOS-Bridging-Header.h */,
+				BCB0EBA71DDE667300E6A3F7 /* libdtdev.a */,
+			);
+			name = sled;
+			sourceTree = "<group>";
+		};
 		BCD698231DB7B91400F856CE /* Git Projects */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,9 +152,10 @@
 			isa = PBXGroup;
 			children = (
 				CC25856A1D9AF71C00294506 /* Assets.xcassets */,
+				CC43DCB41DD39AD000CC4BD2 /* HAL-iOS.entitlements */,
+				CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */,
 				BCD6982A1DB7C34600F856CE /* icons */,
 				CC25856F1D9AF71C00294506 /* Info.plist */,
-				CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */,
 			);
 			name = "Project Files";
 			sourceTree = "<group>";
@@ -172,32 +187,31 @@
 		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				CC43DCB41DD39AD000CC4BD2 /* HAL-iOS.entitlements */,
-				CCD011581DC13C060074E380 /* DTDevices.h */,
-				CCD011591DC13C060074E380 /* HAL-iOS-Bridging-Header.h */,
-				CCD0115A1DC13C060074E380 /* libdtdev.a */,
-				CCD05EE31DBFE02900AECCE3 /* sled */,
-				BCD698241DB7B92E00F856CE /* Project Files */,
 				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
 				CC8872EC1DDE3A930042F089 /* HALApplication.swift */,
 				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
-				CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */,
 				CC41EF271DB54D6B0059C7C5 /* Error.swift */,
 				BCD698231DB7B91400F856CE /* Git Projects */,
+				CC8872EC1DDE3A930042F089 /* HALApplication.swift */,
 				CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */,
 				CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */,
 				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
+				CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */,
+				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CC2585641D9AF71C00294506 /* Main.storyboard */,
+				BCD698241DB7B92E00F856CE /* Project Files */,
+				CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */,
+				BCB0EBA41DDE665600E6A3F7 /* sled */,
+				CC50DB251DCA21AF00A46576 /* Sled.swift */,
 				CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */,
 				CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */,
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
 				CC2585621D9AF71C00294506 /* ViewController.swift */,
 				CC8872F01DDF9D3D0042F089 /* ZebraBluetooth.swift */,
 				CC41EF231DB54CA90059C7C5 /* webAssets */,
-				CC50DB251DCA21AF00A46576 /* Sled.swift */,
 			);
 			path = "HAL-iOS";
 			sourceTree = "<group>";
@@ -348,7 +362,6 @@
 				CC41EF241DB54CA90059C7C5 /* webAssets in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
 				CC14AF421DB56F93007208F7 /* sso in Resources */,
-				CCD05EE41DBFE02900AECCE3 /* sled in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
@@ -549,11 +562,13 @@
 				CODE_SIGN_ENTITLEMENTS = "HAL-iOS/HAL-iOS.entitlements";
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				ENABLE_BITCODE = YES;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/HAL-iOS/sled/**",
 					"$(PROJECT_DIR)/HAL-iOS/sled",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
@@ -572,11 +587,13 @@
 				CODE_SIGN_ENTITLEMENTS = "HAL-iOS/HAL-iOS.entitlements";
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(SRCROOT)/HAL-iOS/sled/**",
 					"$(PROJECT_DIR)/HAL-iOS/sled",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;

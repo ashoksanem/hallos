@@ -17,7 +17,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
-        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner","saveData","clearData","restoreData"]
+        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner","saveData","clearData","restoreData","connectToPrinter","disconnectFromPrinter","getPrinterStatus","crashapp"]
         for message in messageHandlers
         {
             contentController.add(
@@ -50,6 +50,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         loadWebView(url: url)
         
     }
+
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
@@ -80,7 +81,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "amInHal") {
             evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
-            }
+             }
         else if(message.name == "goToLandingPage") {
             self.loadWebView(url: CommonUtils.getLandingPage())
         }
@@ -119,6 +120,18 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "clearData"){
             SharedContainer.removeData(key: (message.body as? String)!)
         }
+        else if(message.name == "connectToPrinter"){
+            
+            ZebraBluetooth.connectToDevice(address: message.body as! String);
+        }
+        else if(message.name == "disconnectFromPrinter"){
+            ZebraBluetooth.disconnectFromDevice()
+        }
+        else if(message.name == "getPrinterStatus"){
+            let zb =  ZebraBluetooth.init(address: CommonUtils.getPrinterMACAddress())
+            showAlert(title: "PRINTER STATUS",message:zb.getCurrentStatus())
+            
+        }
         else if(message.name == "restoreData"){
             let data = message.body as! NSDictionary;
             let callback = data["callback"]
@@ -127,6 +140,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             let javascriptMessage = (callback as! String) + callbackInput;
             evaluateJavaScript(javascriptMessage: javascriptMessage);
             
+        }
+        else if(message.name == "crashapp"){
+            let exc = NSException.init(name: NSExceptionName(rawValue: "exception"), reason: "custom crash", userInfo: nil)
+            exc.raise()
         }
     }
     
@@ -164,7 +181,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     func evaluateJavaScript(javascriptMessage: String){
         self.webView?.evaluateJavaScript(javascriptMessage) { result, error in
             guard error == nil else {
-                print(error)
+                print(error as Any)
                 return
             }
         }
@@ -182,6 +199,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         let junk = "passBarcodeDataToWeb(\"" + barcode + "\");";
         evaluateJavaScript(javascriptMessage: junk);
         showAlert(title: "scanned data", message: barcode);
+    
     }
     
     override func didReceiveMemoryWarning() {

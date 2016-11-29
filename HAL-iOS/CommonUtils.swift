@@ -18,6 +18,7 @@ class CommonUtils
     static let allowScan = "allowScan";
     static let landingPage = "com.apple.configuration.managed";
     static let deviceId = "deviceId";
+    static let printerMACAddress = "printerMACAddress";
     
     class func setUpUserDefaults() -> Void
     {
@@ -163,5 +164,15 @@ class CommonUtils
         print(value)
         
     }
-
+    class func setPrinterMACAddress(value: String)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: printerMACAddress)
+    }
+    class func getPrinterMACAddress() -> String
+    {
+        let defaults = UserDefaults.standard
+        return defaults.value(forKey: printerMACAddress) as! String
+    }
+   
 }

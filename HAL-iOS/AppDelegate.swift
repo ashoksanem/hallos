@@ -14,12 +14,16 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
 
     var window: UIWindow?
     var sled: DTDevices?
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        NSSetUncaughtExceptionHandler { exception in
+            print("error details : "+exception.reason!)
+            LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: exception.reason!, type: "STRING", indexable: true);
+        }
         CommonUtils.setUpUserDefaults()
         let app = application as! HALApplication;
         app.startTimer()
+        //app.startNetworkTimer()
         detectDevice();
         NotificationCenter.default.addObserver( self,
                                                 selector: #selector(readMDMValues),
@@ -27,7 +31,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                                                 object: nil);
         return true
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -36,6 +40,9 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
+        let app = application as! HALApplication;
+        app.stopNetworkTimer()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -49,10 +56,14 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                                                 selector: #selector(readMDMValues),
                                                 name: UserDefaults.didChangeNotification,
                                                 object: nil);
+        LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
+        let app = application as! HALApplication;
+        app.startNetworkTimer()
+
     }
     
     func readMDMValues()
-    {
+    { //addLineZPL()
         NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil);
         let userDefaults = UserDefaults.standard;
         if let answersSaved = userDefaults.dictionary(forKey: CommonUtils.landingPage)  {
@@ -64,6 +75,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 CommonUtils.setAutoLogoutTimeinterval(value: timertime as! Int)
             }
         }
+        
     };
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -74,6 +86,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         } else {
             // Fallback on earlier versions
         }
+        
     }
 
     // MARK: - Core Data stack
@@ -189,6 +202,9 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             catch {
                 print(error)
             }
+        }
+        else{
+            LoggingRequest.logData(name: LoggingRequest.metrics_lost_peripheral_connection, value: "sled", type: "STRING", indexable: true);
         }
     }
     

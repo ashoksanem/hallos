@@ -183,7 +183,13 @@ class CommonUtils
     class func getPrinterMACAddress() -> String
     {
         let defaults = UserDefaults.standard
-        return defaults.value(forKey: printerMACAddress) as! String
+        if let macAddress = defaults.value(forKey: printerMACAddress)
+        {
+        return macAddress as! String
+        }
+        else{
+            return ""
+        }
     }
    
 }

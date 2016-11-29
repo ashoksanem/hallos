@@ -19,7 +19,6 @@
 		CC2585791D9AF71C00294506 /* HAL_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585781D9AF71C00294506 /* HAL_iOSTests.swift */; };
 		CC2585841D9AF71C00294506 /* HAL_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */; };
 		CC3E6A5C1DE508920016E259 /* LoggingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */; };
-		CC3E6A5E1DE50DAE0016E259 /* logreq.json in Resources */ = {isa = PBXBuildFile; fileRef = CC3E6A5D1DE50DAE0016E259 /* logreq.json */; };
 		CC41EF241DB54CA90059C7C5 /* webAssets in Resources */ = {isa = PBXBuildFile; fileRef = CC41EF231DB54CA90059C7C5 /* webAssets */; };
 		CC41EF2E1DB54D6B0059C7C5 /* AssociateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */; };
 		CC41EF2F1DB54D6B0059C7C5 /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */; };
@@ -77,7 +76,6 @@
 		CC2585851D9AF71C00294506 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC3E6A581DE4F4230016E259 /* ZPLConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZPLConnector.h; path = "HAL-iOS/ZPLConnector.h"; sourceTree = "<group>"; };
 		CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingRequest.swift; sourceTree = "<group>"; };
-		CC3E6A5D1DE50DAE0016E259 /* logreq.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logreq.json; sourceTree = "<group>"; };
 		CC41EF231DB54CA90059C7C5 /* webAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = webAssets; sourceTree = "<group>"; };
 		CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateInfo.swift; sourceTree = "<group>"; };
 		CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
@@ -195,7 +193,6 @@
 				CC2585641D9AF71C00294506 /* Main.storyboard */,
 				CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */,
 				CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */,
-				CC3E6A5D1DE50DAE0016E259 /* logreq.json */,
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
 				CC2585621D9AF71C00294506 /* ViewController.swift */,
 				CC8872F01DDF9D3D0042F089 /* ZebraBluetooth.swift */,
@@ -350,7 +347,6 @@
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC41EF241DB54CA90059C7C5 /* webAssets in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
-				CC3E6A5E1DE50DAE0016E259 /* logreq.json in Resources */,
 				CC14AF421DB56F93007208F7 /* sso in Resources */,
 				CCD05EE41DBFE02900AECCE3 /* sled in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,

@@ -19,7 +19,7 @@ class CommonUtils
     static let landingPage = "com.apple.configuration.managed";
     static let deviceId = "deviceId";
     static let printerMACAddress = "printerMACAddress";
-    
+    static let isPrinterCPCL = "isCPCL";
     class func setUpUserDefaults() -> Void
     {
         let defaults = UserDefaults.standard
@@ -62,6 +62,16 @@ class CommonUtils
             print(value)
        
     }
+    class func isCPCLPrinter() -> Bool
+    {
+        let defaults = UserDefaults.standard
+        return defaults.bool(forKey: isPrinterCPCL)
+    }
+    class func setCPCLPrinter(value: Bool)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: isPrinterCPCL)
+    }
     class func isSSOAuthenticatedMessage() -> String {
         
         let defaults = UserDefaults.standard
@@ -92,7 +102,8 @@ class CommonUtils
                 return URL(string: landingPage as! String)!
             }
         }
-        return defaults.url(forKey: landingPage)!
+        //return defaults.url(forKey: landingPage)!
+        return URL(string: "http://www.macys.com")!;
     }
     
     class func setCurrentPage(value: URL) -> Void {
@@ -172,7 +183,13 @@ class CommonUtils
     class func getPrinterMACAddress() -> String
     {
         let defaults = UserDefaults.standard
-        return defaults.value(forKey: printerMACAddress) as! String
+        if let macAddress = defaults.value(forKey: printerMACAddress)
+        {
+        return macAddress as! String
+        }
+        else{
+            return ""
+        }
     }
    
 }

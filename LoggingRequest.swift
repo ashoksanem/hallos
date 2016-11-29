@@ -20,7 +20,6 @@ class LoggingRequest{
         let request = NSMutableURLRequest(url: NSURL(string: ssoConnectionURL) as! URL)
         let session = URLSession.shared
         request.httpMethod = "POST"
-
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accepts")
         request.addValue("01.000.0000", forHTTPHeaderField: "RequesterInfo.version")
@@ -82,7 +81,6 @@ class LoggingRequest{
             "date": dateFormatter.string(from: Date())] as [String:Any]
         
         let defaults = UserDefaults.standard
-        //defaults.removeObject(forKey: metricsLog)
        if let metricsinfo = defaults.value(forKey: metricsLog) {
             var metricsArray =  metricsinfo as! [[String:Any]];
             metricsArray.append(metricdata)

@@ -17,7 +17,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
-        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner","saveData","clearData","restoreData","connectToPrinter","disconnectFromPrinter","getPrinterStatus","crashapp"]
+        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner","saveData","clearData","restoreData","connectToPrinter","disconnectFromPrinter","getPrinterStatus","crashapp","printdata"]
         for message in messageHandlers
         {
             contentController.add(
@@ -81,7 +81,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "amInHal") {
             evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
-             }
+            }
         else if(message.name == "goToLandingPage") {
             self.loadWebView(url: CommonUtils.getLandingPage())
         }
@@ -122,10 +122,23 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "connectToPrinter"){
             
-            ZebraBluetooth.connectToDevice(address: message.body as! String);
+            if(ZebraBluetooth.connectToDevice(address: message.body as! String))
+            {
+                showAlert(title: "Connected to printer", message: "success")
+            }
+            else{
+                showAlert(title: "Could not connect to printer", message: "failed")
+            }
         }
         else if(message.name == "disconnectFromPrinter"){
-            ZebraBluetooth.disconnectFromDevice()
+            if(ZebraBluetooth.disconnectFromDevice())
+            {
+                showAlert(title: "Disconnected from printer", message: "success")
+            }
+            else{
+                showAlert(title: "Could not disconnect from printer", message: "failed")
+            }
+            
         }
         else if(message.name == "getPrinterStatus"){
             let zb =  ZebraBluetooth.init(address: CommonUtils.getPrinterMACAddress())
@@ -145,6 +158,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             let exc = NSException.init(name: NSExceptionName(rawValue: "exception"), reason: "custom crash", userInfo: nil)
             exc.raise()
         }
+        else if(message.name == "printdata"){
+            ZebraBluetooth.printData()
+        }
+        
     }
     
     func loadWebView(url: URL){

@@ -193,6 +193,15 @@ function iosConnector() {
             };
             webkit.messageHandlers.saveData.postMessage(data);
         };
+        this.util.connectToPrinter = function (value) {
+            webkit.messageHandlers.connectToPrinter.postMessage(value);
+        };
+        this.util.disconnectFromPrinter = function () {
+            webkit.messageHandlers.disconnectFromPrinter.postMessage("");
+        };
+        this.util.getPrinterStatus = function () {
+            webkit.messageHandlers.getPrinterStatus.postMessage("");
+        };
         
         this.util.clearData = function (key) {
             webkit.messageHandlers.clearData.postMessage(key);

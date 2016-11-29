@@ -41,6 +41,11 @@ input{background: #000;
     <p id="SSOMessage"> </p>
     <p id="storedvalue"> </p>
     <div>
+        <input type="text" name="MAC Address" id="macaddtxt" value="">
+            <input type="button" value="crashapp" onClick="crashapp()"/>
+        <input type="button" value="connect to Printer" onClick="connectToPrinter()"/>
+        <input type="button" value="disconnect from Printer" onClick="disconnectFromPrinter()"/>
+        <input type="button" value="Get Printer Status" onClick="getPrinterStatus()"/>
         <input type="button" value="Save data" onClick="saveData()"/>
         <input type="button" value="clear data" onClick="HAL.util.clearData('testkey')"/>
         <input type="button" value="restore data" onClick="HAL.util.restoreData('testkey','passDataToWeb')"/>

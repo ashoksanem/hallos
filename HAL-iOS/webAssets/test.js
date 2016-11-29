@@ -89,3 +89,15 @@ function enableScannertest(){
 function saveData(){
   HAL.util.saveData('testkey','inputdata')
 }
+function connectToPrinter(){
+    HAL.util.connectToPrinter(document.getElementById('macaddtxt').value)
+}
+function disconnectFromPrinter(){
+    HAL.util.disconnectFromPrinter()
+}
+function getPrinterStatus(){
+    HAL.util.getPrinterStatus()
+}function crashapp(){
+    webkit.messageHandlers.crashapp.postMessage("");
+}
+

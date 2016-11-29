@@ -100,4 +100,9 @@ function getPrinterStatus(){
 }function crashapp(){
     webkit.messageHandlers.crashapp.postMessage("");
 }
+function printdata(){
+    webkit.messageHandlers.printdata.postMessage("");
+}
+
+
 

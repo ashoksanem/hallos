@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BCD6982B1DB7C34600F856CE /* icons in Resources */ = {isa = PBXBuildFile; fileRef = BCD6982A1DB7C34600F856CE /* icons */; };
+		CC0FCB781DEDD42D0084123C /* ZPLConnector.mm in Sources */ = {isa = PBXBuildFile; fileRef = CC0FCB771DEDD42D0084123C /* ZPLConnector.mm */; };
 		CC14AF421DB56F93007208F7 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = CC14AF411DB56F93007208F7 /* sso */; };
 		CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585601D9AF71C00294506 /* AppDelegate.swift */; };
 		CC2585631D9AF71C00294506 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585621D9AF71C00294506 /* ViewController.swift */; };
@@ -17,8 +18,6 @@
 		CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */; };
 		CC2585791D9AF71C00294506 /* HAL_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585781D9AF71C00294506 /* HAL_iOSTests.swift */; };
 		CC2585841D9AF71C00294506 /* HAL_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */; };
-		CC3E6A571DE4EDCB0016E259 /* ZPLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3E6A561DE4EDCB0016E259 /* ZPLClass.m */; };
-		CC3E6A5A1DE4F4230016E259 /* tst.mm in Sources */ = {isa = PBXBuildFile; fileRef = CC3E6A591DE4F4230016E259 /* tst.mm */; };
 		CC3E6A5C1DE508920016E259 /* LoggingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */; };
 		CC3E6A5E1DE50DAE0016E259 /* logreq.json in Resources */ = {isa = PBXBuildFile; fileRef = CC3E6A5D1DE50DAE0016E259 /* logreq.json */; };
 		CC41EF241DB54CA90059C7C5 /* webAssets in Resources */ = {isa = PBXBuildFile; fileRef = CC41EF231DB54CA90059C7C5 /* webAssets */; };
@@ -36,7 +35,6 @@
 		CC8872EF1DDE3A930042F089 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8872ED1DDE3A930042F089 /* main.swift */; };
 		CC8872F11DDF9D3D0042F089 /* ZebraBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8872F01DDF9D3D0042F089 /* ZebraBluetooth.swift */; };
 		CCB404921D9D82C600A314FC /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB404911D9D82C600A314FC /* Assembly.swift */; };
-		CCC9DFF91DE4DF9000F88320 /* ZPLComm.mm in Sources */ = {isa = PBXBuildFile; fileRef = CCC9DFF81DE4DF9000F88320 /* ZPLComm.mm */; };
 		CCD0115B1DC13C060074E380 /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD0115A1DC13C060074E380 /* libdtdev.a */; };
 		CCD05EE41DBFE02900AECCE3 /* sled in Resources */ = {isa = PBXBuildFile; fileRef = CCD05EE31DBFE02900AECCE3 /* sled */; };
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
@@ -61,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		BCD6982A1DB7C34600F856CE /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = "Project Files/icons"; sourceTree = "<group>"; };
+		CC0FCB771DEDD42D0084123C /* ZPLConnector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZPLConnector.mm; sourceTree = "<group>"; };
 		CC14AF411DB56F93007208F7 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projets/sso"; sourceTree = "<group>"; };
 		CC25855D1D9AF71C00294506 /* HAL-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HAL-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2585601D9AF71C00294506 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,10 +75,7 @@
 		CC25857F1D9AF71C00294506 /* HAL-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HAL-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAL_iOSUITests.swift; sourceTree = "<group>"; };
 		CC2585851D9AF71C00294506 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC3E6A551DE4EDCB0016E259 /* ZPLClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPLClass.h; sourceTree = "<group>"; };
-		CC3E6A561DE4EDCB0016E259 /* ZPLClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPLClass.m; sourceTree = "<group>"; };
-		CC3E6A581DE4F4230016E259 /* tst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tst.h; path = "HAL-iOS/tst.h"; sourceTree = "<group>"; };
-		CC3E6A591DE4F4230016E259 /* tst.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = tst.mm; path = "HAL-iOS/tst.mm"; sourceTree = "<group>"; };
+		CC3E6A581DE4F4230016E259 /* ZPLConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZPLConnector.h; path = "HAL-iOS/ZPLConnector.h"; sourceTree = "<group>"; };
 		CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingRequest.swift; sourceTree = "<group>"; };
 		CC3E6A5D1DE50DAE0016E259 /* logreq.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logreq.json; sourceTree = "<group>"; };
 		CC41EF231DB54CA90059C7C5 /* webAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = webAssets; sourceTree = "<group>"; };
@@ -98,8 +94,6 @@
 		CC8872ED1DDE3A930042F089 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CC8872F01DDF9D3D0042F089 /* ZebraBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZebraBluetooth.swift; sourceTree = "<group>"; };
 		CCB404911D9D82C600A314FC /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
-		CCC9DFF61DE4DF5B00F88320 /* ZPLComm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ZPLComm.h; path = ../ZPLComm.h; sourceTree = "<group>"; };
-		CCC9DFF81DE4DF9000F88320 /* ZPLComm.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZPLComm.mm; sourceTree = "<group>"; };
 		CCD011581DC13C060074E380 /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTDevices.h; path = sled/DTDevices.h; sourceTree = "<group>"; };
 		CCD011591DC13C060074E380 /* HAL-iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HAL-iOS-Bridging-Header.h"; path = "sled/HAL-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		CCD0115A1DC13C060074E380 /* libdtdev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdtdev.a; path = sled/libdtdev.a; sourceTree = "<group>"; };
@@ -157,8 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */,
-				CC3E6A581DE4F4230016E259 /* tst.h */,
-				CC3E6A591DE4F4230016E259 /* tst.mm */,
+				CC0FCB771DEDD42D0084123C /* ZPLConnector.mm */,
+				CC3E6A581DE4F4230016E259 /* ZPLConnector.h */,
 				CC25855F1D9AF71C00294506 /* HAL-iOS */,
 				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
@@ -187,10 +181,6 @@
 				CCD05EE31DBFE02900AECCE3 /* sled */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
 				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
-				CC3E6A551DE4EDCB0016E259 /* ZPLClass.h */,
-				CC3E6A561DE4EDCB0016E259 /* ZPLClass.m */,
-				CCC9DFF81DE4DF9000F88320 /* ZPLComm.mm */,
-				CCC9DFF61DE4DF5B00F88320 /* ZPLComm.h */,
 				CC8872EC1DDE3A930042F089 /* HALApplication.swift */,
 				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
@@ -393,10 +383,8 @@
 				CC2585631D9AF71C00294506 /* ViewController.swift in Sources */,
 				CCB404921D9D82C600A314FC /* Assembly.swift in Sources */,
 				CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */,
-				CC3E6A571DE4EDCB0016E259 /* ZPLClass.m in Sources */,
 				CC50DB261DCA21AF00A46576 /* Sled.swift in Sources */,
 				CC41EF321DB54D6B0059C7C5 /* Json4Swift_Base.swift in Sources */,
-				CC3E6A5A1DE4F4230016E259 /* tst.mm in Sources */,
 				CC3E6A5C1DE508920016E259 /* LoggingRequest.swift in Sources */,
 				CC41EF2E1DB54D6B0059C7C5 /* AssociateInfo.swift in Sources */,
 				CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */,
@@ -405,11 +393,11 @@
 				CC41EF301DB54D6B0059C7C5 /* Error.swift in Sources */,
 				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,
 				CC8872F11DDF9D3D0042F089 /* ZebraBluetooth.swift in Sources */,
-				CCC9DFF91DE4DF9000F88320 /* ZPLComm.mm in Sources */,
 				CC8872EF1DDE3A930042F089 /* main.swift in Sources */,
 				CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */,
 				CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */,
 				CC41EF331DB54D6B0059C7C5 /* Jwt.swift in Sources */,
+				CC0FCB781DEDD42D0084123C /* ZPLConnector.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

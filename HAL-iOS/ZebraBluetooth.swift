@@ -18,7 +18,6 @@ class ZebraBluetooth
         self.address = address as String;
         printerState = 0;
         receiptWidth = 615;
-        isCPCL = false;
     }
     class func connectToDevice(address:String) -> Bool {
         
@@ -31,15 +30,37 @@ class ZebraBluetooth
             }
             do{
                 try sled.btConnect(address, pin: ZebraBluetooth.pin)
-                
-                CommonUtils.setPrinterMACAddress(value: address)
+                if(sled.btConnectedDevices.count==1)
+                {
+                    CommonUtils.setPrinterMACAddress(value: address)
+                    return true
+                }
+                else{
+                    return false
+                }
             }
             catch
             {
                 print(error)
+                return false
             }
         }
         return false;
+    }
+    class func printData() -> Bool {
+        let zplConnector:ZPLConnector = ZPLConnector()
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        let sled=delegate?.getSled() as? DTDevices
+        let zb =  ZebraBluetooth.init(address: CommonUtils.getPrinterMACAddress())
+        if(zb.getCurrentStatus()=="Available"){
+            zplConnector.printStuff("<Center/><H3>Macy's \n </H3>Birchwood \n LORAIN 322 TEST TEST \n 219 SHEFFIELD CENTER TEST \n LORAIN TEST, MN 55402 \n 898-989-8989 \n <H3><H3>NOT A VALID RECEIPT</H3></H3> \n \n <Left/><B>   322-1799-0003 \n </B>   71234561  1799  2:01 PM 11/17/2016      \n Code: 01 \n Term: 1799 \n Tran: 0003 \n <Center/><H3>SUSPENDED</H3> \n <Left/> \n <Barcode>L21013221799201611170003</Barcode><Center/>21013221799201611170003 <Left/># Items: 1 \n <Left/>Total: 40.00 \n <Left/>(Total may not include tax and/or fees) \n  <H3>\n <Center/><H3>NOT A VALID RECEIPT</H3></H3> <Cut/>", withSled: sled, isCPCL: CommonUtils.isCPCLPrinter());
+            return true;
+        }
+        else
+        {
+            return false
+        }
+        
     }
     
     class func disconnectFromDevice() -> Bool {
@@ -49,16 +70,23 @@ class ZebraBluetooth
         {
             if(sled.btConnectedDevices.count==1)
             {
-               
             do{
                 try sled.btDisconnect(CommonUtils.getPrinterMACAddress())
             }
             catch
-            {
+                {
                 print(error)
+                }
             }
-        
-            }}
+            if(sled.btConnectedDevices.count==0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         return true;
     }
     func getCurrentStatus() -> String {
@@ -83,17 +111,14 @@ class ZebraBluetooth
         let delegate = UIApplication.shared.delegate as? AppDelegate
         if let sled=delegate?.getSled() as? DTDevices
         {
-            if(ZebraBluetooth.connectToDevice(address: CommonUtils.getPrinterMACAddress()))
+            if(sled.btConnectedDevices.count==1)
             {
                 do{
-                    
                     var rawData=[CChar]();
                     memset(&rawData, 0, 5);
                     strncpy(&rawData, "~HQES", 5 );
                     try sled.btWrite(&rawData, length: 5)
-                    
                     var resp = [CUnsignedChar](repeating:0x00, count:144)
-                    
                     let abc = sled.btRead(&resp, length: Int32(resp.count), timeout: 1,error:nil)
                     returnCode = String(describing: resp)
                     print(abc)
@@ -116,16 +141,15 @@ class ZebraBluetooth
                             returnCode = "NoResponse";}
                         else{
                             returnCode = "Available";
+                            CommonUtils.setCPCLPrinter(value: false)
                         }
                     }
-
                 }
                 catch
                 {
                     returnCode = error.localizedDescription
                     print(error)
                 }
-            
             }
         }
         return returnCode;
@@ -135,20 +159,11 @@ class ZebraBluetooth
         let delegate = UIApplication.shared.delegate as? AppDelegate
         if let sled=delegate?.getSled() as? DTDevices
         {
-            if(ZebraBluetooth.connectToDevice(address: CommonUtils.getPrinterMACAddress()))
-            {
+            if(sled.btConnectedDevices.count==1){
                 do{
-                    
-                    //var rawData:[CChar]=[ 0x1b, Int8(Int(("h" as UnicodeScalar).value))];
-                    //try sled.btWrite(&rawData, length: 2)
-                    var rawData=[CChar]();
-                    memset(&rawData, 0, 200);
-                   // strncpy(&rawData, "! 0 200 200 210 1 TEXT 4 0 200 100 TEXT TEXT90 4 0 200 100 T90 TEXT180 4 0 200 100 T180 TEXT270 4 0 200 100 T270 FORM \r\nPRINT", 200 );
-                    strncpy(&rawData, "! 0 200 200 210 1 TEXT 4 0 10 20 1st line of text 2nd line of text \r\n FORM \r\nPRINT", 200 );
-                    try sled.btWrite(&rawData, length: 200)
-                
-                   var resp = [CUnsignedChar](repeating:0x00, count:1)
-                    
+                    var rawData:[CChar]=[ 0x1b, Int8(Int(("h" as UnicodeScalar).value))];
+                    try sled.btWrite(&rawData, length: 2)
+                    var resp = [CUnsignedChar](repeating:0x00, count:1)
                     let abc = sled.btRead(&resp, length: Int32(resp.count), timeout: 1,error:nil)
                     returnCode = String(describing: resp)
                     print(abc)
@@ -167,27 +182,20 @@ class ZebraBluetooth
                          }
                         else{
                             returnCode = "Available";
-                            var rawData=[CChar]();
-                            memset(&rawData, 0, 200);
-                            strncpy(&rawData, "! 0 200 200 210 1 \r\n TEXT 4 0 30 40 Hello FDFFFWorld \r\n FORM \r\nPRINT\r\n", 200 );
-                            //strncpy(&rawData, "! 0 200 200 210 1 \r\n CONCAT 75 75 425$ \r\n 4 3 0 12 \r\n 4 2 5 34 \r\n ENDCONCAT \r\n FORM \r\n PRINT", 200 );
-                            try sled.btWrite(&rawData, length: 200)}
-                        
+                            CommonUtils.setCPCLPrinter(value: true)
+                        }
                     }
                     else{
                         returnCode = "NoResponse";
                     }
-                
                 }
                 catch
                 {
                     returnCode = error.localizedDescription
                     print(error)
                 }
-                
             }
         }
         return returnCode;
-
-    }
+        }
      }

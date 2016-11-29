@@ -18,10 +18,7 @@
 		CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */; };
 		CC2585791D9AF71C00294506 /* HAL_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585781D9AF71C00294506 /* HAL_iOSTests.swift */; };
 		CC2585841D9AF71C00294506 /* HAL_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */; };
-		CC3E6A571DE4EDCB0016E259 /* ZPLClass.m in Sources */ = {isa = PBXBuildFile; fileRef = CC3E6A561DE4EDCB0016E259 /* ZPLClass.m */; };
-		CC3E6A5A1DE4F4230016E259 /* tst.mm in Sources */ = {isa = PBXBuildFile; fileRef = CC3E6A591DE4F4230016E259 /* tst.mm */; };
 		CC3E6A5C1DE508920016E259 /* LoggingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */; };
-		CC3E6A5E1DE50DAE0016E259 /* logreq.json in Resources */ = {isa = PBXBuildFile; fileRef = CC3E6A5D1DE50DAE0016E259 /* logreq.json */; };
 		CC41EF241DB54CA90059C7C5 /* webAssets in Resources */ = {isa = PBXBuildFile; fileRef = CC41EF231DB54CA90059C7C5 /* webAssets */; };
 		CC41EF2E1DB54D6B0059C7C5 /* AssociateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */; };
 		CC41EF2F1DB54D6B0059C7C5 /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */; };
@@ -77,12 +74,7 @@
 		CC25857F1D9AF71C00294506 /* HAL-iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "HAL-iOSUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2585831D9AF71C00294506 /* HAL_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAL_iOSUITests.swift; sourceTree = "<group>"; };
 		CC2585851D9AF71C00294506 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC3E6A551DE4EDCB0016E259 /* ZPLClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPLClass.h; sourceTree = "<group>"; };
-		CC3E6A561DE4EDCB0016E259 /* ZPLClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPLClass.m; sourceTree = "<group>"; };
-		CC3E6A581DE4F4230016E259 /* tst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tst.h; path = "HAL-iOS/tst.h"; sourceTree = "<group>"; };
-		CC3E6A591DE4F4230016E259 /* tst.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = tst.mm; path = "HAL-iOS/tst.mm"; sourceTree = "<group>"; };
-		CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingRequest.swift; sourceTree = "<group>"; };
-		CC3E6A5D1DE50DAE0016E259 /* logreq.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logreq.json; sourceTree = "<group>"; };
+		CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggingRequest.swift; path = ../LoggingRequest.swift; sourceTree = "<group>"; };
 		CC41EF231DB54CA90059C7C5 /* webAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = webAssets; sourceTree = "<group>"; };
 		CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociateInfo.swift; sourceTree = "<group>"; };
 		CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
@@ -162,9 +154,6 @@
 		CC2585541D9AF71B00294506 = {
 			isa = PBXGroup;
 			children = (
-				CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */,
-				CC3E6A581DE4F4230016E259 /* tst.h */,
-				CC3E6A591DE4F4230016E259 /* tst.mm */,
 				CC25855F1D9AF71C00294506 /* HAL-iOS */,
 				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
@@ -196,6 +185,7 @@
 				CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */,
 				CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */,
 				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
+				CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */,
 				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CC2585641D9AF71C00294506 /* Main.storyboard */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
@@ -204,7 +194,6 @@
 				CC50DB251DCA21AF00A46576 /* Sled.swift */,
 				CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */,
 				CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */,
-				CC3E6A5D1DE50DAE0016E259 /* logreq.json */,
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
 				CC2585621D9AF71C00294506 /* ViewController.swift */,
 				CC8872F01DDF9D3D0042F089 /* ZebraBluetooth.swift */,
@@ -358,7 +347,6 @@
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC41EF241DB54CA90059C7C5 /* webAssets in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
-				CC3E6A5E1DE50DAE0016E259 /* logreq.json in Resources */,
 				CC14AF421DB56F93007208F7 /* sso in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
@@ -390,10 +378,8 @@
 				CC2585631D9AF71C00294506 /* ViewController.swift in Sources */,
 				CCB404921D9D82C600A314FC /* Assembly.swift in Sources */,
 				CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */,
-				CC3E6A571DE4EDCB0016E259 /* ZPLClass.m in Sources */,
 				CC50DB261DCA21AF00A46576 /* Sled.swift in Sources */,
 				CC41EF321DB54D6B0059C7C5 /* Json4Swift_Base.swift in Sources */,
-				CC3E6A5A1DE4F4230016E259 /* tst.mm in Sources */,
 				CC3E6A5C1DE508920016E259 /* LoggingRequest.swift in Sources */,
 				CC41EF2E1DB54D6B0059C7C5 /* AssociateInfo.swift in Sources */,
 				CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */,
@@ -402,7 +388,6 @@
 				CC41EF301DB54D6B0059C7C5 /* Error.swift in Sources */,
 				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,
 				CC8872F11DDF9D3D0042F089 /* ZebraBluetooth.swift in Sources */,
-				CCC9DFF91DE4DF9000F88320 /* ZPLComm.mm in Sources */,
 				CC8872EF1DDE3A930042F089 /* main.swift in Sources */,
 				CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */,
 				CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */,

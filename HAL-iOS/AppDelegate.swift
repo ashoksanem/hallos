@@ -40,7 +40,9 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
+        CommonUtils.setIsSSOAuthenticated( value: false );
+        
+        LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
         let app = application as! HALApplication;
         app.stopNetworkTimer()
     }

@@ -217,6 +217,14 @@ function iosConnector() {
     }
     this.util();
     
+    // a collection of functions for private
+    this.private = function () {
+        
+        this.private.storeLog = function (data) {
+            webkit.messageHandlers.storeAnalyticsLogs.postMessage(data);
+        };
+    }
+    this.private();
     function enableScanner( val ) {
         if( webInterface === undefined )
             return ({"amIinHal" : "false"});

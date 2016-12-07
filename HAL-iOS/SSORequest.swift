@@ -34,7 +34,9 @@ class SSORequest{
         let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
             if(error != nil) {
                 print(error!.localizedDescription)
-                
+                if (!(Int(associateNumber)==nil) && !(Int(associatePin)==nil) && (associateNumber.characters.count==8) && (associatePin.characters.count==4)){
+                    CommonUtils.setAuthServiceUnavailableInfo(assocNbr: associateNumber)
+                }
                 
                 /*test code for dummy data*/
                /* if let file = Bundle.main.path(forResource: "ssosuccess", ofType: "json") {

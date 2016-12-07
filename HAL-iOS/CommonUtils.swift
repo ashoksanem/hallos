@@ -81,7 +81,17 @@ class CommonUtils
         let associateString = String(data: associateData, encoding: String.Encoding.utf8)
         return associateString!;
     }
-
+    class func setAuthServiceUnavailableInfo(assocNbr: String) -> Void {
+        let authMessage = [
+            "associateInfo":[
+            "associateName": " ",
+            "associateNbr": assocNbr,
+            "managerLevel": 1
+            ] ]as [String : Any]
+        CommonUtils.setIsSSOAuthenticated(value: true)
+        let defaults = UserDefaults.standard
+        defaults.setValue(authMessage, forKey: ssoAssociateInfo)
+        }
     class func setIsSSOAuthenticated(value: Bool) -> Void {
         let defaults = UserDefaults.standard
         defaults.setValue(value, forKey: ssoSignedInKey)

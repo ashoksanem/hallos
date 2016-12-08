@@ -79,25 +79,25 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             
             if let val = answersSaved["autoLogout"]
             {
-                print("Setting autoLogout to: " + (val as! String));
+//                print("Setting autoLogout to: " + (val as! String));
                 CommonUtils.setAutoLogoutTimeinterval(value: val as! Int)
             }
             
             if let val = answersSaved["divNum"]
             {
-                print("Setting divNum to: " + (val as! String));
+//                print("Setting divNum to: " + (val as! String));
                 CommonUtils.setDivNum(value: val as! Int)
             }
             
             if let val = answersSaved["storeNum"]
             {
-                print("Setting storeNum to: " + (val as! String));
+//                print("Setting storeNum to: " + (val as! String));
                 CommonUtils.setStoreNum(value: val as! Int)
             }
 
             if let val = answersSaved["preProdEnv"]
             {
-                print("Setting preProdEnv to: " + (val as! String));
+//                print("Setting preProdEnv to: " + (val as! String));
                 CommonUtils.setPreProdEnv(value: val as! Bool)
             }
         }

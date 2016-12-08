@@ -17,7 +17,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
-        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner","saveData","clearData","restoreData","connectToPrinter","disconnectFromPrinter","getPrinterStatus","crashapp","printdata"]
+        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner","saveData","clearData","restoreData","connectToPrinter","disconnectFromPrinter","getPrinterStatus","crashapp","printdata","getLocationInformation"]
         for message in messageHandlers
         {
             contentController.add(
@@ -62,16 +62,19 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
             loadWebView(url: url!)
         }
-        else if(message.name == "authenticateUser") {
+        else if(message.name == "authenticateUser")
+        {
             print(message.body)
             
-            if let messageBody:NSDictionary = message.body as? NSDictionary {
+            if let messageBody:NSDictionary = message.body as? NSDictionary
+            {
                 let associateNumber:String = messageBody["associateNumber"] as! String
                 let associatePin:String = messageBody["associatePin"] as! String
                 authenticateUser(associateNumber: associateNumber,associatePin: associatePin)
             }
         }
-        else if(message.name == "isSSOAuthenticated" ) {
+        else if(message.name == "isSSOAuthenticated" )
+        {
             let callback = message.body as! NSString;
             let callback2 = "(\(CommonUtils.isSSOAuthenticatedMessage()));";
             
@@ -79,49 +82,61 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             print("callback: " + junk);
             evaluateJavaScript(javascriptMessage: junk);
         }
-        else if(message.name == "amInHal") {
+        else if(message.name == "amInHal")
+        {
             evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
-            }
-        else if(message.name == "goToLandingPage") {
+        }
+        else if(message.name == "goToLandingPage")
+        {
             self.loadWebView(url: CommonUtils.getLandingPage())
         }
-        else if(message.name == "logoutAssociate" ) {
+        else if(message.name == "logoutAssociate" )
+        {
             CommonUtils.setIsSSOAuthenticated( value: false );
         }
-        else if(message.name == "getDeviceId" ) {
+        else if(message.name == "getDeviceId" )
+        {
             let callback = message.body as! NSString;
             let callback2 = "(\(CommonUtils.getDeviceId()));";
             let junk = (callback as String) + callback2;
             print("callback: " + junk);
             evaluateJavaScript(javascriptMessage: junk);
         }
-            else if(message.name == "checkScanner"){
+        else if(message.name == "checkScanner")
+        {
             evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
-            }
-        else if(message.name == "getSledBatteryLevel"){
+        }
+        else if(message.name == "getSledBatteryLevel")
+        {
              evaluateJavaScript(javascriptMessage: "updateSledBattery(\(Sled.getSledBatteryLevel()));");
         }
-        else if(message.name == "getIpodBatteryLevel"){
+        else if(message.name == "getIpodBatteryLevel")
+        {
             evaluateJavaScript(javascriptMessage: "updateIpodBattery(\(Sled.getIpodBatteryLevel()));");
         }
-        else if(message.name == "enableScanner"){
+        else if(message.name == "enableScanner")
+        {
             Sled.enableScanner()
             evaluateJavaScript(javascriptMessage: "sendScannerStatus(\(CommonUtils.isScanEnabled()));");
         }
-        else if(message.name == "disableScanner"){
+        else if(message.name == "disableScanner")
+        {
             Sled.disableScanner()
             evaluateJavaScript(javascriptMessage: "sendScannerStatus(\(CommonUtils.isScanEnabled()));");
         }
-        else if(message.name == "saveData"){
-            if let messageBody:NSDictionary = message.body as? NSDictionary {
+        else if(message.name == "saveData")
+        {
+            if let messageBody:NSDictionary = message.body as? NSDictionary
+            {
                 SharedContainer.saveData(data: messageBody)
             }
         }
-        else if(message.name == "clearData"){
+        else if(message.name == "clearData")
+        {
             SharedContainer.removeData(key: (message.body as? String)!)
         }
-        else if(message.name == "connectToPrinter"){
-            
+        else if(message.name == "connectToPrinter")
+        {
             if(ZebraBluetooth.connectToDevice(address: message.body as! String))
             {
                 showAlert(title: "Connected to printer", message: "success")
@@ -130,7 +145,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 showAlert(title: "Could not connect to printer", message: "failed")
             }
         }
-        else if(message.name == "disconnectFromPrinter"){
+        else if(message.name == "disconnectFromPrinter")
+        {
             if(ZebraBluetooth.disconnectFromDevice())
             {
                 showAlert(title: "Disconnected from printer", message: "success")
@@ -138,30 +154,36 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             else{
                 showAlert(title: "Could not disconnect from printer", message: "failed")
             }
-            
         }
-        else if(message.name == "getPrinterStatus"){
+        else if(message.name == "getPrinterStatus")
+        {
             let zb =  ZebraBluetooth.init(address: CommonUtils.getPrinterMACAddress())
             showAlert(title: "PRINTER STATUS",message:zb.getCurrentStatus())
             
         }
-        else if(message.name == "restoreData"){
+        else if(message.name == "restoreData")
+        {
             let data = message.body as! NSDictionary;
             let callback = data["callback"]
             let key = data["key"]
             let callbackInput = "(\(SharedContainer.restoreData(key: key as! String)));";
             let javascriptMessage = (callback as! String) + callbackInput;
             evaluateJavaScript(javascriptMessage: javascriptMessage);
-            
         }
         else if(message.name == "crashapp"){
             let exc = NSException.init(name: NSExceptionName(rawValue: "exception"), reason: "custom crash", userInfo: nil)
             exc.raise()
         }
         else if(message.name == "printdata"){
-            ZebraBluetooth.printData()
+            ZebraBluetooth.printData();
         }
-        
+        else if(message.name == "getLocationInformation") {
+            let callback = message.body as! NSString;
+            let callback2 = "(\(CommonUtils.getLocationInformation()));";
+            let junk = (callback as String) + callback2;
+            print("callback: " + junk);
+            evaluateJavaScript(javascriptMessage: junk);
+        }
     }
     
     func loadWebView(url: URL){

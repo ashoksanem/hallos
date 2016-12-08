@@ -69,16 +69,38 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     { //addLineZPL()
         NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil);
         let userDefaults = UserDefaults.standard;
-        if let answersSaved = userDefaults.dictionary(forKey: CommonUtils.landingPage)  {
-            if let landingPage = answersSaved["landingPage"] {
-                print("Current landing page: " + (landingPage as! String)); // value
-                
+        if let answersSaved = userDefaults.dictionary(forKey: CommonUtils.landingPage)
+        {
+            if let val = answersSaved["landingPage"]
+            {
+                print("Setting landingPage to: " + (val as! String));
+                print("Current landing page: " + (val as! String));
             }
-            if let timertime = answersSaved["autoLogout"] {
-                CommonUtils.setAutoLogoutTimeinterval(value: timertime as! Int)
+            
+            if let val = answersSaved["autoLogout"]
+            {
+//                print("Setting autoLogout to: " + (val as! String));
+                CommonUtils.setAutoLogoutTimeinterval(value: val as! Int)
+            }
+            
+            if let val = answersSaved["divNum"]
+            {
+//                print("Setting divNum to: " + (val as! String));
+                CommonUtils.setDivNum(value: val as! Int)
+            }
+            
+            if let val = answersSaved["storeNum"]
+            {
+//                print("Setting storeNum to: " + (val as! String));
+                CommonUtils.setStoreNum(value: val as! Int)
+            }
+
+            if let val = answersSaved["preProdEnv"]
+            {
+//                print("Setting preProdEnv to: " + (val as! String));
+                CommonUtils.setPreProdEnv(value: val as! Bool)
             }
         }
-        
     };
     
     func applicationWillTerminate(_ application: UIApplication) {

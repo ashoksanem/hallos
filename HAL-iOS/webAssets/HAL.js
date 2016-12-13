@@ -237,12 +237,13 @@ function iosConnector() {
     }
     this.enableScanner = enableScanner;
     
-    function amIinHal()
+    function amIinHal(message)
     {
         if( typeof(webInterface) == "undefined" )
             return passXmlDataToWeb(`{"amIinHal" : "false"}`);
         
-        webInterface.amIinHal();
+        //webInterface.amIinHal();
+        webkit.messageHandlers.amInHal.postMessage(String( message ));
     }
     this.amIinHal = amIinHal;
 };
@@ -288,8 +289,8 @@ function authenticateUser(){
     webkit.messageHandlers.authenticateUser.postMessage(" ");
 }
 
-function amInHal(message){
-    webkit.messageHandlers.amInHal.postMessage(" ");
+function amIinHal(message){
+    webkit.messageHandlers.amIinHal.postMessage(String( message ));
 }
 
 function launchSSOPage(message){

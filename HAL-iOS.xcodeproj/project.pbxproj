@@ -35,6 +35,8 @@
 		CC8872EF1DDE3A930042F089 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8872ED1DDE3A930042F089 /* main.swift */; };
 		CC8872F11DDF9D3D0042F089 /* ZebraBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8872F01DDF9D3D0042F089 /* ZebraBluetooth.swift */; };
 		CCB404921D9D82C600A314FC /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB404911D9D82C600A314FC /* Assembly.swift */; };
+		CCE9D9BC1E00A9B200F0814B /* LogAnalyticsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9D9BB1E00A9B200F0814B /* LogAnalyticsRequest.swift */; };
+		CCE9D9C01E00AD2200F0814B /* logAnalytics.json in Resources */ = {isa = PBXBuildFile; fileRef = CCE9D9BF1E00AD2200F0814B /* logAnalytics.json */; };
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +96,8 @@
 		CC8872ED1DDE3A930042F089 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CC8872F01DDF9D3D0042F089 /* ZebraBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZebraBluetooth.swift; sourceTree = "<group>"; };
 		CCB404911D9D82C600A314FC /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
+		CCE9D9BB1E00A9B200F0814B /* LogAnalyticsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogAnalyticsRequest.swift; sourceTree = "<group>"; };
+		CCE9D9BF1E00AD2200F0814B /* logAnalytics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logAnalytics.json; sourceTree = "<group>"; };
 		CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -189,6 +193,7 @@
 				CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */,
 				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
 				CC3E6A5B1DE508920016E259 /* LoggingRequest.swift */,
+				CCE9D9BB1E00A9B200F0814B /* LogAnalyticsRequest.swift */,
 				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CC2585641D9AF71C00294506 /* Main.storyboard */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
@@ -197,6 +202,7 @@
 				CC50DB251DCA21AF00A46576 /* Sled.swift */,
 				CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */,
 				CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */,
+				CCE9D9BF1E00AD2200F0814B /* logAnalytics.json */,
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
 				CC2585621D9AF71C00294506 /* ViewController.swift */,
 				CC8872F01DDF9D3D0042F089 /* ZebraBluetooth.swift */,
@@ -352,6 +358,7 @@
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC41EF241DB54CA90059C7C5 /* webAssets in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
+				CCE9D9C01E00AD2200F0814B /* logAnalytics.json in Resources */,
 				CC14AF421DB56F93007208F7 /* sso in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
@@ -394,6 +401,7 @@
 				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,
 				CC8872F11DDF9D3D0042F089 /* ZebraBluetooth.swift in Sources */,
 				CC8872EF1DDE3A930042F089 /* main.swift in Sources */,
+				CCE9D9BC1E00A9B200F0814B /* LogAnalyticsRequest.swift in Sources */,
 				CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */,
 				CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */,
 				CC41EF331DB54D6B0059C7C5 /* Jwt.swift in Sources */,

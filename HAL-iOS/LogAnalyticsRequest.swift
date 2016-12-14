@@ -5,7 +5,6 @@
 //  Created by Pranitha on 12/13/16.
 //  Copyright © 2016 macys. All rights reserved.
 //
-
 import Foundation
 class LogAnalyticsRequest{
     static let ssoConnectionURL = "https://macyssp/pos/ApplicationLoggingServices/rest/V1/logMsg";

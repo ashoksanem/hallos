@@ -10,7 +10,7 @@ import Foundation
 class SSORequest{
     static let ssoConnectionURL = "https://fs166asisp01/pos/AssociateAuthenticateService/rest/V2/pinAuthenticate";
     
-//this method takes associate number and associate pin and makes rest call to get response
+    //this method takes associate number and associate pin and makes rest call to get response
     class func makeSSORequest(associateNumber: String,associatePin: String,onCompletion: @escaping (_ result: String)->Void) {
         let request = NSMutableURLRequest(url: NSURL(string: ssoConnectionURL) as! URL)
         let session = URLSession.shared

@@ -246,6 +246,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
 //            print("callback for getLocationInformation: " + junk);
 //            evaluateJavaScript(javascriptMessage: junk);
         }
+        else if(message.name == "storeAnalyticsLogs") {
+            LogAnalyticsRequest.logDataTest()
+        }
     }
     
     func loadWebView(url: URL){

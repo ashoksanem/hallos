@@ -23,15 +23,20 @@ class CommonUtils
     static let deviceId = "deviceId";
     static let printerMACAddress = "printerMACAddress";
     static let isPrinterCPCL = "isCPCL";
+    static let scannerEnabledCallback = "scannerEnabledCallback";
+    static let scannerScanCallback = "scannerScanCallback";
     
     class func setUpUserDefaults() -> Void
     {
         let defaults = UserDefaults.standard
         defaults.setValue(false, forKey: ssoSignedInKey);
+        defaults.setValue(false, forKey: allowScan);
         defaults.setValue([:], forKey: ssoAssociateInfo);
         defaults.setValue("", forKey: currentPage);
         defaults.setValue("-1", forKey: divNum);
         defaults.setValue("-1", forKey: storeNum);
+        defaults.setValue("", forKey: scannerEnabledCallback);
+        defaults.setValue("", forKey: scannerScanCallback);
         
         //BJD No, this isn't perfet. It needs to be stored persistently where others can't easily overwrite it. That functionality is coming in
         //SDF-208 so hopefully this will suffice for now. I'll come back and fix it later.
@@ -229,6 +234,30 @@ class CommonUtils
         }
 
         return ""
+    }
+    
+    class func setScannerEnabledCallback(value: String)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: scannerEnabledCallback);
+    }
+    
+    class func getScannerEnabledCallback() -> String
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.value(forKey: scannerEnabledCallback) as! String;
+    }
+    
+    class func setScannerScanCallback(value: String)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: scannerScanCallback);
+    }
+    
+    class func getScannerScanCallback() -> String
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.value(forKey: scannerScanCallback) as! String;
     }
     
     class func getLocationInformation() -> String

@@ -9,7 +9,6 @@
 import Foundation
 class Sled
 {
-    
     class func isConnected() -> Bool
     {
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
@@ -17,21 +16,24 @@ class Sled
         }
         return false
     }
+    
     class func getSledBatteryLevel() -> String {
         let delegate = UIApplication.shared.delegate as? AppDelegate
         return String(delegate!.getSledBatteryLevel())
-            }
-    class func getIpodBatteryLevel() -> String {
-        let delegate = UIApplication.shared.delegate as? AppDelegate
-        return String(delegate!.getIpodBatteryLevel()*100)
     }
+    
+    class func getDeviceBatteryLevel() -> String {
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        return String(delegate!.getDeviceBatteryLevel()*100)
+    }
+    
     class func enableScanner() -> Void {
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.enableScanner()
     }
+    
     class func disableScanner() -> Void {
         let delegate = UIApplication.shared.delegate as? AppDelegate
         delegate?.disableScanner()
     }
 }
-

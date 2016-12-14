@@ -205,15 +205,14 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     {
         if(CommonUtils.isScanEnabled())
         {
-            print(barcode);
             let viewController:ViewController = window!.rootViewController as! ViewController;
             viewController.updateBarcodeData(barcode: barcode)
         }
     }
     
     func connectionState(_ state: Int32) {
-        let viewController:ViewController = window!.rootViewController as! ViewController;
-        viewController.connectionState(state)
+        //let viewController:ViewController = window!.rootViewController as! ViewController;
+        //viewController.connectionState(state)
         
         if(state==2)
         {
@@ -271,7 +270,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         return 0;
     }
     
-    func getIpodBatteryLevel() -> Float
+    func getDeviceBatteryLevel() -> Float
     {
         UIDevice.current.isBatteryMonitoringEnabled = true
         print(UIDevice.current.batteryLevel)

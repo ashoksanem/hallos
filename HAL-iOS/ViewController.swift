@@ -17,7 +17,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
-        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner","saveData","clearData","restoreData","connectToPrinter","disconnectFromPrinter","getPrinterStatus","crashapp","printdata","getLocationInformation"]
+        let messageHandlers: [String] = ["launchSSOPage","passDataToWeb","amInHal","isSSOAuthenticated","authenticateUser","sendSSOAuthenticationMessageToWeb","logoutAssociate","goToLandingPage","getDeviceId","checkScanner","getIsAuthenticated","getSledBatteryLevel","getIpodBatteryLevel","disableScanner","enableScanner","saveData","clearData","restoreData","connectToPrinter","disconnectFromPrinter","getPrinterStatus","crashapp","printdata","getLocationInformation","storeAnalyticsLogs"]
         for message in messageHandlers
         {
             contentController.add(
@@ -50,7 +50,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         loadWebView(url: url)
         
     }
-
+    
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
@@ -108,7 +108,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "getSledBatteryLevel")
         {
-             evaluateJavaScript(javascriptMessage: "updateSledBattery(\(Sled.getSledBatteryLevel()));");
+            evaluateJavaScript(javascriptMessage: "updateSledBattery(\(Sled.getSledBatteryLevel()));");
         }
         else if(message.name == "getIpodBatteryLevel")
         {
@@ -184,6 +184,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             print("callback: " + junk);
             evaluateJavaScript(javascriptMessage: junk);
         }
+        else if(message.name == "storeAnalyticsLogs"){
+         LogAnalyticsRequest.logDataTest()
+        }
     }
     
     func loadWebView(url: URL){
@@ -238,7 +241,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         let junk = "passBarcodeDataToWeb(\"" + barcode + "\");";
         evaluateJavaScript(javascriptMessage: junk);
         showAlert(title: "scanned data", message: barcode);
-    
+        
     }
     
     override func didReceiveMemoryWarning() {

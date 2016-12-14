@@ -41,6 +41,7 @@ input{background: #000;
     <p id="SSOMessage"> </p>
     <p id="storedvalue"> </p>
     <div>
+        <input type="button" value="storelog" onClick="HAL.private.storeLog('data')"/>
         <input type="text" name="MAC Address" id="macaddtxt" value="">
             <input type="button" value="crashapp" onClick="crashapp()"/>
             <input type="button" value="print data" onClick="printdata()"/>
@@ -57,7 +58,7 @@ input{background: #000;
         <input type="button" value="Logout user" onClick="HAL.sso.logoutAssociate()"/>
         <input type="button" value="Go to Airwatch Landing Page" onClick="HAL.util.goToLandingPage()"/>
         <input type="button" value="Get Device ID" onClick="HAL.util.getDeviceId('receiveDeviceId')"/>
-        <input type="button" value="Am I In Hal?" onClick="amInHal()"/>
+        <input type="button" value="Am I In Hal?" onClick="amIinHal('passDataToWeb')"/>
         <input type="button" value="Get Location Information" onClick="HAL.util.getLocationInformation('passDataToWeb')"/>
         <input type="button" value="get Sled Battery Percentage" onClick="getSledBatteryLevel()"/>
         <input type="button" value="get Ipod Battery Percentage" onClick="getIpodBatteryLevel()"/>

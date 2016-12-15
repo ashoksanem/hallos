@@ -407,11 +407,7 @@
 				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,
 				BC534AB81DFF179200C65BAC /* ZPLConnector.mm in Sources */,
 				CC8872EF1DDE3A930042F089 /* main.swift in Sources */,
-<<<<<<< HEAD
-				CCE9D9BC1E00A9B200F0814B /* LogAnalyticsRequest.swift in Sources */,
-=======
 				BC534ABC1E018BD800C65BAC /* LogAnalyticsRequest.swift in Sources */,
->>>>>>> FEATURE/SDF-311
 				CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */,
 				CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */,
 				CC41EF331DB54D6B0059C7C5 /* Jwt.swift in Sources */,

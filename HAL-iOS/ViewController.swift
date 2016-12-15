@@ -74,7 +74,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
         }
-        //url = URL(string: "http://ln001xsssp0003:11000")!;
+        //url = URL(string: "http://ln001xsssp0004:10998/")!;
         CommonUtils.setCurrentPage(value: url)
         loadWebView(url: url)
         
@@ -98,11 +98,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "isSSOAuthenticated" )
         {
-            let callback = message.body as! NSString;
-            let callback2 = "(\(CommonUtils.isSSOAuthenticatedMessage()));";
-            let junk = (callback as String) + callback2;
-            print("callback for isSSOAuthenticated: " + junk);
-            evaluateJavaScript(javascriptMessage: junk);
+            let id = message.body as! String;
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.isSSOAuthenticatedMessage() + " )");
         }
         else if(message.name == "amInHal")
         {
@@ -143,19 +140,13 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "getSledBatteryLevel")
         {
-            let callback = message.body as! NSString;
-            let callback2 = "(\(Sled.getSledBatteryLevel()));";
-            let junk = (callback as String) + callback2;
-            print("callback for getSledBatteryLevel: " + junk);
-            evaluateJavaScript(javascriptMessage: junk);
+            let id = message.body as! String;
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + Sled.getSledBatteryLevel() + " )");
         }
         else if(message.name == "getDeviceBatteryLevel")
         {
-            let callback = message.body as! NSString;
-            let callback2 = "(\(Sled.getDeviceBatteryLevel()));";
-            let junk = (callback as String) + callback2;
-            print("callback for getDeviceBatteryLevel: " + junk);
-            evaluateJavaScript(javascriptMessage: junk);
+            let id = message.body as! String;
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + Sled.getDeviceBatteryLevel() + " )");
         }
         else if(message.name == "enableScanner")
         {
@@ -239,12 +230,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "getLocationInformation") {
             let id = message.body as! String;
             evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.getLocationInformation() + " )");
-            
-//            let callback = message.body as! NSString;
-//            let callback2 = "(\(CommonUtils.getLocationInformation()));";
-//            let junk = (callback as String) + callback2;
-//            print("callback for getLocationInformation: " + junk);
-//            evaluateJavaScript(javascriptMessage: junk);
         }
         else if(message.name == "storeAnalyticsLogs") {
             LogAnalyticsRequest.logDataTest()

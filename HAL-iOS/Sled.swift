@@ -19,7 +19,7 @@ class Sled
     
     class func getSledBatteryLevel() -> String {
         let delegate = UIApplication.shared.delegate as? AppDelegate
-        return String(delegate!.getSledBatteryLevel())
+        return String( delegate!.getSledBatteryLevel() );
     }
     
     class func getDeviceBatteryLevel() -> String {

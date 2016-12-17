@@ -71,9 +71,10 @@ class LogAnalyticsRequest{
             }
         }
     }
+    
     class func logData(data:Data)-> Void {
-        
         let defaults = UserDefaults.standard
+        
         if let metricsinfo = defaults.value(forKey: metricsLog) {
             var metricsArray =  metricsinfo as! [Data];
             metricsArray.append(data)
@@ -84,24 +85,26 @@ class LogAnalyticsRequest{
             let metricsinfo:[Data]=[data];
             defaults.set(metricsinfo, forKey: metricsLog)
         }
+        
         defaults.synchronize()
         var metricsStored =  defaults.value(forKey: metricsLog) as! [Data];
         var isNetworkOn=true;
         var metricsCount=0;
+        
         while(isNetworkOn && metricsCount<metricsStored.count)
         {
             isNetworkOn = sendData(data: metricsStored[metricsCount])
             metricsCount=metricsCount+1;
         }
+        
         if(!isNetworkOn)
         {
             let metricsRemaining = metricsStored.dropFirst(metricsCount-1)
             defaults.set(Array(metricsRemaining), forKey: metricsLog)
         }
-        else{
+        else {
             defaults.removeObject(forKey: metricsLog)
         }
-        
     }
     
     class func sendData(data: Data) -> Bool

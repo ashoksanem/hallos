@@ -173,9 +173,10 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     
     func detectDevice()
     {
-        sled = DTDevices.sharedDevice() as? DTDevices
-        sled?.addDelegate(self)
-        sled?.connect()
+        sled = DTDevices.sharedDevice() as? DTDevices;
+        print("sled SDK version: " + String(describing: sled?.sdkVersion));
+        sled?.addDelegate(self);
+        sled?.connect();
     }
     
     func isLineaConnected()->Bool
@@ -216,12 +217,12 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         
         if(state==2)
         {
-        //viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
+            //viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
             print("sled firmware version: "+(sled?.firmwareRevision)!)
-            print("sled SDK version: " + String(describing: sled?.sdkVersion))
             
             do {
-                try sled?.setPassThroughSync(false);
+                try sled?.setPassThroughSync(true);
+                disableScanner();
             }
             catch {
                 print(error)
@@ -237,7 +238,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
        do{
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.ENABLED.rawValue)
             CommonUtils.setScanEnabled(value: true)
-            }
+        }
         catch {
             print(error)
         }

@@ -19,8 +19,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
-        let messageHandlers: [String] = ["amInHal",
-                                         "authenticateUser",
+        let messageHandlers: [String] = ["authenticateUser",
                                          "checkScanner",
                                          "clearData",
                                          "connectToPrinter",
@@ -30,6 +29,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "enableScanner",
                                          "getDeviceBatteryLevel",
                                          "getDeviceId",
+                                         "getHalInfo",
                                          "getIsAuthenticated",
                                          "getLocationInformation",
                                          "getPrinterStatus",
@@ -70,11 +70,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         var url = CommonUtils.getLandingPage();
         
         //for debugging for testing
-        if( true ) // load test webpage
-        {
-            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
-        }
-        //url = URL(string: "http://ln001xsssp0004:10998/")!;
+        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
+//        url = URL(string: "http://11.120.110.75:10998/")!;
         CommonUtils.setCurrentPage(value: url)
         loadWebView(url: url)
         
@@ -87,7 +84,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "authenticateUser")
         {
-            print(message.body)
+            //print(message.body)
             
             if let messageBody:NSDictionary = message.body as? NSDictionary
             {
@@ -101,13 +98,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             let id = message.body as! String;
             evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.isSSOAuthenticatedMessage() + " )");
         }
-        else if(message.name == "amInHal")
+        else if(message.name == "getHalInfo")
         {
-            let callback = message.body as! NSString;
-            let callback2 = "(\(Assembly.halJson()));";
-            let junk = (callback as String) + callback2;
-            print("callback for amInHal: " + junk);
-            evaluateJavaScript(javascriptMessage: junk);
+            let id = message.body as! String;
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + Assembly.halJson() + " )");
         }
         else if(message.name == "goToLandingPage")
         {
@@ -115,7 +109,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "logoutAssociate" )
         {
+            let id = message.body as! String;
             CommonUtils.setIsSSOAuthenticated( value: false );
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
         }
         else if(message.name == "getDeviceId" )
         {
@@ -124,19 +120,13 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "getSledStatus")
         {
-            let callback = message.body as! NSString;
-            let callback2 = "(\(Sled.isConnected()));";
-            let junk = (callback as String) + callback2;
-            print("callback for getSledStatus: " + junk);
-            evaluateJavaScript(javascriptMessage: junk);
+            let id = message.body as! String;
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( Sled.isConnected() ) + " )");
         }
         else if( message.name == "getScannerStatus" )
         {
-            let callback = message.body as! NSString;
-            let callback2 = "(\(CommonUtils.isScanEnabled()));";
-            let junk = (callback as String) + callback2;
-            print("callback for getScannerStatus: " + junk);
-            evaluateJavaScript(javascriptMessage: junk);
+            let id = message.body as! String;
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
         }
         else if(message.name == "getSledBatteryLevel")
         {
@@ -151,39 +141,48 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "enableScanner")
         {
             Sled.enableScanner();
-           
-            let data = message.body as! NSDictionary;
-            let enabledCallback = data["enabledCallback"] as! String;
-            let scanCallback = data["scanCallback"] as! String;
-
-            CommonUtils.setScannerEnabledCallback(value: enabledCallback);
-            CommonUtils.setScannerScanCallback(value: scanCallback);
-            
-            let callback = enabledCallback;
-            let callback2 = "(\(CommonUtils.isScanEnabled()));";
-            let junk = (callback as String) + callback2;
-            print("callback for enableScanner: " + junk);
-            evaluateJavaScript(javascriptMessage: junk);
+            let id = message.body as! String;
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
         }
         else if(message.name == "disableScanner")
         {
             Sled.disableScanner();
-            let callback = CommonUtils.getScannerEnabledCallback();
-            let callback2 = "(\(CommonUtils.isScanEnabled()));";
-            let junk = (callback as String) + callback2;
-            print("callback for disableScanner: " + junk);
-            evaluateJavaScript(javascriptMessage: junk);
+            let id = message.body as! String;
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
         }
         else if(message.name == "saveData")
         {
+            let data = message.body as! NSDictionary;
+            let id = data["handle"] as! String;
+            
             if let messageBody:NSDictionary = message.body as? NSDictionary
             {
-                SharedContainer.saveData(data: messageBody)
+                let mutDict: NSMutableDictionary = messageBody.mutableCopy() as! NSMutableDictionary;
+                mutDict.removeObject(forKey: "handle");
+                SharedContainer.saveData(data: mutDict as NSDictionary);
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
+            else
+            {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
+            }
+        }
+        else if(message.name == "restoreData")
+        {
+            let data = message.body as! NSDictionary;
+            let id = data["handle"] as! String;
+            let key = data["key"] as! String;
+            
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + SharedContainer.restoreData(key: key) + " )");
         }
         else if(message.name == "clearData")
         {
-            SharedContainer.removeData(key: (message.body as? String)!)
+            let data = message.body as! NSDictionary;
+            let id = data["handle"] as! String;
+            let key = data["key"] as! String;
+            
+            SharedContainer.removeData(key: key)
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
         }
         else if(message.name == "connectToPrinter")
         {
@@ -210,16 +209,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             let zb =  ZebraBluetooth.init(address: CommonUtils.getPrinterMACAddress())
             showAlert(title: "PRINTER STATUS",message:zb.getCurrentStatus())
         }
-        else if(message.name == "restoreData")
-        {
-            let data = message.body as! NSDictionary;
-            let callback = data["callback"]
-            let key = data["key"]
-            let callbackInput = "(\(SharedContainer.restoreData(key: key as! String)));";
-            let javascriptMessage = (callback as! String) + callbackInput;
-            print("callback for restoreData: " + javascriptMessage);
-            evaluateJavaScript(javascriptMessage: javascriptMessage);
-        }
         else if(message.name == "crashapp"){
             let exc = NSException.init(name: NSExceptionName(rawValue: "exception"), reason: "custom crash", userInfo: nil)
             exc.raise()
@@ -232,10 +221,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.getLocationInformation() + " )");
         }
         else if(message.name == "storeAnalyticsLogs") {
-            LogAnalyticsRequest.logDataTest()
-        }
-        else if(message.name == "storeAnalyticsLogs"){
-         LogAnalyticsRequest.logDataTest()
+            let _data = message.body as! NSDictionary;
+            let id = _data["handle"] as! String;
+            let data = _data["data"] as! Data;
+            
+            LogAnalyticsRequest.logData( data:data );
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
         }
     }
     
@@ -289,9 +280,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     func updateBarcodeData(barcode: String)
     {
         print("Received scanner data: " + barcode);
-        
-        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
-        evaluateJavaScript(javascriptMessage: callback);
+//        
+//        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
+//        evaluateJavaScript(javascriptMessage: callback);
+        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"scanCallback\", false, \"" + barcode + "\" )");
     }
     
     override func didReceiveMemoryWarning() {

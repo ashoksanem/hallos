@@ -3034,28 +3034,24 @@ typedef NS_ENUM(int, SCREEN_COLOR_MODES)
 /**
  Notification sent when new device is connected to iHub
  @param device iHUB device class
- @param description iHub port description - free form text string set with iHubManager program
  **/
 -(void)iHUBDeviceConnected:(iHUBDevice *)device;
 
 /**
  Notification sent when new device is connected to iHub
  @param device iHUB device class
- @param description iHub port description - free form text string set with iHubManager program
  */
 -(void)iHUBDeviceDisconnected:(iHUBDevice *)device;
 
 /**
  Notification sent when new device is connected to iHub
  @param device iHUB device class
- @param description iHub port description - free form text string set with iHubManager program
  */
 -(void)iHUBDataReceivedForDevice:(iHUBDevice *)device data:(NSData *)data;
 
 /**
  Notification sent when new device is connected to iHub
  @param device iHUB device class
- @param description iHub port description - free form text string set with iHubManager program
  */
 -(void)iHUBPortStatusChangedForDevice:(iHUBDevice *)device newStatus:(IHUB_PORT_STATUS)newStatus;
 
@@ -5340,7 +5336,6 @@ typedef NS_ENUM(int, SCREEN_COLOR_MODES)
  </table>
  @param encryption - the encryption algorithm to use, one of ALG_APDU_* constants
  @param keyID - keyID to use
- @param inData - the APDU command
  @return APDU encrypted response if successful or nil if function failed.
  **/
 -(NSData *)scEncryptedCAPDU:(SC_SLOTS)slot encryption:(int)encryption keyID:(int)keyID apdu:(NSData *)apdu error:(NSError **)error;
@@ -5488,8 +5483,6 @@ typedef NS_ENUM(int, SCREEN_COLOR_MODES)
  Offline encrypted PIN verification and returns the response encrypted
  @param encryption - the encryption algorithm to use, one of ALG_APDU_* constants
  @param keyID - keyID to use
- @param module card's public key module part
- @param module card's public key exponent part
  @return encrypted verification result if successful or nil if function failed.
  **/
 -(NSData *)ppadVerifyPINOfflineEncryptedAndEncryptResponse:(int)encryption keyID:(int)keyID error:(NSError **)error;

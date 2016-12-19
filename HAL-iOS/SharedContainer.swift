@@ -12,10 +12,12 @@ class SharedContainer
     static let sharedContainerKey = "group.com.macys.technology";
     
     class func saveData(data: NSDictionary) -> Void {
-        let defaults = UserDefaults.init(suiteName: sharedContainerKey)
-        let key=data["key"] as! String
+        //let defaults = UserDefaults.init(suiteName: sharedContainerKey)
+        //let key=data["key"] as! String
         
-        defaults?.set(data, forKey: key)
+        //defaults?.set(data, forKey: key)
+        let key=data["key"] as! String
+        KeychainWrapper.standard.set(data, forKey: key)
     }
     
     class func restoreData(key: String) -> String {
@@ -24,14 +26,18 @@ class SharedContainer
         }
     
     class func removeData(key: String){
-        let defaults = UserDefaults.init(suiteName: sharedContainerKey)
-        defaults?.removeObject(forKey: key)
+        //let defaults = UserDefaults.init(suiteName: sharedContainerKey)
+        //defaults?.removeObject(forKey: key)
+        KeychainWrapper.standard.removeObject(forKey: key)
     }
     class func getData(key: String) -> NSDictionary{
-        let defaults = UserDefaults.init(suiteName: sharedContainerKey)
+        /*let defaults = UserDefaults.init(suiteName: sharedContainerKey)
         if let value = defaults?.value(forKey: key)
         {
             return value as! NSDictionary
+        }*/
+        if KeychainWrapper.standard.hasValue(forKey: key) {
+            return KeychainWrapper.standard.object(forKey: key) as! NSDictionary
         }
         else{
             return [:]

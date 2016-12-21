@@ -25,7 +25,7 @@
     }
     return true;
 }
-void addLineCPCL(std::string dat, std::stringstream &printerBuffer, std::string fontNumber, int fontSize, int lineOffset)
+void printLineCPCL(std::string dat, std::stringstream &printerBuffer, std::string fontNumber, int fontSize, int lineOffset)
 {
     int strikeCount = (fontNumber == "5" && fontSize == 0 ? 0 : 1);
     if (strikeCount == 0)
@@ -40,7 +40,31 @@ void addLineCPCL(std::string dat, std::stringstream &printerBuffer, std::string 
         printerBuffer <<  dat << "\r\n";
     }
 }
-
+int addLineCPCL(std::string dat, std::stringstream &printerBuffer, std::string fontNumber, int fontSize, int lineOffset,int thisLineHeight)
+{
+    int charlimit=37;
+    if( fontSize >0 )
+    {
+        charlimit=22;
+    }
+    while(dat.length()>charlimit){
+        std::string newline = dat.substr(0, charlimit);
+        int lastspaceoffset= newline.find_last_of(" ");
+        if(!(lastspaceoffset>0))
+        {
+            lastspaceoffset=charlimit;
+        }
+        std::string thisline = dat.substr(0, lastspaceoffset);
+        printLineCPCL(thisline, printerBuffer, fontNumber,fontSize,lineOffset);
+        dat=dat.substr(lastspaceoffset,dat.length()-1);
+        lineOffset=lineOffset+thisLineHeight;
+    }
+    if(dat.length()>0)
+    {
+        printLineCPCL(dat, printerBuffer, fontNumber,fontSize,lineOffset);
+    }
+    return lineOffset;
+}
 bool printStuffCPCL( std::string printData ,DTDevices* sled  )
 {
     int cutPosition = 0;
@@ -94,7 +118,7 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
             {
                 if (fontHeight > thisLineHeight)
                 thisLineHeight = fontHeight;
-                addLineCPCL(thisLine.substr(0, xmlStart), printerBuffer, fontNumber, fontSize, lineOffset);
+                lineOffset=addLineCPCL(thisLine.substr(0, xmlStart), printerBuffer, fontNumber, fontSize, lineOffset,thisLineHeight);
             }
             
             if (xmlStart >= 0 && xmlEnd >= 0)
@@ -199,7 +223,7 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
                 {
                     printerBuffer << "CENTER\r\n";
                     lineOffset += normalHeight * 2;
-                    addLineCPCL(cutString, printerBuffer, fontNumber, fontSize, lineOffset);
+                    lineOffset=addLineCPCL(cutString, printerBuffer, fontNumber, fontSize, lineOffset,normalHeight * 2);
                     lineOffset += normalHeight * 2;
                     
                     receiptLengths.push_back( lineOffset );
@@ -220,7 +244,7 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
                 {
                     if (fontHeight > thisLineHeight)
                         thisLineHeight = fontHeight;
-                    addLineCPCL(thisLine.substr(xmlStart, 1 + xmlEnd - xmlStart), printerBuffer, fontNumber, fontSize, lineOffset);
+                    lineOffset=addLineCPCL(thisLine.substr(xmlStart, 1 + xmlEnd - xmlStart), printerBuffer, fontNumber, fontSize, lineOffset,thisLineHeight);
                 }
                 thisLine = thisLine.substr(xmlEnd + 1);
             }
@@ -228,7 +252,7 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
             {
                 if (fontHeight > thisLineHeight)
                     thisLineHeight = fontHeight;
-                addLineCPCL(thisLine, printerBuffer, fontNumber, fontSize, lineOffset);
+                lineOffset=addLineCPCL(thisLine, printerBuffer, fontNumber, fontSize, lineOffset,thisLineHeight);
                 thisLine = "";
             }
         }
@@ -309,7 +333,7 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
     
     return true;
 }
-void addLineZPL(std::string dat, std::stringstream &printerBuffer, std::string fontNumber, bool isBold, bool isCenter, int lineOffset)
+void printLineZPL(std::string dat, std::stringstream &printerBuffer, std::string fontNumber, bool isBold, bool isCenter, int lineOffset)
 {
     int strikeCount = 2;
     if( fontNumber == "D1" || fontNumber == "D2" || fontNumber == "D3" || isBold )
@@ -334,6 +358,31 @@ void addLineZPL(std::string dat, std::stringstream &printerBuffer, std::string f
         
         printerBuffer << "^FH\\^FD" << dat << "^FS";
     }
+}
+int addLineZPL(std::string dat, std::stringstream &printerBuffer, std::string fontNumber, bool isBold, bool isCenter, int lineOffset,int thisLineHeight)
+{
+    int charlimit=22;
+    if( fontNumber == "D" )
+    {
+        charlimit=37;
+    }
+    while(dat.length()>charlimit){
+        std::string newline = dat.substr(0, charlimit);
+        int lastspaceoffset= newline.find_last_of(" ");
+        if(!(lastspaceoffset>0))
+        {
+            lastspaceoffset=charlimit;
+        }
+        std::string thisline = dat.substr(0, lastspaceoffset);
+        printLineZPL(thisline, printerBuffer, fontNumber,isBold,isCenter,lineOffset);
+        dat=dat.substr(lastspaceoffset,dat.length()-1);
+        lineOffset=lineOffset+thisLineHeight;
+    }
+    if(dat.length()>0)
+    {
+        printLineZPL(dat, printerBuffer, fontNumber,isBold,isCenter,lineOffset);
+    }
+    return lineOffset;
 }
 bool printStuffZPL( std::string printData, DTDevices* sled )
 {
@@ -399,7 +448,7 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
                 //Send out the data we have so far
                 if (fontHeight > thisLineHeight)
                     thisLineHeight = fontHeight;
-                addLineZPL(thisLine.substr(0, xmlStart), printerBuffer, fontNumber, currentlyBolded, currentlyCentered, lineOffset);
+                lineOffset=addLineZPL(thisLine.substr(0, xmlStart), printerBuffer, fontNumber, currentlyBolded, currentlyCentered, lineOffset,thisLineHeight);
             }
             
             if (xmlStart >= 0 && xmlEnd >= 0)
@@ -522,7 +571,7 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
                 {
                     currentlyCentered = true;
                     lineOffset += normalHeight * 2;
-                    addLineZPL(cutString, printerBuffer, fontNumber, currentlyBolded, currentlyCentered, lineOffset);
+                    lineOffset=addLineZPL(cutString, printerBuffer, fontNumber, currentlyBolded, currentlyCentered, lineOffset,normalHeight * 2);
                     lineOffset += normalHeight * 2;
                     
                     receiptLengths.push_back( lineOffset );
@@ -543,7 +592,7 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
                 {
                     if (fontHeight > thisLineHeight)
                         thisLineHeight = fontHeight;
-                    addLineZPL(thisLine.substr(xmlStart, 1 + xmlEnd - xmlStart), printerBuffer, fontNumber, currentlyBolded, currentlyCentered, lineOffset);
+                    lineOffset=addLineZPL(thisLine.substr(xmlStart, 1 + xmlEnd - xmlStart), printerBuffer, fontNumber, currentlyBolded, currentlyCentered, lineOffset,thisLineHeight);
                 }
                 thisLine = thisLine.substr(xmlEnd + 1);
             }
@@ -551,12 +600,13 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
             {
                 if (fontHeight > thisLineHeight)
                     thisLineHeight = fontHeight;
-                addLineZPL(thisLine, printerBuffer, fontNumber, currentlyBolded, currentlyCentered, lineOffset);
+                lineOffset=addLineZPL(thisLine, printerBuffer, fontNumber, currentlyBolded, currentlyCentered, lineOffset,thisLineHeight);
                 thisLine = "";
             }
         }
         lineOffset += thisLineHeight;
     }
+    
     
     
     

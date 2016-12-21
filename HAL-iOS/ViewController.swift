@@ -186,35 +186,57 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "connectToPrinter")
         {
-            if(ZebraBluetooth.connectToDevice(address: message.body as! String))
+            let data = message.body as! NSDictionary;
+            let id = data["handle"] as! String;
+            let address = data["data"] as! String;
+            if(ZebraBluetooth.connectToDevice(address: address))
             {
-                showAlert(title: "Connected to printer", message: "success")
+                //showAlert(title: "Connected to printer", message: "success")
+               evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
             else{
-                showAlert(title: "Could not connect to printer", message: "failed")
+                //showAlert(title: "Could not connect to printer", message: "failed")
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
             }
         }
         else if(message.name == "disconnectFromPrinter")
         {
+            let id = message.body as! String;
             if(ZebraBluetooth.disconnectFromDevice())
             {
-                showAlert(title: "Disconnected from printer", message: "success")
+                //showAlert(title: "Disconnected from printer", message: "success")
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
             else{
-                showAlert(title: "Could not disconnect from printer", message: "failed")
+                //showAlert(title: "Could not disconnect from printer", message: "failed")
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
         }
         else if(message.name == "getPrinterStatus")
         {
             let zb =  ZebraBluetooth.init(address: CommonUtils.getPrinterMACAddress())
-            showAlert(title: "PRINTER STATUS",message:zb.getCurrentStatus())
+            let id = message.body as! String;
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, \"" + zb.getCurrentStatus() + "\" )");
+            
+            //showAlert(title: "PRINTER STATUS",message:zb.getCurrentStatus())
         }
         else if(message.name == "crashapp"){
             let exc = NSException.init(name: NSExceptionName(rawValue: "exception"), reason: "custom crash", userInfo: nil)
             exc.raise()
         }
         else if(message.name == "printdata"){
-            ZebraBluetooth.printData();
+            let data = message.body as! NSDictionary;
+            let id = data["handle"] as! String;
+            let receipt = data["receipt"] as! String;
+            if(ZebraBluetooth.printData(receiptMarkUp: receipt))
+            {
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+            }
+            else
+            {
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
+            }
+            
         }
         else if(message.name == "getLocationInformation") {
             let id = message.body as! String;

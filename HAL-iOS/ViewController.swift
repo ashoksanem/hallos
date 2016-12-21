@@ -196,6 +196,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             }
             else{
                 //showAlert(title: "Could not connect to printer", message: "failed")
+                LoggingRequest.logData(name: LoggingRequest.metrics_lost_printer_connection, value: "could not connect to the printer with mac address "+address, type: "STRING", indexable: true);
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
             }
         }
@@ -234,6 +235,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             }
             else
             {
+            LoggingRequest.logData(name: LoggingRequest.metrics_print_failed, value: "could not print receipt in the printer", type: "STRING", indexable: true);
             evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
             }
             

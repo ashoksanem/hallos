@@ -18,6 +18,7 @@ class SharedContainer
         //defaults?.set(data, forKey: key)
         let key=data["key"] as! String
         KeychainWrapper.standard.set(data, forKey: key)
+        print(KeychainWrapper.standard.object(forKey: key) as! NSDictionary)
     }
     
     class func restoreData(key: String) -> String {
@@ -36,6 +37,7 @@ class SharedContainer
         {
             return value as! NSDictionary
         }*/
+        //print(KeychainWrapper.standard.object(forKey: key) as! NSDictionary)
         if KeychainWrapper.standard.hasValue(forKey: key) {
             return KeychainWrapper.standard.object(forKey: key) as! NSDictionary
         }

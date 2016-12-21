@@ -47,13 +47,14 @@ class ZebraBluetooth
         }
         return false;
     }
-    class func printData() -> Bool {
+    class func printData(receiptMarkUp:String) -> Bool {
         let zplConnector:ZPLConnector = ZPLConnector()
         let delegate = UIApplication.shared.delegate as? AppDelegate
         let sled=delegate?.getSled() as? DTDevices
         let zb =  ZebraBluetooth.init(address: CommonUtils.getPrinterMACAddress())
         if(zb.getCurrentStatus()=="Available"){
-            zplConnector.printStuff("<Center/><H3>Macy's \n </H3>Birchwood \n LORAIN 322 TEST TEST \n 219 SHEFFIELD CENTER TEST \n LORAIN TEST, MN 55402 \n 898-989-8989 \n <H3><H3>NOT A VALID RECEIPT</H3></H3> \n \n <Left/><B>   322-1799-0003 \n </B>   71234561  1799  2:01 PM 11/17/2016      \n Code: 01 \n Term: 1799 \n Tran: 0003 \n <Center/><H3>SUSPENDED</H3> \n <Left/> \n <Barcode>L21013221799201611170003</Barcode><Center/>21013221799201611170003 <Left/># Items: 1 \n <Left/>Total: 40.00 \n <Left/>(Total may not include tax and/or fees) \n  <H3>\n <Center/><H3>NOT A VALID RECEIPT</H3></H3> <Cut/>", withSled: sled, isCPCL: CommonUtils.isCPCLPrinter());
+            /*zplConnector.printStuff("<Center/><H3>Macy's \n </H3>Birchwood \n LORAIN 322 TEST TEST \n 219 SHEFFIELD CENTER TEST \n LORAIN TEST, MN 55402 \n 898-989-8989 \n <H3><H3>NOT A VALID RECEIPT</H3></H3> \n \n <Left/><B>   322-1799-0003 \n </B>   71234561  1799  2:01 PM 11/17/2016      \n Code: 01 \n Term: 1799 \n Tran: 0003 \n <Center/><H3>SUSPENDED</H3> \n <Left/> \n <Barcode>L21013221799201611170003</Barcode><Center/>21013221799201611170003 <Left/># Items: 1 \n <Left/>Total: 40.00 \n <Left/>(Total may not include tax and/or fees) \n  <H3>\n <Center/><H3>NOT A VALID RECEIPT</H3></H3> <Cut/>", withSled: sled, isCPCL: CommonUtils.isCPCLPrinter());*/
+            zplConnector.printStuff(receiptMarkUp, withSled: sled, isCPCL: CommonUtils.isCPCLPrinter());
             return true;
         }
         else

@@ -15,7 +15,8 @@ class LoggingRequest{
     static let metrics_app_crash = "AppCrash";
     static let metrics_lost_network = "LostNetwork";
     static let metrics_lost_peripheral_connection = "LostPeripheralConnection";
-    
+    static let metrics_lost_printer_connection = "LostPrinterConnection";
+    static let metrics_print_failed = "PrintFailed";
     class func makeServerRequest(data: Data,onCompletion: @escaping (_ result: Bool)->Void) {
         let request = NSMutableURLRequest(url: NSURL(string: ssoConnectionURL) as! URL)
         let session = URLSession.shared

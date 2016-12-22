@@ -39,6 +39,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "goToLandingPage",
                                          "launchSSOPage",
                                          "logoutAssociate",
+                                         "initHal",
                                          "isSSOAuthenticated",
                                          "passDataToWeb",
                                          "printdata",
@@ -251,6 +252,21 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             
             LogAnalyticsRequest.logData( data:data );
             evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+        }
+        else if(message.name == "initHal")
+        {
+            let id = message.body as! String;
+            let data = [
+                "hostInformation":[
+                    "isp": "fs166asisp01",
+                    "ssp": "macyssp",
+                    "cloud": "node1.macyslanding.c4d.devops.fds.com"
+                ] ]as [String : Any]
+            
+            let dataData = try! JSONSerialization.data(withJSONObject: data, options: [])
+            let dataString = String(data: dataData, encoding: String.Encoding.utf8)
+            
+            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + dataString! + " )");
         }
     }
     

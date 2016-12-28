@@ -272,7 +272,9 @@ class CommonUtils
         let locationInformation = [
             "locationInformation":[
                 "divInfo": ["num":defaults.string(forKey: divNum)],
-                "storeInfo": ["num":defaults.string(forKey: storeNum)]
+                "storeInfo": ["num":defaults.string(forKey: storeNum)],
+                //hardcoding zipcode for short term solution
+                "zipcode": "44070"
             ] ]as [String : Any];
         
         let data = try! JSONSerialization.data(withJSONObject: locationInformation, options: [])

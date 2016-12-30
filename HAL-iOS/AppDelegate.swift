@@ -29,6 +29,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                                                 selector: #selector(readMDMValues),
                                                 name: UserDefaults.didChangeNotification,
                                                 object: nil);
+        
         return true
     }
     
@@ -112,6 +113,8 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             {
                 SharedContainer.setCloud(value: val as! String);
             }
+            let esp = ESPRequest()
+            esp.getZipCode()
         }
     };
     

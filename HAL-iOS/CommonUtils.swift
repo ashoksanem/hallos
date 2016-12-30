@@ -25,6 +25,8 @@ class CommonUtils
     static let isPrinterCPCL = "isCPCL";
     static let scannerEnabledCallback = "scannerEnabledCallback";
     static let scannerScanCallback = "scannerScanCallback";
+    static let zipCode = "zipCode";
+    
     
     class func setUpUserDefaults() -> Void
     {
@@ -217,7 +219,42 @@ class CommonUtils
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: storeNum)
     }
+    class func setZipCode(value: String)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: zipCode)
+    }
+    class func GetZipCode() -> String
+    {
+        var count=0;
+        while (UserDefaults.standard.value(forKey: zipCode)==nil && count<5) {
+            let esp = ESPRequest()
+            esp.getZipCode()
+            count=count+1;
+        }
+        if(UserDefaults.standard.value(forKey: zipCode)==nil)
+        {
+        return "";
+        }
+        else{
+        return UserDefaults.standard.value(forKey: zipCode) as! String;
+        }
+        
+    }
+    class func getDivNum() -> Int
+    {
+        let defaults = UserDefaults.standard;
+        print(defaults.integer(forKey: divNum))
+        return defaults.integer(forKey: divNum)
+        //return 71;
+    }
     
+    class func getStoreNum() -> Int
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.integer(forKey: storeNum);
+        //return 166;
+    }
     class func setPrinterMACAddress(value: String)
     {
         let defaults = UserDefaults.standard
@@ -273,8 +310,7 @@ class CommonUtils
             "locationInformation":[
                 "divInfo": ["num":defaults.string(forKey: divNum)],
                 "storeInfo": ["num":defaults.string(forKey: storeNum)],
-                //hardcoding zipcode for short term solution
-                "zipcode": "44070"
+                "zipcode": GetZipCode()
             ] ]as [String : Any];
         
         let data = try! JSONSerialization.data(withJSONObject: locationInformation, options: [])

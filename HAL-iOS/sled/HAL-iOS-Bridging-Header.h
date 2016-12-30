@@ -2,3 +2,4 @@
 //
 #import "DTDevices.h"
 #import "ZPLConnector.h"
+#include <ifaddrs.h>

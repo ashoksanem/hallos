@@ -100,6 +100,18 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
 //                print("Setting preProdEnv to: " + (val as! String));
                 CommonUtils.setPreProdEnv(value: val as! Bool)
             }
+            if let val = answersSaved["isp"]
+            {
+                SharedContainer.setIsp(value: val as! String);
+            }
+            if let val = answersSaved["ssp"]
+            {
+                SharedContainer.setSsp(value: val as! String);
+            }
+            if let val = answersSaved["cloud"]
+            {
+                SharedContainer.setCloud(value: val as! String);
+            }
         }
     };
     

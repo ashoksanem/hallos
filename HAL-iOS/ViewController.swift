@@ -258,9 +258,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             let id = message.body as! String;
             let data = [
                 "hostInformation":[
-                    "isp": "fs166asisp01",
-                    "ssp": "macyssp",
-                    "cloud": "node1.macyslanding.c4d.devops.fds.com"
+                    "isp": SharedContainer.getIsp(),
+                    "ssp": SharedContainer.getSsp(),
+                    "cloud": SharedContainer.getCloud()
                 ] ]as [String : Any]
             
             let dataData = try! JSONSerialization.data(withJSONObject: data, options: [])

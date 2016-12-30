@@ -8,7 +8,7 @@
 
 import Foundation
 class LoggingRequest{
-    static let ssoConnectionURL = "https://macyssp/pos/ApplicationLoggingServices/rest/V1/logMsg";
+    static let ssoConnectionURL = "/pos/ApplicationLoggingServices/rest/V1/logMsg";
     static let metricsLog = "metricsLog";
     static let metrics_app_startup = "AppStartUp";
     static let metrics_app_shutdown = "AppShutDown";
@@ -18,7 +18,8 @@ class LoggingRequest{
     static let metrics_lost_printer_connection = "LostPrinterConnection";
     static let metrics_print_failed = "PrintFailed";
     class func makeServerRequest(data: Data,onCompletion: @escaping (_ result: Bool)->Void) {
-        let request = NSMutableURLRequest(url: NSURL(string: ssoConnectionURL) as! URL)
+        let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
+        let request = NSMutableURLRequest(url: NSURL(string: networkReqURL) as! URL)
         let session = URLSession.shared
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

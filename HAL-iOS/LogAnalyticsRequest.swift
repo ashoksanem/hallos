@@ -7,11 +7,12 @@
 //
 import Foundation
 class LogAnalyticsRequest{
-    static let ssoConnectionURL = "https://macyssp/pos/ApplicationLoggingServices/rest/V1/logMsg";
+    static let ssoConnectionURL = "/pos/ApplicationLoggingServices/rest/V1/logMsg";
     static let metricsLog = "analyticMetricsLog";
     
     class func makeServerRequest(data: Data,onCompletion: @escaping (_ result: Bool)->Void) {
-        let request = NSMutableURLRequest(url: NSURL(string: ssoConnectionURL) as! URL)
+        let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
+        let request = NSMutableURLRequest(url: NSURL(string: networkReqURL) as! URL)
         let session = URLSession.shared
         request.httpMethod = "POST"
         var jsonData = JSON(data: data).dictionaryObject

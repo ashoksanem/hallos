@@ -45,4 +45,59 @@ class SharedContainer
             return [:]
         }
     }
+    class func getIsp() -> String {
+        if KeychainWrapper.standard.hasValue(forKey: "isp") {
+            if(!(KeychainWrapper.standard.string(forKey: "isp")==nil))
+            {
+                return KeychainWrapper.standard.string(forKey: "isp")!
+            }
+            else
+            {
+                return "fs166asisp01"
+            }
+
+        }
+        else{
+            return "fs166asisp01"
+        }
+    }
+    class func getSsp() -> String {
+        if KeychainWrapper.standard.hasValue(forKey: "ssp") {
+            if(!(KeychainWrapper.standard.string(forKey: "ssp")==nil))
+            {
+                return KeychainWrapper.standard.string(forKey: "ssp")!
+            }
+            else
+            {
+                return "macyssp"
+            }
+        }
+        else{
+            return "macyssp"
+        }
+    }
+    class func getCloud() -> String {
+        if KeychainWrapper.standard.hasValue(forKey: "cloud") {
+            if(!(KeychainWrapper.standard.string(forKey: "cloud")==nil))
+            {
+                return KeychainWrapper.standard.string(forKey: "cloud")!
+            }
+            else
+            {
+                return "node1.macyslanding.c4d.devops.fds.com"
+            }
+        }
+        else{
+            return "node1.macyslanding.c4d.devops.fds.com"
+        }
+    }
+    class func setIsp(value: String) -> Void {
+       KeychainWrapper.standard.set(value, forKey: "isp")
+    }
+    class func setSsp(value: String) -> Void {
+        KeychainWrapper.standard.set(value, forKey: "ssp")
+    }
+    class func setCloud(value: String) -> Void {
+        KeychainWrapper.standard.set(value, forKey: "cloud")
+    }
 }

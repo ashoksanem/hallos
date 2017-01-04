@@ -80,9 +80,11 @@ class LoggingRequest{
             "type": type,
             "indexable":indexable
             ],
+            "count":0,
             "date": dateFormatter.string(from: Date())] as [String:Any]
         
         let defaults = UserDefaults.standard
+        //defaults.removeObject(forKey: metricsLog)
        if let metricsinfo = defaults.value(forKey: metricsLog) {
             var metricsArray =  metricsinfo as! [[String:Any]];
             metricsArray.append(metricdata)
@@ -94,42 +96,67 @@ class LoggingRequest{
             defaults.set(metricsinfo, forKey: metricsLog)
         }
         defaults.synchronize()
+        logStoredData()
+    }
+    class func logStoredData()
+    {
+        let defaults = UserDefaults.standard
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.timeZone = TimeZone.current
+        var metricslist =  defaults.value(forKey: metricsLog);
+        if(!(metricslist==nil))
+        {
         var metricsStored =  defaults.value(forKey: metricsLog) as! [[String:Any]];
-        var isNetworkOn=true;
-        var metricsCount=0;
-        while(isNetworkOn && metricsCount<metricsStored.count)
+        var metricsUndelivered = [[String : Any]]();
+        let logCountLimit = CommonUtils.getLogCountLimit();
+        let logTimeLimit = CommonUtils.getLogTimeLimit();
+        let logRetryCount = CommonUtils.getLogRetryCount();
+        for metric in metricsStored
         {
             let metadata = [
-            "application": "Stores",
-            "logLevel": "INFO",
-            "dateTime": metricdata["date"] ,
-            "message": "This is a log message",
-            "serviceVersion": 1,
-            "messageLevel": "ENTERPRISE",
-            "metaData":[
-                "componentName": "EnterpriseTest",
-                "correlationID": "1",
-                "metricList": [
-                    "metrics":  [metricsStored[metricsCount]["data"]]               ]
-            ]
-            ] as [String : Any]
-        
-        let requestData = try! JSONSerialization.data(withJSONObject: metadata, options: [])
-            print(metadata)
-        isNetworkOn = sendData(data: requestData)
-        metricsCount=metricsCount+1;
+                "application": "Stores",
+                "logLevel": "INFO",
+                "dateTime": metric["date"] as! String ,
+                "message": "This is a log message",
+                "serviceVersion": 1,
+                "messageLevel": "ENTERPRISE",
+                "metaData":[
+                    "componentName": "EnterpriseTest",
+                    "correlationID": "1",
+                    "metricList": [
+                        "metrics":  [metric["data"]]               ]
+                ]
+                ] as [String : Any]
+            
+            let requestData = try! JSONSerialization.data(withJSONObject: metadata, options: [])
+            let dateNow = Date();
+            if(!sendData(data: requestData))
+            {
+                var metricRetryCount = metric["count"] as! Int;
+                let metricDate = metric["date"] as! String;
+                let metricTimestamp = dateFormatter.date(from: metricDate)
+                let timeGap = dateNow.timeIntervalSince(metricTimestamp!)
+                if((metricRetryCount<logRetryCount) && (timeGap<logTimeLimit))
+                {
+                    metricRetryCount=metricRetryCount+1;
+                    var metricTemp = metric;
+                    metricTemp["count"]=metricRetryCount;
+                    metricsUndelivered.append(metricTemp)
+                }
+            }
         }
-        if(!isNetworkOn)
+        defaults.removeObject(forKey: metricsLog)
+        if(metricsUndelivered.count>0)
         {
-            let metricsRemaining = metricsStored.dropFirst(metricsCount-1)
-            defaults.set(Array(metricsRemaining), forKey: metricsLog)
+            if(metricsUndelivered.count>logCountLimit)
+            {
+                metricsUndelivered=Array(metricsUndelivered.dropFirst(metricsUndelivered.count-logCountLimit))
+            }
+            defaults.set(metricsUndelivered, forKey: metricsLog)
         }
-        else{
-            defaults.removeObject(forKey: metricsLog)
         }
-        
     }
-    
     class func sendData(data: Data) -> Bool
     {
         var response=false;

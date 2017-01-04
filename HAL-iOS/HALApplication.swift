@@ -14,6 +14,7 @@ import SystemConfiguration
 class HALApplication: UIApplication {
     var timer = Timer()
     var networkTimer = Timer()
+    var metricTimer = Timer()
     override func sendEvent(_ event: UIEvent) {
         
         if event.type != .touches {
@@ -48,6 +49,14 @@ class HALApplication: UIApplication {
     func stopNetworkTimer(){
         networkTimer.invalidate()
     }
+    func startMetricTimer(){
+        metricTimer = Timer.scheduledTimer(timeInterval: TimeInterval(CommonUtils.getLogRetryFrequency()), target: self, selector: #selector(self.logStoredData), userInfo: nil, repeats: true)
+       // metricTimer = Timer.scheduledTimer(timeInterval: TimeInterval(10), target: self, selector: #selector(self.logStoredData), userInfo: nil, repeats: true)
+
+    }
+    func stopMetricTimer(){
+        metricTimer.invalidate()
+    }
     func resetTimer(){
         
         timer.invalidate()
@@ -63,6 +72,12 @@ class HALApplication: UIApplication {
         LoggingRequest.logData(name: LoggingRequest.metrics_lost_network, value: "", type: "STRING", indexable: true);
         }
     }
+    func logStoredData(){
+        print("send stored logs to server")
+        LogAnalyticsRequest.logStoredData()
+        LoggingRequest.logStoredData()
+    }
+    
     func isInternetAvailable() -> Bool
     {
         var zeroAddress = sockaddr_in()

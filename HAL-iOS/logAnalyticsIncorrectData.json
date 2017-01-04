@@ -1,0 +1,48 @@
+{
+    "application": "Stores-Bag",
+    "logLevel": "INFO",
+    "dateTime": "2016-12-13T16:45:20",
+    "message": "Fees exists -false",
+    "serviceVersion": 1,
+    "messageLevel": "ALL",
+    "headers": {
+        "Accepts": "application/json",
+        "Content-Type": "application/json",
+        "RequesterInfo.version": "01.000.0000",
+        "RequesterInfo.clientId": "POS",
+        "RequesterInfo.subclientId": "SPOS2"
+    },
+    "metalData": {
+        "transType": "transType",
+        "transID": 1242,
+        "correlationID": "correlationID",
+        "metricList": {
+            "metrics": [
+                        {
+                        "name": "ANALYTICS1",
+                        "value": "DATA1",
+                        "type": "INTEGER",
+                        "indexable": true
+                        },
+                        {
+                        "name": "ANALYTICS2",
+                        "value": "DATA2",
+                        "type": "STRING",
+                        "indexable": true
+                        },
+                        {
+                        "name": "ANALYTICS3",
+                        "value": "DATA3",
+                        "type": "INTEGER",
+                        "indexable": true
+                        },
+                        {
+                        "name": "ANALYTICS4",
+                        "value": "DATA4",
+                        "type": "STRING",
+                        "indexable": true
+                        }
+                        ]
+        }
+    }
+}

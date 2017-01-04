@@ -84,7 +84,13 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
             }
         }
         freeifaddrs(ifaddr)
-        
+        if(address==nil)
+        {
+        return ""
+        }
+        else
+        {
         return address
+        }
     }
 }

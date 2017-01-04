@@ -72,41 +72,80 @@ class LogAnalyticsRequest{
             }
         }
     }
-    
+    class func logIncorrectDataTest()-> Void {
+        if let file = Bundle.main.path(forResource: "logAnalyticsIncorrectData", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: file))
+                logData(data: data)
+            } catch {
+            }
+        }
+    }
     class func logData(data:Data)-> Void {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.timeZone = TimeZone.current
         let defaults = UserDefaults.standard
-        
+        //defaults.removeObject(forKey: metricsLog)
+        let metricdata = ["data":data,
+                          "count":0,
+                          "date": dateFormatter.string(from: Date())] as [String:Any]
         if let metricsinfo = defaults.value(forKey: metricsLog) {
-            var metricsArray =  metricsinfo as! [Data];
-            metricsArray.append(data)
+            var metricsArray =  metricsinfo as! [[String:Any]];
+            metricsArray.append(metricdata)
             defaults.set(metricsArray, forKey: metricsLog)
         }
         else
         {
-            let metricsinfo:[Data]=[data];
+            let metricsinfo:[[String:Any]]=[metricdata];
             defaults.set(metricsinfo, forKey: metricsLog)
         }
         
         defaults.synchronize()
-        var metricsStored =  defaults.value(forKey: metricsLog) as! [Data];
-        var isNetworkOn=true;
-        var metricsCount=0;
-        
-        while(isNetworkOn && metricsCount<metricsStored.count)
-        {
-            isNetworkOn = sendData(data: metricsStored[metricsCount])
-            metricsCount=metricsCount+1;
-        }
-        
-        if(!isNetworkOn)
-        {
-            let metricsRemaining = metricsStored.dropFirst(metricsCount-1)
-            defaults.set(Array(metricsRemaining), forKey: metricsLog)
-        }
-        else {
-            defaults.removeObject(forKey: metricsLog)
-        }
+        logStoredData()
     }
+    class func logStoredData()
+    {
+        let defaults = UserDefaults.standard
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.timeZone = TimeZone.current
+        var metricslist =  defaults.value(forKey: metricsLog);
+        if(!(metricslist==nil))
+        {
+        let metricsStored =  defaults.value(forKey: metricsLog) as! [[String:Any]]
+        var metricsUndelivered = [[String : Any]]();
+        let logCountLimit = CommonUtils.getLogCountLimit();
+        let logTimeLimit = CommonUtils.getLogTimeLimit();
+        let logRetryCount = CommonUtils.getLogRetryCount();
+        for metric in metricsStored
+        {
+            let dateNow = Date();
+            if(!sendData(data: metric["data"] as! Data))
+            {
+                var metricRetryCount = metric["count"] as! Int;
+                let metricDate = metric["date"] as! String;
+                let metricTimestamp = dateFormatter.date(from: metricDate)
+                let timeGap = dateNow.timeIntervalSince(metricTimestamp!)
+                if((metricRetryCount<logRetryCount) && (timeGap<logTimeLimit))
+                {
+                    metricRetryCount=metricRetryCount+1;
+                    var metricTemp = metric;
+                    metricTemp["count"]=metricRetryCount;
+                    metricsUndelivered.append(metricTemp)
+                }
+            }
+        }
+        defaults.removeObject(forKey: metricsLog)
+        if(metricsUndelivered.count>0)
+        {
+            if(metricsUndelivered.count>logCountLimit)
+            {
+                metricsUndelivered=Array(metricsUndelivered.dropFirst(metricsUndelivered.count-logCountLimit))
+            }
+            defaults.set(metricsUndelivered, forKey: metricsLog)
+        }
+        }}
     
     class func sendData(data: Data) -> Bool
     {
@@ -118,7 +157,7 @@ class LogAnalyticsRequest{
             response = result
             sem.signal()
         }
-        sem.wait(timeout: DispatchTime.distantFuture)
+        sem.wait(timeout: DispatchTime.distantFuture)	
         
         return response
     }

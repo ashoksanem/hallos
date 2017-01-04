@@ -47,6 +47,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
         let app = application as! HALApplication;
         app.stopNetworkTimer()
+        app.stopMetricTimer()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -63,7 +64,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
         let app = application as! HALApplication;
         app.startNetworkTimer()
-
+        app.startMetricTimer()
     }
     
     func readMDMValues()
@@ -112,6 +113,22 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             if let val = answersSaved["cloud"]
             {
                 SharedContainer.setCloud(value: val as! String);
+            }
+            if let val = answersSaved["LogRetryCount"]
+            {
+                CommonUtils.setLogRetryCount(value: val as! Int)
+            }
+            if let val = answersSaved["LogStorageCountLimit"]
+            {
+                CommonUtils.setLogCountLimit(value: val as! Int)
+            }
+            if let val = answersSaved["LogRetryFrequency"]
+            {
+                CommonUtils.setLogRetryFrequency(value: val as! Double)
+            }
+            if let val = answersSaved["LogStorageTimeLimit"]
+            {
+                CommonUtils.setLogTimeLimit(value: val as! Double)
             }
             let esp = ESPRequest()
             esp.getZipCode()

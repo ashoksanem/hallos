@@ -250,8 +250,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "storeAnalyticsLogs") {
             let _data = message.body as! NSDictionary;
             let id = _data["handle"] as! String;
-            let data = _data["data"] as! Data;
-            
+            let data = _data["data"] as! String;
             LogAnalyticsRequest.logData( data:data );
             evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
         }

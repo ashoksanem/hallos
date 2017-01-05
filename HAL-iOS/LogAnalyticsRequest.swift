@@ -17,6 +17,8 @@ class LogAnalyticsRequest{
         request.httpMethod = "POST"
         var jsonData = JSON(data: data).dictionaryObject
         //print(jsonData?["headers"])
+        if (!(jsonData==nil) && !(jsonData?["headers"]==nil)) {
+            
         let headersDict = jsonData?["headers"] as! [String:String]
         request.addValue(headersDict["Content-Type"]!, forHTTPHeaderField: "Content-Type")
         request.addValue(headersDict["Accepts"]!, forHTTPHeaderField: "Accepts")
@@ -61,6 +63,11 @@ class LogAnalyticsRequest{
                 }
             }})
         task.resume()
+        }
+        else
+        {
+            onCompletion(false)
+        }
     }
     
     class func logDataTest()-> Void {
@@ -80,6 +87,9 @@ class LogAnalyticsRequest{
             } catch {
             }
         }
+    }
+    class func logData(data:String)-> Void {
+        logData(data: data.data(using: String.Encoding.utf8)!)
     }
     class func logData(data:Data)-> Void {
         let dateFormatter = DateFormatter()

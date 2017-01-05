@@ -46,7 +46,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "saveData",
                                          "sendSSOAuthenticationMessageToWeb",
                                          "storeAnalyticsLogs",
-                                         "restoreData"];
+                                         "restoreData",
+                                         "storeLog",
+                                         "captureIncorrectLog"];
         
         for message in messageHandlers
         {
@@ -106,7 +108,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "goToLandingPage")
         {
-            self.loadWebView(url: CommonUtils.getLandingPage())
+            self.loadWebView(url: CommonUtils.getLandingPage())            
         }
         else if(message.name == "logoutAssociate" )
         {
@@ -248,8 +250,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "storeAnalyticsLogs") {
             let _data = message.body as! NSDictionary;
             let id = _data["handle"] as! String;
-            let data = _data["data"] as! Data;
-            
+            let data = _data["data"] as! String;
             LogAnalyticsRequest.logData( data:data );
             evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
         }
@@ -267,6 +268,14 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             let dataString = String(data: dataData, encoding: String.Encoding.utf8)
             
             evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + dataString! + " )");
+        }
+        else if(message.name == "captureIncorrectLog")
+        {
+            LogAnalyticsRequest.logIncorrectDataTest()
+        }
+        else if(message.name == "storeLog")
+        {
+            LogAnalyticsRequest.logDataTest()
         }
     }
     

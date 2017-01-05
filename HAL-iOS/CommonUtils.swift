@@ -39,7 +39,8 @@ class CommonUtils
         defaults.setValue("-1", forKey: storeNum);
         defaults.setValue("", forKey: scannerEnabledCallback);
         defaults.setValue("", forKey: scannerScanCallback);
-        
+        defaults.removeObject(forKey: LoggingRequest.metricsLog)
+        defaults.removeObject(forKey: LogAnalyticsRequest.metricsLog)
         //BJD No, this isn't perfet. It needs to be stored persistently where others can't easily overwrite it. That functionality is coming in
         //SDF-208 so hopefully this will suffice for now. I'll come back and fix it later.
         var uuid = "";
@@ -317,4 +318,73 @@ class CommonUtils
         let string = String(data: data, encoding: String.Encoding.utf8)
         return string!;
     }
+    
+    class func getLogCountLimit() -> Int
+    {
+        let defaults = UserDefaults.standard
+        if( defaults.integer(forKey: "LogCountLimit")==0)
+        {
+            return 5000;
+        }
+        
+        return defaults.integer(forKey: "LogCountLimit");
+    }
+    
+    class func setLogCountLimit(value: Int)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: "LogCountLimit")
+    }
+    
+    class func getLogTimeLimit() -> Double
+    {
+        let defaults = UserDefaults.standard
+        if( defaults.double(forKey: "LogTimeLimit")==0)
+        {
+            return 10800;
+        }
+        
+        return defaults.double(forKey: "LogTimeLimit");
+    }
+    
+    class func setLogTimeLimit(value: Double)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: "LogTimeLimit")
+    }
+    
+    class func getLogRetryCount() -> Int
+    {
+        let defaults = UserDefaults.standard
+        if( defaults.integer(forKey: "LogRetryCount")==0)
+        {
+            return 25;
+        }
+        
+        return defaults.integer(forKey: "LogRetryCount");
+    }
+    
+    class func setLogRetryCount(value: Int)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: "LogRetryCount")
+    }
+    
+    class func getLogRetryFrequency() -> Double
+    {
+        let defaults = UserDefaults.standard
+        if( defaults.double(forKey: "LogRetryFrequency")==0)
+        {
+            return 30;
+        }
+        
+        return defaults.double(forKey: "LogRetryFrequency");
+    }
+    
+    class func setLogRetryFrequency(value: Double)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: "LogRetryFrequency")
+    }
+
 }

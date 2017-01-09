@@ -35,8 +35,8 @@ public class Locn {
                             store.1["locationLegacyNbr"].intValue == CommonUtils.getStoreNum())
                         {
                             CommonUtils.setLocnNum(value: store.1["locationLocnNbr"].intValue)
-                            print( "StoreNum: " + String( CommonUtils.getStoreNum() ) );                            
-                            print( "LOCN: " + String( CommonUtils.getLocnNum() ) );
+//                            print( "StoreNum: " + String( CommonUtils.getStoreNum() ) );                            
+//                            print( "LOCN: " + String( CommonUtils.getLocnNum() ) );
                             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: ( "LOCN: " + String( CommonUtils.getLocnNum() ) ), type: "STRING", indexable: true);
                         }
                     }

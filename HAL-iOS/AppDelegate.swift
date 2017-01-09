@@ -134,7 +134,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             let esp = ESPRequest();
             esp.getZipCode();
             
-            let locn = Locn();
+            _ = Locn();
         }
     };
     

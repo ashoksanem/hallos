@@ -130,8 +130,11 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             {
                 CommonUtils.setLogTimeLimit(value: val as! Double)
             }
-            let esp = ESPRequest()
-            esp.getZipCode()
+            
+            let esp = ESPRequest();
+            esp.getZipCode();
+            
+            _ = Locn();
         }
     };
     

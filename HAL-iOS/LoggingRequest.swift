@@ -10,6 +10,9 @@ import Foundation
 class LoggingRequest{
     static let ssoConnectionURL = "/pos/ApplicationLoggingServices/rest/V1/logMsg";
     static let metricsLog = "metricsLog";
+    static let metrics_error = "Error";
+    static let metrics_warning = "Warning";
+    static let metrics_info = "Info";
     static let metrics_app_startup = "AppStartUp";
     static let metrics_app_shutdown = "AppShutDown";
     static let metrics_app_crash = "AppCrash";
@@ -17,6 +20,7 @@ class LoggingRequest{
     static let metrics_lost_peripheral_connection = "LostPeripheralConnection";
     static let metrics_lost_printer_connection = "LostPrinterConnection";
     static let metrics_print_failed = "PrintFailed";
+    
     class func makeServerRequest(data: Data,onCompletion: @escaping (_ result: Bool)->Void) {
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
         let request = NSMutableURLRequest(url: NSURL(string: networkReqURL) as! URL)

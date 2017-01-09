@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC22EE621E203A8300C3F597 /* LOCN.json in Resources */ = {isa = PBXBuildFile; fileRef = BC22EE611E203A8300C3F597 /* LOCN.json */; };
+		BC22EE641E203D9600C3F597 /* Locn.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC22EE631E203D9600C3F597 /* Locn.swift */; };
 		BC534AB71DFF179200C65BAC /* ZebraBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC534AB41DFF179200C65BAC /* ZebraBluetooth.swift */; };
 		BC534AB81DFF179200C65BAC /* ZPLConnector.mm in Sources */ = {isa = PBXBuildFile; fileRef = BC534AB61DFF179200C65BAC /* ZPLConnector.mm */; };
 		BC534ABA1DFF17E200C65BAC /* LoggingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC534AB91DFF17E200C65BAC /* LoggingRequest.swift */; };
@@ -63,6 +65,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC22EE611E203A8300C3F597 /* LOCN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = LOCN.json; path = "Project Files/LOCN.json"; sourceTree = "<group>"; };
+		BC22EE631E203D9600C3F597 /* Locn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locn.swift; sourceTree = "<group>"; };
 		BC534AB41DFF179200C65BAC /* ZebraBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZebraBluetooth.swift; sourceTree = "<group>"; };
 		BC534AB51DFF179200C65BAC /* ZPLConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPLConnector.h; sourceTree = "<group>"; };
 		BC534AB61DFF179200C65BAC /* ZPLConnector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZPLConnector.mm; sourceTree = "<group>"; };
@@ -193,18 +197,21 @@
 		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				CC837B541E08341B00A14ECB /* KeychainItemAccessibility.swift */,
-				CC837B551E08341B00A14ECB /* KeychainWrapper.swift */,
 				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
 				CC41EF271DB54D6B0059C7C5 /* Error.swift */,
+				CC21C0481E16A332006CD57B /* ESPRequest.swift */,
 				BCD698231DB7B91400F856CE /* Git Projects */,
 				CC8872EC1DDE3A930042F089 /* HALApplication.swift */,
 				CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */,
 				CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */,
+				CC837B541E08341B00A14ECB /* KeychainItemAccessibility.swift */,
+				CC837B551E08341B00A14ECB /* KeychainWrapper.swift */,
 				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
+				BC22EE611E203A8300C3F597 /* LOCN.json */,
+				BC22EE631E203D9600C3F597 /* Locn.swift */,
 				BC534ABD1E01976300C65BAC /* logAnalytics.json */,
 				BC534ABB1E018BD800C65BAC /* LogAnalyticsRequest.swift */,
 				BC534AB91DFF17E200C65BAC /* LoggingRequest.swift */,
@@ -223,7 +230,6 @@
 				BC534AB41DFF179200C65BAC /* ZebraBluetooth.swift */,
 				BC534AB51DFF179200C65BAC /* ZPLConnector.h */,
 				BC534AB61DFF179200C65BAC /* ZPLConnector.mm */,
-				CC21C0481E16A332006CD57B /* ESPRequest.swift */,
 			);
 			path = "HAL-iOS";
 			sourceTree = "<group>";
@@ -378,6 +384,7 @@
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				CC837B5D1E083B4B00A14ECB /* HALApi in Resources */,
+				BC22EE621E203A8300C3F597 /* LOCN.json in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
 				CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */,
 			);
@@ -414,6 +421,7 @@
 				CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */,
 				CC41EF2F1DB54D6B0059C7C5 /* CommonUtils.swift in Sources */,
 				CC8872EE1DDE3A930042F089 /* HALApplication.swift in Sources */,
+				BC22EE641E203D9600C3F597 /* Locn.swift in Sources */,
 				BC534AB71DFF179200C65BAC /* ZebraBluetooth.swift in Sources */,
 				CC41EF301DB54D6B0059C7C5 /* Error.swift in Sources */,
 				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,

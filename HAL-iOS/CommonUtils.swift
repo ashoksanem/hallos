@@ -14,6 +14,7 @@ class CommonUtils
     static let autoLogout = "autoLogout";
     static let divNum = "divNumber";
     static let storeNum = "storeNumber";
+    static let locnNum = "locnNumber";
     static let isPreProdEnv = "isPreProdEnv";
     static let ssoSignedInKey = "ssoSignedInKey";
     static let ssoAssociateInfo = "ssoAssociateInfo";
@@ -37,6 +38,7 @@ class CommonUtils
         defaults.setValue("", forKey: currentPage);
         defaults.setValue("-1", forKey: divNum);
         defaults.setValue("-1", forKey: storeNum);
+        defaults.setValue("-1", forKey: locnNum);
         defaults.setValue("", forKey: scannerEnabledCallback);
         defaults.setValue("", forKey: scannerScanCallback);
         defaults.removeObject(forKey: LoggingRequest.metricsLog)
@@ -220,11 +222,19 @@ class CommonUtils
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: storeNum)
     }
+    
+    class func setLocnNum(value: Int)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: locnNum)
+    }
+    
     class func setZipCode(value: String)
     {
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: zipCode)
     }
+    
     class func GetZipCode() -> String
     {
         var count=0;
@@ -245,17 +255,21 @@ class CommonUtils
     class func getDivNum() -> Int
     {
         let defaults = UserDefaults.standard;
-        print(defaults.integer(forKey: divNum))
         return defaults.integer(forKey: divNum)
-        //return 71;
     }
     
     class func getStoreNum() -> Int
     {
         let defaults = UserDefaults.standard;
         return defaults.integer(forKey: storeNum);
-        //return 166;
     }
+    
+    class func getLocnNum() -> Int
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.integer(forKey: locnNum);
+    }
+    
     class func setPrinterMACAddress(value: String)
     {
         let defaults = UserDefaults.standard
@@ -309,8 +323,10 @@ class CommonUtils
         
         let locationInformation = [
             "locationInformation":[
-                "divInfo": ["num":defaults.string(forKey: divNum)],
-                "storeInfo": ["num":defaults.string(forKey: storeNum)],
+                "divInfo": ["num":defaults.string(forKey: divNum)] as Any,
+                "storeInfo": ["num":defaults.string(forKey: storeNum) as Any,
+                              "zipCode": GetZipCode(),
+                              "locn": defaults.string(forKey: locnNum) as Any],
                 "zipCode": GetZipCode()
             ] ]as [String : Any];
         

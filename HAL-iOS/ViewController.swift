@@ -250,8 +250,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "storeAnalyticsLogs") {
             let _data = message.body as! NSDictionary;
             let id = _data["handle"] as! String;
-            let data = _data["data"] as! String;
-            LogAnalyticsRequest.logData( data:data );
+            let data = _data["data"] as! NSDictionary;
+            let stringData = String( describing: data );
+            
+            LogAnalyticsRequest.logData( data:stringData );
             evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
         }
         else if(message.name == "initHal")
@@ -313,6 +315,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     func evaluateJavaScript(javascriptMessage: String){
         self.webView?.evaluateJavaScript(javascriptMessage) { result, error in
             guard error == nil else {
+                print(javascriptMessage);                
                 print(error as Any)
                 return
             }

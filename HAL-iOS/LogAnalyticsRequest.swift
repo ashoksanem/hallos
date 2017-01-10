@@ -91,6 +91,7 @@ class LogAnalyticsRequest{
     class func logData(data:String)-> Void {
         logData(data: data.data(using: String.Encoding.utf8)!)
     }
+    
     class func logData(data:Data)-> Void {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"

@@ -19,7 +19,7 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         let requestDescriptionMessage = "      <division>"+CommonUtils.getDivNum().description+"</division>      <store>"+CommonUtils.getStoreNum().description+"</store>      <pad>A</pad>      <requested_parameters>        <requested_parameter_list>          <requested_parameter>MST</requested_parameter>        </requested_parameter_list>      </requested_parameters>    </ns4:getRequestedParameters>  </soap:Body></soap:Envelope>"
         
         let soapMessage = soapmessageheader+clientMessage+requestDescriptionMessage;
-        let urlString = "https://fs166asisp01/parm/v4"
+        let urlString = "https://"+SharedContainer.getIsp()+"/parm/v4"
         let url = NSURL(string: urlString)
         let theRequest = NSMutableURLRequest(url: url! as URL)
         let msgLength = String(soapMessage.characters.count)

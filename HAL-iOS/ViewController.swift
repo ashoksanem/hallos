@@ -13,9 +13,10 @@ import JavaScriptCore
 //import DTDevices.h
 class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler,WKNavigationDelegate {
     
-    @IBOutlet var containerView : UIView? = nil
+    //@IBOutlet var containerView : UIView? = nil
     var webView: WKWebView?
-    
+    var sledBatteryView: UITextView?
+    var batteryTimer = Timer()
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
@@ -61,11 +62,21 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
         
-        self.webView = WKWebView(
+        /*self.webView = WKWebView(
             frame: (self.containerView?.bounds)!,
             configuration: config
         )
-        self.view = self.webView!
+        self.view = self.webView!*/
+        webView = WKWebView(
+            frame: (CGRect(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height-20)),
+            configuration: config
+        )
+        sledBatteryView = UITextView(frame: CGRect(x: ((self.view.bounds.width/2) - 100), y: -4, width: 80, height: 20))
+        sledBatteryView?.textAlignment = NSTextAlignment.center;
+        sledBatteryView?.font = UIFont.boldSystemFont(ofSize: UIFont.smallSystemFontSize);
+        self.view.addSubview(sledBatteryView!)
+        self.view.addSubview(webView!)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.orientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     override func viewDidLoad() {
@@ -332,7 +343,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     func updateBarcodeData(barcode: String)
     {
         print("Received scanner data: " + barcode);
-//        
+//
 //        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
 //        evaluateJavaScript(javascriptMessage: callback);
         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"scanCallback\", false, \"" + barcode + "\" )");
@@ -340,5 +351,22 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    func orientationChanged() {
+        if (UIApplication.shared.isStatusBarHidden){
+            webView?.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        } else {
+            webView?.frame = CGRect(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height-20)
+        }
+    }
+    func updateBattery() {
+        if(Sled.isConnected())
+        {
+            sledBatteryView?.text = Sled.getSledBatteryLevel()+"%🔋";
+        }
+        else
+        {
+            sledBatteryView?.text = "";
+        }
     }
 }

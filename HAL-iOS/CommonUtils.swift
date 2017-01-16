@@ -27,6 +27,7 @@ class CommonUtils
     static let scannerEnabledCallback = "scannerEnabledCallback";
     static let scannerScanCallback = "scannerScanCallback";
     static let zipCode = "zipCode";
+    static let webviewLoading = "webviewLoading";
     
     
     class func setUpUserDefaults() -> Void
@@ -41,8 +42,10 @@ class CommonUtils
         defaults.setValue("-1", forKey: locnNum);
         defaults.setValue("", forKey: scannerEnabledCallback);
         defaults.setValue("", forKey: scannerScanCallback);
-        defaults.removeObject(forKey: LoggingRequest.metricsLog)
-        defaults.removeObject(forKey: LogAnalyticsRequest.metricsLog)
+        defaults.removeObject(forKey: LoggingRequest.metricsLog);
+        defaults.removeObject(forKey: LogAnalyticsRequest.metricsLog);
+        defaults.setValue(false, forKey: webviewLoading);
+        
         //BJD No, this isn't perfet. It needs to be stored persistently where others can't easily overwrite it. That functionality is coming in
         //SDF-208 so hopefully this will suffice for now. I'll come back and fix it later.
         var uuid = "";
@@ -401,6 +404,18 @@ class CommonUtils
     {
         let defaults = UserDefaults.standard
         defaults.set(value, forKey: "LogRetryFrequency")
+    }
+    
+    class func getWebviewLoading() -> Bool
+    {
+        let defaults = UserDefaults.standard
+        return defaults.bool(forKey: "webviewLoading");
+    }
+    
+    class func setWebviewLoading(value: Bool)
+    {
+        let defaults = UserDefaults.standard
+        defaults.set(value, forKey: "webviewLoading")
     }
 
 }

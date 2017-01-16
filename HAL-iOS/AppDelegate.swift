@@ -46,8 +46,9 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         
         LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
         let app = application as! HALApplication;
-        app.stopNetworkTimer()
-        app.stopMetricTimer()
+        app.stopNetworkTimer();
+        app.stopMetricTimer();
+        app.stopJSTimer();
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -63,8 +64,9 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                                                 object: nil);
         LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
         let app = application as! HALApplication;
-        app.startNetworkTimer()
-        app.startMetricTimer()
+        app.startNetworkTimer();
+        app.startMetricTimer();
+        app.startJSTimer();
     }
     
     func readMDMValues()
@@ -312,4 +314,5 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         print(UIDevice.current.batteryLevel)
         return UIDevice.current.batteryLevel;
     }
+    
 }

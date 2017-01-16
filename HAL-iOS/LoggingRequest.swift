@@ -119,7 +119,7 @@ class LoggingRequest{
         for metric in metricsStored
         {
             let metadata = [
-                "application": "Stores",
+                "application": "Stores.HAL.iOS",
                 "logLevel": "INFO",
                 "dateTime": metric["date"] as! String ,
                 "message": "This is a log message",

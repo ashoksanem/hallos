@@ -48,6 +48,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         let app = application as! HALApplication;
         app.stopNetworkTimer()
         app.stopMetricTimer()
+        app.stopBatteryTimer()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -65,6 +66,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         let app = application as! HALApplication;
         app.startNetworkTimer()
         app.startMetricTimer()
+        app.startBatteryTimer()
     }
     
     func readMDMValues()
@@ -249,7 +251,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func connectionState(_ state: Int32) {
         //let viewController:ViewController = window!.rootViewController as! ViewController;
         //viewController.connectionState(state)
-        
+        updateBattery()
         if(state==2)
         {
             //viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
@@ -311,5 +313,10 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         UIDevice.current.isBatteryMonitoringEnabled = true
         print(UIDevice.current.batteryLevel)
         return UIDevice.current.batteryLevel;
+    }
+    func updateBattery(){
+        let viewController:ViewController = window!.rootViewController as! ViewController;
+        viewController.updateBattery();
+        
     }
 }

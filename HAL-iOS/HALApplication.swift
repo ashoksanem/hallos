@@ -15,6 +15,7 @@ class HALApplication: UIApplication {
     var timer = Timer()
     var networkTimer = Timer()
     var metricTimer = Timer()
+    var batteryTimer = Timer()
     override func sendEvent(_ event: UIEvent) {
         
         if event.type != .touches {
@@ -57,6 +58,12 @@ class HALApplication: UIApplication {
     func stopMetricTimer(){
         metricTimer.invalidate()
     }
+    func startBatteryTimer(){
+        batteryTimer = Timer.scheduledTimer(timeInterval: TimeInterval(60), target: self, selector: #selector(self.updateBattery), userInfo: nil, repeats: true)
+    }
+    func stopBatteryTimer(){
+        batteryTimer.invalidate()
+    }
     func resetTimer(){
         
         timer.invalidate()
@@ -97,5 +104,10 @@ class HALApplication: UIApplication {
         let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         return (isReachable && !needsConnection)
+    }
+    func updateBattery(){
+        print("update Sled battery")
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        delegate?.updateBattery()
     }
 }

@@ -13,10 +13,10 @@ import JavaScriptCore
 //import DTDevices.h
 class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler,WKNavigationDelegate {
     
-    //@IBOutlet var containerView : UIView? = nil
-    var webView: WKWebView?
-    var sledBatteryView: UITextView?
-    var batteryTimer = Timer()
+    @IBOutlet var containerView : UIView? = nil
+    static var webView: WKWebView?
+    static var storedJS = [String]();
+    
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
@@ -62,21 +62,32 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
         
-        /*self.webView = WKWebView(
+        ViewController.webView = WKWebView(
             frame: (self.containerView?.bounds)!,
             configuration: config
         )
-        self.view = self.webView!*/
-        webView = WKWebView(
-            frame: (CGRect(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height-20)),
-            configuration: config
-        )
-        sledBatteryView = UITextView(frame: CGRect(x: ((self.view.bounds.width/2) - 100), y: -4, width: 80, height: 20))
-        sledBatteryView?.textAlignment = NSTextAlignment.center;
-        sledBatteryView?.font = UIFont.boldSystemFont(ofSize: UIFont.smallSystemFontSize);
-        self.view.addSubview(sledBatteryView!)
-        self.view.addSubview(webView!)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.orientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        ViewController.webView!.addObserver(self, forKeyPath: #keyPath(WKWebView.loading), options: .new, context: nil);
+        
+        self.view = ViewController.webView!
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard let keyPath = keyPath else {return}
+        guard let change = change else {return}
+        switch keyPath {
+
+        case "loading": // new:1 or 0
+            if let val = change[.newKey] as? Bool {
+                if val {
+                    print("starting loading")
+                    CommonUtils.setWebviewLoading(value: true);
+                } else {
+                    print("stopping loading")
+                    CommonUtils.setWebviewLoading(value: false);
+                }
+            }
+        default:break
+        }
     }
     
     override func viewDidLoad() {
@@ -84,14 +95,16 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         var url = CommonUtils.getLandingPage();
         
         //for debugging for testing
-        //url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
-//        url = URL(string: "http://11.120.110.75:10998/")!;
+//        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
+//        url = URL(string: "http://node1.macyslanding.c4d.devops.fds.com:9000/")!;
         CommonUtils.setCurrentPage(value: url)
         loadWebView(url: url)
         
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        NSLog("Website calling: " + message.name);
+        
         if(message.name == "launchSSOPage") {
             let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
             loadWebView(url: url!)
@@ -294,8 +307,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     func loadWebView(url: URL){
         let req = NSURLRequest(url:url)
-        self.webView!.navigationDelegate = self
-        self.webView!.load(req as URLRequest)
+        ViewController.webView!.navigationDelegate = self
+        ViewController.webView!.load(req as URLRequest)
     }
     
     func loadPreviousWebPage(){
@@ -323,16 +336,17 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func evaluateJavaScript(javascriptMessage: String){
-        self.webView?.evaluateJavaScript(javascriptMessage) { result, error in
+    func evaluateJavaScript(javascriptMessage: String) {
+        ViewController.webView?.evaluateJavaScript(javascriptMessage) { result, error in
             guard error == nil else {
-                print(javascriptMessage);                
+                ViewController.storedJS.append(javascriptMessage);
+                print(javascriptMessage);
                 print(error as Any)
                 return
             }
         }
     }
-    
+      
 //    func connectionState(_ state: Int32) {
 //        evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
 //        evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");

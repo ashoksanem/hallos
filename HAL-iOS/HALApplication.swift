@@ -13,9 +13,10 @@ import SystemConfiguration
 
 class HALApplication: UIApplication {
     var timer = Timer()
-    var networkTimer = Timer()
-    var metricTimer = Timer()
-    var batteryTimer = Timer()
+    var networkTimer = Timer();
+    var metricTimer = Timer();
+    var jsTimer = Timer();
+    
     override func sendEvent(_ event: UIEvent) {
         
         if event.type != .touches {
@@ -41,44 +42,53 @@ class HALApplication: UIApplication {
         
         super.sendEvent(event)
     }
+    
     func startTimer(){
         timer = Timer.scheduledTimer(timeInterval: TimeInterval(CommonUtils.getAutoLogoutTimeinterval()), target: self, selector: #selector(self.update), userInfo: nil, repeats: false)
     }
+    
     func startNetworkTimer(){
         networkTimer = Timer.scheduledTimer(timeInterval: TimeInterval(900), target: self, selector: #selector(self.checkNetworkConnectivity), userInfo: nil, repeats: true)
     }
+    
     func stopNetworkTimer(){
         networkTimer.invalidate()
     }
+    
     func startMetricTimer(){
         metricTimer = Timer.scheduledTimer(timeInterval: TimeInterval(CommonUtils.getLogRetryFrequency()), target: self, selector: #selector(self.logStoredData), userInfo: nil, repeats: true)
-       // metricTimer = Timer.scheduledTimer(timeInterval: TimeInterval(10), target: self, selector: #selector(self.logStoredData), userInfo: nil, repeats: true)
-
     }
+    
     func stopMetricTimer(){
         metricTimer.invalidate()
     }
-    func startBatteryTimer(){
-        batteryTimer = Timer.scheduledTimer(timeInterval: TimeInterval(60), target: self, selector: #selector(self.updateBattery), userInfo: nil, repeats: true)
-    }
-    func stopBatteryTimer(){
-        batteryTimer.invalidate()
-    }
+    
     func resetTimer(){
         
         timer.invalidate()
         startTimer()
     }
+    
+    func startJSTimer() {
+        jsTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.250), target: self, selector: #selector(self.sendStoredJS), userInfo: nil, repeats: true)
+    }
+    
+    func stopJSTimer() {
+        jsTimer.invalidate();
+    }
+    
     func update(){
         print(" autologout")
         CommonUtils.setIsSSOAuthenticated( value: false );
     }
+    
     func checkNetworkConnectivity(){
         print("check network")
         if(!isInternetAvailable()){
         LoggingRequest.logData(name: LoggingRequest.metrics_lost_network, value: "", type: "STRING", indexable: true);
         }
     }
+    
     func logStoredData(){
         print("send stored logs to server")
         LogAnalyticsRequest.logStoredData()
@@ -105,9 +115,21 @@ class HALApplication: UIApplication {
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         return (isReachable && !needsConnection)
     }
-    func updateBattery(){
-        print("update Sled battery")
-        let delegate = UIApplication.shared.delegate as? AppDelegate
-        delegate?.updateBattery()
+    
+    func sendStoredJS() {
+       
+        if( ViewController.storedJS.count > 0 )
+        {
+            let javascriptMessage = ViewController.storedJS.popLast() as String!;
+            NSLog("Resending : " + javascriptMessage!);
+            ViewController.webView?.evaluateJavaScript(javascriptMessage!) { result, error in
+                guard error == nil else {
+                    ViewController.storedJS.append(javascriptMessage!);
+                    print(javascriptMessage!);
+                    print(error as Any)
+                    return
+                }
+            }
+        }
     }
 }

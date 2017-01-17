@@ -20,11 +20,15 @@ class LogAnalyticsRequest{
         if (!(jsonData==nil) && !(jsonData?["headers"]==nil)) {
             
         let headersDict = jsonData?["headers"] as! [String:String]
-        request.addValue(headersDict["Content-Type"]!, forHTTPHeaderField: "Content-Type")
-        request.addValue(headersDict["Accepts"]!, forHTTPHeaderField: "Accepts")
-        request.addValue(headersDict["RequesterInfo.version"]!, forHTTPHeaderField: "RequesterInfo.version")
-        request.addValue(headersDict["RequesterInfo.clientId"]!, forHTTPHeaderField: "RequesterInfo.clientId")
-        request.addValue(headersDict["RequesterInfo.subclientId"]!, forHTTPHeaderField: "RequesterInfo.subclientId")
+        for headerkey in headersDict.keys
+        {
+            request.addValue(headersDict[headerkey]!,forHTTPHeaderField: headerkey)
+        }
+        //request.addValue(headersDict["Content-Type"]!, forHTTPHeaderField: "Content-Type")
+        //request.addValue(headersDict["Accepts"]!, forHTTPHeaderField: "Accepts")
+        //request.addValue(headersDict["RequesterInfo.version"]!, forHTTPHeaderField: "RequesterInfo.version")
+        //request.addValue(headersDict["RequesterInfo.clientId"]!, forHTTPHeaderField: "RequesterInfo.clientId")
+        //request.addValue(headersDict["RequesterInfo.subclientId"]!, forHTTPHeaderField: "RequesterInfo.subclientId")
         jsonData?.removeValue(forKey: "headers")
         let finalData=try! JSONSerialization.data(withJSONObject: jsonData, options: [])
         

@@ -43,7 +43,7 @@ class LogAnalyticsRequest{
                         let reasonCode=json?["reasonCode"] as! String
                         if(reasonCode=="0")
                         {
-                            print("success")
+                            print("Sent message through LogAnalyticsRequest.")
                             onCompletion(true)
                         }
                         else

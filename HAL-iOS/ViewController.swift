@@ -87,10 +87,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             case "loading": // new:1 or 0
                 if let val = change[.newKey] as? Bool {
                     if val {
-                        print("starting loading")
+                        NSLog("Starting webview loading.")
                         CommonUtils.setWebviewLoading(value: true);
                     } else {
-                        print("stopping loading")
+                        NSLog("Stopping webview loading.")
                         CommonUtils.setWebviewLoading(value: false);
                     }
                 }
@@ -103,8 +103,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         var url = CommonUtils.getLandingPage();
         
         //for debugging for testing
-        //url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
-        //        url = URL(string: "http://11.120.110.75:10998/")!;
+        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
+//        url = URL(string: "http://11.120.110.75:10998/")!;
         CommonUtils.setCurrentPage(value: url);
         loadWebView(url: url);
     }
@@ -347,8 +347,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         ViewController.webView?.evaluateJavaScript(javascriptMessage) { result, error in
             guard error == nil else {
                 ViewController.storedJS.append(javascriptMessage);
-                print(javascriptMessage);
-                print(error as Any)
+                NSLog("evaluateJavaScript message: " + javascriptMessage);
+                NSLog("evaluateJavaScript error: " + ( error as! String ) );
                 return
             }
         }
@@ -363,7 +363,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     func updateBarcodeData(barcode: String)
     {
-        print("Received scanner data: " + barcode);
+        NSLog("Received scanner data: " + barcode);
         //
         //        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
         //        evaluateJavaScript(javascriptMessage: callback);

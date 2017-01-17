@@ -79,14 +79,13 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         {
             if let val = answersSaved["landingPage"]
             {
-                print("Setting landingPage to: " + (val as! String));
-                print("Current landing page: " + (val as! String));
+                NSLog("Setting landingPage to: " + (val as! String));
             }
             
             if let val = answersSaved["autoLogout"]
             {
 //                print("Setting autoLogout to: " + (val as! String));
-                CommonUtils.setAutoLogoutTimeinterval(value: val as! Int)
+                CommonUtils.setAutoLogoutTimeinterval(value: val as! Int);
             }
             
             if let val = answersSaved["divNum"]
@@ -101,35 +100,42 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 CommonUtils.setStoreNum(value: val as! Int)
             }
 
-            if let val = answersSaved["preProdEnv"]
-            {
-//                print("Setting preProdEnv to: " + (val as! String));
-                CommonUtils.setPreProdEnv(value: val as! Bool)
-            }
+//            if let val = answersSaved["preProdEnv"]
+//            {
+////                print("Setting preProdEnv to: " + (val as! String));
+//                CommonUtils.setPreProdEnv(value: val as! Bool)
+//            }
+            
             if let val = answersSaved["isp"]
             {
                 SharedContainer.setIsp(value: val as! String);
             }
+            
             if let val = answersSaved["ssp"]
             {
                 SharedContainer.setSsp(value: val as! String);
             }
+            
             if let val = answersSaved["cloud"]
             {
                 SharedContainer.setCloud(value: val as! String);
             }
+            
             if let val = answersSaved["LogRetryCount"]
             {
                 CommonUtils.setLogRetryCount(value: val as! Int)
             }
+            
             if let val = answersSaved["LogStorageCountLimit"]
             {
                 CommonUtils.setLogCountLimit(value: val as! Int)
             }
+            
             if let val = answersSaved["LogRetryFrequency"]
             {
                 CommonUtils.setLogRetryFrequency(value: val as! Double)
             }
+            
             if let val = answersSaved["LogStorageTimeLimit"]
             {
                 CommonUtils.setLogTimeLimit(value: val as! Double)

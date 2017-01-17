@@ -240,18 +240,19 @@ class CommonUtils
     
     class func GetZipCode() -> String
     {
-        var count=0;
-        while (UserDefaults.standard.value(forKey: zipCode)==nil && count<5) {
-            let esp = ESPRequest()
-            esp.getZipCode()
-            count=count+1;
+        var count = 0;
+     
+        while (UserDefaults.standard.value(forKey: zipCode) == nil && count < 5) {
+            let esp = ESPRequest();
+            esp.getZipCode();
+            count = count + 1;
         }
-        if(UserDefaults.standard.value(forKey: zipCode)==nil)
-        {
-        return "";
+        
+        if(UserDefaults.standard.value(forKey: zipCode) == nil) {
+            return "";
         }
-        else{
-        return UserDefaults.standard.value(forKey: zipCode) as! String;
+        else {
+            return UserDefaults.standard.value(forKey: zipCode) as! String;
         }
         
     }

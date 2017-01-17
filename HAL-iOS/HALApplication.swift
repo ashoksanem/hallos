@@ -15,6 +15,7 @@ class HALApplication: UIApplication {
     var timer = Timer()
     var networkTimer = Timer();
     var metricTimer = Timer();
+    var batteryTimer = Timer();
     var jsTimer = Timer();
     
     override func sendEvent(_ event: UIEvent) {
@@ -44,76 +45,92 @@ class HALApplication: UIApplication {
     }
     
     func startTimer(){
-        timer = Timer.scheduledTimer(timeInterval: TimeInterval(CommonUtils.getAutoLogoutTimeinterval()), target: self, selector: #selector(self.update), userInfo: nil, repeats: false)
+        timer = Timer.scheduledTimer(timeInterval: TimeInterval(CommonUtils.getAutoLogoutTimeinterval()), target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
     }
     
     func startNetworkTimer(){
-        networkTimer = Timer.scheduledTimer(timeInterval: TimeInterval(900), target: self, selector: #selector(self.checkNetworkConnectivity), userInfo: nil, repeats: true)
+        networkTimer = Timer.scheduledTimer(timeInterval: TimeInterval(900), target: self, selector: #selector(self.checkNetworkConnectivity), userInfo: nil, repeats: true);
     }
     
     func stopNetworkTimer(){
-        networkTimer.invalidate()
+        networkTimer.invalidate();
     }
     
     func startMetricTimer(){
-        metricTimer = Timer.scheduledTimer(timeInterval: TimeInterval(CommonUtils.getLogRetryFrequency()), target: self, selector: #selector(self.logStoredData), userInfo: nil, repeats: true)
+        metricTimer = Timer.scheduledTimer(timeInterval: TimeInterval(CommonUtils.getLogRetryFrequency()), target: self, selector: #selector(self.logStoredData), userInfo: nil, repeats: true);
     }
     
     func stopMetricTimer(){
-        metricTimer.invalidate()
+        metricTimer.invalidate();
     }
     
     func resetTimer(){
         
-        timer.invalidate()
-        startTimer()
+        timer.invalidate();
+        startTimer();
+    }
+    
+    func startBatteryTimer(){
+        batteryTimer = Timer.scheduledTimer(timeInterval: TimeInterval(60), target: self, selector: #selector(self.updateBattery), userInfo: nil, repeats: true);
+    }
+    
+    func stopBatteryTimer(){
+        batteryTimer.invalidate();
     }
     
     func startJSTimer() {
-        jsTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.250), target: self, selector: #selector(self.sendStoredJS), userInfo: nil, repeats: true)
+        jsTimer = Timer.scheduledTimer(timeInterval: TimeInterval(0.250), target: self, selector: #selector(self.sendStoredJS), userInfo: nil, repeats: true);
     }
     
     func stopJSTimer() {
         jsTimer.invalidate();
     }
     
-    func update(){
+    func update() {
         print(" autologout")
         CommonUtils.setIsSSOAuthenticated( value: false );
     }
     
-    func checkNetworkConnectivity(){
+    func checkNetworkConnectivity() {
         print("check network")
         if(!isInternetAvailable()){
         LoggingRequest.logData(name: LoggingRequest.metrics_lost_network, value: "", type: "STRING", indexable: true);
         }
     }
     
-    func logStoredData(){
-        print("send stored logs to server")
-        LogAnalyticsRequest.logStoredData()
-        LoggingRequest.logStoredData()
+    func logStoredData() {
+        print("send stored logs to server");
+        LogAnalyticsRequest.logStoredData();
+        LoggingRequest.logStoredData();
+    }
+    
+    func updateBattery() {
+        print("update Sled battery");
+        let delegate = UIApplication.shared.delegate as? AppDelegate;
+        delegate?.updateBattery();
     }
     
     func isInternetAvailable() -> Bool
     {
-        var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
-        zeroAddress.sin_family = sa_family_t(AF_INET)
+        var zeroAddress = sockaddr_in();
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress));
+        zeroAddress.sin_family = sa_family_t(AF_INET);
         
         let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
             $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
-                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress);
             }
         }
         
-        var flags = SCNetworkReachabilityFlags()
+        var flags = SCNetworkReachabilityFlags();
+        
         if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
-            return false
+            return false;
         }
-        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
-        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
-        return (isReachable && !needsConnection)
+        
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0;
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0;
+        return (isReachable && !needsConnection);
     }
     
     func sendStoredJS() {

@@ -46,7 +46,7 @@ class LoggingRequest{
                     let reasonCode=json?["reasonCode"] as! String
                     if(reasonCode=="0")
                     {
-                       print("success")
+                       print("Sent message through LoggingRequest.")
                        onCompletion(true)
                     }
                     else

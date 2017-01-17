@@ -13,9 +13,9 @@ import JavaScriptCore
 //import DTDevices.h
 class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler,WKNavigationDelegate {
     
-    @IBOutlet var containerView : UIView? = nil
-    static var webView: WKWebView?
+    static var webView: WKWebView?;
     static var storedJS = [String]();
+    var sledBatteryView: UITextView?;
     
     override func loadView() {
         super.loadView()
@@ -62,31 +62,39 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         let config = WKWebViewConfiguration()
         config.userContentController = contentController
         
+        /*self.webView = WKWebView(
+         frame: (self.containerView?.bounds)!,
+         configuration: config
+         )
+         self.view = self.webView!*/
         ViewController.webView = WKWebView(
-            frame: (self.containerView?.bounds)!,
+            frame: (CGRect(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height-20)),
             configuration: config
-        )
-        ViewController.webView!.addObserver(self, forKeyPath: #keyPath(WKWebView.loading), options: .new, context: nil);
+        );
         
-        self.view = ViewController.webView!
+        sledBatteryView = UITextView(frame: CGRect(x: ((self.view.bounds.width/2) - 100), y: -4, width: 80, height: 20));
+        sledBatteryView?.textAlignment = NSTextAlignment.center;
+        sledBatteryView?.font = UIFont.boldSystemFont(ofSize: UIFont.smallSystemFontSize);
+        self.view.addSubview(sledBatteryView!);
+        self.view.addSubview(ViewController.webView!);
+        NotificationCenter.default.addObserver(self, selector: #selector(self.orientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil);
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard let keyPath = keyPath else {return}
-        guard let change = change else {return}
+        guard let keyPath = keyPath else { return; };
+        guard let change = change else { return; };
         switch keyPath {
-
-        case "loading": // new:1 or 0
-            if let val = change[.newKey] as? Bool {
-                if val {
-                    print("starting loading")
-                    CommonUtils.setWebviewLoading(value: true);
-                } else {
-                    print("stopping loading")
-                    CommonUtils.setWebviewLoading(value: false);
+            case "loading": // new:1 or 0
+                if let val = change[.newKey] as? Bool {
+                    if val {
+                        print("starting loading")
+                        CommonUtils.setWebviewLoading(value: true);
+                    } else {
+                        print("stopping loading")
+                        CommonUtils.setWebviewLoading(value: false);
+                    }
                 }
-            }
-        default:break
+            default:break;
         }
     }
     
@@ -95,11 +103,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         var url = CommonUtils.getLandingPage();
         
         //for debugging for testing
-//        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
-//        url = URL(string: "http://node1.macyslanding.c4d.devops.fds.com:9000/")!;
-        CommonUtils.setCurrentPage(value: url)
-        loadWebView(url: url)
-        
+        //url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
+        //        url = URL(string: "http://11.120.110.75:10998/")!;
+        CommonUtils.setCurrentPage(value: url);
+        loadWebView(url: url);
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -132,7 +139,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "goToLandingPage")
         {
-            self.loadWebView(url: CommonUtils.getLandingPage())            
+            self.loadWebView(url: CommonUtils.getLandingPage())
         }
         else if(message.name == "logoutAssociate" )
         {
@@ -219,7 +226,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             if(ZebraBluetooth.connectToDevice(address: address))
             {
                 //showAlert(title: "Connected to printer", message: "success")
-               evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
             else{
                 //showAlert(title: "Could not connect to printer", message: "failed")
@@ -258,12 +265,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             let receipt = data["receipt"] as! String;
             if(ZebraBluetooth.printData(receiptMarkUp: receipt))
             {
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
             else
             {
-            LoggingRequest.logData(name: LoggingRequest.metrics_print_failed, value: "could not print receipt in the printer", type: "STRING", indexable: true);
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
+                LoggingRequest.logData(name: LoggingRequest.metrics_print_failed, value: "could not print receipt in the printer", type: "STRING", indexable: true);
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
             }
             
         }
@@ -306,9 +313,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     }
     
     func loadWebView(url: URL){
-        let req = NSURLRequest(url:url)
-        ViewController.webView!.navigationDelegate = self
-        ViewController.webView!.load(req as URLRequest)
+        let req = NSURLRequest(url:url);
+        ViewController.webView!.navigationDelegate = self;
+        ViewController.webView!.load(req as URLRequest);
     }
     
     func loadPreviousWebPage(){
@@ -346,40 +353,40 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             }
         }
     }
-      
-//    func connectionState(_ state: Int32) {
-//        evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
-//        evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
-//        evaluateJavaScript(javascriptMessage: "updateSledBattery(\(Sled.getSledBatteryLevel()));");
-//        evaluateJavaScript(javascriptMessage: "updateDeviceBattery(\(Sled.getDeviceBatteryLevel()));");
-//    }
+    
+    //    func connectionState(_ state: Int32) {
+    //        evaluateJavaScript(javascriptMessage: "updateSledStatus(\(Sled.isConnected()));");
+    //        evaluateJavaScript(javascriptMessage: "passDataToWeb(\(Assembly.halJson()));");
+    //        evaluateJavaScript(javascriptMessage: "updateSledBattery(\(Sled.getSledBatteryLevel()));");
+    //        evaluateJavaScript(javascriptMessage: "updateDeviceBattery(\(Sled.getDeviceBatteryLevel()));");
+    //    }
     
     func updateBarcodeData(barcode: String)
     {
         print("Received scanner data: " + barcode);
-//
-//        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
-//        evaluateJavaScript(javascriptMessage: callback);
+        //
+        //        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
+        //        evaluateJavaScript(javascriptMessage: callback);
         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"scanCallback\", false, \"" + barcode + "\" )");
     }
     
     override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        super.didReceiveMemoryWarning();
     }
+    
     func orientationChanged() {
-        if (UIApplication.shared.isStatusBarHidden){
-            webView?.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+        if (UIApplication.shared.isStatusBarHidden) {
+            ViewController.webView?.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height);
         } else {
-            webView?.frame = CGRect(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height-20)
+            ViewController.webView?.frame = CGRect(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height-20);
         }
     }
+    
     func updateBattery() {
-        if(Sled.isConnected())
-        {
+        if(Sled.isConnected()) {
             sledBatteryView?.text = Sled.getSledBatteryLevel()+"%🔋";
         }
-        else
-        {
+        else {
             sledBatteryView?.text = "";
         }
     }

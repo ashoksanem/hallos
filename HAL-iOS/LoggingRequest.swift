@@ -27,7 +27,7 @@ class LoggingRequest{
         let session = URLSession.shared
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accepts")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("01.000.0000", forHTTPHeaderField: "RequesterInfo.version")
         request.addValue("Stores", forHTTPHeaderField: "RequesterInfo.clientId")
         request.addValue("SPOS", forHTTPHeaderField: "RequesterInfo.subclientId")

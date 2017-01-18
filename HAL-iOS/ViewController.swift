@@ -83,6 +83,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard let keyPath = keyPath else { return; };
         guard let change = change else { return; };
+        
         switch keyPath {
             case "loading": // new:1 or 0
                 if let val = change[.newKey] as? Bool {
@@ -104,7 +105,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         
         //for debugging for testing
 //        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
-//        url = URL(string: "http://11.120.79.166:10998/")!;
+        url = URL(string: "http://node1.sdpd.c4d.devops.fds.com:9001/")!;
         CommonUtils.setCurrentPage(value: url);
         loadWebView(url: url);
     }
@@ -122,20 +123,25 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             
             if let messageBody:NSDictionary = message.body as? NSDictionary
             {
-                let associateNumber:String = messageBody["associateNumber"] as! String
-                let associatePin:String = messageBody["associatePin"] as! String
-                authenticateUser(associateNumber: associateNumber,associatePin: associatePin)
+                let associateNumber = messageBody["associateNumber"] as? String;
+                let associatePin = messageBody["associatePin"] as? String;
+
+                if( associateNumber != nil && associatePin != nil ) {
+                    authenticateUser(associateNumber: associateNumber!, associatePin: associatePin!);
+                }
             }
         }
         else if(message.name == "isSSOAuthenticated" )
         {
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.isSSOAuthenticatedMessage() + " )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.isSSOAuthenticatedMessage() + " )");
+            }
         }
         else if(message.name == "getHalInfo")
         {
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + Assembly.halJson() + " )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + Assembly.halJson() + " )");
+            }
         }
         else if(message.name == "goToLandingPage")
         {
@@ -143,115 +149,137 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "logoutAssociate" )
         {
-            let id = message.body as! String;
-            CommonUtils.setIsSSOAuthenticated( value: false );
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+            if let id = message.body as? String {
+                CommonUtils.setIsSSOAuthenticated( value: false );
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+            }
         }
         else if(message.name == "getDeviceId" )
         {
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.getDeviceId() + " )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.getDeviceId() + " )");
+            }
         }
         else if(message.name == "getSledStatus")
         {
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( Sled.isConnected() ) + " )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( Sled.isConnected() ) + " )");
+            }
         }
         else if( message.name == "getScannerStatus" )
         {
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
+            }
         }
         else if(message.name == "getSledBatteryLevel")
         {
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + Sled.getSledBatteryLevel() + " )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + Sled.getSledBatteryLevel() + " )");
+            }
         }
         else if(message.name == "getDeviceBatteryLevel")
         {
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + Sled.getDeviceBatteryLevel() + " )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + Sled.getDeviceBatteryLevel() + " )");
+            }
         }
         else if(message.name == "enableScanner")
         {
             Sled.enableScanner();
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
+            }
         }
         else if(message.name == "disableScanner")
         {
             Sled.disableScanner();
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
+            }
         }
         else if(message.name == "saveData")
         {
-            let data = message.body as! NSDictionary;
-            let id = data["handle"] as! String;
+            if let data = message.body as? NSDictionary {
+                if let id = data["handle"] as? String {
             
-            if let messageBody:NSDictionary = message.body as? NSDictionary
-            {
-                let mutDict: NSMutableDictionary = messageBody.mutableCopy() as! NSMutableDictionary;
-                mutDict.removeObject(forKey: "handle");
-                SharedContainer.saveData(data: mutDict as NSDictionary);
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
-            }
-            else
-            {
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
+                    if let messageBody:NSDictionary = message.body as? NSDictionary
+                    {
+                        let mutDict: NSMutableDictionary = messageBody.mutableCopy() as! NSMutableDictionary;
+                        mutDict.removeObject(forKey: "handle");
+                        SharedContainer.saveData(data: mutDict as NSDictionary);
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
+                    }
+                }
             }
         }
         else if(message.name == "restoreData")
         {
-            let data = message.body as! NSDictionary;
-            let id = data["handle"] as! String;
-            let key = data["key"] as! String;
+            if let data = message.body as? NSDictionary {
+                if let id = data["handle"] as? String {
+                    if let key = data["key"] as? String {
             
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + SharedContainer.restoreData(key: key) + " )");
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + SharedContainer.restoreData(key: key) + " )");
+                    }
+                }
+            }
         }
         else if(message.name == "clearData")
         {
-            let data = message.body as! NSDictionary;
-            let id = data["handle"] as! String;
-            let key = data["key"] as! String;
+            if let data = message.body as? NSDictionary {
+                if let id = data["handle"] as? String {
+                    if let key = data["key"] as? String {
             
-            SharedContainer.removeData(key: key)
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                        SharedContainer.removeData(key: key)
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                    }
+                }
+            }
         }
         else if(message.name == "connectToPrinter")
         {
-            let data = message.body as! NSDictionary;
-            let id = data["handle"] as! String;
-            let address = data["data"] as! String;
-            if(ZebraBluetooth.connectToDevice(address: address))
-            {
-                //showAlert(title: "Connected to printer", message: "success")
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
-            }
-            else{
-                //showAlert(title: "Could not connect to printer", message: "failed")
-                LoggingRequest.logData(name: LoggingRequest.metrics_lost_printer_connection, value: "could not connect to the printer with mac address "+address, type: "STRING", indexable: true);
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
+            if let data = message.body as? NSDictionary {
+                if let id = data["handle"] as? String {
+                    if let address = data["data"] as? String {
+            
+                        if(ZebraBluetooth.connectToDevice(address: address))
+                        {
+                            //showAlert(title: "Connected to printer", message: "success")
+                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                        }
+                        else{
+                            //showAlert(title: "Could not connect to printer", message: "failed")
+                            LoggingRequest.logData(name: LoggingRequest.metrics_lost_printer_connection, value: "could not connect to the printer with mac address " + address, type: "STRING", indexable: true);
+                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
+                        }
+                    }
+                }
             }
         }
         else if(message.name == "disconnectFromPrinter")
         {
-            let id = message.body as! String;
-            if(ZebraBluetooth.disconnectFromDevice())
-            {
-                //showAlert(title: "Disconnected from printer", message: "success")
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
-            }
-            else{
-                //showAlert(title: "Could not disconnect from printer", message: "failed")
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+            if let id = message.body as? String {
+                if(ZebraBluetooth.disconnectFromDevice())
+                {
+                    //showAlert(title: "Disconnected from printer", message: "success")
+                    evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                }
+                else{
+                    //showAlert(title: "Could not disconnect from printer", message: "failed")
+                    evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                }
             }
         }
         else if(message.name == "getPrinterStatus")
         {
             let zb =  ZebraBluetooth.init(address: CommonUtils.getPrinterMACAddress())
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, \"" + zb.getCurrentStatus() + "\" )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, \"" + zb.getCurrentStatus() + "\" )");
+            }
             
             //showAlert(title: "PRINTER STATUS",message:zb.getCurrentStatus())
         }
@@ -260,47 +288,54 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             exc.raise()
         }
         else if(message.name == "printdata"){
-            let data = message.body as! NSDictionary;
-            let id = data["handle"] as! String;
-            let receipt = data["receipt"] as! String;
-            if(ZebraBluetooth.printData(receiptMarkUp: receipt))
-            {
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+            if let data = message.body as? NSDictionary {
+                if let id = data["handle"] as? String {
+                    if let receipt = data["receipt"] as? String {
+                        if(ZebraBluetooth.printData(receiptMarkUp: receipt))
+                        {
+                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                        }
+                        else
+                        {
+                            LoggingRequest.logData(name: LoggingRequest.metrics_print_failed, value: "could not print receipt in the printer", type: "STRING", indexable: true);
+                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
+                        }
+                    }
+                }
             }
-            else
-            {
-                LoggingRequest.logData(name: LoggingRequest.metrics_print_failed, value: "could not print receipt in the printer", type: "STRING", indexable: true);
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
-            }
-            
         }
         else if(message.name == "getLocationInformation") {
-            let id = message.body as! String;
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.getLocationInformation() + " )");
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.getLocationInformation() + " )");
+            }
         }
         else if(message.name == "storeAnalyticsLogs") {
-            let _data = message.body as! NSDictionary;
-            let id = _data["handle"] as! String;
-            let data = _data["data"] as! String;
-            let stringData = String( describing: data );
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? String {
+                        let stringData = String( describing: data );
             
-            LogAnalyticsRequest.logData( data:stringData );
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                        LogAnalyticsRequest.logData( data:stringData );
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                    }
+                }
+            }
         }
         else if(message.name == "initHal")
         {
-            let id = message.body as! String;
-            let data = [
-                "hostInformation":[
-                    "isp": SharedContainer.getIsp(),
-                    "ssp": SharedContainer.getSsp(),
-                    "cloud": SharedContainer.getCloud()
-                ] ]as [String : Any]
+            if let id = message.body as? String {
+                let data = [
+                    "hostInformation":[
+                        "isp": SharedContainer.getIsp(),
+                        "ssp": SharedContainer.getSsp(),
+                        "cloud": SharedContainer.getCloud()
+                    ] ]as [String : Any]
             
-            let dataData = try! JSONSerialization.data(withJSONObject: data, options: [])
-            let dataString = String(data: dataData, encoding: String.Encoding.utf8)
+                let dataData = try! JSONSerialization.data(withJSONObject: data, options: [])
+                let dataString = String(data: dataData, encoding: String.Encoding.utf8)
             
-            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + dataString! + " )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + dataString! + " )");
+            }
         }
         else if(message.name == "captureIncorrectLog")
         {
@@ -314,8 +349,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     func loadWebView(url: URL){
         let req = NSURLRequest(url:url);
+        let req2 = req as URLRequest;
+        
         ViewController.webView!.navigationDelegate = self;
-        ViewController.webView!.load(req as URLRequest);
+        ViewController.webView!.load(req2);
     }
     
     func loadPreviousWebPage(){
@@ -348,8 +385,13 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             guard error == nil else {
                 ViewController.storedJS.append(javascriptMessage);
                 NSLog("evaluateJavaScript message: " + javascriptMessage);
-                NSLog("evaluateJavaScript error: " + ( error as! String ) );
-                return
+                if( error != nil ) {
+                    let junk = error?.localizedDescription;
+                    if( junk != nil ) {
+                        NSLog("evaluateJavaScript error: " + junk! );
+                    }
+                }
+                return;
             }
         }
     }

@@ -100,11 +100,11 @@ class CommonUtils
     class func isSSOAuthenticatedMessage() -> String {
         
         let defaults = UserDefaults.standard
-        let associate = defaults.dictionary(forKey: ssoAssociateInfo)! as [String:Any];
-        
+        let associate = (defaults.dictionary(forKey: ssoAssociateInfo))! as [String:Any]
         let associateData = try! JSONSerialization.data(withJSONObject: associate, options: [])
         let associateString = String(data: associateData, encoding: String.Encoding.utf8)
         return associateString!;
+        
     }
     
     class func setAuthServiceUnavailableInfo(assocNbr: String) -> Void {
@@ -139,7 +139,10 @@ class CommonUtils
         let defaults = UserDefaults.standard
         if let landingPageDict = defaults.dictionary(forKey: landingPage)  {
             if let landingPage = landingPageDict["landingPage"] {
-                return URL(string: landingPage as! String)!
+                if(!((landingPage as? String)==nil))
+                {
+                    return (URL(string: landingPage as! String))!
+                }
             }
         }
         //return defaults.url(forKey: landingPage)!
@@ -184,17 +187,29 @@ class CommonUtils
     {
         //let defaults = UserDefaults.standard;
         //let device = defaults.dictionary(forKey: deviceId)! as [String:Any];
-        let device = KeychainWrapper.standard.object(forKey: deviceId) as! [String:Any];
-        
+        if let device = KeychainWrapper.standard.object(forKey: deviceId) as? [String:Any]
+        {
         let deviceData = try! JSONSerialization.data(withJSONObject: device, options: [])
         let deviceString = String(data: deviceData, encoding: String.Encoding.utf8)
         return deviceString!;
+        }
+        else
+        {
+        return "";
+        }
     }
 
     class func getSSOData() -> [String:Any]
     {
         let defaults = UserDefaults.standard
+        if(!((defaults.value(forKey: ssoAssociateInfo) as? [String:Any])==nil))
+        {
         return defaults.value(forKey: ssoAssociateInfo) as! [String:Any]
+        }
+        else
+        {
+            return [:]
+        }
     }
     
     class func getAutoLogoutTimeinterval() -> Int
@@ -248,7 +263,7 @@ class CommonUtils
             count = count + 1;
         }
         
-        if(UserDefaults.standard.value(forKey: zipCode) == nil) {
+        if(UserDefaults.standard.string(forKey: zipCode) == nil) {
             return "";
         }
         else {
@@ -289,9 +304,9 @@ class CommonUtils
     class func getPrinterMACAddress() -> String
     {
         let defaults = UserDefaults.standard
-        if let macAddress = defaults.value(forKey: printerMACAddress)
+        if let macAddress = defaults.string(forKey: printerMACAddress)
         {
-            return macAddress as! String
+            return macAddress
         }
 
         return ""
@@ -306,7 +321,11 @@ class CommonUtils
     class func getScannerEnabledCallback() -> String
     {
         let defaults = UserDefaults.standard;
-        return defaults.value(forKey: scannerEnabledCallback) as! String;
+        if(defaults.string(forKey: scannerEnabledCallback)==nil)
+        {
+        return ""
+        }
+        return defaults.string(forKey: scannerEnabledCallback)!;
     }
     
     class func setScannerScanCallback(value: String)
@@ -318,25 +337,35 @@ class CommonUtils
     class func getScannerScanCallback() -> String
     {
         let defaults = UserDefaults.standard;
+        if((defaults.value(forKey: scannerScanCallback) as? String)==nil)
+        {
+            return "";
+        }
         return defaults.value(forKey: scannerScanCallback) as! String;
     }
     
     class func getLocationInformation() -> String
     {
         let defaults = UserDefaults.standard;
-        
-        let locationInformation = [
-            "locationInformation":[
-                "divInfo": ["num":defaults.string(forKey: divNum)] as Any,
-                "storeInfo": ["num":defaults.string(forKey: storeNum) as Any,
-                              "zipCode": GetZipCode(),
-                              "locn": defaults.string(forKey: locnNum) as Any],
-                "zipCode": GetZipCode()
-            ] ]as [String : Any];
-        
-        let data = try! JSONSerialization.data(withJSONObject: locationInformation, options: [])
-        let string = String(data: data, encoding: String.Encoding.utf8)
-        return string!;
+        if((defaults.string(forKey: divNum)==nil) || (defaults.string(forKey: storeNum)==nil) || (defaults.string(forKey: locnNum)==nil) )
+        {
+            return "";
+        }
+        else
+        {
+            let locationInformation = [
+                "locationInformation":[
+                    "divInfo": ["num":defaults.string(forKey: divNum)] as Any,
+                    "storeInfo": ["num":defaults.string(forKey: storeNum) as Any,
+                                  "zipCode": GetZipCode(),
+                                  "locn": defaults.string(forKey: locnNum) as Any],
+                    "zipCode": GetZipCode()
+                ] ]as [String : Any];
+            
+            let data = try! JSONSerialization.data(withJSONObject: locationInformation, options: [])
+            let string = String(data: data, encoding: String.Encoding.utf8)
+            return string!;
+        }
     }
     
     class func getLogCountLimit() -> Int

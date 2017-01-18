@@ -21,8 +21,10 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: exception.reason!, type: "STRING", indexable: true);
         }
         CommonUtils.setUpUserDefaults()
-        let app = application as! HALApplication;
+        if let app = application as? HALApplication
+        {
         app.startTimer()
+        }
         //app.startNetworkTimer()
         detectDevice();
         NotificationCenter.default.addObserver( self,
@@ -45,11 +47,13 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         CommonUtils.setIsSSOAuthenticated( value: false );
         
         LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
-        let app = application as! HALApplication;
+        if let app = application as? HALApplication
+        {
         app.stopNetworkTimer();
         app.stopMetricTimer();
         app.stopBatteryTimer();
         app.stopJSTimer();
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -64,11 +68,13 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                                                 name: UserDefaults.didChangeNotification,
                                                 object: nil);
         LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
-        let app = application as! HALApplication;
+        if let app = application as? HALApplication
+        {
         app.startNetworkTimer();
         app.startMetricTimer();
         app.startBatteryTimer();
         app.startJSTimer();
+        }
     }
     
     func readMDMValues()
@@ -79,25 +85,37 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         {
             if let val = answersSaved["landingPage"]
             {
+                if(!((val as? String)==nil))
+                {
                 NSLog("Setting landingPage to: " + (val as! String));
+                }
             }
             
             if let val = answersSaved["autoLogout"]
             {
 //                print("Setting autoLogout to: " + (val as! String));
+                if(!((val as? Int)==nil))
+                {
                 CommonUtils.setAutoLogoutTimeinterval(value: val as! Int);
+                }
             }
             
             if let val = answersSaved["divNum"]
             {
 //                print("Setting divNum to: " + (val as! String));
+                if(!((val as? Int)==nil))
+                {
                 CommonUtils.setDivNum(value: val as! Int)
+                }
             }
             
             if let val = answersSaved["storeNum"]
             {
 //                print("Setting storeNum to: " + (val as! String));
+                if(!((val as? Int)==nil))
+                {
                 CommonUtils.setStoreNum(value: val as! Int)
+                }
             }
 
 //            if let val = answersSaved["preProdEnv"]
@@ -108,37 +126,58 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             
             if let val = answersSaved["isp"]
             {
+                if(!((val as? String)==nil))
+                {
                 SharedContainer.setIsp(value: val as! String);
+                }
             }
             
             if let val = answersSaved["ssp"]
             {
+                if(!((val as? String)==nil))
+                {
                 SharedContainer.setSsp(value: val as! String);
+                }
             }
             
             if let val = answersSaved["cloud"]
             {
+                if(!((val as? String)==nil))
+                {
                 SharedContainer.setCloud(value: val as! String);
+                }
             }
             
             if let val = answersSaved["LogRetryCount"]
             {
+                if(!((val as? Int)==nil))
+                {
                 CommonUtils.setLogRetryCount(value: val as! Int)
+                }
             }
             
             if let val = answersSaved["LogStorageCountLimit"]
             {
+                if(!((val as? Int)==nil))
+                {
                 CommonUtils.setLogCountLimit(value: val as! Int)
+                }
             }
             
             if let val = answersSaved["LogRetryFrequency"]
             {
+                if(!((val as? Double)==nil))
+                {
                 CommonUtils.setLogRetryFrequency(value: val as! Double)
+                }
             }
             
             if let val = answersSaved["LogStorageTimeLimit"]
             {
+                if(!((val as? Double)==nil))
+                {
                 CommonUtils.setLogTimeLimit(value: val as! Double)
+                }
             }
             
             let esp = ESPRequest();
@@ -226,7 +265,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     
     func isLineaConnected()->Bool
     {
-        return (sled!.connstate==2)
+        return (sled?.connstate==2)
     }
     
     func barcodeData(_ barcode: String!, type: Int32) {
@@ -251,8 +290,10 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     {
         if(CommonUtils.isScanEnabled())
         {
-            let viewController:ViewController = window!.rootViewController as! ViewController;
+            if let viewController:ViewController = window!.rootViewController as? ViewController
+            {
             viewController.updateBarcodeData(barcode: barcode)
+            }
         }
     }
     
@@ -326,7 +367,9 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     }
     
     func updateBattery() {
-        let viewController:ViewController = window!.rootViewController as! ViewController;
+        if let viewController:ViewController = window!.rootViewController as? ViewController
+        {
         viewController.updateBattery();
+        }
     }
 }

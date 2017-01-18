@@ -104,7 +104,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         
         //for debugging for testing
 //        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
-//        url = URL(string: "http://11.120.110.75:10998/")!;
+//        url = URL(string: "http://11.120.79.166:10998/")!;
         CommonUtils.setCurrentPage(value: url);
         loadWebView(url: url);
     }

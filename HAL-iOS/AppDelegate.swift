@@ -75,11 +75,14 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     { //addLineZPL()
         NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil);
         let userDefaults = UserDefaults.standard;
-        if let answersSaved = userDefaults.dictionary(forKey: CommonUtils.landingPage)
+        if let answersSaved = userDefaults.dictionary(forKey: CommonUtils.managedAppConfig)
         {
             if let val = answersSaved["landingPage"]
             {
-                NSLog("Setting landingPage to: " + (val as! String));
+                let trimmed = ( val as! String ).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
+                let url = URL(string: trimmed)!;
+                CommonUtils.setLandingPage(value: url);
+                NSLog("Setting landingPage to: " + trimmed);
             }
             
             if let val = answersSaved["autoLogout"]
@@ -108,17 +111,20 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             
             if let val = answersSaved["isp"]
             {
-                SharedContainer.setIsp(value: val as! String);
+                let trimmed = ( val as! String ).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
+                SharedContainer.setIsp(value: trimmed);
             }
             
             if let val = answersSaved["ssp"]
             {
-                SharedContainer.setSsp(value: val as! String);
+                let trimmed = ( val as! String ).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
+                SharedContainer.setSsp(value: trimmed);
             }
             
             if let val = answersSaved["cloud"]
             {
-                SharedContainer.setCloud(value: val as! String);
+                let trimmed = ( val as! String ).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
+                SharedContainer.setCloud(value: trimmed);
             }
             
             if let val = answersSaved["LogRetryCount"]

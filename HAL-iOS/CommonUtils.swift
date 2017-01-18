@@ -20,7 +20,8 @@ class CommonUtils
     static let ssoAssociateInfo = "ssoAssociateInfo";
     static let currentPage = "currentPage";
     static let allowScan = "allowScan";
-    static let landingPage = "com.apple.configuration.managed";
+    static let managedAppConfig = "com.apple.configuration.managed";
+    static let landingPage = "landingPage";
     static let deviceId = "deviceId";
     static let printerMACAddress = "printerMACAddress";
     static let isPrinterCPCL = "isCPCL";
@@ -62,48 +63,48 @@ class CommonUtils
         defaults.setValue(["deviceId":uuid], forKey: deviceId);*/
         if !(KeychainWrapper.standard.hasValue(forKey: deviceId)){
             uuid = UUID().uuidString;
-            KeychainWrapper.standard.set(["deviceId":uuid] as NSCoding, forKey: deviceId)
+            KeychainWrapper.standard.set(["deviceId":uuid] as NSCoding, forKey: deviceId);
         }
     }
     
     class func isSSOAuthenticated() -> Bool
     {
-        let defaults = UserDefaults.standard
-        return defaults.bool(forKey: ssoSignedInKey)
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: ssoSignedInKey);
     }
     
     class func isScanEnabled() -> Bool
     {
-        let defaults = UserDefaults.standard
-        return defaults.bool(forKey: allowScan)
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: allowScan);
     }
     class func setScanEnabled(value: Bool)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: allowScan)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: allowScan);
        
-        print(value)
+//        NSLog("setScanEnabled: " + ( value as String ));
     }
     
     class func isCPCLPrinter() -> Bool
     {
-        let defaults = UserDefaults.standard
-        return defaults.bool(forKey: isPrinterCPCL)
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: isPrinterCPCL);
     }
     
     class func setCPCLPrinter(value: Bool)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: isPrinterCPCL)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: isPrinterCPCL);
     }
     
     class func isSSOAuthenticatedMessage() -> String {
         
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
         let associate = defaults.dictionary(forKey: ssoAssociateInfo)! as [String:Any];
         
-        let associateData = try! JSONSerialization.data(withJSONObject: associate, options: [])
-        let associateString = String(data: associateData, encoding: String.Encoding.utf8)
+        let associateData = try! JSONSerialization.data(withJSONObject: associate, options: []);
+        let associateString = String(data: associateData, encoding: String.Encoding.utf8);
         return associateString!;
     }
     
@@ -113,70 +114,64 @@ class CommonUtils
             "associateName": " ",
             "associateNbr": assocNbr,
             "managerLevel": 1
-            ] ]as [String : Any]
-        CommonUtils.setIsSSOAuthenticated(value: true)
-        let defaults = UserDefaults.standard
-        defaults.setValue(authMessage, forKey: ssoAssociateInfo)
+            ] ]as [String : Any];
+        CommonUtils.setIsSSOAuthenticated(value: true);
+        let defaults = UserDefaults.standard;
+        defaults.setValue(authMessage, forKey: ssoAssociateInfo);
     }
     
     class func setIsSSOAuthenticated(value: Bool) -> Void
     {
-        let defaults = UserDefaults.standard
-        defaults.setValue(value, forKey: ssoSignedInKey)
+        let defaults = UserDefaults.standard;
+        defaults.setValue(value, forKey: ssoSignedInKey);
         
         if( value == false ) {
-            defaults.setValue([:], forKey: ssoAssociateInfo)
+            defaults.setValue([:], forKey: ssoAssociateInfo);
         }
     }
     
     class func setLandingPage(value: URL) -> Void {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: landingPage)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: landingPage);
     }
     
     class func getLandingPage() -> URL
     {
-        let defaults = UserDefaults.standard
-        if let landingPageDict = defaults.dictionary(forKey: landingPage)  {
-            if let landingPage = landingPageDict["landingPage"] {
-                return URL(string: landingPage as! String)!
-            }
-        }
-        //return defaults.url(forKey: landingPage)!
-        return URL(string: "http://www.macys.com")!;
+        let defaults = UserDefaults.standard;
+        return defaults.url(forKey: landingPage)!;
     }
     
     class func setCurrentPage(value: URL) -> Void
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: currentPage)
-        //defaults.setValue(value, forKey: currentPage)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: currentPage);
+        //defaults.setValue(value, forKey: currentPage);
     }
     
     class func getCurrentPage() -> URL
     {
-        let defaults = UserDefaults.standard
-        return defaults.url(forKey: currentPage)!
+        let defaults = UserDefaults.standard;
+        return defaults.url(forKey: currentPage)!;
     }
     
     class func setSSOData(value: Data) -> Void
     {
-        let json = JSON(data: value)
-        let ssoJsonObject : Json4Swift_Base = Json4Swift_Base(dictionary: json)!
+        let json = JSON(data: value);
+        let ssoJsonObject : Json4Swift_Base = Json4Swift_Base(dictionary: json)!;
         
         print(ssoJsonObject);
         
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
 
         if( ssoJsonObject.error?.errorCode == 0 )
         {
-            CommonUtils.setIsSSOAuthenticated(value: true)
-            defaults.setValue(ssoJsonObject.dictionaryRepresentation(), forKey: ssoAssociateInfo)
+            CommonUtils.setIsSSOAuthenticated(value: true);
+            defaults.setValue(ssoJsonObject.dictionaryRepresentation(), forKey: ssoAssociateInfo);
         }
         else
         {
-            CommonUtils.setIsSSOAuthenticated(value: false)
-            defaults.setValue([:], forKey: ssoAssociateInfo)
+            CommonUtils.setIsSSOAuthenticated(value: false);
+            defaults.setValue([:], forKey: ssoAssociateInfo);
         }
     }
 
@@ -186,20 +181,20 @@ class CommonUtils
         //let device = defaults.dictionary(forKey: deviceId)! as [String:Any];
         let device = KeychainWrapper.standard.object(forKey: deviceId) as! [String:Any];
         
-        let deviceData = try! JSONSerialization.data(withJSONObject: device, options: [])
-        let deviceString = String(data: deviceData, encoding: String.Encoding.utf8)
+        let deviceData = try! JSONSerialization.data(withJSONObject: device, options: []);
+        let deviceString = String(data: deviceData, encoding: String.Encoding.utf8);
         return deviceString!;
     }
 
     class func getSSOData() -> [String:Any]
     {
-        let defaults = UserDefaults.standard
-        return defaults.value(forKey: ssoAssociateInfo) as! [String:Any]
+        let defaults = UserDefaults.standard;
+        return defaults.value(forKey: ssoAssociateInfo) as! [String:Any];
     }
     
     class func getAutoLogoutTimeinterval() -> Int
     {
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
         if( defaults.integer(forKey: autoLogout)==0)
         {
             return 1200;
@@ -210,32 +205,32 @@ class CommonUtils
     
     class func setAutoLogoutTimeinterval(value: Int)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: autoLogout)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: autoLogout);
     }
     
     class func setDivNum(value: Int)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: divNum)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: divNum);
     }
     
     class func setStoreNum(value: Int)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: storeNum)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: storeNum);
     }
     
     class func setLocnNum(value: Int)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: locnNum)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: locnNum);
     }
     
     class func setZipCode(value: String)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: zipCode)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: zipCode);
     }
     
     class func GetZipCode() -> String
@@ -259,7 +254,7 @@ class CommonUtils
     class func getDivNum() -> Int
     {
         let defaults = UserDefaults.standard;
-        return defaults.integer(forKey: divNum)
+        return defaults.integer(forKey: divNum);
     }
     
     class func getStoreNum() -> Int
@@ -276,25 +271,25 @@ class CommonUtils
     
     class func setPrinterMACAddress(value: String)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: printerMACAddress)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: printerMACAddress);
     }
     
     class func setPreProdEnv(value: Bool)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: isPreProdEnv)
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: isPreProdEnv);
     }
     
     class func getPrinterMACAddress() -> String
     {
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
         if let macAddress = defaults.value(forKey: printerMACAddress)
         {
-            return macAddress as! String
+            return macAddress as! String;
         }
 
-        return ""
+        return "";
     }
     
     class func setScannerEnabledCallback(value: String)
@@ -334,14 +329,14 @@ class CommonUtils
                 "zipCode": GetZipCode()
             ] ]as [String : Any];
         
-        let data = try! JSONSerialization.data(withJSONObject: locationInformation, options: [])
-        let string = String(data: data, encoding: String.Encoding.utf8)
+        let data = try! JSONSerialization.data(withJSONObject: locationInformation, options: []);
+        let string = String(data: data, encoding: String.Encoding.utf8);
         return string!;
     }
     
     class func getLogCountLimit() -> Int
     {
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
         if( defaults.integer(forKey: "LogCountLimit")==0)
         {
             return 5000;
@@ -352,13 +347,13 @@ class CommonUtils
     
     class func setLogCountLimit(value: Int)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: "LogCountLimit")
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: "LogCountLimit");
     }
     
     class func getLogTimeLimit() -> Double
     {
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
         if( defaults.double(forKey: "LogTimeLimit")==0)
         {
             return 10800;
@@ -369,13 +364,13 @@ class CommonUtils
     
     class func setLogTimeLimit(value: Double)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: "LogTimeLimit")
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: "LogTimeLimit");
     }
     
     class func getLogRetryCount() -> Int
     {
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
         if( defaults.integer(forKey: "LogRetryCount")==0)
         {
             return 25;
@@ -386,13 +381,13 @@ class CommonUtils
     
     class func setLogRetryCount(value: Int)
     {
-        let defaults = UserDefaults.standard
-        defaults.set(value, forKey: "LogRetryCount")
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: "LogRetryCount");
     }
     
     class func getLogRetryFrequency() -> Double
     {
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
         if( defaults.double(forKey: "LogRetryFrequency")==0)
         {
             return 30;
@@ -403,19 +398,19 @@ class CommonUtils
     
     class func setLogRetryFrequency(value: Double)
     {
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
         defaults.set(value, forKey: "LogRetryFrequency")
     }
     
     class func getWebviewLoading() -> Bool
     {
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
         return defaults.bool(forKey: "webviewLoading");
     }
     
     class func setWebviewLoading(value: Bool)
     {
-        let defaults = UserDefaults.standard
+        let defaults = UserDefaults.standard;
         defaults.set(value, forKey: "webviewLoading")
     }
 

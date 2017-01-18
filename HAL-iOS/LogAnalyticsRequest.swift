@@ -12,61 +12,66 @@ class LogAnalyticsRequest{
     
     class func makeServerRequest(data: Data,onCompletion: @escaping (_ result: Bool)->Void) {
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
-        let request = NSMutableURLRequest(url: NSURL(string: networkReqURL) as! URL)
-        let session = URLSession.shared
-        request.httpMethod = "POST"
-        var jsonData = JSON(data: data).dictionaryObject
-        //print(jsonData?["headers"])
-        if (!(jsonData==nil) && !(jsonData?["headers"]==nil)) {
-            
-        let headersDict = jsonData?["headers"] as! [String:String]
-        for headerkey in headersDict.keys
-        {
-            request.addValue(headersDict[headerkey]!,forHTTPHeaderField: headerkey)
-        }
-        //request.addValue(headersDict["Content-Type"]!, forHTTPHeaderField: "Content-Type")
-        //request.addValue(headersDict["Accepts"]!, forHTTPHeaderField: "Accepts")
-        //request.addValue(headersDict["RequesterInfo.version"]!, forHTTPHeaderField: "RequesterInfo.version")
-        //request.addValue(headersDict["RequesterInfo.clientId"]!, forHTTPHeaderField: "RequesterInfo.clientId")
-        //request.addValue(headersDict["RequesterInfo.subclientId"]!, forHTTPHeaderField: "RequesterInfo.subclientId")
-        jsonData?.removeValue(forKey: "headers")
-        let finalData=try! JSONSerialization.data(withJSONObject: jsonData, options: [])
         
-        request.httpBody=finalData;
-        let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
-            if(error != nil) {
-                print(error.debugDescription)
-                onCompletion(false)
+        if let url = NSURL(string: networkReqURL) as? URL {
+            
+            let request = NSMutableURLRequest(url: url);
+            let session = URLSession.shared
+            request.httpMethod = "POST"
+        
+            var jsonData = JSON(data: data).dictionaryObject
+            //print(jsonData?["headers"])
+            if (!(jsonData==nil) && !(jsonData?["headers"]==nil)) {
+                
+            if let headersDict = jsonData?["headers"] as? [String:String] {
+                for headerkey in headersDict.keys
+                {
+                    request.addValue(headersDict[headerkey]!,forHTTPHeaderField: headerkey)
+                }
+                //request.addValue(headersDict["Content-Type"]!, forHTTPHeaderField: "Content-Type")
+                //request.addValue(headersDict["Accepts"]!, forHTTPHeaderField: "Accepts")
+                //request.addValue(headersDict["RequesterInfo.version"]!, forHTTPHeaderField: "RequesterInfo.version")
+                //request.addValue(headersDict["RequesterInfo.clientId"]!, forHTTPHeaderField: "RequesterInfo.clientId")
+                //request.addValue(headersDict["RequesterInfo.subclientId"]!, forHTTPHeaderField: "RequesterInfo.subclientId")
+                jsonData?.removeValue(forKey: "headers")
+                let finalData=try! JSONSerialization.data(withJSONObject: jsonData, options: [])
+                
+                request.httpBody=finalData
             }
-            else
-            {
-                let resp=response! as! HTTPURLResponse;
-                if(resp.statusCode==200){
-                    do {
-                        let json = JSON(data: data!).dictionaryObject
-                        let reasonCode=json?["reasonCode"] as! String
-                        if(reasonCode=="0")
-                        {
-                            print("Sent message through LogAnalyticsRequest.")
-                            onCompletion(true)
-                        }
-                        else
-                        {
-                            onCompletion(false)
-                        }
-                    } catch {
-                        print(error)
-                        onCompletion(false)
-                    }
-                    
+            let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                if(error != nil) {
+                    print(error.debugDescription)
+                    onCompletion(false)
                 }
                 else
                 {
-                    print(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
-                    onCompletion(false)
-                }
-            }})
-        task.resume()
+                    let resp=response! as? HTTPURLResponse;
+                    
+                    if(resp != nil && resp?.statusCode==200){
+                        do {
+                            let json = JSON(data: data!).dictionaryObject
+                            let reasonCode=json?["reasonCode"] as? String
+                            if (reasonCode != nil) {
+                                if(reasonCode=="0") {
+                                    print("Sent message through LogAnalyticsRequest.")
+                                    onCompletion(true)
+                                } else {
+                                    onCompletion(false)
+                                }
+                            }
+                        } catch {
+                            print(error)
+                            onCompletion(false)
+                        }
+                    }
+                    else
+                    {
+                        print(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
+                        onCompletion(false)
+                    }
+                }})
+                task.resume()
+            }
         }
         else
         {
@@ -106,9 +111,10 @@ class LogAnalyticsRequest{
                           "count":0,
                           "date": dateFormatter.string(from: Date())] as [String:Any]
         if let metricsinfo = defaults.value(forKey: metricsLog) {
-            var metricsArray =  metricsinfo as! [[String:Any]];
-            metricsArray.append(metricdata)
-            defaults.set(metricsArray, forKey: metricsLog)
+            if var metricsArray =  metricsinfo as? [[String:Any]] {
+                metricsArray.append(metricdata)
+                defaults.set(metricsArray, forKey: metricsLog)
+            }
         }
         else
         {
@@ -125,42 +131,45 @@ class LogAnalyticsRequest{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.timeZone = TimeZone.current
-        var metricslist =  defaults.value(forKey: metricsLog);
+        let metricslist =  defaults.value(forKey: metricsLog);
         if(!(metricslist==nil))
         {
-        let metricsStored =  defaults.value(forKey: metricsLog) as! [[String:Any]]
-        var metricsUndelivered = [[String : Any]]();
-        let logCountLimit = CommonUtils.getLogCountLimit();
-        let logTimeLimit = CommonUtils.getLogTimeLimit();
-        let logRetryCount = CommonUtils.getLogRetryCount();
-        for metric in metricsStored
-        {
-            let dateNow = Date();
-            if(!sendData(data: metric["data"] as! Data))
-            {
-                var metricRetryCount = metric["count"] as! Int;
-                let metricDate = metric["date"] as! String;
-                let metricTimestamp = dateFormatter.date(from: metricDate)
-                let timeGap = dateNow.timeIntervalSince(metricTimestamp!)
-                if((metricRetryCount<logRetryCount) && (timeGap<logTimeLimit))
+            if let metricsStored =  defaults.value(forKey: metricsLog) as? [[String:Any]] {
+                var metricsUndelivered = [[String : Any]]();
+                let logCountLimit = CommonUtils.getLogCountLimit();
+                let logTimeLimit = CommonUtils.getLogTimeLimit();
+                let logRetryCount = CommonUtils.getLogRetryCount();
+                for metric in metricsStored
                 {
-                    metricRetryCount=metricRetryCount+1;
-                    var metricTemp = metric;
-                    metricTemp["count"]=metricRetryCount;
-                    metricsUndelivered.append(metricTemp)
+                    let dateNow = Date();
+                    if(!sendData(data: metric["data"] as! Data)) {
+                        if var metricRetryCount = metric["count"] as? Int {
+                            if let metricDate = metric["date"] as? String {
+                                let metricTimestamp = dateFormatter.date(from: metricDate)
+                                let timeGap = dateNow.timeIntervalSince(metricTimestamp!)
+                                if((metricRetryCount<logRetryCount) && (timeGap<logTimeLimit))
+                                {
+                                    metricRetryCount=metricRetryCount+1;
+                                    var metricTemp = metric;
+                                    metricTemp["count"]=metricRetryCount;
+                                    metricsUndelivered.append(metricTemp)
+                                }
+                            }
+                        }
+                    }
+                }
+                defaults.removeObject(forKey: metricsLog)
+                if(metricsUndelivered.count>0)
+                {
+                    if(metricsUndelivered.count>logCountLimit)
+                    {
+                        metricsUndelivered=Array(metricsUndelivered.dropFirst(metricsUndelivered.count-logCountLimit))
+                    }
+                    defaults.set(metricsUndelivered, forKey: metricsLog)
                 }
             }
         }
-        defaults.removeObject(forKey: metricsLog)
-        if(metricsUndelivered.count>0)
-        {
-            if(metricsUndelivered.count>logCountLimit)
-            {
-                metricsUndelivered=Array(metricsUndelivered.dropFirst(metricsUndelivered.count-logCountLimit))
-            }
-            defaults.set(metricsUndelivered, forKey: metricsLog)
-        }
-        }}
+    }
     
     class func sendData(data: Data) -> Bool
     {

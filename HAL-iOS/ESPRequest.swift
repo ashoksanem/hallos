@@ -53,7 +53,10 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
     
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         let strData = NSString(data: data, encoding: String.Encoding.utf8.rawValue);
-        NSLog( "ESP Response: " + ( strData as! String ) );
+        let stringData = strData as? String
+        if (stringData != nil) {
+            NSLog( "ESP Response: " + ( stringData! ) )
+        }
         let xmlParser = XMLParser(data: data);
         xmlParser.delegate = self;
         xmlParser.parse();

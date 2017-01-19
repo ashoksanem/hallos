@@ -10,7 +10,11 @@ import Foundation
 class Assembly{
     class func halVersion() -> String {
         
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        if(!((Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String)==nil))
+        {
+            return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        }
+        return "";
     }
     
     class func halType() -> String {

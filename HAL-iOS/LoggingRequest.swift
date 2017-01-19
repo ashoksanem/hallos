@@ -23,49 +23,53 @@ class LoggingRequest{
     
     class func makeServerRequest(data: Data,onCompletion: @escaping (_ result: Bool)->Void) {
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
-        let request = NSMutableURLRequest(url: NSURL(string: networkReqURL) as! URL)
-        let session = URLSession.shared
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("01.000.0000", forHTTPHeaderField: "RequesterInfo.version")
-        request.addValue("Stores", forHTTPHeaderField: "RequesterInfo.clientId")
-        request.addValue("SPOS", forHTTPHeaderField: "RequesterInfo.subclientId")
-        request.httpBody=data;
-        let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
-            if(error != nil) {
-                print(error.debugDescription)
-                onCompletion(false)
-            }
-            else
-            {
-                let resp=response! as! HTTPURLResponse;
-                if(resp.statusCode==200){
-                do {
-                    let json = JSON(data: data!).dictionaryObject
-                    let reasonCode=json?["reasonCode"] as! String
-                    if(reasonCode=="0")
-                    {
-                       print("Sent message through LoggingRequest.")
-                       onCompletion(true)
-                    }
-                    else
-                    {
-                       onCompletion(false)
-                    }
-                } catch {
-                    print(error)
+        if let url = NSURL(string: networkReqURL) as? URL {
+            let request = NSMutableURLRequest(url: url)
+        
+            let session = URLSession.shared
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            request.addValue("01.000.0000", forHTTPHeaderField: "RequesterInfo.version")
+            request.addValue("Stores", forHTTPHeaderField: "RequesterInfo.clientId")
+            request.addValue("SPOS", forHTTPHeaderField: "RequesterInfo.subclientId")
+            request.httpBody=data;
+            let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                if(error != nil) {
+                    print(error.debugDescription)
                     onCompletion(false)
-                }
-                
                 }
                 else
                 {
-                  print(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
-                  onCompletion(false)
-                }
-            }})
-        task.resume()
+                    let resp=response! as? HTTPURLResponse;
+                    if(resp != nil && resp?.statusCode==200){
+                        do {
+                            let json = JSON(data: data!).dictionaryObject
+                            if let reasonCode=json?["reasonCode"] as? String {
+                                if(reasonCode=="0")
+                                {
+                                   print("Sent message through LoggingRequest.")
+                                   onCompletion(true)
+                                }
+                                else
+                                {
+                                   onCompletion(false)
+                                }
+                            }
+                        } catch {
+                            print(error)
+                            onCompletion(false)
+                        }
+                    
+                    }
+                    else
+                    {
+                      print(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
+                      onCompletion(false)
+                    }
+                }})
+            task.resume()
+        }
     }
     
     class func logData(name:String,value:String,type:String,indexable:Bool)-> Void {
@@ -89,10 +93,11 @@ class LoggingRequest{
         
         let defaults = UserDefaults.standard
         //defaults.removeObject(forKey: metricsLog)
-       if let metricsinfo = defaults.value(forKey: metricsLog) {
-            var metricsArray =  metricsinfo as! [[String:Any]];
-            metricsArray.append(metricdata)
-            defaults.set(metricsArray, forKey: metricsLog)
+        if let metricsinfo = defaults.value(forKey: metricsLog) {
+            if var metricsArray =  metricsinfo as? [[String:Any]]{
+                metricsArray.append(metricdata)
+                defaults.set(metricsArray, forKey: metricsLog)
+            }
         }
         else
         {
@@ -111,42 +116,46 @@ class LoggingRequest{
         var metricslist =  defaults.value(forKey: metricsLog);
         if(!(metricslist==nil))
         {
-        var metricsStored =  defaults.value(forKey: metricsLog) as! [[String:Any]];
+        var metricsStored =  defaults.value(forKey: metricsLog) as? [[String:Any]]
         var metricsUndelivered = [[String : Any]]();
         let logCountLimit = CommonUtils.getLogCountLimit();
         let logTimeLimit = CommonUtils.getLogTimeLimit();
         let logRetryCount = CommonUtils.getLogRetryCount();
-        for metric in metricsStored
-        {
-            let metadata = [
-                "application": "Stores.HAL.iOS",
-                "logLevel": "INFO",
-                "dateTime": metric["date"] as! String ,
-                "message": "This is a log message",
-                "serviceVersion": 1,
-                "messageLevel": "ENTERPRISE",
-                "metaData":[
-                    "componentName": "EnterpriseTest",
-                    "correlationID": "1",
-                    "metricList": [
-                        "metrics":  [metric["data"]]               ]
-                ]
-                ] as [String : Any]
-            
-            let requestData = try! JSONSerialization.data(withJSONObject: metadata, options: [])
-            let dateNow = Date();
-            if(!sendData(data: requestData))
+        if metricsStored != nil {
+            for metric in metricsStored!
             {
-                var metricRetryCount = metric["count"] as! Int;
-                let metricDate = metric["date"] as! String;
-                let metricTimestamp = dateFormatter.date(from: metricDate)
-                let timeGap = dateNow.timeIntervalSince(metricTimestamp!)
-                if((metricRetryCount<logRetryCount) && (timeGap<logTimeLimit))
+                let metadata = [
+                    "application": "Stores.HAL.iOS",
+                    "logLevel": "INFO",
+                    "dateTime": metric["date"] as! String ,
+                    "message": "This is a log message",
+                    "serviceVersion": 1,
+                    "messageLevel": "ENTERPRISE",
+                    "metaData":[
+                        "componentName": "EnterpriseTest",
+                        "correlationID": "1",
+                        "metricList": [
+                            "metrics":  [metric["data"]]               ]
+                    ]
+                    ] as [String : Any]
+                
+                let requestData = try! JSONSerialization.data(withJSONObject: metadata, options: [])
+                let dateNow = Date();
+                if(!sendData(data: requestData))
                 {
-                    metricRetryCount=metricRetryCount+1;
-                    var metricTemp = metric;
-                    metricTemp["count"]=metricRetryCount;
-                    metricsUndelivered.append(metricTemp)
+                    if var metricRetryCount = metric["count"] as? Int {
+                        if let metricDate = metric["date"] as? String {
+                            let metricTimestamp = dateFormatter.date(from: metricDate)
+                            let timeGap = dateNow.timeIntervalSince(metricTimestamp!)
+                            if((metricRetryCount<logRetryCount) && (timeGap<logTimeLimit))
+                            {
+                                metricRetryCount=metricRetryCount+1;
+                                var metricTemp = metric;
+                                metricTemp["count"]=metricRetryCount;
+                                metricsUndelivered.append(metricTemp)
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -21,10 +21,14 @@ class ZebraBluetooth
     }
     class func connectToDevice(address:String) -> Bool {
         
-        let delegate = UIApplication.shared.delegate as? AppDelegate
-        if let sled=delegate?.getSled() as? DTDevices
+        let delegate = UIApplication.shared.delegate as? AppDelegate;
+        if( delegate == nil ) {
+            return false;
+        }
+        
+        if let sled = delegate?.getSled() as? DTDevices
         {
-          if(sled.btConnectedDevices.count==1)
+            if(sled.btConnectedDevices.count==1)
             {
                 return true
             }
@@ -45,12 +49,22 @@ class ZebraBluetooth
                 return false
             }
         }
+        
         return false;
     }
+    
     class func printData(receiptMarkUp:String) -> Bool {
         let zplConnector:ZPLConnector = ZPLConnector()
         let delegate = UIApplication.shared.delegate as? AppDelegate
+        if( delegate == nil ) {
+            return false;
+        }
+        
         let sled=delegate?.getSled() as? DTDevices
+        if( sled == nil ) {
+            return false;
+        }
+        
         let zb =  ZebraBluetooth.init(address: CommonUtils.getPrinterMACAddress())
         if(zb.getCurrentStatus()=="Available"){
             /*zplConnector.printStuff("<Center/><H3>Macy's \n </H3>Birchwood \n LORAIN 322 TEST TEST \n 219 SHEFFIELD CENTER TEST \n LORAIN TEST, MN 55402 \n 898-989-8989 \n <H3><H3>NOT A VALID RECEIPT</H3></H3> \n \n <Left/><B>   322-1799-0003 \n </B>   71234561  1799  2:01 PM 11/17/2016      \n Code: 01 \n Term: 1799 \n Tran: 0003 \n <Center/><H3>SUSPENDED</H3> \n <Left/> \n <Barcode>L21013221799201611170003</Barcode><Center/>21013221799201611170003 <Left/># Items: 1 \n <Left/>Total: 40.00 \n <Left/>(Total may not include tax and/or fees) \n  <H3>\n <Center/><H3>NOT A VALID RECEIPT</H3></H3> <Cut/>", withSled: sled, isCPCL: CommonUtils.isCPCLPrinter());*/
@@ -66,7 +80,11 @@ class ZebraBluetooth
     
     class func disconnectFromDevice() -> Bool {
         
-        let delegate = UIApplication.shared.delegate as? AppDelegate
+        let delegate = UIApplication.shared.delegate as? AppDelegate;
+        if( delegate == nil ) {
+            return false;
+        }
+        
         if let sled=delegate?.getSled() as? DTDevices
         {
             if(sled.btConnectedDevices.count==1)
@@ -109,7 +127,12 @@ class ZebraBluetooth
     }
      func getCurrentStatusZPL() -> String {
         var returnCode = "PrinterUnknown";
-        let delegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let delegate = UIApplication.shared.delegate as? AppDelegate;
+        if( delegate == nil ) {
+            return returnCode;
+        }
+        
         if let sled=delegate?.getSled() as? DTDevices
         {
             if(sled.btConnectedDevices.count==1)
@@ -157,7 +180,12 @@ class ZebraBluetooth
     }
     func getCurrentStatusCPCL() -> String {
         var returnCode = "PrinterUnknown";
-        let delegate = UIApplication.shared.delegate as? AppDelegate
+        
+        let delegate = UIApplication.shared.delegate as? AppDelegate;
+        if( delegate == nil ) {
+            return returnCode;
+        }
+        
         if let sled=delegate?.getSled() as? DTDevices
         {
             if(sled.btConnectedDevices.count==1){

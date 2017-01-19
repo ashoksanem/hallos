@@ -142,8 +142,13 @@ class HALApplication: UIApplication {
             ViewController.webView?.evaluateJavaScript(javascriptMessage!) { result, error in
                 guard error == nil else {
                     ViewController.storedJS.append(javascriptMessage!);
-                    print(javascriptMessage!);
-                    print(error as Any)
+                    NSLog("evaluateJavaScript message: " + javascriptMessage!);
+                    if( error != nil ) {
+                        let junk = error?.localizedDescription;
+                        if( junk != nil ) {
+                            NSLog("evaluateJavaScript error: " + junk! );
+                        }
+                    }
                     return
                 }
             }

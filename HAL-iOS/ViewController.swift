@@ -105,7 +105,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         
         //for debugging for testing
 //        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
-        url = URL(string: "http://node1.sdpd.c4d.devops.fds.com:9001/")!;
+//        url = URL(string: "http://node1.sdpd.c4d.devops.fds.com:9001/")!;
         CommonUtils.setCurrentPage(value: url);
         loadWebView(url: url);
     }

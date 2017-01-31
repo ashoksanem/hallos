@@ -14,6 +14,7 @@
 		BC534ABA1DFF17E200C65BAC /* LoggingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC534AB91DFF17E200C65BAC /* LoggingRequest.swift */; };
 		BC534ABC1E018BD800C65BAC /* LogAnalyticsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC534ABB1E018BD800C65BAC /* LogAnalyticsRequest.swift */; };
 		BC534ABE1E01976300C65BAC /* logAnalytics.json in Resources */ = {isa = PBXBuildFile; fileRef = BC534ABD1E01976300C65BAC /* logAnalytics.json */; };
+		BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */ = {isa = PBXBuildFile; fileRef = BC7461E51E40E59400F4A359 /* Cobranding.png */; };
 		BCB0EBA81DDE667300E6A3F7 /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCB0EBA71DDE667300E6A3F7 /* libdtdev.a */; };
 		BCD6982B1DB7C34600F856CE /* icons in Resources */ = {isa = PBXBuildFile; fileRef = BCD6982A1DB7C34600F856CE /* icons */; };
 		CC14AF421DB56F93007208F7 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = CC14AF411DB56F93007208F7 /* sso */; };
@@ -73,6 +74,7 @@
 		BC534AB91DFF17E200C65BAC /* LoggingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggingRequest.swift; sourceTree = "<group>"; };
 		BC534ABB1E018BD800C65BAC /* LogAnalyticsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogAnalyticsRequest.swift; sourceTree = "<group>"; };
 		BC534ABD1E01976300C65BAC /* logAnalytics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logAnalytics.json; sourceTree = "<group>"; };
+		BC7461E51E40E59400F4A359 /* Cobranding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cobranding.png; path = "Project Files/splah images/Cobranding.png"; sourceTree = "<group>"; };
 		BCB0EBA51DDE666200E6A3F7 /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTDevices.h; path = sled/DTDevices.h; sourceTree = "<group>"; };
 		BCB0EBA61DDE666C00E6A3F7 /* HAL-iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HAL-iOS-Bridging-Header.h"; path = "sled/HAL-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCB0EBA71DDE667300E6A3F7 /* libdtdev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdtdev.a; path = sled/libdtdev.a; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */,
 				BCD6982A1DB7C34600F856CE /* icons */,
 				CC25856F1D9AF71C00294506 /* Info.plist */,
+				BC7461E51E40E59400F4A359 /* Cobranding.png */,
 			);
 			name = "Project Files";
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
 				CCE9D9C01E00AD2200F0814B /* logAnalytics.json in Resources */,
@@ -607,6 +611,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "HAL-iOS/sled/HAL-iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -635,6 +640,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HAL-iOS/sled/HAL-iOS-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

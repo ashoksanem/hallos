@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="141px" height="104px" viewBox="0 0 141 104" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>Cobranding</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02B-Splash---Bloomingdale’s-Copy" transform="translate(-87.000000, -232.000000)">
+            <g id="Cobranding" transform="translate(87.000000, 232.000000)">
+                <polygon id="Star" fill="#E11A2B" fill-rule="evenodd" points="31 66.768008 11.8409463 81 19.447988 58.3700699 -2.6423308e-14 44.5359947 23.860464 44.7819207 31 22 38.139536 44.7819207 62 44.5359947 42.552012 58.3700699 50.1590537 81"></polygon>
+                <path d="M73.5,0.5 L73.5,103.059739" id="Line" stroke="#D0D2D3" stroke-width="1" stroke-linecap="square"></path>
+                <ellipse id="Oval" stroke="#000000" stroke-width="6" cx="117.493976" cy="60.25" rx="20.4939759" ry="20.25"></ellipse>
+                <path d="M97,22 L97,60" id="Line" stroke="#000000" stroke-width="6"></path>
+            </g>
+        </g>
+    </g>
+</svg>

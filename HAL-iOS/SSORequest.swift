@@ -12,7 +12,7 @@ class SSORequest{
     
     //this method takes associate number and associate pin and makes rest call to get response
     class func makeSSORequest(associateNumber: String,associatePin: String,onCompletion: @escaping (_ result: String)->Void) {
-        let networkReqURL = "https://"+SharedContainer.getIsp()+ssoConnectionURL;
+        let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
 
         if let url = NSURL(string: networkReqURL) as? URL {
         

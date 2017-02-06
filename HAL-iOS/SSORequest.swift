@@ -17,8 +17,14 @@ class SSORequest{
         if let url = NSURL(string: networkReqURL) as? URL {
         
             let request = NSMutableURLRequest(url: url);
-        
-            let session = URLSession.shared
+            let proxyHost = "11.48.43.71";
+            let proxyPort = 8080;
+            let proxyDict : NSDictionary = ["HTTPEnable": 0, "HTTPProxy": proxyHost, "HTTPPort": proxyPort, "HTTPSEnable": 0, "HTTPSProxy": proxyHost, "HTTPSPort": proxyPort]
+            let config = URLSessionConfiguration.default
+            config.connectionProxyDictionary=proxyDict as? [AnyHashable : Any];
+            let session = URLSession(configuration: config)
+
+            //let session = URLSession.shared
             request.httpMethod = "POST"
             let params: [String: [String: String]] = [ "pinlogon":  [
                     "associateNumber":associateNumber, "associatePin":associatePin
@@ -60,13 +66,21 @@ class SSORequest{
                     }
                     else
                     {
+                        let resp=response! as? HTTPURLResponse;
                         let strData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
-                    
                         CommonUtils.setSSOData(value: data!)
-                
-                        onCompletion(strData as! String)
-                
-                        print("data: \(strData)")
+                        print(response.debugDescription)
+                        print(strData)
+                        if(resp != nil && resp?.statusCode==200){
+                            onCompletion(strData as! String)
+                        }
+                        else
+                        {
+                            if (!(Int(associateNumber)==nil) && !(Int(associatePin)==nil) && (associateNumber.characters.count==8) && (associatePin.characters.count==4)){
+                                CommonUtils.setAuthServiceUnavailableInfo(assocNbr: associateNumber)
+                            }
+                            onCompletion(strData as! String)
+                        }
                     }
                 })
                 task.resume();

@@ -14,10 +14,13 @@ class LogAnalyticsRequest{
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
         
         if let url = NSURL(string: networkReqURL) as? URL {
-            
             let request = NSMutableURLRequest(url: url);
-            let session = URLSession.shared
-            request.httpMethod = "POST"
+            let proxyDict : NSDictionary = [ "HTTPEnable": 0, "HTTPSEnable": 0 ];
+            let config = URLSessionConfiguration.default;
+            
+            request.httpMethod = "POST";
+            config.connectionProxyDictionary = proxyDict as? [AnyHashable : Any];
+            let session = URLSession(configuration: config);
         
             var jsonData = JSON(data: data).dictionaryObject
             //print(jsonData?["headers"])

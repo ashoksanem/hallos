@@ -9,17 +9,23 @@
 import Foundation
 
 public class Json4Swift_Base {
-    public var jwt : Jwt?
-    public var error : Error?
-    public var associateInfo : AssociateInfo?
-    
+    public var jwt : String?;
+    public var associateInfo : AssociateInfo?;
+
+    public var code : Int?;
+    public var title : String?;
+    public var description : String?;
+    public var stack : String?;
    
-    required public init?(dictionary: JSON) {
-        if (dictionary["jwt"] != nil) { jwt = Jwt(dictionary: dictionary["jwt"]) }
-        if (dictionary["error"] != nil) { error = Error(dictionary:dictionary["error"]) }
-        if (dictionary["associateInfo"] != nil) { associateInfo = AssociateInfo(dictionary: dictionary["associateInfo"]) }
+    required public init? (dictionary: JSON) {
+        if (dictionary["jwt"] != nil) { jwt = dictionary["jwt"].string };
+        if (dictionary["associateInfo"] != nil) { associateInfo = AssociateInfo(dictionary: dictionary["associateInfo"]) };
+
+        if (dictionary["code"] != nil) { code = dictionary["code"].int; };
+        if (dictionary["title"] != nil) { title = dictionary["title"].string; };
+        if (dictionary["description"] != nil) { description = dictionary["description"].string; };
+        if (dictionary["stack"] != nil) { stack = dictionary["stack"].string; };
     }
-    
     
     /**
      Returns the dictionary representation for the current instance.
@@ -28,13 +34,16 @@ public class Json4Swift_Base {
      */
     public func dictionaryRepresentation() -> NSDictionary {
         
-        let dictionary = NSMutableDictionary()
+        let dictionary = NSMutableDictionary();
         
-        dictionary.setValue(self.jwt?.dictionaryRepresentation(), forKey: "jwt")
-        dictionary.setValue(self.error?.dictionaryRepresentation(), forKey: "error")
-        dictionary.setValue(self.associateInfo?.dictionaryRepresentation(), forKey: "associateInfo")
+        dictionary.setValue(self.jwt, forKey: "jwt");
+        dictionary.setValue(self.associateInfo?.dictionaryRepresentation(), forKey: "associateInfo");
         
-        return dictionary
+        dictionary.setValue(self.code, forKey: "code");
+        dictionary.setValue(self.title, forKey: "title");
+        dictionary.setValue(self.description, forKey: "description");
+        dictionary.setValue(self.stack, forKey: "stack");
+        
+        return dictionary;
     }
-    
 }

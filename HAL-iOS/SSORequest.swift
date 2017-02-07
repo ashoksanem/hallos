@@ -17,6 +17,7 @@ class SSORequest{
         if let url = NSURL(string: networkReqURL) as? URL {
             
             let request = NSMutableURLRequest(url: url);
+
             let proxyDict : NSDictionary = [ "HTTPEnable": 0, "HTTPSEnable": 0 ];
             let config = URLSessionConfiguration.default;
             let params: [String: String] = [ "associateNumber":associateNumber, "associatePin":associatePin ];
@@ -93,7 +94,6 @@ class SSORequest{
                         defaults.setValue([:], forKey: CommonUtils.ssoAssociateInfo);
                     }
                     onCompletion(strData as! String);
-
                 }
             })
             task.resume();

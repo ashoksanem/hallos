@@ -431,7 +431,11 @@ class CommonUtils
         var commonMetricsArray=[[String:Any]]();
         commonMetricsArray.append(metricJson(name: "DeviceOSName", value: "iOS", type: "STRING", indexable: true))
         commonMetricsArray.append(metricJson(name: "DeviceOSVersion", value: UIDevice.current.systemVersion, type: "STRING", indexable: true))
-        commonMetricsArray.append(metricJson(name: "DeviceUUID", value: getDeviceId(), type: "STRING", indexable: true))
+        var uuidData = JSON.parse(getDeviceId()).dictionary;
+        if (!(uuidData==nil) && !(uuidData?["deviceId"]==nil)) {
+            commonMetricsArray.append(metricJson(name: "DeviceUUID", value: (uuidData?["deviceId"]?.description)!, type: "STRING", indexable: true))
+        }
+        //commonMetricsArray.append(metricJson(name: "DeviceUUID", value: getDeviceId(), type: "STRING", indexable: true))
         commonMetricsArray.append(metricJson(name: "DeviceName", value: UIDevice.current.name, type: "STRING", indexable: true))
         commonMetricsArray.append(metricJson(name: "AppVersion", value: Assembly.halVersion(), type: "STRING", indexable: true))
         commonMetricsArray.append(metricJson(name: "AW_LandingPage", value: getLandingPage().absoluteString, type: "STRING", indexable: true))

@@ -29,6 +29,7 @@ class CommonUtils
     static let scannerScanCallback = "scannerScanCallback";
     static let zipCode = "zipCode";
     static let webviewLoading = "webviewLoading";
+    static let commonLogMetrics = "getCommonLogMetrics";
     
     
     class func setUpUserDefaults() -> Void
@@ -140,7 +141,7 @@ class CommonUtils
     {
         let defaults = UserDefaults.standard;
         return defaults.url(forKey: landingPage)!;
-    }
+            }
     
     class func setCurrentPage(value: URL) -> Void
     {
@@ -434,6 +435,50 @@ class CommonUtils
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: "webviewLoading")
+    }
+    
+    class func getCommonLogMetrics() -> [[String:Any]]
+    {
+        let defaults = UserDefaults.standard;
+        if(defaults.array(forKey: commonLogMetrics)==nil)
+        {
+            setCommonLogMetrics()
+        }
+        return defaults.array(forKey: commonLogMetrics) as! [[String : Any]];
+    }
+    class func setCommonLogMetrics()
+    {
+        let defaults = UserDefaults.standard;
+        var commonMetricsArray=[[String:Any]]();
+        commonMetricsArray.append(metricJson(name: "DeviceOSName", value: "iOS", type: "STRING", indexable: true))
+        commonMetricsArray.append(metricJson(name: "DeviceOSVersion", value: UIDevice.current.systemVersion, type: "STRING", indexable: true))
+        commonMetricsArray.append(metricJson(name: "DeviceUUID", value: getDeviceId(), type: "STRING", indexable: true))
+        commonMetricsArray.append(metricJson(name: "DeviceName", value: UIDevice.current.name, type: "STRING", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AppVersion", value: Assembly.halVersion(), type: "STRING", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_LandingPage", value: getLandingPage().absoluteString, type: "STRING", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_DivNumber", value: getDivNum().description, type: "INTEGER", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_StoreNumber", value: getStoreNum().description, type: "INTEGER", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_ISP", value: SharedContainer.getIsp(), type: "STRING", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_SSP", value: SharedContainer.getSsp(), type: "STRING", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_Cloud", value: SharedContainer.getCloud(), type: "STRING", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_AutoLogout", value: getAutoLogoutTimeinterval().description, type: "INTEGER", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_LogRetryCount", value: getLogRetryCount().description, type: "INTEGER", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_LogStorageCountLimit", value: getLogCountLimit().description, type: "INTEGER", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_LogRetryFrequency", value: getLogRetryFrequency().description, type: "DOUBLE", indexable: true))
+        commonMetricsArray.append(metricJson(name: "AW_LogStorageTimeLimit", value: getLogTimeLimit().description, type: "DOUBLE", indexable: true))
+        
+        
+        defaults.set(commonMetricsArray, forKey: commonLogMetrics)
+        
+    }
+    class func metricJson(name:String,value:String,type:String,indexable:Bool)-> [String:Any]
+    {
+        return [
+            "name": name,
+            "value": value,
+            "type": type,
+            "indexable":indexable
+        ];
     }
 
 }

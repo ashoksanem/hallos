@@ -25,8 +25,13 @@ class LoggingRequest{
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
         if let url = NSURL(string: networkReqURL) as? URL {
             let request = NSMutableURLRequest(url: url)
-            
-            let session = URLSession.shared
+            let proxyHost = "11.48.43.71";
+            let proxyPort = 8080;
+            let proxyDict : NSDictionary = ["HTTPEnable": 0, "HTTPProxy": proxyHost, "HTTPPort": proxyPort, "HTTPSEnable": 0, "HTTPSProxy": proxyHost, "HTTPSPort": proxyPort]
+            let config = URLSessionConfiguration.default
+            config.connectionProxyDictionary=proxyDict as? [AnyHashable : Any];
+            let session = URLSession(configuration: config)
+            //let session = URLSession.shared
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -34,6 +39,7 @@ class LoggingRequest{
             request.addValue("Stores", forHTTPHeaderField: "RequesterInfo.clientId")
             request.addValue("SPOS", forHTTPHeaderField: "RequesterInfo.subclientId")
             request.httpBody=data;
+        
             let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
                 if(error != nil) {
                     print(error.debugDescription)
@@ -75,20 +81,22 @@ class LoggingRequest{
     class func logData(name:String,value:String,type:String,indexable:Bool)-> Void {
         DispatchQueue.global(qos: .background).async {
         var value=value;
-        if(value.characters.count==0)
+        /*if(value.characters.count==0)
         {
             value=name
-        }
+        }*/
+            var metricDataArray = [[String:Any]]();
+            metricDataArray.append(["name": "AppEventType","value": name,"type": "STRING","indexable":indexable]);
+            if(!(value.characters.count==0))
+            {
+            metricDataArray.append(["name": "AppEventValue","value": value,"type": type,"indexable":indexable]);
+            }
+            metricDataArray.append(contentsOf: CommonUtils.getCommonLogMetrics())
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         dateFormatter.timeZone = TimeZone.current
         
-        let metricdata = ["data":[
-            "name": name,
-            "value": value,
-            "type": type,
-            "indexable":indexable
-            ],
+        let metricdata = ["data":metricDataArray,
                           "count":0,
                           "date": dateFormatter.string(from: Date())] as [String:Any]
         
@@ -129,6 +137,7 @@ class LoggingRequest{
                     let metadata = [
                         "application": "Stores.HAL.iOS",
                         "logLevel": "INFO",
+                        //"TransactionType":"Mobile",
                         "dateTime": metric["date"] as! String ,
                         "message": "This is a log message",
                         "serviceVersion": 1,
@@ -137,11 +146,12 @@ class LoggingRequest{
                             "componentName": "EnterpriseTest",
                             "correlationID": "1",
                             "metricList": [
-                                "metrics":  [metric["data"]]               ]
+                                "metrics":  metric["data"]               ]
                         ]
                         ] as [String : Any]
                     
                     let requestData = try! JSONSerialization.data(withJSONObject: metadata, options: [])
+                    print(String(data: requestData, encoding: String.Encoding.utf8))
                     let dateNow = Date();
                     if(!sendData(data: requestData))
                     {

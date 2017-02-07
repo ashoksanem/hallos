@@ -187,6 +187,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             
             _ = Locn();
         }
+        CommonUtils.setCommonLogMetrics();
     };
     
     func applicationWillTerminate(_ application: UIApplication) {

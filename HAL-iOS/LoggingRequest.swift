@@ -24,14 +24,13 @@ class LoggingRequest{
     class func makeServerRequest(data: Data,onCompletion: @escaping (_ result: Bool)->Void) {
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
         if let url = NSURL(string: networkReqURL) as? URL {
-            let request = NSMutableURLRequest(url: url)
-            let proxyHost = "11.48.43.71";
-            let proxyPort = 8080;
-            let proxyDict : NSDictionary = ["HTTPEnable": 0, "HTTPProxy": proxyHost, "HTTPPort": proxyPort, "HTTPSEnable": 0, "HTTPSProxy": proxyHost, "HTTPSPort": proxyPort]
-            let config = URLSessionConfiguration.default
-            config.connectionProxyDictionary=proxyDict as? [AnyHashable : Any];
-            let session = URLSession(configuration: config)
-            //let session = URLSession.shared
+            let request = NSMutableURLRequest(url: url);
+            let proxyDict : NSDictionary = [ "HTTPEnable": 0, "HTTPSEnable": 0 ];
+            let config = URLSessionConfiguration.default;
+            
+            config.connectionProxyDictionary = proxyDict as? [AnyHashable : Any];
+            let session = URLSession(configuration: config);
+
             request.httpMethod = "POST"
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")

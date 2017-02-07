@@ -31,7 +31,6 @@
 		CC41EF2F1DB54D6B0059C7C5 /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */; };
 		CC41EF301DB54D6B0059C7C5 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF271DB54D6B0059C7C5 /* Error.swift */; };
 		CC41EF321DB54D6B0059C7C5 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */; };
-		CC41EF331DB54D6B0059C7C5 /* Jwt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */; };
 		CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */; };
 		CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */; };
 		CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */; };
@@ -99,7 +98,6 @@
 		CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
 		CC41EF271DB54D6B0059C7C5 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
-		CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Jwt.swift; sourceTree = "<group>"; };
 		CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSORequest.swift; sourceTree = "<group>"; };
 		CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ssosuccess.json; sourceTree = "<group>"; };
 		CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -209,7 +207,6 @@
 				BCD698231DB7B91400F856CE /* Git Projects */,
 				CC8872EC1DDE3A930042F089 /* HALApplication.swift */,
 				CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */,
-				CC41EF2A1DB54D6B0059C7C5 /* Jwt.swift */,
 				CC837B541E08341B00A14ECB /* KeychainItemAccessibility.swift */,
 				CC837B551E08341B00A14ECB /* KeychainWrapper.swift */,
 				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
@@ -436,7 +433,6 @@
 				BC534ABC1E018BD800C65BAC /* LogAnalyticsRequest.swift in Sources */,
 				CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */,
 				CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */,
-				CC41EF331DB54D6B0059C7C5 /* Jwt.swift in Sources */,
 				BC534ABA1DFF17E200C65BAC /* LoggingRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

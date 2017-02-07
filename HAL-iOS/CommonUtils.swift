@@ -154,27 +154,6 @@ class CommonUtils
         let defaults = UserDefaults.standard;
         return defaults.url(forKey: currentPage)!;
     }
-    
-    class func setSSOData(value: Data) -> Void
-    {
-        let json = JSON(data: value);
-        let ssoJsonObject : Json4Swift_Base = Json4Swift_Base(dictionary: json)!;
-        
-        print(ssoJsonObject);
-        
-        let defaults = UserDefaults.standard;
-
-        if( ssoJsonObject.error?.errorCode == 0 )
-        {
-            CommonUtils.setIsSSOAuthenticated(value: true);
-            defaults.setValue(ssoJsonObject.dictionaryRepresentation(), forKey: ssoAssociateInfo);
-        }
-        else
-        {
-            CommonUtils.setIsSSOAuthenticated(value: false);
-            defaults.setValue([:], forKey: ssoAssociateInfo);
-        }
-    }
 
     class func getDeviceId() -> String
     {

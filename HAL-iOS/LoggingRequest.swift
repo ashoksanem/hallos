@@ -134,7 +134,7 @@ class LoggingRequest{
                 for metric in metricsStored!
                 {
                     let metadata = [
-                        "application": "Stores.HAL.iOS",
+                        "application": "Stores",
                         "logLevel": "INFO",
                         //"TransactionType":"Mobile",
                         "dateTime": metric["date"] as! String ,
@@ -142,6 +142,7 @@ class LoggingRequest{
                         "serviceVersion": 1,
                         "messageLevel": "ENTERPRISE",
                         "metaData":[
+                            "transType":"Mobile",
                             "componentName": "EnterpriseTest",
                             "correlationID": "1",
                             "metricList": [

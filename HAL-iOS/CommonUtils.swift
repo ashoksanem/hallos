@@ -130,6 +130,8 @@ class CommonUtils
             "managerLevel": 1
             ] ]as [String : Any];
         
+        LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Using offline associate info.", type: "STRING", indexable: true);
+        
         CommonUtils.setIsSSOAuthenticated(value: true);
         
         let defaults = UserDefaults.standard;

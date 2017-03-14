@@ -80,6 +80,7 @@ class SSORequest{
                             defaults.setValue(ssoJsonObject.dictionaryRepresentation(), forKey: CommonUtils.ssoAssociateInfo);
                         }
                         else {
+                            LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by nil ssoJsonObject.", type: "STRING", indexable: true);
                             CommonUtils.setIsSSOAuthenticated(value: false);
                             defaults.setValue([:], forKey: CommonUtils.ssoAssociateInfo);
                         }
@@ -90,6 +91,7 @@ class SSORequest{
                         CommonUtils.setAuthServiceUnavailableInfo(assocNbr: associateNumber);
                     }
                     else {
+                        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by other.", type: "STRING", indexable: true);                        
                         CommonUtils.setIsSSOAuthenticated(value: false);
                         defaults.setValue([:], forKey: CommonUtils.ssoAssociateInfo);
                     }

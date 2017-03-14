@@ -45,14 +45,15 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         CommonUtils.setIsSSOAuthenticated( value: false );
+        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);        
         
         LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
         if let app = application as? HALApplication
         {
-        app.stopNetworkTimer();
-        app.stopMetricTimer();
-        app.stopBatteryTimer();
-        app.stopJSTimer();
+            app.stopNetworkTimer();
+            app.stopMetricTimer();
+            app.stopBatteryTimer();
+            app.stopJSTimer();
         }
     }
 

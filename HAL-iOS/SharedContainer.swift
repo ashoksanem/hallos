@@ -22,6 +22,9 @@ class SharedContainer
     
     class func restoreData(key: String) -> String {
         let jsonData = try! JSONSerialization.data(withJSONObject: getData(key: key), options: [])
+        if let dict = KeychainWrapper.standard.object(forKey: key) as? NSDictionary {
+            print(dict);
+        }
         return String(data: jsonData, encoding: String.Encoding.utf8)!
     }
     

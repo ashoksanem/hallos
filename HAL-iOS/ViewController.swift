@@ -150,6 +150,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "logoutAssociate" )
         {
             if let id = message.body as? String {
+                LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by logoutAssociate.", type: "STRING", indexable: true);
                 CommonUtils.setIsSSOAuthenticated( value: false );
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }

@@ -87,25 +87,26 @@ class HALApplication: UIApplication {
     }
     
     func update() {
-        print(" autologout")
+        NSLog("autologout");
+        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate autoLogout due to inactivity.", type: "STRING", indexable: true);
         CommonUtils.setIsSSOAuthenticated( value: false );
     }
     
     func checkNetworkConnectivity() {
-        print("check network")
+        NSLog("Check network");
         if(!isInternetAvailable()){
         LoggingRequest.logData(name: LoggingRequest.metrics_lost_network, value: "", type: "STRING", indexable: true);
         }
     }
     
     func logStoredData() {
-        print("send stored logs to server");
+        NSLog("Send stored logs to server");
         LogAnalyticsRequest.logStoredData();
         LoggingRequest.logStoredData();
     }
     
     func updateBattery() {
-        print("update Sled battery");
+        NSLog("Update Sled battery");
         let delegate = UIApplication.shared.delegate as? AppDelegate;
         delegate?.updateBattery();
     }

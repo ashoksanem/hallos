@@ -20,8 +20,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
-        let messageHandlers: [String] = ["authenticateUser",
-                                         "checkScanner",
+        let messageHandlers: [String] = ["checkScanner",
                                          "clearData",
                                          "connectToPrinter",
                                          "crashapp",
@@ -42,6 +41,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "logoutAssociate",
                                          "initHal",
                                          "isSSOAuthenticated",
+                                         "makeAuthenticationRequest",                                         
                                          "passDataToWeb",
                                          "printdata",
                                          "saveData",
@@ -117,7 +117,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
             loadWebView(url: url!)
         }
-        else if(message.name == "authenticateUser")
+        else if(message.name == "makeAuthenticationRequest")
         {
             //print(message.body)
             

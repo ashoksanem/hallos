@@ -45,14 +45,15 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         CommonUtils.setIsSSOAuthenticated( value: false );
+        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);        
         
         LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
         if let app = application as? HALApplication
         {
-        app.stopNetworkTimer();
-        app.stopMetricTimer();
-        app.stopBatteryTimer();
-        app.stopJSTimer();
+            app.stopNetworkTimer();
+            app.stopMetricTimer();
+            app.stopBatteryTimer();
+            app.stopJSTimer();
         }
     }
 
@@ -95,42 +96,39 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             
             if let val = answersSaved["autoLogout"]
             {
-//                print("Setting autoLogout to: " + (val as! String));
                 if(!((val as? Int)==nil))
                 {
                     CommonUtils.setAutoLogoutTimeinterval(value: val as! Int);
+                    let val = "Setting autoLogout to: " + String(describing:val);
+                    NSLog( val );
+                    LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
                 }
             }
             
             if let val = answersSaved["divNum"]
             {
-//                print("Setting divNum to: " + (val as! String));
                 if(!((val as? Int)==nil))
                 {
                     CommonUtils.setDivNum(value: val as! Int)
+                    NSLog("Setting divNum to: " + String(describing:val));
                 }
             }
             
             if let val = answersSaved["storeNum"]
             {
-//                print("Setting storeNum to: " + (val as! String));
                 if(!((val as? Int)==nil))
                 {
                     CommonUtils.setStoreNum(value: val as! Int)
+                    NSLog("Setting storeNum to: " + String(describing:val));
                 }
             }
-
-//            if let val = answersSaved["preProdEnv"]
-//            {
-////                print("Setting preProdEnv to: " + (val as! String));
-//                CommonUtils.setPreProdEnv(value: val as! Bool)
-//            }
             
             if let val = answersSaved["isp"]
             {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setIsp(value: trimmed);
+                    NSLog("Setting isp to: " + trimmed);
                 }
             }
             
@@ -139,6 +137,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setSsp(value: trimmed);
+                    NSLog("Setting ssp to: " + trimmed);
                 }
             }
             
@@ -147,6 +146,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setCloud(value: trimmed);
+                    NSLog("Setting cloud to: " + trimmed);
                 }
             }
             
@@ -261,7 +261,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func detectDevice()
     {
         sled = DTDevices.sharedDevice() as? DTDevices;
-        print("sled SDK version: " + String(describing: sled?.sdkVersion));
+        NSLog("sled SDK version: " + String(describing: sled?.sdkVersion));
         sled?.addDelegate(self);
         sled?.connect();
     }
@@ -309,7 +309,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         if(state==2)
         {
             //viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
-            print("sled firmware version: "+(sled?.firmwareRevision)!)
+            NSLog("sled firmware version: "+(sled?.firmwareRevision)!);
             
             do {
                 try sled?.setPassThroughSync(true);

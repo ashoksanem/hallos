@@ -17,15 +17,15 @@ class SSORequest{
         if let url = NSURL(string: networkReqURL) as? URL {
             
             let request = NSMutableURLRequest(url: url);
-
+            
             let proxyDict : NSDictionary = [ "HTTPEnable": 0, "HTTPSEnable": 0 ];
             let config = URLSessionConfiguration.default;
             let params: [String: String] = [ "associateNumber":associateNumber, "associatePin":associatePin ];
-
+            
             request.httpMethod = "POST";
             config.connectionProxyDictionary = proxyDict as? [AnyHashable : Any];
             let session = URLSession(configuration: config);
-//            let session = URLSession.shared;
+            //            let session = URLSession.shared;
             
             do {
                 let jsonreqdata = try JSONSerialization.data(withJSONObject: params);
@@ -33,6 +33,7 @@ class SSORequest{
             } catch {
                 print("json error: \(error)");
             }
+            
             request.addValue("application/json", forHTTPHeaderField: "Content-Type");
             request.addValue("application/json", forHTTPHeaderField: "Accepts");
             request.addValue("0.0.1", forHTTPHeaderField: "RequesterInfo.version");
@@ -72,24 +73,26 @@ class SSORequest{
                     
 //                    print(response.debugDescription);
 //                    print(strData);
-//                    print(resp?.statusCode);
-
+//                    NSLog(resp?.statusCode);
+                    
                     if( resp != nil && resp?.statusCode == 200 ) {
                         if( ssoJsonObject.associateInfo != nil ) {
                             CommonUtils.setIsSSOAuthenticated(value: true);
                             defaults.setValue(ssoJsonObject.dictionaryRepresentation(), forKey: CommonUtils.ssoAssociateInfo);
                         }
                         else {
+                            LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by nil ssoJsonObject.", type: "STRING", indexable: true);
                             CommonUtils.setIsSSOAuthenticated(value: false);
                             defaults.setValue([:], forKey: CommonUtils.ssoAssociateInfo);
                         }
                     }
                     else if ( ( ssoJsonObject.code == nil ) && !( Int( associateNumber ) == nil ) &&
-                             !( Int( associatePin ) == nil) && ( associateNumber.characters.count == 8 ) &&
-                              ( associatePin.characters.count == 4 ) ) {
+                        !( Int( associatePin ) == nil) && ( associateNumber.characters.count == 8 ) &&
+                        ( associatePin.characters.count == 4 ) ) {
                         CommonUtils.setAuthServiceUnavailableInfo(assocNbr: associateNumber);
                     }
                     else {
+                        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by other.", type: "STRING", indexable: true);
                         CommonUtils.setIsSSOAuthenticated(value: false);
                         defaults.setValue([:], forKey: CommonUtils.ssoAssociateInfo);
                     }

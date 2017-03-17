@@ -390,7 +390,7 @@ class CommonUtils
     class func getLogRetryFrequency() -> Double
     {
         let defaults = UserDefaults.standard;
-        if( defaults.double(forKey: "LogRetryFrequency")==0)
+        if( defaults.double(forKey: "LogRetryFrequency") == 0)
         {
             return 30;
         }
@@ -401,7 +401,7 @@ class CommonUtils
     class func setLogRetryFrequency(value: Double)
     {
         let defaults = UserDefaults.standard;
-        defaults.set(value, forKey: "LogRetryFrequency")
+        defaults.set(value, forKey: "LogRetryFrequency");
     }
     
     class func getWebviewLoading() -> Bool
@@ -421,7 +421,7 @@ class CommonUtils
         let defaults = UserDefaults.standard;
         if(defaults.array(forKey: commonLogMetrics)==nil)
         {
-            setCommonLogMetrics()
+            setCommonLogMetrics();
         }
         return defaults.array(forKey: commonLogMetrics) as! [[String : Any]];
     }
@@ -432,9 +432,11 @@ class CommonUtils
         commonMetricsArray.append(metricJson(name: "DeviceOSName", value: "iOS", type: "STRING", indexable: true))
         commonMetricsArray.append(metricJson(name: "DeviceOSVersion", value: UIDevice.current.systemVersion, type: "STRING", indexable: true))
         var uuidData = JSON.parse(getDeviceId()).dictionary;
+        
         if (!(uuidData==nil) && !(uuidData?["deviceId"]==nil)) {
             commonMetricsArray.append(metricJson(name: "DeviceUUID", value: (uuidData?["deviceId"]?.description)!, type: "STRING", indexable: true))
         }
+        
         //commonMetricsArray.append(metricJson(name: "DeviceUUID", value: getDeviceId(), type: "STRING", indexable: true))
         commonMetricsArray.append(metricJson(name: "DeviceName", value: UIDevice.current.name, type: "STRING", indexable: true))
         commonMetricsArray.append(metricJson(name: "AppVersion", value: Assembly.halVersion(), type: "STRING", indexable: true))

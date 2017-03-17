@@ -312,7 +312,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             NSLog("sled firmware version: "+(sled?.firmwareRevision)!);
             
             do {
-                try sled?.setPassThroughSync(true);
+                try sled?.setPassThroughSync(false);
                 disableScanner();
             }
             catch {

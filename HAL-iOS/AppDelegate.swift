@@ -55,6 +55,11 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             app.stopBatteryTimer();
             app.stopJSTimer();
         }
+        
+        if let viewController:ViewController = window!.rootViewController as? ViewController
+        {
+            viewController.loadWebView(url: CommonUtils.getLandingPage() );
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

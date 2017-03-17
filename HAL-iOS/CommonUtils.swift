@@ -79,12 +79,11 @@ class CommonUtils
         let defaults = UserDefaults.standard;
         return defaults.bool(forKey: allowScan);
     }
+    
     class func setScanEnabled(value: Bool)
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: allowScan);
-       
-//        NSLog("setScanEnabled: " + ( value as String ));
     }
     
     class func isCPCLPrinter() -> Bool
@@ -101,10 +100,25 @@ class CommonUtils
     
     class func isSSOAuthenticatedMessage() -> String {
         let defaults = UserDefaults.standard;
-        let associate = (defaults.dictionary(forKey: ssoAssociateInfo))! as [String:Any]
+        let associate = (defaults.dictionary(forKey: ssoAssociateInfo))! as [String:Any];
         
-        let associateData = try! JSONSerialization.data(withJSONObject: associate, options: [])
-        let associateString = String(data: associateData, encoding: String.Encoding.utf8)
+        let associateData = try! JSONSerialization.data(withJSONObject: associate, options: []);
+
+        let associateString = String(data: associateData, encoding: String.Encoding.utf8);
+        var val = "";
+
+        if( associate["associateInfo"] != nil )
+        {
+            val = "Currently logged in associate: " + String( describing: ( associate["associateInfo"] as! NSDictionary)["associateNbr"]! );
+        }
+        else
+        {
+            val = "Currently logged in associate: " + associateString!;
+        }
+
+        NSLog( val );
+        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
+        
         return associateString!;
     }
     
@@ -115,6 +129,8 @@ class CommonUtils
             "associateNbr": assocNbr,
             "managerLevel": 1
             ] ]as [String : Any];
+        
+        LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Using offline associate info.", type: "STRING", indexable: true);
         
         CommonUtils.setIsSSOAuthenticated(value: true);
         
@@ -425,6 +441,7 @@ class CommonUtils
         }
         return defaults.array(forKey: commonLogMetrics) as! [[String : Any]];
     }
+    
     class func setCommonLogMetrics()
     {
         let defaults = UserDefaults.standard;
@@ -456,6 +473,7 @@ class CommonUtils
         defaults.set(commonMetricsArray, forKey: commonLogMetrics)
         
     }
+    
     class func metricJson(name:String,value:String,type:String,indexable:Bool)-> [String:Any]
     {
         return [

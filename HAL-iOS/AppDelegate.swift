@@ -114,7 +114,6 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             
             if let val = answersSaved["autoLogout"]
             {
-//                print("Setting autoLogout to: " + (val as! String));
                 if(!((val as? Int)==nil))
                 {
                     CommonUtils.setAutoLogoutTimeinterval(value: val as! Int);
@@ -126,7 +125,6 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             
             if let val = answersSaved["divNum"]
             {
-//                print("Setting divNum to: " + (val as! String));
                 if(!((val as? Int)==nil))
                 {
                     CommonUtils.setDivNum(value: val as! Int);
@@ -136,25 +134,19 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             
             if let val = answersSaved["storeNum"]
             {
-//                print("Setting storeNum to: " + (val as! String));
                 if(!((val as? Int)==nil))
                 {
                     CommonUtils.setStoreNum(value: val as! Int);
                     NSLog("Setting storeNum to: " + String(describing:val));
                 }
             }
-
-//            if let val = answersSaved["preProdEnv"]
-//            {
-////                print("Setting preProdEnv to: " + (val as! String));
-//                CommonUtils.setPreProdEnv(value: val as! Bool)
-//            }
             
             if let val = answersSaved["isp"]
             {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setIsp(value: trimmed);
+                    NSLog("Setting isp to: " + trimmed);
                 }
             }
             
@@ -163,6 +155,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setSsp(value: trimmed);
+                    NSLog("Setting ssp to: " + trimmed);
                 }
             }
             
@@ -171,6 +164,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setCloud(value: trimmed);
+                    NSLog("Setting cloud to: " + trimmed);
                 }
             }
             
@@ -285,7 +279,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func detectDevice()
     {
         sled = DTDevices.sharedDevice() as? DTDevices;
-        print("sled SDK version: " + String(describing: sled?.sdkVersion));
+        NSLog("sled SDK version: " + String(describing: sled?.sdkVersion));
         sled?.addDelegate(self);
         sled?.connect();
     }
@@ -338,7 +332,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
             
             do {
-                try sled?.setPassThroughSync(true);
+                try sled?.setPassThroughSync(false);
                 disableScanner();
             }
             catch {

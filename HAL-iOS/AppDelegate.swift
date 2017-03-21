@@ -14,17 +14,22 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
 
     var window: UIWindow?
     var sled: DTDevices?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
         NSSetUncaughtExceptionHandler { exception in
-            print("error details : "+exception.reason!)
+            NSLog("error details : " + exception.reason!)
             LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: exception.reason!, type: "STRING", indexable: true);
         }
-        CommonUtils.setUpUserDefaults()
+        
+        CommonUtils.setUpUserDefaults();
+        
         if let app = application as? HALApplication
         {
-        app.startTimer()
+            app.startTimer();
         }
+        
         //app.startNetworkTimer()
         detectDevice();
         NotificationCenter.default.addObserver( self,
@@ -44,10 +49,10 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
         CommonUtils.setIsSSOAuthenticated( value: false );
-        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);        
+        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);
         
-        LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
         if let app = application as? HALApplication
         {
             app.stopNetworkTimer();
@@ -60,6 +65,10 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         {
             viewController.loadWebView(url: CommonUtils.getLandingPage() );
         }
+        
+        LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
+        LoggingRequest.logStoredData();
+        LogAnalyticsRequest.logStoredData();
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -68,18 +77,21 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
+        
         detectDevice();
+        
         NotificationCenter.default.addObserver( self,
                                                 selector: #selector(readMDMValues),
                                                 name: UserDefaults.didChangeNotification,
                                                 object: nil);
-        LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
+        
         if let app = application as? HALApplication
         {
-        app.startNetworkTimer();
-        app.startMetricTimer();
-        app.startBatteryTimer();
-        app.startJSTimer();
+            app.startNetworkTimer();
+            app.startMetricTimer();
+            app.startBatteryTimer();
+            app.startJSTimer();
         }
     }
     
@@ -106,7 +118,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                     CommonUtils.setAutoLogoutTimeinterval(value: val as! Int);
                     let val = "Setting autoLogout to: " + String(describing:val);
                     NSLog( val );
-                    LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
+                    //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
                 }
             }
             
@@ -114,7 +126,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             {
                 if(!((val as? Int)==nil))
                 {
-                    CommonUtils.setDivNum(value: val as! Int)
+                    CommonUtils.setDivNum(value: val as! Int);
                     NSLog("Setting divNum to: " + String(describing:val));
                 }
             }
@@ -123,7 +135,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             {
                 if(!((val as? Int)==nil))
                 {
-                    CommonUtils.setStoreNum(value: val as! Int)
+                    CommonUtils.setStoreNum(value: val as! Int);
                     NSLog("Setting storeNum to: " + String(describing:val));
                 }
             }
@@ -159,7 +171,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             {
                 if(!((val as? Int)==nil))
                 {
-                    CommonUtils.setLogRetryCount(value: val as! Int)
+                    CommonUtils.setLogRetryCount(value: val as! Int);
                 }
             }
             
@@ -167,7 +179,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             {
                 if(!((val as? Int)==nil))
                 {
-                    CommonUtils.setLogCountLimit(value: val as! Int)
+                    CommonUtils.setLogCountLimit(value: val as! Int);
                 }
             }
             
@@ -175,7 +187,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             {
                 if(!((val as? Double)==nil))
                 {
-                CommonUtils.setLogRetryFrequency(value: val as! Double)
+                    CommonUtils.setLogRetryFrequency(value: val as! Double);
                 }
             }
             
@@ -183,7 +195,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             {
                 if(!((val as? Double)==nil))
                 {
-                CommonUtils.setLogTimeLimit(value: val as! Double)
+                    CommonUtils.setLogTimeLimit(value: val as! Double);
                 }
             }
             
@@ -192,6 +204,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             
             _ = Locn();
         }
+        
         CommonUtils.setCommonLogMetrics();
     };
     
@@ -199,11 +212,10 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         if #available(iOS 10.0, *) {
-            self.saveContext()
+            self.saveContext();
         } else {
             // Fallback on earlier versions
         }
-        
     }
 
     // MARK: - Core Data stack
@@ -216,7 +228,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
         */
-        let container = NSPersistentContainer(name: "HAL_iOS")
+        let container = NSPersistentContainer(name: "HAL_iOS");
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -230,25 +242,25 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                  * The store could not be migrated to the current model version.
                  Check the error message to determine what the actual problem was.
                  */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                fatalError("Unresolved error \(error), \(error.userInfo)");
             }
         })
-        return container
+        return container;
     }()
 
     // MARK: - Core Data Saving support
 
     @available(iOS 10.0, *)
     func saveContext () {
-        let context = persistentContainer.viewContext
+        let context = persistentContainer.viewContext;
         if context.hasChanges {
             do {
-                try context.save()
+                try context.save();
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+                let nserror = error as NSError;
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)");
             }
         }
     }
@@ -256,10 +268,10 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func getSled()-> Any?
     {
         if(isLineaConnected()) {
-            return sled!
+            return sled!;
         }
         else {
-            return nil
+            return nil;
         }
     }
     
@@ -273,25 +285,25 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     
     func isLineaConnected()->Bool
     {
-        return (sled?.connstate==2)
+        return (sled?.connstate==2);
     }
     
     func barcodeData(_ barcode: String!, type: Int32) {
-        updateBarcodeData(barcode: barcode)
+        updateBarcodeData(barcode: barcode);
     }
     
     func barcodeData(_ barcode: String!, isotype: String!) {
-        updateBarcodeData(barcode: barcode)
+        updateBarcodeData(barcode: barcode);
     }
     
     func barcodeNSData(_ barcode: Data!, type: Int32) {
-        let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue)
-        updateBarcodeData(barcode: strData as! String)
+        let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue);
+        updateBarcodeData(barcode: strData as! String);
     }
     
     func barcodeNSData(_ barcode: Data!, isotype: String!) {
-        let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue)
-        updateBarcodeData(barcode: strData as! String)
+        let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue);
+        updateBarcodeData(barcode: strData as! String);
     }
     
     func updateBarcodeData(barcode: String)
@@ -300,7 +312,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         {
             if let viewController:ViewController = window!.rootViewController as? ViewController
             {
-            viewController.updateBarcodeData(barcode: barcode)
+                viewController.updateBarcodeData(barcode: barcode);
             }
         }
     }
@@ -314,17 +326,19 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         if(state==2)
         {
             //viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
-            NSLog("sled firmware version: "+(sled?.firmwareRevision)!);
+            let val = "Sled firmware version: " + (sled?.firmwareRevision)!;
+            NSLog(val);
+            LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
             
             do {
                 try sled?.setPassThroughSync(false);
                 disableScanner();
             }
             catch {
-                print(error)
+                NSLog("Sled pass through error: " + String(describing:error));
             }
         }
-        else{
+        else {
             LoggingRequest.logData(name: LoggingRequest.metrics_lost_peripheral_connection, value: "sled", type: "STRING", indexable: true);
         }
     }
@@ -333,10 +347,10 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     {
        do{
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.ENABLED.rawValue)
-            CommonUtils.setScanEnabled(value: true)
+            CommonUtils.setScanEnabled(value: true);
         }
         catch {
-            print(error)
+            NSLog("Enable scanner error: " + String(describing:error));
         }
     }
     
@@ -344,11 +358,11 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     {
         do{
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.DISABLED.rawValue)
-            CommonUtils.setScanEnabled(value: false)
+            CommonUtils.setScanEnabled(value: false);
    
         }
         catch {
-            print(error)
+            NSLog("Disable scanner error: " + String(describing:error));
         }
     }
     
@@ -361,7 +375,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 return battery
             }
             catch {
-                print(error)
+                NSLog("Get sled battery level error: " + String(describing:error));
             }
         }
         return 0;
@@ -370,14 +384,14 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func getDeviceBatteryLevel() -> Float
     {
         UIDevice.current.isBatteryMonitoringEnabled = true;
-        print(UIDevice.current.batteryLevel);
+        NSLog("Sled battery: " + String(describing:UIDevice.current.batteryLevel));
         return UIDevice.current.batteryLevel;
     }
     
     func updateBattery() {
         if let viewController:ViewController = window!.rootViewController as? ViewController
         {
-        viewController.updateBattery();
+            viewController.updateBattery();
         }
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 class LogAnalyticsRequest{
     static let ssoConnectionURL = "/pos/ApplicationLoggingServices/rest/V1/logMsg";
     static let metricsLog = "analyticMetricsLog";
+    static var sendInProgress = false;
     
     class func makeServerRequest(data: Data,onCompletion: @escaping (_ result: Bool)->Void) {
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
@@ -56,20 +57,20 @@ class LogAnalyticsRequest{
                             let reasonCode=json?["reasonCode"] as? String
                             if (reasonCode != nil) {
                                 if(reasonCode=="0") {
-                                    print("Sent message through LogAnalyticsRequest.")
+                                    NSLog("Sent message through LogAnalyticsRequest.");
                                     onCompletion(true)
                                 } else {
                                     onCompletion(false)
                                 }
                             }
                         } catch {
-                            print(error)
+                            NSLog("LogAnalyticsRequest error: " + String( describing: error));
                             onCompletion(false)
                         }
                     }
                     else
                     {
-                        print(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
+                        NSLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
                         onCompletion(false)
                     }
                 }})
@@ -105,73 +106,83 @@ class LogAnalyticsRequest{
     }
     
     class func logData(data:Data)-> Void {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        dateFormatter.timeZone = TimeZone.current
-        let defaults = UserDefaults.standard
-        //defaults.removeObject(forKey: metricsLog)
+        let dateFormatter = DateFormatter();
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+        dateFormatter.timeZone = TimeZone.current;
+        let defaults = UserDefaults.standard;
+
         let metricdata = ["data":data,
                           "count":0,
-                          "date": dateFormatter.string(from: Date())] as [String:Any]
+                          "date": dateFormatter.string(from: Date())] as [String:Any];
+        
         if let metricsinfo = defaults.value(forKey: metricsLog) {
             if var metricsArray =  metricsinfo as? [[String:Any]] {
-                metricsArray.append(metricdata)
-                defaults.set(metricsArray, forKey: metricsLog)
+                metricsArray.append(metricdata);
+                defaults.set(metricsArray, forKey: metricsLog);
             }
         }
         else
         {
             let metricsinfo:[[String:Any]]=[metricdata];
-            defaults.set(metricsinfo, forKey: metricsLog)
+            defaults.set(metricsinfo, forKey: metricsLog);
         }
         
-        defaults.synchronize()
-        logStoredData()
+        defaults.synchronize();
+        logStoredData();
     }
+    
     class func logStoredData()
     {
-        let defaults = UserDefaults.standard
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        dateFormatter.timeZone = TimeZone.current
-        let metricslist =  defaults.value(forKey: metricsLog);
-        if(!(metricslist==nil))
-        {
-            if let metricsStored =  defaults.value(forKey: metricsLog) as? [[String:Any]] {
-                var metricsUndelivered = [[String : Any]]();
-                let logCountLimit = CommonUtils.getLogCountLimit();
-                let logTimeLimit = CommonUtils.getLogTimeLimit();
-                let logRetryCount = CommonUtils.getLogRetryCount();
-                for metric in metricsStored
-                {
-                    let dateNow = Date();
-                    if(!sendData(data: metric["data"] as! Data)) {
-                        if var metricRetryCount = metric["count"] as? Int {
-                            if let metricDate = metric["date"] as? String {
-                                let metricTimestamp = dateFormatter.date(from: metricDate)
-                                let timeGap = dateNow.timeIntervalSince(metricTimestamp!)
-                                if((metricRetryCount<logRetryCount) && (timeGap<logTimeLimit))
-                                {
-                                    metricRetryCount=metricRetryCount+1;
-                                    var metricTemp = metric;
-                                    metricTemp["count"]=metricRetryCount;
-                                    metricsUndelivered.append(metricTemp)
+        if( !sendInProgress ) {
+            sendInProgress = true;
+            
+            let defaults = UserDefaults.standard;
+            let dateFormatter = DateFormatter();
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+            dateFormatter.timeZone = TimeZone.current;
+            let metricslist = defaults.value(forKey: metricsLog);
+            
+            if(!(metricslist == nil))
+            {
+                if let metricsStored =  defaults.value(forKey: metricsLog) as? [[String:Any]] {
+                    var metricsUndelivered = [[String : Any]]();
+                    let logCountLimit = CommonUtils.getLogCountLimit();
+                    let logTimeLimit = CommonUtils.getLogTimeLimit();
+                    let logRetryCount = CommonUtils.getLogRetryCount();
+                    for metric in metricsStored
+                    {
+                        let dateNow = Date();
+                        if(!sendData(data: metric["data"] as! Data)) {
+                            if var metricRetryCount = metric["count"] as? Int {
+                                if let metricDate = metric["date"] as? String {
+                                    let metricTimestamp = dateFormatter.date(from: metricDate)
+                                    let timeGap = dateNow.timeIntervalSince(metricTimestamp!)
+                                    if((metricRetryCount<logRetryCount) && (timeGap<logTimeLimit))
+                                    {
+                                        metricRetryCount=metricRetryCount+1;
+                                        var metricTemp = metric;
+                                        metricTemp["count"]=metricRetryCount;
+                                        metricsUndelivered.append(metricTemp)
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                defaults.removeObject(forKey: metricsLog)
-                if(metricsUndelivered.count>0)
-                {
-                    if(metricsUndelivered.count>logCountLimit)
+                
+                    defaults.removeObject(forKey: metricsLog);
+                
+                    if(metricsUndelivered.count>0)
                     {
-                        metricsUndelivered=Array(metricsUndelivered.dropFirst(metricsUndelivered.count-logCountLimit))
+                        if(metricsUndelivered.count>logCountLimit)
+                        {
+                            metricsUndelivered=Array(metricsUndelivered.dropFirst(metricsUndelivered.count-logCountLimit))
+                        }
+                        defaults.set(metricsUndelivered, forKey: metricsLog)
                     }
-                    defaults.set(metricsUndelivered, forKey: metricsLog)
                 }
             }
         }
+        sendInProgress = false;
     }
     
     class func sendData(data: Data) -> Bool
@@ -184,7 +195,7 @@ class LogAnalyticsRequest{
             response = result
             sem.signal()
         }
-        sem.wait(timeout: DispatchTime.distantFuture)	
+        sem.wait(timeout: DispatchTime.distantFuture);
         
         return response
     }

@@ -41,7 +41,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "logoutAssociate",
                                          "initHal",
                                          "isSSOAuthenticated",
-                                         "makeAuthenticationRequest",                                         
+                                         "makeAuthenticationRequest",
                                          "passDataToWeb",
                                          "printdata",
                                          "saveData",

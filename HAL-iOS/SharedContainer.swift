@@ -15,16 +15,18 @@ class SharedContainer
         if let key=data["key"] as? String {
             KeychainWrapper.standard.set(data, forKey: key)
             if let dict = KeychainWrapper.standard.object(forKey: key) as? NSDictionary {
-                print(dict);
+                print(dict); //specifically don't want to use NSLog here
             }
         }
     }
     
     class func restoreData(key: String) -> String {
         let jsonData = try! JSONSerialization.data(withJSONObject: getData(key: key), options: [])
+
         if let dict = KeychainWrapper.standard.object(forKey: key) as? NSDictionary {
-            print(dict);
+            print(dict); //specifically don't want to use NSLog here
         }
+
         return String(data: jsonData, encoding: String.Encoding.utf8)!
     }
     

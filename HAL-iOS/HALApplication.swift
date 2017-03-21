@@ -95,7 +95,7 @@ class HALApplication: UIApplication {
     func checkNetworkConnectivity() {
         NSLog("Check network");
         if(!isInternetAvailable()){
-        LoggingRequest.logData(name: LoggingRequest.metrics_lost_network, value: "", type: "STRING", indexable: true);
+            LoggingRequest.logData(name: LoggingRequest.metrics_lost_network, value: "", type: "STRING", indexable: true);
         }
     }
     

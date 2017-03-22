@@ -285,7 +285,38 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     
     func isLineaConnected()->Bool
     {
-        return (sled?.connstate==2);
+        return ( sled?.connstate == 2 );
+    }
+    
+    func isLineaCharging() -> Bool
+    {
+        if( isLineaConnected() )
+        {
+            var youSuckIP = ObjCBool(false)
+            
+            do {
+                try sled?.getCharging(&youSuckIP);
+            }
+            catch {
+                youSuckIP = false;
+            }
+            return youSuckIP.boolValue;
+        }
+    
+        return false;
+    }
+    
+    func setLineaCharging(val : Bool) -> Void
+    {
+        if( isLineaConnected() )
+        {
+//        DLog( @"Charging switched to %s with rc of %s\n", chargeFlag ? "true":"false", [sled setCharging:chargeFlag error:nil] ? "true":"false" );
+            do {
+                try sled?.setCharging( val );
+            }
+            catch {
+            }
+        }
     }
     
     func barcodeData(_ barcode: String!, type: Int32) {

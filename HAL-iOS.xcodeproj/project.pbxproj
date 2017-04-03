@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BC22EE621E203A8300C3F597 /* LOCN.json in Resources */ = {isa = PBXBuildFile; fileRef = BC22EE611E203A8300C3F597 /* LOCN.json */; };
 		BC22EE641E203D9600C3F597 /* Locn.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC22EE631E203D9600C3F597 /* Locn.swift */; };
+		BC484D9B1E854B820057610A /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
 		BC534AB71DFF179200C65BAC /* ZebraBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC534AB41DFF179200C65BAC /* ZebraBluetooth.swift */; };
 		BC534AB81DFF179200C65BAC /* ZPLConnector.mm in Sources */ = {isa = PBXBuildFile; fileRef = BC534AB61DFF179200C65BAC /* ZPLConnector.mm */; };
 		BC534ABA1DFF17E200C65BAC /* LoggingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC534AB91DFF17E200C65BAC /* LoggingRequest.swift */; };
@@ -67,6 +68,7 @@
 /* Begin PBXFileReference section */
 		BC22EE611E203A8300C3F597 /* LOCN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = LOCN.json; path = "Project Files/LOCN.json"; sourceTree = "<group>"; };
 		BC22EE631E203D9600C3F597 /* Locn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locn.swift; sourceTree = "<group>"; };
+		BC484D9A1E854B820057610A /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = "HAL-iOS/CrashReporter.framework"; sourceTree = "<group>"; };
 		BC534AB41DFF179200C65BAC /* ZebraBluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZebraBluetooth.swift; sourceTree = "<group>"; };
 		BC534AB51DFF179200C65BAC /* ZPLConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPLConnector.h; sourceTree = "<group>"; };
 		BC534AB61DFF179200C65BAC /* ZPLConnector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZPLConnector.mm; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC6EEEAE1DBFE374003D895B /* ExternalAccessory.framework in Frameworks */,
+				BC484D9B1E854B820057610A /* CrashReporter.framework in Frameworks */,
 				BCB0EBA81DDE667300E6A3F7 /* libdtdev.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,6 +258,7 @@
 		CC6EEEAC1DBFE374003D895B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC484D9A1E854B820057610A /* CrashReporter.framework */,
 				CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */,
 			);
 			name = Frameworks;
@@ -590,8 +594,12 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
-				ENABLE_BITCODE = YES;
-				HEADER_SEARCH_PATHS = "";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS",
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers";
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -621,7 +629,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				ENABLE_BITCODE = NO;
-				HEADER_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS",
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers";
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

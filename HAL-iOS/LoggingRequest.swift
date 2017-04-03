@@ -79,6 +79,59 @@ class LoggingRequest{
         }
     }
     
+    class func logError(name:String,value:String,type:String,indexable:Bool)-> Void {        
+            DispatchQueue.global(qos: .background).async {
+            var metricDataArray = [[String:Any]]();
+            metricDataArray.append(["name": "AppEventType","value": name,"type": "STRING","indexable":true]);
+            
+            metricDataArray.append(contentsOf: CommonUtils.getCommonLogMetrics());
+            let dateFormatter = DateFormatter();
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+            dateFormatter.timeZone = TimeZone.current;
+            
+            let metricdata = ["data":metricDataArray,
+                              "count":0,
+                              "date": dateFormatter.string(from: Date())] as [String:Any];
+            
+            let val = [
+                "application": "Stores",
+                "logLevel": "ERROR",
+                "dateTime": metricdata["date"] as! String ,
+                "message": name + ": " + value,
+                "serviceVersion": 1,
+                "messageLevel": "ENTERPRISE",
+                "metaData":[
+                    "transType":"Mobile",
+                    "componentName": "EnterpriseTest",
+                    "correlationID": "1"
+                ]
+                ] as [String : Any];
+            
+            let requestData = try! JSONSerialization.data(withJSONObject: val, options: []);
+            
+            if( sendData(data:requestData) ) {
+                NSLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
+            }
+            else
+            {
+                let defaults = UserDefaults.standard;
+                if let metricsinfo = defaults.value(forKey: metricsLog) {
+                    if var metricsArray =  metricsinfo as? [[String:Any]] {
+                        metricsArray.append(metricdata);
+                        defaults.set(metricsArray, forKey: metricsLog);
+                    }
+                }
+                else
+                {
+                    let metricsinfo:[[String:Any]] = [metricdata];
+                    defaults.set(metricsinfo, forKey: metricsLog);
+                }
+                defaults.synchronize();
+            }
+        }
+
+    }
+    
     class func logData(name:String,value:String,type:String,indexable:Bool)-> Void {
         DispatchQueue.global(qos: .background).async {
             var value=value;
@@ -103,7 +156,7 @@ class LoggingRequest{
                 "application": "Stores",
                 "logLevel": "INFO",
                 "dateTime": metricdata["date"] as! String ,
-                "message": "This is a log message",
+                "message": name,
                 "serviceVersion": 1,
                 "messageLevel": "ENTERPRISE",
                 "metaData":[

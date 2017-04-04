@@ -10,6 +10,8 @@ import Foundation
 class Sled
 {
     class func isConnected() -> Bool
+        
+        
     {
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
             return delegate.isLineaConnected()
@@ -53,8 +55,8 @@ class Sled
             if( isConnected() )
             {
                 let charging = delegate.isLineaCharging();
-                let iPodBattery:Int! = Int( getDeviceBatteryLevel() );
-                let sledBattery:Int! = Int( getSledBatteryLevel() );
+                let iPodBattery:Float! = Float( getDeviceBatteryLevel() );
+                let sledBattery:Float! = Float( getSledBatteryLevel() );
     
                 //trickle charge
                 if( charging && ( sledBattery < 45 || iPodBattery >= 90 ) ) {

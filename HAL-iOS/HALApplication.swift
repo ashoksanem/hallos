@@ -17,6 +17,7 @@ class HALApplication: UIApplication {
     var metricTimer = Timer();
     var batteryTimer = Timer();
     var jsTimer = Timer();
+    var chargingTimer = Timer();
     
     override func sendEvent(_ event: UIEvent) {
         
@@ -86,6 +87,15 @@ class HALApplication: UIApplication {
         jsTimer.invalidate();
     }
     
+    func startChargingTimer(){
+        chargingTimer = Timer.scheduledTimer(timeInterval: TimeInterval(30), target: self, selector: #selector(self.enableCharging), userInfo: nil, repeats: true);
+
+    }
+    
+    func stopChargingTimer(){
+        chargingTimer.invalidate();
+    }
+    
     func update() {
         NSLog("autologout");
         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate autoLogout due to inactivity.", type: "STRING", indexable: true);
@@ -109,6 +119,13 @@ class HALApplication: UIApplication {
         NSLog("Update Sled battery");
         let delegate = UIApplication.shared.delegate as? AppDelegate;
         delegate?.updateBattery();
+    }
+    
+    func enableCharging() {
+        if(Sled.isConnected()) {
+            NSLog("Enable charging from sled");
+            Sled.enableCharging(val: true)
+        }
     }
     
     func isInternetAvailable() -> Bool

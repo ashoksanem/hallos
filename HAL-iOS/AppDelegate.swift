@@ -59,6 +59,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             app.stopMetricTimer();
             app.stopBatteryTimer();
             app.stopJSTimer();
+            app.stopChargingTimer();
         }
         
         if let viewController:ViewController = window!.rootViewController as? ViewController
@@ -92,6 +93,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             app.startMetricTimer();
             app.startBatteryTimer();
             app.startJSTimer();
+            app.startChargingTimer();
         }
     }
     
@@ -237,7 +239,14 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The persistent store is not accessible, due to permissions or data protection when the 
+                 
+                 
+                 
+                 
+                 
+                 
+                 device is locked.
                  * The device is out of space.
                  * The store could not be migrated to the current model version.
                  Check the error message to determine what the actual problem was.
@@ -315,6 +324,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 try sled?.setCharging( val );
             }
             catch {
+                NSLog("Failed to charge");
             }
         }
     }

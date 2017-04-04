@@ -59,6 +59,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             app.stopMetricTimer();
             app.stopBatteryTimer();
             app.stopJSTimer();
+            app.stopChargingTimer();
         }
         
         if let viewController:ViewController = window!.rootViewController as? ViewController
@@ -92,6 +93,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             app.startMetricTimer();
             app.startBatteryTimer();
             app.startJSTimer();
+            app.startChargingTimer();
         }
     }
     
@@ -237,7 +239,14 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The persistent store is not accessible, due to permissions or data protection when the 
+                 
+                 
+                 
+                 
+                 
+                 
+                 device is locked.
                  * The device is out of space.
                  * The store could not be migrated to the current model version.
                  Check the error message to determine what the actual problem was.
@@ -285,7 +294,39 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     
     func isLineaConnected()->Bool
     {
-        return (sled?.connstate==2);
+        return ( sled?.connstate == 2 );
+    }
+    
+    func isLineaCharging() -> Bool
+    {
+        if( isLineaConnected() )
+        {
+            var youSuckIP = ObjCBool(false)
+            
+            do {
+                try sled?.getCharging(&youSuckIP);
+            }
+            catch {
+                youSuckIP = false;
+            }
+            return youSuckIP.boolValue;
+        }
+    
+        return false;
+    }
+    
+    func setLineaCharging(val : Bool) -> Void
+    {
+        if( isLineaConnected() )
+        {
+//        DLog( @"Charging switched to %s with rc of %s\n", chargeFlag ? "true":"false", [sled setCharging:chargeFlag error:nil] ? "true":"false" );
+            do {
+                try sled?.setCharging( val );
+            }
+            catch {
+                NSLog("Failed to charge");
+            }
+        }
     }
     
     func barcodeData(_ barcode: String!, type: Int32) {

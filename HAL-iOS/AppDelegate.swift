@@ -329,6 +329,19 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         }
     }
     
+    func setLineaIdleTimeout() -> Void
+    {
+        if( isLineaConnected() )
+        {
+            do{
+                try sled?.setAutoOffWhenIdle(43200, whenDisconnected: 90)
+            }
+            catch {
+                NSLog("Failed to change idle timeout")
+            }
+        }
+    }
+    
     func barcodeData(_ barcode: String!, type: Int32) {
         updateBarcodeData(barcode: barcode);
     }

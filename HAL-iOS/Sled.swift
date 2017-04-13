@@ -54,6 +54,9 @@ class Sled
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
             if( isConnected() )
             {
+                //First let's set the idle and disconnect timeouts
+                delegate.setLineaIdleTimeout()
+                
                 let charging = delegate.isLineaCharging();
                 let iPodBattery:Float! = Float( getDeviceBatteryLevel() );
                 let sledBattery:Float! = Float( getSledBatteryLevel() );

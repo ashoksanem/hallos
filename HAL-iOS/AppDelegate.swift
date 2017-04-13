@@ -61,6 +61,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             app.stopJSTimer();
             app.stopChargingTimer();
         }
+        self.setLineaCharging(val: false);
         
         if let viewController:ViewController = window!.rootViewController as? ViewController
         {
@@ -334,7 +335,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         if( isLineaConnected() )
         {
             do{
-                try sled?.setAutoOffWhenIdle(43200, whenDisconnected: 90)
+                try sled?.setAutoOffWhenIdle(43200, whenDisconnected: 43200)
             }
             catch {
                 NSLog("Failed to change idle timeout")

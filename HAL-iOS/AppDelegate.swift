@@ -61,6 +61,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             app.stopJSTimer();
             app.stopChargingTimer();
         }
+        self.setLineaCharging(val: false);
         
         if let viewController:ViewController = window!.rootViewController as? ViewController
         {
@@ -325,6 +326,20 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             }
             catch {
                 NSLog("Failed to charge");
+            }
+        }
+    }
+    
+    func setLineaIdleTimeout() -> Void
+    {
+        if( isLineaConnected() )
+        {
+            //Set linea idle timeout of lightning port when app is running to 12 hours and disconnect timeout while app is in background to 12 hours.
+            do{
+                try sled?.setAutoOffWhenIdle(43200, whenDisconnected: 43200)
+            }
+            catch {
+                NSLog("Failed to change idle timeout")
             }
         }
     }

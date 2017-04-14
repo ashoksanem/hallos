@@ -334,6 +334,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     {
         if( isLineaConnected() )
         {
+            //Set linea idle timeout of lightning port when app is running to 12 hours and disconnect timeout while app is in background to 12 hours.
             do{
                 try sled?.setAutoOffWhenIdle(43200, whenDisconnected: 43200)
             }

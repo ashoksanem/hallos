@@ -10,18 +10,13 @@ import UIKit
 import CoreData
 
 //@UIApplicationMain
-class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
+class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 
     var window: UIWindow?
     var sled: DTDevices?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        NSSetUncaughtExceptionHandler { exception in
-            NSLog("error details : " + exception.reason!)
-            LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: exception.reason!, type: "STRING", indexable: true);
-        }
         
         CommonUtils.setUpUserDefaults();
         
@@ -32,10 +27,64 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         
         //app.startNetworkTimer()
         detectDevice();
+        
         NotificationCenter.default.addObserver( self,
-                                                selector: #selector(readMDMValues),
-                                                name: UserDefaults.didChangeNotification,
-                                                object: nil);
+            selector: #selector(readMDMValues),
+            name: UserDefaults.didChangeNotification,
+            object: nil);
+        
+        NSSetUncaughtExceptionHandler { exception in
+            NSLog("error details : " + exception.reason!)
+            LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: exception.reason!, type: "STRING", indexable: true);
+        }
+        
+        let crashReporter = PLCrashReporter.shared();
+        
+        if( crashReporter?.hasPendingCrashReport() )! {
+            NSLog("Previous Error!");
+            do {
+                let crashData = try crashReporter?.loadPendingCrashReportDataAndReturnError();
+                
+                do {
+                    let report = try PLCrashReport.init(data: crashData);
+                    
+                    let humanReadableReport: String = PLCrashReportTextFormatter.stringValue(for: report, with: PLCrashReportTextFormatiOS);
+                    
+                    //convert to NSData type
+                    let nsdata = humanReadableReport.data(using: String.Encoding.utf8);
+                    //base64 encode to send to logging
+                    let base64report = nsdata?.base64EncodedData(options: NSData.Base64EncodingOptions.lineLength64Characters);
+                    
+                    //log the base64 encoded stack trace
+                    LoggingRequest.logError(name: LoggingRequest.metrics_app_crash, value: (base64report?.base64EncodedString())!, type: "STRING", indexable: false);
+                }
+                catch {
+                    NSLog("Could not parse crash report.");
+                    LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: "Could not parse crash report.", type: "STRING", indexable: true);
+                }
+                
+                crashReporter?.purgePendingCrashReport();
+            }
+            catch {
+                NSLog("Could not load crash report.");
+                LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: "Could not load crash report.", type: "STRING", indexable: true);
+                crashReporter?.purgePendingCrashReport();
+            }
+        }
+        
+        // Enable the Crash Reporter
+        do {
+            try crashReporter?.enableAndReturnError();
+            NSLog("Crash reporter enabled.");
+            LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "Crash reporter enabled.", type: "STRING", indexable: true);
+        }
+        catch
+        {
+            NSLog("Could not enable crash reporter.");
+            LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "Could not enable crash reporter.", type: "STRING", indexable: true);
+        }
+        
+        //_ = [][0];
         
         return true
     }
@@ -297,7 +346,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     {
         return ( sled?.connstate == 2 );
     }
-    
+
     func isLineaCharging() -> Bool
     {
         if( isLineaConnected() )
@@ -312,7 +361,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             }
             return youSuckIP.boolValue;
         }
-    
+        
         return false;
     }
     
@@ -320,7 +369,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     {
         if( isLineaConnected() )
         {
-//        DLog( @"Charging switched to %s with rc of %s\n", chargeFlag ? "true":"false", [sled setCharging:chargeFlag error:nil] ? "true":"false" );
+            //        DLog( @"Charging switched to %s with rc of %s\n", chargeFlag ? "true":"false", [sled setCharging:chargeFlag error:nil] ? "true":"false" );
             do {
                 try sled?.setCharging( val );
             }

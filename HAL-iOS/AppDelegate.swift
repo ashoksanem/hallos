@@ -388,10 +388,18 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             
             do {
                 try sled?.setPassThroughSync(false);
-                disableScanner();
+                //disableScanner();
             }
             catch {
                 NSLog("Sled pass through error: " + String(describing:error));
+            }
+            if(CommonUtils.isScannerModeEnabledFromWeb())
+            {
+                enableScanner();
+            }
+            else
+            {
+                disableScanner();
             }
         }
         else {
@@ -401,6 +409,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     
     func enableScanner()
     {
+        CommonUtils.setScannerModeFromWeb(value: true);
        do{
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.ENABLED.rawValue)
             CommonUtils.setScanEnabled(value: true);
@@ -412,6 +421,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     
     func disableScanner()
     {
+        CommonUtils.setScannerModeFromWeb(value: false);
         do{
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.DISABLED.rawValue)
             CommonUtils.setScanEnabled(value: false);

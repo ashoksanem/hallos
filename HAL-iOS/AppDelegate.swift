@@ -84,6 +84,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "Could not enable crash reporter.", type: "STRING", indexable: true);
         }
         
+        //_ = [][0];
+        
         return true
     }
     
@@ -203,7 +205,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
-                    SharedContainer.setSsp(value: "fs008asssp01");
+                    SharedContainer.setSsp(value: trimmed);
                     NSLog("Setting ssp to: fs008asssp01" + trimmed);
                 }
             }

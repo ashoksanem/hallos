@@ -79,120 +79,86 @@ class LoggingRequest{
         }
     }
     
-    class func logError(name:String,value:String,type:String,indexable:Bool)-> Void {        
-            DispatchQueue.global(qos: .background).async {
-            var metricDataArray = [[String:Any]]();
-            metricDataArray.append(["name": "AppEventType","value": name,"type": "STRING","indexable":true]);
-            
-            metricDataArray.append(contentsOf: CommonUtils.getCommonLogMetrics());
-            let dateFormatter = DateFormatter();
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-            dateFormatter.timeZone = TimeZone.current;
-            
-            let metricdata = ["data":metricDataArray,
-                              "count":0,
-                              "date": dateFormatter.string(from: Date())] as [String:Any];
-            
-            let val = [
-                "application": "Stores",
-                "logLevel": "ERROR",
-                "dateTime": metricdata["date"] as! String ,
-                "message": name + ": " + value,
-                "serviceVersion": 1,
-                "messageLevel": "ENTERPRISE",
-                "metaData":[
-                    "transType":"Mobile",
-                    "componentName": "EnterpriseTest",
-                    "correlationID": "1"
-                ]
-                ] as [String : Any];
-            
-            let requestData = try! JSONSerialization.data(withJSONObject: val, options: []);
-            
-            if( sendData(data:requestData) ) {
-                NSLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
-            }
-            else
-            {
-                let defaults = UserDefaults.standard;
-                if let metricsinfo = defaults.value(forKey: metricsLog) {
-                    if var metricsArray =  metricsinfo as? [[String:Any]] {
-                        metricsArray.append(metricdata);
-                        defaults.set(metricsArray, forKey: metricsLog);
-                    }
-                }
-                else
-                {
-                    let metricsinfo:[[String:Any]] = [metricdata];
-                    defaults.set(metricsinfo, forKey: metricsLog);
-                }
-                defaults.synchronize();
-            }
-        }
-
+    //call with error specifics in the value field
+    class func logError(name:String,value:String,type:String,indexable:Bool)-> Void {
+        return logCommon(name: name, value: value, type: type, indexable: indexable, isException: true);
     }
     
     class func logData(name:String,value:String,type:String,indexable:Bool)-> Void {
-        DispatchQueue.global(qos: .background).async {
-            var value=value;
-            var metricDataArray = [[String:Any]]();
-            metricDataArray.append(["name": "AppEventType","value": name,"type": "STRING","indexable":indexable]);
-            
-            if(!(value.characters.count==0))
-            {
-                metricDataArray.append(["name": "AppEventValue","value": value,"type": type,"indexable":indexable]);
+        return logCommon(name: name, value: value, type: type, indexable: indexable, isException: false);
+    }
+    
+    class func logCommon(name:String,value:String,type:String,indexable:Bool,isException:Bool) {
+        var logType = "", message = "", correlationID = "1";
+        if(isException == true) {
+            logType = "ERROR";
+            message = name + ": " + value;
+            if(name == "AppCrash") {
+                correlationID = "iOS - Crash Report"; //makes it easy to search for all iOS crash reports via filter
             }
-            
-            metricDataArray.append(contentsOf: CommonUtils.getCommonLogMetrics());
-            let dateFormatter = DateFormatter();
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-            dateFormatter.timeZone = TimeZone.current;
+        }
+        else {
+            logType = "INFO";
+            message = name;
+        }
+        var value=value;
+        var metricDataArray = [[String:Any]]();
+        metricDataArray.append(["name": "AppEventType","value": name,"type": "STRING","indexable":indexable]);
         
-            let metricdata = ["data":metricDataArray,
-                              "count":0,
-                              "date": dateFormatter.string(from: Date())] as [String:Any];
+        if(!(value.characters.count==0))
+        {
+            metricDataArray.append(["name": "AppEventValue","value": value,"type": type,"indexable":indexable]);
+        }
         
-            let val = [
-                "application": "Stores",
-                "logLevel": "INFO",
-                "dateTime": metricdata["date"] as! String ,
-                "message": name,
-                "serviceVersion": 1,
-                "messageLevel": "ENTERPRISE",
-                "metaData":[
-                    "transType":"Mobile",
-                    "componentName": "EnterpriseTest",
-                    "correlationID": "1",
-                    "metricList": [
-                        "metrics":  metricdata["data"]
-                    ]
+        metricDataArray.append(contentsOf: CommonUtils.getCommonLogMetrics());
+        let dateFormatter = DateFormatter();
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+        dateFormatter.timeZone = TimeZone.current;
+        
+        let metricdata = ["data":metricDataArray,
+                          "count":0,
+                          "date": dateFormatter.string(from: Date())] as [String:Any];
+        
+        let val = [
+            "application": "Stores",
+            "logLevel": logType,
+            "dateTime": metricdata["date"] as! String ,
+            "message": message,
+            "serviceVersion": 1,
+            "messageLevel": "ENTERPRISE",
+            "metaData":[
+                "transType":"Mobile",
+                "componentName": "EnterpriseTest",
+                "correlationID": correlationID,
+                "metricList": [
+                    "metrics":  metricdata["data"]
                 ]
-                ] as [String : Any];
-            
-            let requestData = try! JSONSerialization.data(withJSONObject: val, options: []);
-
-            if( sendData(data:requestData) ) {
-                NSLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
+            ]
+            ] as [String : Any];
+        
+        let requestData = try! JSONSerialization.data(withJSONObject: val, options: []);
+        
+        if( sendData(data:requestData) ) {
+            NSLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
+        }
+        else
+        {
+            let defaults = UserDefaults.standard;
+            if let metricsinfo = defaults.value(forKey: metricsLog) {
+                if var metricsArray =  metricsinfo as? [[String:Any]] {
+                    metricsArray.append(metricdata);
+                    defaults.set(metricsArray, forKey: metricsLog);
+                }
             }
             else
             {
-                let defaults = UserDefaults.standard;
-                if let metricsinfo = defaults.value(forKey: metricsLog) {
-                    if var metricsArray =  metricsinfo as? [[String:Any]] {
-                        metricsArray.append(metricdata);
-                        defaults.set(metricsArray, forKey: metricsLog);
-                    }
-                }
-                else
-                {
-                    let metricsinfo:[[String:Any]] = [metricdata];
-                        defaults.set(metricsinfo, forKey: metricsLog);
-                }
-                defaults.synchronize();
+                let metricsinfo:[[String:Any]] = [metricdata];
+                defaults.set(metricsinfo, forKey: metricsLog);
             }
+            defaults.synchronize();
         }
     }
-    
+
     class func logStoredData()
     {
         if( !sendInProgress ) {

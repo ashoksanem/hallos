@@ -87,36 +87,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         return true
     }
     
-//    func handleCrashReport() -> Void {
-//        let crashReporter = PLCrashReporter.shared();
-//        NSData *crashData;
-//        NSError *error;
-//    
-//        // Try loading the crash report
-//        crashData = [crashReporter loadPendingCrashReportDataAndReturnError: &error];
-//        if (crashData == nil) {
-//            NSLog(@"Could not load crash report: %@", error);
-//            goto finish;
-//        }
-//    
-//         // We could send the report from here, but we'll just print out
-//         // some debugging info instead
-//         PLCrashReport *report = [[[PLCrashReport alloc] initWithData: crashData error: &error] autorelease];
-//         if (report == nil) {
-//             NSLog(@"Could not parse crash report");
-//             goto finish;
-//         }
-//    
-//         NSLog(@"Crashed on %@", report.systemInfo.timestamp);
-//         NSLog(@"Crashed with signal %@ (code %@, address=0x%" PRIx64 ")", report.signalInfo.name,
-//               report.signalInfo.code, report.signalInfo.address);
-//    
-//         // Purge the report
-//     finish:
-//         [crashReporter purgePendingCrashReport];
-//         return;
-//    }
-    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -233,8 +203,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
-                    SharedContainer.setSsp(value: trimmed);
-                    NSLog("Setting ssp to: " + trimmed);
+                    SharedContainer.setSsp(value: "fs008asssp01");
+                    NSLog("Setting ssp to: fs008asssp01" + trimmed);
                 }
             }
             
@@ -374,7 +344,34 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     {
         return ( sled?.connstate == 2 );
     }
+
+    func isLineaCharging() -> Bool
+    {
+        if( isLineaConnected() )
+        {
+            var youSuckIP = ObjCBool(false)
+            
+            do {
+                try sled?.getCharging(&youSuckIP);
+            }
+            catch {
+                youSuckIP = false;
+            }
+            return youSuckIP.boolValue;
+        }
+        
+        return false;
+    }
     
+    func setLineaCharging(val : Bool) -> Void
+    {
+        if( isLineaConnected() )
+        {
+            //        DLog( @"Charging switched to %s with rc of %s\n", chargeFlag ? "true":"false", [sled setCharging:chargeFlag error:nil] ? "true":"false" );
+            do {
+                try sled?.setCharging( val );
+            }
+            catch {
                 NSLog("Failed to charge");
             }
         }
@@ -390,6 +387,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             }
             catch {
                 NSLog("Failed to change idle timeout")
+            }
+        }
+    }
+    
     func barcodeData(_ barcode: String!, type: Int32) {
         updateBarcodeData(barcode: barcode);
     }

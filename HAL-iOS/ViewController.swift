@@ -88,10 +88,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             case "loading": // new:1 or 0
                 if let val = change[.newKey] as? Bool {
                     if val {
-                        NSLog("Starting webview loading.")
+                        //NSLog("Starting webview loading.")
+                        DLog("Starting webview loading.")
                         CommonUtils.setWebviewLoading(value: true);
                     } else {
-                        NSLog("Stopping webview loading.")
+                        //NSLog("Stopping webview loading.")
+                        DLog("Stopping webview loading.")
                         CommonUtils.setWebviewLoading(value: false);
                     }
                 }
@@ -102,7 +104,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func viewDidLoad() {
         super.viewDidLoad()
         var url = CommonUtils.getLandingPage();
-        
+        //let url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
         //for debugging for testing
 //        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
 //        url = URL(string: "http://node1.sdpd.c4d.devops.fds.com:9001/")!;
@@ -111,7 +113,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        NSLog("Website calling: " + message.name);
+        //NSLog("Website calling: " + message.name);
+        DLog("Website calling: " + message.name);
         
         if(message.name == "launchSSOPage") {
             let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
@@ -385,11 +388,14 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         ViewController.webView?.evaluateJavaScript(javascriptMessage) { result, error in
             guard error == nil else {
                 ViewController.storedJS.append(javascriptMessage);
-                NSLog("evaluateJavaScript message: " + javascriptMessage);
+                //NSLog("evaluateJavaScript message: " + javascriptMessage);
+                DLog("evaluateJavaScript message: " + javascriptMessage);
+                
                 if( error != nil ) {
                     let junk = error?.localizedDescription;
                     if( junk != nil ) {
-                        NSLog("evaluateJavaScript error: " + junk! );
+                        //NSLog("evaluateJavaScript error: " + junk! );
+                        DLog("evaluateJavaScript error: " + junk! );
                     }
                 }
                 return;
@@ -406,7 +412,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     func updateBarcodeData(barcode: String)
     {
-        NSLog("Received scanner data: " + barcode);
+        //NSLog("Received scanner data: " + barcode);
+        DLog("Received scanner data: " + barcode);
         //
         //        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
         //        evaluateJavaScript(javascriptMessage: callback);

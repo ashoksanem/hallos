@@ -43,7 +43,7 @@ class LoggingRequest{
         
             let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
                 if(error != nil) {
-                    print(error.debugDescription);
+                    DLog(error.debugDescription);
                     onCompletion(false);
                 }
                 else
@@ -55,7 +55,7 @@ class LoggingRequest{
                             if let reasonCode=json?["reasonCode"] as? String {
                                 if(reasonCode=="0")
                                 {
-                                    print("Sent message through LoggingRequest.");
+                                    DLog("Sent message through LoggingRequest.");
                                     onCompletion(true);
                                 }
                                 else
@@ -64,14 +64,14 @@ class LoggingRequest{
                                 }
                             }
                         } catch {
-                            print(error);
+                            DLog(error as! String);
                             onCompletion(false);
                         }
                         
                     }
                     else
                     {
-                        print(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
+                        DLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
                         onCompletion(false);
                     }
                 }})
@@ -119,7 +119,8 @@ class LoggingRequest{
             let requestData = try! JSONSerialization.data(withJSONObject: val, options: []);
 
             if( sendData(data:requestData) ) {
-                NSLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
+                //NSLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
+                DLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
             }
             else
             {
@@ -137,6 +138,7 @@ class LoggingRequest{
                 }
                 defaults.synchronize();
             }
+            
         }
     }
     
@@ -157,9 +159,9 @@ class LoggingRequest{
                 let logCountLimit = CommonUtils.getLogCountLimit();
                 let logTimeLimit = CommonUtils.getLogTimeLimit();
                 let logRetryCount = CommonUtils.getLogRetryCount();
-            
+                
                 if metricsStored != nil {
-                    for metric in metricsStored!
+                    for  metric in metricsStored!
                     {
                         let metadata = [
                             "application": "Stores",
@@ -180,7 +182,8 @@ class LoggingRequest{
 
                         let dateNow = Date();
                         let requestData = try! JSONSerialization.data(withJSONObject: metadata, options: []);
-                        NSLog("LoggingRequest logStoredData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
+                        //NSLog("LoggingRequest logStoredData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
+                        DLog("LoggingRequest logStoredData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
 
                         if(!sendData(data: requestData))
                         {
@@ -199,11 +202,15 @@ class LoggingRequest{
                                 }
                             }
                         }
-                    }
+                  }
                 }
-            
-                defaults.removeObject(forKey: metricsLog);
-            
+                let metricsStoredTemp =  defaults.value(forKey: metricsLog) as? [[String:Any]];
+                let metricsNewlyAdded = metricsStoredTemp?.dropFirst((metricsStored?.count)!);
+                for metric in metricsNewlyAdded!
+                {
+                    metricsUndelivered.append(metric);
+                }
+                
                 if(metricsUndelivered.count > 0)
                 {
                     if(metricsUndelivered.count>logCountLimit)
@@ -212,10 +219,13 @@ class LoggingRequest{
                     }
                     defaults.set(metricsUndelivered, forKey: metricsLog);
                 }
+                
+                defaults.synchronize();
             }
         }
         else {
-            NSLog("I'm already sending logs.");
+            //NSLog("I'm already sending logs.");
+            DLog("I'm already sending logs.");
         }
         sendInProgress = false;
     }

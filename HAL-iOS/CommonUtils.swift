@@ -116,7 +116,8 @@ class CommonUtils
             val = "Currently logged in associate: " + associateString!;
         }
 
-        NSLog( val );
+        //NSLog( val );
+        DLog( val );
         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
         
         return associateString!;
@@ -156,7 +157,8 @@ class CommonUtils
     class func getLandingPage() -> URL
     {
         let defaults = UserDefaults.standard;
-        return defaults.url(forKey: landingPage)!;
+        return Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
+        //return defaults.url(forKey: landingPage)!;
             }
     
     class func setCurrentPage(value: URL) -> Void
@@ -483,5 +485,4 @@ class CommonUtils
             "indexable":indexable
         ];
     }
-
 }

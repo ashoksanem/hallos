@@ -44,7 +44,7 @@ class LogAnalyticsRequest{
             }
             let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
                 if(error != nil) {
-                    print(error.debugDescription)
+                    DLog(error.debugDescription)
                     onCompletion(false)
                 }
                 else
@@ -57,20 +57,23 @@ class LogAnalyticsRequest{
                             let reasonCode=json?["reasonCode"] as? String
                             if (reasonCode != nil) {
                                 if(reasonCode=="0") {
-                                    NSLog("Sent message through LogAnalyticsRequest.");
+                                    //NSLog("Sent message through LogAnalyticsRequest.");
+                                    DLog("Sent message through LogAnalyticsRequest.");
                                     onCompletion(true)
                                 } else {
                                     onCompletion(false)
                                 }
                             }
                         } catch {
-                            NSLog("LogAnalyticsRequest error: " + String( describing: error));
+                            //NSLog("LogAnalyticsRequest error: " + String( describing: error));
+                            DLog("LogAnalyticsRequest error: " + String( describing: error));
                             onCompletion(false)
                         }
                     }
                     else
                     {
-                        NSLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
+                        //NSLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
+                        DLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
                         onCompletion(false)
                     }
                 }})

@@ -97,33 +97,38 @@ class HALApplication: UIApplication {
     }
     
     func update() {
-        NSLog("autologout");
+        //NSLog("autologout");
+        DLog("autologout");
         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate autoLogout due to inactivity.", type: "STRING", indexable: true);
         CommonUtils.setIsSSOAuthenticated( value: false );
     }
     
     func checkNetworkConnectivity() {
-        NSLog("Check network");
+        //NSLog("Check network");
+        DLog("Check network");
         if(!isInternetAvailable()){
             LoggingRequest.logData(name: LoggingRequest.metrics_lost_network, value: "", type: "STRING", indexable: true);
         }
     }
     
     func logStoredData() {
-        NSLog("Send stored logs to server");
+        //NSLog("Send stored logs to server");
+        DLog("Send stored logs to server");
         LogAnalyticsRequest.logStoredData();
         LoggingRequest.logStoredData();
     }
     
     func updateBattery() {
-        NSLog("Update Sled battery");
+        //NSLog("Update Sled battery");
+        DLog("Update Sled battery");
         let delegate = UIApplication.shared.delegate as? AppDelegate;
         delegate?.updateBattery();
     }
     
     func enableCharging() {
         if(Sled.isConnected()) {
-            NSLog("Enable charging from sled");
+            //NSLog("Enable charging from sled");
+            DLog("Enable charging from sled");
             Sled.enableCharging(val: true)
         }
     }
@@ -156,15 +161,18 @@ class HALApplication: UIApplication {
         if( ViewController.storedJS.count > 0 )
         {
             let javascriptMessage = ViewController.storedJS.popLast() as String!;
-            NSLog("Resending : " + javascriptMessage!);
+            //NSLog("Resending : " + javascriptMessage!);
+            DLog("Resending : " + javascriptMessage!);
             ViewController.webView?.evaluateJavaScript(javascriptMessage!) { result, error in
                 guard error == nil else {
                     ViewController.storedJS.append(javascriptMessage!);
-                    NSLog("evaluateJavaScript message: " + javascriptMessage!);
+                    //NSLog("evaluateJavaScript message: " + javascriptMessage!);
+                    DLog("evaluateJavaScript message: " + javascriptMessage!);
                     if( error != nil ) {
                         let junk = error?.localizedDescription;
                         if( junk != nil ) {
-                            NSLog("evaluateJavaScript error: " + junk! );
+                            //NSLog("evaluateJavaScript error: " + junk! );
+                            DLog("evaluateJavaScript error: " + junk! );
                         }
                     }
                     return

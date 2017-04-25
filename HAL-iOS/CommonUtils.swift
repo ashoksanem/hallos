@@ -20,6 +20,7 @@ class CommonUtils
     static let ssoAssociateInfo = "ssoAssociateInfo";
     static let currentPage = "currentPage";
     static let allowScan = "allowScan";
+    static let scannerModeFromWeb = "scannerModeFromWeb";
     static let managedAppConfig = "com.apple.configuration.managed";
     static let landingPage = "landingPage";
     static let deviceId = "deviceId";
@@ -84,6 +85,17 @@ class CommonUtils
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: allowScan);
+    }
+    class func isScannerModeEnabledFromWeb() -> Bool
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: scannerModeFromWeb);
+    }
+    
+    class func setScannerModeFromWeb(value: Bool)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: scannerModeFromWeb);
     }
     
     class func isCPCLPrinter() -> Bool
@@ -157,7 +169,7 @@ class CommonUtils
     {
         let defaults = UserDefaults.standard;
         return defaults.url(forKey: landingPage)!;
-            }
+    }
     
     class func setCurrentPage(value: URL) -> Void
     {

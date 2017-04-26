@@ -19,7 +19,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         NSSetUncaughtExceptionHandler { exception in
-            //NSLog("error details : " + exception.reason!)
+            
             DLog( "error details : " + exception.reason!);
             LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: exception.reason!, type: "STRING", indexable: true);
         }
@@ -114,7 +114,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     let url = URL(string: trimmed)!;
                     CommonUtils.setLandingPage(value: url);
-                    //NSLog("Setting landingPage to: " + trimmed);
+                    
                     DLog("Setting landingPage to: " + trimmed);
                 }
             }
@@ -125,7 +125,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 {
                     CommonUtils.setAutoLogoutTimeinterval(value: val as! Int);
                     let val = "Setting autoLogout to: " + String(describing:val);
-                    //NSLog( val );
+                    
                     DLog( val );
 
                     //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
@@ -137,7 +137,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 if(!((val as? Int)==nil))
                 {
                     CommonUtils.setDivNum(value: val as! Int);
-                    //NSLog("Setting divNum to: " + String(describing:val));
+                    
                     DLog("Setting divNum to: " + String(describing:val));
                 }
             }
@@ -147,7 +147,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 if(!((val as? Int)==nil))
                 {
                     CommonUtils.setStoreNum(value: val as! Int);
-                    //NSLog("Setting storeNum to: " + String(describing:val));
+                    
                     DLog("Setting storeNum to: " + String(describing:val));
                 }
             }
@@ -157,7 +157,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setIsp(value: trimmed);
-                    //NSLog("Setting isp to: " + trimmed);
+                    
                     DLog("Setting isp to: " + trimmed);
                 }
             }
@@ -167,7 +167,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setSsp(value: trimmed);
-                    //NSLog("Setting ssp to: " + trimmed);
+                    
                     DLog("Setting ssp to: " + trimmed);
                 }
             }
@@ -177,7 +177,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setCloud(value: trimmed);
-                    //NSLog("Setting cloud to: " + trimmed);
+                    
                     DLog("Setting cloud to: " + trimmed);
                 }
             }
@@ -300,7 +300,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func detectDevice()
     {
         sled = DTDevices.sharedDevice() as? DTDevices;
-        //NSLog("sled SDK version: " + String(describing: sled?.sdkVersion));
+        
         DLog("sled SDK version: " + String(describing: sled?.sdkVersion));
         sled?.addDelegate(self);
         sled?.connect();
@@ -338,7 +338,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 try sled?.setCharging( val );
             }
             catch {
-                //NSLog("Failed to charge");
+                
                 DLog("Failed to charge");
             }
         }
@@ -353,7 +353,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 try sled?.setAutoOffWhenIdle(43200, whenDisconnected: 43200)
             }
             catch {
-                //NSLog("Failed to change idle timeout")
+                
                 DLog("Failed to change idle timeout")
             }
         }
@@ -398,7 +398,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
         {
             //viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
             let val = "Sled firmware version: " + (sled?.firmwareRevision)!;
-            //NSLog(val);
+            
             DLog(val);
             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
             
@@ -407,7 +407,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 disableScanner();
             }
             catch {
-                //NSLog("Sled pass through error: " + String(describing:error));
+                
                 DLog("Sled pass through error: " + String(describing:error));
             }
         }
@@ -423,7 +423,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
             CommonUtils.setScanEnabled(value: true);
         }
         catch {
-            //NSLog("Enable scanner error: " + String(describing:error));
+            
             DLog("Enable scanner error: " + String(describing:error));
         }
     }
@@ -436,7 +436,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
    
         }
         catch {
-            //NSLog("Disable scanner error: " + String(describing:error));
+            
             DLog("Disable scanner error: " + String(describing:error));
         }
     }
@@ -450,7 +450,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
                 return battery
             }
             catch {
-                //NSLog("Get sled battery level error: " + String(describing:error));
+                
                 DLog("Get sled battery level error: " + String(describing:error));
                 
             }
@@ -461,7 +461,7 @@ class AppDelegate: UIResponder,DTDeviceDelegate, UIApplicationDelegate {
     func getDeviceBatteryLevel() -> Float
     {
         UIDevice.current.isBatteryMonitoringEnabled = true;
-        //NSLog("Sled battery: " + String(describing:UIDevice.current.batteryLevel));
+        
         DLog("Sled battery: " + String(describing:UIDevice.current.batteryLevel));
         return UIDevice.current.batteryLevel;
     }

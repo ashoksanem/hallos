@@ -71,9 +71,9 @@ class SSORequest{
                     let json = JSON(data: data!);
                     let ssoJsonObject : Json4Swift_Base = Json4Swift_Base(dictionary: json)!;
                     
-//                    print(response.debugDescription);
-//                    print(strData);
-//                    NSLog(resp?.statusCode);
+//                    DLog(response.debugDescription);
+//                    DLog(strData);
+//                    DLog(resp?.statusCode);
                     
                     if( resp != nil && resp?.statusCode == 200 ) {
                         if( ssoJsonObject.associateInfo != nil ) {

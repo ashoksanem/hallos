@@ -57,7 +57,7 @@ class LogAnalyticsRequest{
                             let reasonCode=json?["reasonCode"] as? String
                             if (reasonCode != nil) {
                                 if(reasonCode=="0") {
-                                    //NSLog("Sent message through LogAnalyticsRequest.");
+                                    
                                     DLog("Sent message through LogAnalyticsRequest.");
                                     onCompletion(true)
                                 } else {
@@ -65,14 +65,14 @@ class LogAnalyticsRequest{
                                 }
                             }
                         } catch {
-                            //NSLog("LogAnalyticsRequest error: " + String( describing: error));
+                            
                             DLog("LogAnalyticsRequest error: " + String( describing: error));
                             onCompletion(false)
                         }
                     }
                     else
                     {
-                        //NSLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
+                        
                         DLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
                         onCompletion(false)
                     }

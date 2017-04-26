@@ -119,7 +119,7 @@ class LoggingRequest{
             let requestData = try! JSONSerialization.data(withJSONObject: val, options: []);
 
             if( sendData(data:requestData) ) {
-                //NSLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
+                
                 DLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
             }
             else
@@ -182,7 +182,7 @@ class LoggingRequest{
 
                         let dateNow = Date();
                         let requestData = try! JSONSerialization.data(withJSONObject: metadata, options: []);
-                        //NSLog("LoggingRequest logStoredData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
+                        
                         DLog("LoggingRequest logStoredData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
 
                         if(!sendData(data: requestData))
@@ -224,7 +224,7 @@ class LoggingRequest{
             }
         }
         else {
-            //NSLog("I'm already sending logs.");
+            
             DLog("I'm already sending logs.");
         }
         sendInProgress = false;

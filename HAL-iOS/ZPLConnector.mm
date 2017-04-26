@@ -14,7 +14,7 @@
 
 -(bool)printStuff:(NSString *)printData withSled:(DTDevices *)sled isCPCL:(bool)isCPCL
 {
-    NSLog(@"%@", printData);
+    
     std::string bar = std::string([printData UTF8String]);
     if(isCPCL){
     printStuffCPCL( bar,  sled );

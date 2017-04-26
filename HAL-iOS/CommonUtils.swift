@@ -128,7 +128,8 @@ class CommonUtils
             val = "Currently logged in associate: " + associateString!;
         }
 
-        NSLog( val );
+        
+        DLog( val );
         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
         
         return associateString!;
@@ -495,5 +496,4 @@ class CommonUtils
             "indexable":indexable
         ];
     }
-
 }

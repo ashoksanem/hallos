@@ -31,7 +31,7 @@ class SSORequest{
                 let jsonreqdata = try JSONSerialization.data(withJSONObject: params);
                 request.httpBody=jsonreqdata;
             } catch {
-                print("json error: \(error)");
+                DLog("json error: \(error)");
             }
             
             request.addValue("application/json", forHTTPHeaderField: "Content-Type");
@@ -42,7 +42,7 @@ class SSORequest{
             
             let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
                 if(error != nil) {
-                    print(error!.localizedDescription);
+                    DLog(error!.localizedDescription);
                     
                     if (!(Int(associateNumber)==nil) && !(Int(associatePin)==nil) && (associateNumber.characters.count==8) && (associatePin.characters.count==4)){
                         CommonUtils.setAuthServiceUnavailableInfo(assocNbr: associateNumber);
@@ -71,9 +71,9 @@ class SSORequest{
                     let json = JSON(data: data!);
                     let ssoJsonObject : Json4Swift_Base = Json4Swift_Base(dictionary: json)!;
                     
-//                    print(response.debugDescription);
-//                    print(strData);
-//                    NSLog(resp?.statusCode);
+//                    DLog(response.debugDescription);
+//                    DLog(strData);
+//                    DLog(resp?.statusCode);
                     
                     if( resp != nil && resp?.statusCode == 200 ) {
                         if( ssoJsonObject.associateInfo != nil ) {

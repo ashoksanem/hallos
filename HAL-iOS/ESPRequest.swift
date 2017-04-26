@@ -33,7 +33,7 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         theRequest.httpMethod = "POST";
         theRequest.httpBody = soapMessage.data(using: String.Encoding.utf8, allowLossyConversion: false);
 
-        //NSLog( "ESP Request: " + String(data: theRequest.httpBody!, encoding: .utf8)! );
+        //DLog( "ESP Request: " + String(data: theRequest.httpBody!, encoding: .utf8)! );
 
         let config = URLSessionConfiguration.default;
         let session = URLSession(configuration:config, delegate: self, delegateQueue: OperationQueue.main);
@@ -56,7 +56,7 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         
         let stringData = strData as? String
         if (stringData != nil) {
-            //NSLog( "ESP Response: " + ( stringData! ) );
+            //DLog( "ESP Response: " + ( stringData! ) );
         }
         
         let xmlParser = XMLParser(data: data);

@@ -34,14 +34,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             object: nil);
         
         NSSetUncaughtExceptionHandler { exception in
-            NSLog("error details : " + exception.reason!)
+            DLog("error details : " + exception.reason!)
             LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: exception.reason!, type: "STRING", indexable: true);
         }
         
         let crashReporter = PLCrashReporter.shared();
         
         if( crashReporter?.hasPendingCrashReport() )! {
-            NSLog("Previous Error!");
+            DLog("Previous Error!");
             do {
                 let crashData = try crashReporter?.loadPendingCrashReportDataAndReturnError();
                 
@@ -59,14 +59,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                     LoggingRequest.logError(name: LoggingRequest.metrics_app_crash, value: (base64report?.base64EncodedString())!, type: "STRING", indexable: false);
                 }
                 catch {
-                    NSLog("Could not parse crash report.");
+                    DLog("Could not parse crash report.");
                     LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: "Could not parse crash report.", type: "STRING", indexable: true);
                 }
                 
                 crashReporter?.purgePendingCrashReport();
             }
             catch {
-                NSLog("Could not load crash report.");
+                DLog("Could not load crash report.");
                 LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: "Could not load crash report.", type: "STRING", indexable: true);
                 crashReporter?.purgePendingCrashReport();
             }
@@ -75,12 +75,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         // Enable the Crash Reporter
         do {
             try crashReporter?.enableAndReturnError();
-            NSLog("Crash reporter enabled.");
+            DLog("Crash reporter enabled.");
             LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "Crash reporter enabled.", type: "STRING", indexable: true);
         }
         catch
         {
-            NSLog("Could not enable crash reporter.");
+            DLog("Could not enable crash reporter.");
             LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "Could not enable crash reporter.", type: "STRING", indexable: true);
         }
         
@@ -120,6 +120,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
         LoggingRequest.logStoredData();
         LogAnalyticsRequest.logStoredData();
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -129,7 +130,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
-        
+        LoggingRequest.logStoredData();
+        LogAnalyticsRequest.logStoredData();
         detectDevice();
         
         NotificationCenter.default.addObserver( self,
@@ -159,7 +161,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     let url = URL(string: trimmed)!;
                     CommonUtils.setLandingPage(value: url);
-                    NSLog("Setting landingPage to: " + trimmed);
+                    
+                    DLog("Setting landingPage to: " + trimmed);
                 }
             }
             
@@ -169,7 +172,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 {
                     CommonUtils.setAutoLogoutTimeinterval(value: val as! Int);
                     let val = "Setting autoLogout to: " + String(describing:val);
-                    NSLog( val );
+                    
+                    DLog( val );
+
                     //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
                 }
             }
@@ -179,7 +184,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 if(!((val as? Int)==nil))
                 {
                     CommonUtils.setDivNum(value: val as! Int);
-                    NSLog("Setting divNum to: " + String(describing:val));
+                    
+                    DLog("Setting divNum to: " + String(describing:val));
                 }
             }
             
@@ -188,7 +194,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 if(!((val as? Int)==nil))
                 {
                     CommonUtils.setStoreNum(value: val as! Int);
-                    NSLog("Setting storeNum to: " + String(describing:val));
+                    
+                    DLog("Setting storeNum to: " + String(describing:val));
                 }
             }
             
@@ -197,7 +204,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setIsp(value: trimmed);
-                    NSLog("Setting isp to: " + trimmed);
+                    
+                    DLog("Setting isp to: " + trimmed);
                 }
             }
             
@@ -206,7 +214,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setSsp(value: trimmed);
-                    NSLog("Setting ssp to: " + trimmed);
+                    
+                    DLog("Setting ssp to: " + trimmed);
                 }
             }
             
@@ -215,7 +224,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
                     SharedContainer.setCloud(value: trimmed);
-                    NSLog("Setting cloud to: " + trimmed);
+                    
+                    DLog("Setting cloud to: " + trimmed);
                 }
             }
             
@@ -337,7 +347,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func detectDevice()
     {
         sled = DTDevices.sharedDevice() as? DTDevices;
-        NSLog("sled SDK version: " + String(describing: sled?.sdkVersion));
+        
+        DLog("sled SDK version: " + String(describing: sled?.sdkVersion));
         sled?.addDelegate(self);
         sled?.connect();
     }
@@ -374,7 +385,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 try sled?.setCharging( val );
             }
             catch {
-                NSLog("Failed to charge");
+                
+                DLog("Failed to charge");
             }
         }
     }
@@ -388,7 +400,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 try sled?.setAutoOffWhenIdle(43200, whenDisconnected: 43200)
             }
             catch {
-                NSLog("Failed to change idle timeout")
+                
+                DLog("Failed to change idle timeout")
             }
         }
     }
@@ -432,7 +445,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         {
             //viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
             let val = "Sled firmware version: " + (sled?.firmwareRevision)!;
-            NSLog(val);
+            
+            DLog(val);
             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
             
             do {
@@ -440,7 +454,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 //disableScanner();
             }
             catch {
-                NSLog("Sled pass through error: " + String(describing:error));
+                
+                DLog("Sled pass through error: " + String(describing:error));
             }
             if(CommonUtils.isScannerModeEnabledFromWeb())
             {
@@ -464,7 +479,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             CommonUtils.setScanEnabled(value: true);
         }
         catch {
-            NSLog("Enable scanner error: " + String(describing:error));
+            
+            DLog("Enable scanner error: " + String(describing:error));
         }
     }
     
@@ -477,7 +493,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
    
         }
         catch {
-            NSLog("Disable scanner error: " + String(describing:error));
+            
+            DLog("Disable scanner error: " + String(describing:error));
         }
     }
     
@@ -490,7 +507,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 return battery
             }
             catch {
-                NSLog("Get sled battery level error: " + String(describing:error));
+                
+                DLog("Get sled battery level error: " + String(describing:error));
+                
             }
         }
         return 0;
@@ -499,7 +518,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func getDeviceBatteryLevel() -> Float
     {
         UIDevice.current.isBatteryMonitoringEnabled = true;
-        NSLog("Sled battery: " + String(describing:UIDevice.current.batteryLevel));
+        
+        DLog("Sled battery: " + String(describing:UIDevice.current.batteryLevel));
         return UIDevice.current.batteryLevel;
     }
     

@@ -45,7 +45,7 @@ class ZebraBluetooth
             }
             catch
             {
-                print(error)
+                DLog(error.localizedDescription)
                 return false
             }
         }
@@ -94,7 +94,7 @@ class ZebraBluetooth
             }
             catch
                 {
-                print(error)
+                DLog(error.localizedDescription)
                 }
             }
             if(sled.btConnectedDevices.count==0)
@@ -145,7 +145,7 @@ class ZebraBluetooth
                     var resp = [CUnsignedChar](repeating:0x00, count:144)
                     let abc = sled.btRead(&resp, length: Int32(resp.count), timeout: 1,error:nil)
                     returnCode = String(describing: resp)
-                    print(abc)
+                    DLog(abc.description)
                     if( resp[70] == 0x31 )
                     {
                         let a = resp[88]
@@ -172,7 +172,7 @@ class ZebraBluetooth
                 catch
                 {
                     returnCode = error.localizedDescription
-                    print(error)
+                    DLog(error.localizedDescription)
                 }
             }
         }
@@ -195,7 +195,7 @@ class ZebraBluetooth
                     var resp = [CUnsignedChar](repeating:0x00, count:1)
                     let abc = sled.btRead(&resp, length: Int32(resp.count), timeout: 1,error:nil)
                     returnCode = String(describing: resp)
-                    print(abc)
+                    DLog(abc.description)
                     if( abc != 0 )
                     {
                         let x=resp[0].hashValue;
@@ -221,7 +221,7 @@ class ZebraBluetooth
                 catch
                 {
                     returnCode = error.localizedDescription
-                    print(error)
+                    DLog(error.localizedDescription)
                 }
             }
         }

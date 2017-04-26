@@ -41,7 +41,7 @@ class Assembly{
         ] as [String : Any]
         let halJsonData = try! JSONSerialization.data(withJSONObject: halJson, options: [])
         let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-        print(halJsonString);
+        DLog(halJsonString!);
         return halJsonString!
     }
     class func isScannerAvailable() -> Bool {

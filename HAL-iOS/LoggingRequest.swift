@@ -43,7 +43,7 @@ class LoggingRequest{
         
             let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
                 if(error != nil) {
-                    print(error.debugDescription);
+                    DLog(error.debugDescription);
                     onCompletion(false);
                 }
                 else
@@ -55,7 +55,7 @@ class LoggingRequest{
                             if let reasonCode=json?["reasonCode"] as? String {
                                 if(reasonCode=="0")
                                 {
-                                    print("Sent message through LoggingRequest.");
+                                    DLog("Sent message through LoggingRequest.");
                                     onCompletion(true);
                                 }
                                 else
@@ -64,14 +64,14 @@ class LoggingRequest{
                                 }
                             }
                         } catch {
-                            print(error);
+                            DLog(error as! String);
                             onCompletion(false);
                         }
                         
                     }
                     else
                     {
-                        print(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
+                        DLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
                         onCompletion(false);
                     }
                 }})
@@ -79,86 +79,69 @@ class LoggingRequest{
         }
     }
     
-    //call with error specifics in the value field
-    class func logError(name:String,value:String,type:String,indexable:Bool)-> Void {
-        return logCommon(name: name, value: value, type: type, indexable: indexable, isException: true);
-    }
-    
     class func logData(name:String,value:String,type:String,indexable:Bool)-> Void {
-        return logCommon(name: name, value: value, type: type, indexable: indexable, isException: false);
-    }
-    
-    class func logCommon(name:String,value:String,type:String,indexable:Bool,isException:Bool) {
-        var logType = "", message = "", correlationID = "1";
-        if(isException == true) {
-            logType = "ERROR";
-            message = name + ": " + value;
-            if(name == "AppCrash") {
-                correlationID = "iOS - Crash Report"; //makes it easy to search for all iOS crash reports via filter
+        DispatchQueue.global(qos: .background).async {
+            var value=value;
+            var metricDataArray = [[String:Any]]();
+            metricDataArray.append(["name": "AppEventType","value": name,"type": "STRING","indexable":indexable]);
+            
+            if(!(value.characters.count==0))
+            {
+                metricDataArray.append(["name": "AppEventValue","value": value,"type": type,"indexable":indexable]);
             }
-        }
-        else {
-            logType = "INFO";
-            message = name;
-        }
-        var value=value;
-        var metricDataArray = [[String:Any]]();
-        metricDataArray.append(["name": "AppEventType","value": name,"type": "STRING","indexable":indexable]);
+            
+            metricDataArray.append(contentsOf: CommonUtils.getCommonLogMetrics());
+            let dateFormatter = DateFormatter();
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+            dateFormatter.timeZone = TimeZone.current;
         
-        if(!(value.characters.count==0))
-        {
-            metricDataArray.append(["name": "AppEventValue","value": value,"type": type,"indexable":indexable]);
-        }
+            let metricdata = ["data":metricDataArray,
+                              "count":0,
+                              "date": dateFormatter.string(from: Date())] as [String:Any];
         
-        metricDataArray.append(contentsOf: CommonUtils.getCommonLogMetrics());
-        let dateFormatter = DateFormatter();
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-        dateFormatter.timeZone = TimeZone.current;
-        
-        let metricdata = ["data":metricDataArray,
-                          "count":0,
-                          "date": dateFormatter.string(from: Date())] as [String:Any];
-        
-        let val = [
-            "application": "Stores",
-            "logLevel": logType,
-            "dateTime": metricdata["date"] as! String ,
-            "message": message,
-            "serviceVersion": 1,
-            "messageLevel": "ENTERPRISE",
-            "metaData":[
-                "transType":"Mobile",
-                "componentName": "EnterpriseTest",
-                "correlationID": correlationID,
-                "metricList": [
-                    "metrics":  metricdata["data"]
+            let val = [
+                "application": "Stores",
+                "logLevel": "INFO",
+                "dateTime": metricdata["date"] as! String ,
+                "message": "This is a log message",
+                "serviceVersion": 1,
+                "messageLevel": "ENTERPRISE",
+                "metaData":[
+                    "transType":"Mobile",
+                    "componentName": "EnterpriseTest",
+                    "correlationID": "1",
+                    "metricList": [
+                        "metrics":  metricdata["data"]
+                    ]
                 ]
-            ]
-            ] as [String : Any];
-        
-        let requestData = try! JSONSerialization.data(withJSONObject: val, options: []);
-        
-        if( sendData(data:requestData) ) {
-            DLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
-        }
-        else
-        {
-            let defaults = UserDefaults.standard;
-            if let metricsinfo = defaults.value(forKey: metricsLog) {
-                if var metricsArray =  metricsinfo as? [[String:Any]] {
-                    metricsArray.append(metricdata);
-                    defaults.set(metricsArray, forKey: metricsLog);
-                }
+                ] as [String : Any];
+            
+            let requestData = try! JSONSerialization.data(withJSONObject: val, options: []);
+
+            if( sendData(data:requestData) ) {
+                
+                DLog("LoggingRequest logData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
             }
             else
             {
-                let metricsinfo:[[String:Any]] = [metricdata];
-                defaults.set(metricsinfo, forKey: metricsLog);
+                let defaults = UserDefaults.standard;
+                if let metricsinfo = defaults.value(forKey: metricsLog) {
+                    if var metricsArray =  metricsinfo as? [[String:Any]] {
+                        metricsArray.append(metricdata);
+                        defaults.set(metricsArray, forKey: metricsLog);
+                    }
+                }
+                else
+                {
+                    let metricsinfo:[[String:Any]] = [metricdata];
+                        defaults.set(metricsinfo, forKey: metricsLog);
+                }
+                defaults.synchronize();
             }
-            defaults.synchronize();
+            
         }
     }
-
+    
     class func logStoredData()
     {
         if( !sendInProgress ) {
@@ -176,9 +159,9 @@ class LoggingRequest{
                 let logCountLimit = CommonUtils.getLogCountLimit();
                 let logTimeLimit = CommonUtils.getLogTimeLimit();
                 let logRetryCount = CommonUtils.getLogRetryCount();
-            
+                
                 if metricsStored != nil {
-                    for metric in metricsStored!
+                    for  metric in metricsStored!
                     {
                         let metadata = [
                             "application": "Stores",
@@ -199,6 +182,7 @@ class LoggingRequest{
 
                         let dateNow = Date();
                         let requestData = try! JSONSerialization.data(withJSONObject: metadata, options: []);
+                        
                         DLog("LoggingRequest logStoredData: " + String(data: requestData, encoding: String.Encoding.utf8)!);
 
                         if(!sendData(data: requestData))
@@ -218,17 +202,15 @@ class LoggingRequest{
                                 }
                             }
                         }
-                    }
+                  }
                 }
-            
-            
-	        let metricsStoredTemp =  defaults.value(forKey: metricsLog) as? [[String:Any]];
+                let metricsStoredTemp =  defaults.value(forKey: metricsLog) as? [[String:Any]];
                 let metricsNewlyAdded = metricsStoredTemp?.dropFirst((metricsStored?.count)!);
                 for metric in metricsNewlyAdded!
                 {
                     metricsUndelivered.append(metric);
                 }
-
+                
                 if(metricsUndelivered.count > 0)
                 {
                     if(metricsUndelivered.count>logCountLimit)
@@ -237,9 +219,12 @@ class LoggingRequest{
                     }
                     defaults.set(metricsUndelivered, forKey: metricsLog);
                 }
+                
+                defaults.synchronize();
             }
         }
         else {
+            
             DLog("I'm already sending logs.");
         }
         sendInProgress = false;

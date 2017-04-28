@@ -64,7 +64,7 @@ class LoggingRequest{
                                 }
                             }
                         } catch {
-                            DLog(error);
+                            DLog(error as! String);
                             onCompletion(false);
                         }
                         

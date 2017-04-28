@@ -104,7 +104,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func viewDidLoad() {
         super.viewDidLoad()
         var url = CommonUtils.getLandingPage();
-        //let url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
         //for debugging for testing
 //        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
 //        url = URL(string: "http://node1.sdpd.c4d.devops.fds.com:9001/")!;

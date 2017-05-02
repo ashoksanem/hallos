@@ -211,7 +211,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             {
                 if let _val = val as? String {
                     let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
-                    SharedContainer.setSsp(value: "fs008asssp01");
+                    SharedContainer.setSsp(value: trimmed);
                     
                     DLog("Setting ssp to: " + trimmed);
                 }

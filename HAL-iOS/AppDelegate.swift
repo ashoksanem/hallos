@@ -51,12 +51,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                     let humanReadableReport: String = PLCrashReportTextFormatter.stringValue(for: report, with: PLCrashReportTextFormatiOS);
                     
                     //convert to NSData type
-                    let nsdata = humanReadableReport.data(using: String.Encoding.utf8);
-                    //base64 encode to send to logging
-                    let base64report = nsdata?.base64EncodedData(options: NSData.Base64EncodingOptions.lineLength64Characters);
-                    
+                    let crashReport = humanReadableReport.data(using: String.Encoding.utf8);
+                   
                     //log the base64 encoded stack trace
-                    LoggingRequest.logError(name: LoggingRequest.metrics_app_crash, value: (base64report?.base64EncodedString())!, type: "STRING", indexable: false);
+                    LoggingRequest.logError(name: LoggingRequest.metrics_app_crash, value: (crashReport?.base64EncodedString())!, type: "STRING", indexable: false);
                 }
                 catch {
                     DLog("Could not parse crash report.");

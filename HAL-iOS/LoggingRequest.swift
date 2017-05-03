@@ -238,8 +238,9 @@ class LoggingRequest{
                     {
                         metricsUndelivered = Array(metricsUndelivered.dropFirst(metricsUndelivered.count-logCountLimit));
                     }
-                    defaults.set(metricsUndelivered, forKey: metricsLog);
+                    //defaults.set(metricsUndelivered, forKey: metricsLog);
                 }
+                defaults.set(metricsUndelivered, forKey: metricsLog);
 		defaults.synchronize();
             }
         }

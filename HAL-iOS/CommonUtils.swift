@@ -31,7 +31,7 @@ class CommonUtils
     static let zipCode = "zipCode";
     static let webviewLoading = "webviewLoading";
     static let commonLogMetrics = "getCommonLogMetrics";
-    
+    static let autoLogoutStartTime = "autoLogoutStartTime";
     
     class func setUpUserDefaults() -> Void
     {
@@ -443,6 +443,24 @@ class CommonUtils
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: "webviewLoading")
+    }
+    
+    class func setAutoLogoutStartTime()
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(Date.init(), forKey: autoLogoutStartTime);
+    }
+    
+    class func getAutoLogoutStartTime()-> Date
+    {
+        let defaults = UserDefaults.standard;
+        if let date = defaults.object(forKey: autoLogoutStartTime) as? Date {
+            return date as Date;
+        }
+        else
+        {
+            return Date.init();
+        }
     }
     
     class func getCommonLogMetrics() -> [[String:Any]]

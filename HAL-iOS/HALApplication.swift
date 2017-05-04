@@ -47,6 +47,7 @@ class HALApplication: UIApplication {
     
     func startTimer(){
         timer = Timer.scheduledTimer(timeInterval: TimeInterval(CommonUtils.getAutoLogoutTimeinterval()), target: self, selector: #selector(self.update), userInfo: nil, repeats: false);
+        CommonUtils.setAutoLogoutStartTime();
     }
     
     func startNetworkTimer(){
@@ -99,8 +100,10 @@ class HALApplication: UIApplication {
     func update() {
         
         DLog("autologout");
-        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate autoLogout due to inactivity.", type: "STRING", indexable: true);
-        CommonUtils.setIsSSOAuthenticated( value: false );
+        let delegate = UIApplication.shared.delegate as? AppDelegate;
+        delegate?.autoLogout();
+        //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate autoLogout due to inactivity.", type: "STRING", indexable: true);
+        //CommonUtils.setIsSSOAuthenticated( value: false );
     }
     
     func checkNetworkConnectivity() {

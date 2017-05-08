@@ -459,6 +459,7 @@ class CommonUtils
         }
         else
         {
+            setAutoLogoutStartTime();
             return Date.init();
         }
     }

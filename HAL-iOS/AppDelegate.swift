@@ -97,8 +97,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 
-        CommonUtils.setIsSSOAuthenticated( value: false );
-        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);
+        //CommonUtils.setIsSSOAuthenticated( value: false );
+        //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);
         
         if let app = application as? HALApplication
         {
@@ -110,10 +110,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
         self.setLineaCharging(val: false);
         
-        if let viewController:ViewController = window!.rootViewController as? ViewController
+       /* if let viewController:ViewController = window!.rootViewController as? ViewController
         {
             viewController.loadWebView(url: CommonUtils.getLandingPage() );
-        }
+        }*/
         
         LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
         LoggingRequest.logStoredData();
@@ -127,6 +127,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        if((Date().timeIntervalSince(CommonUtils.getAutoLogoutStartTime())>TimeInterval(CommonUtils.getAutoLogoutTimeinterval()))||(!CommonUtils.isSSOAuthenticated()) )
+        {
+            autoLogout();
+        }
         LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
         LoggingRequest.logStoredData();
         LogAnalyticsRequest.logStoredData();
@@ -525,6 +529,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         if let viewController:ViewController = window!.rootViewController as? ViewController
         {
             viewController.updateBattery();
+        }
+    }
+    func autoLogout(){
+        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate autoLogout due to inactivity.", type: "STRING", indexable: true);
+        CommonUtils.setIsSSOAuthenticated( value: false );
+        if let viewController:ViewController = window!.rootViewController as? ViewController
+        {
+            viewController.loadWebView(url: CommonUtils.getLandingPage() );
         }
     }
 }

@@ -116,6 +116,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         DLog("Website calling: " + message.name);
         
         if(message.name == "launchSSOPage") {
+            CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
             let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
             loadWebView(url: url!)
         }
@@ -369,11 +370,11 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             if(CommonUtils.isSSOAuthenticated()){
                 if(result=="prevAuth")
                 {
-                    ViewController.webView!.goBack();
+                    self.loadPreviousWebPage();
                 }
                 else
                 {
-                    self.loadPreviousWebPage();
+                    self.loadWebView(url: CommonUtils.getLandingPage());
                 }
             }
             else {

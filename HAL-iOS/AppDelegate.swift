@@ -135,6 +135,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         {
             if let viewController:ViewController = window!.rootViewController as? ViewController
             {
+                CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
                 let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
                 viewController.loadWebView(url: url!)
             }

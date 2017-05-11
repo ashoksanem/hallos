@@ -121,7 +121,7 @@ class CommonUtils
 
         if( associate["associateInfo"] != nil )
         {
-            val = "Currently logged in associate: " + String( describing: ( associate["associateInfo"] as! NSDictionary)["associateNbr"]! );
+            val = "Currently logged in associate: " + ((associate["associateInfo"] as! NSDictionary)["associateNbr"]! as! String);
         }
         else
         {

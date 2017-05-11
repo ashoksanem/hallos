@@ -119,14 +119,14 @@ class CommonUtils
         let associateString = String(data: associateData, encoding: String.Encoding.utf8);
         var val = "";
 
-        if( associate["associateInfo"] != nil )
-        {
-            val = "Currently logged in associate: " + ((associate["associateInfo"] as! NSDictionary)["associateNbr"]! as! String);
-        }
-        else
-        {
-            val = "Currently logged in associate: " + associateString!;
-        }
+//        if( associate["associateInfo"] != nil )
+//        {
+//            val = "Currently logged in associate: " + ((associate["associateInfo"] as! NSDictionary)["associateNbr"]! as! String);
+//        }
+//        else
+//        {
+//            val = "Currently logged in associate: " + associateString!;
+//        }
 
         
         DLog( val );

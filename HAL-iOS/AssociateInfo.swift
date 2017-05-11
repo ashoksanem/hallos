@@ -8,7 +8,7 @@
 
 import Foundation
 public class AssociateInfo {
-    public var associateNbr : String?
+    public var associateNbr : Int?
     public var associateName : String?
     public var inq28Status : Int?
     public var associateStatus : String?
@@ -33,7 +33,7 @@ public class AssociateInfo {
      */
     required public init?(dictionary: JSON) {
         
-        associateNbr = dictionary["associateNbr"].string
+        associateNbr = dictionary["associateNbr"].int
         associateName = dictionary["associateName"].string
         inq28Status = dictionary["inq28Status"].int
         associateStatus = dictionary["associateStatus"].string

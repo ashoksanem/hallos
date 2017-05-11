@@ -8,7 +8,7 @@
 
 import Foundation
 public class AssociateInfo {
-    public var associateNbr : Int?
+    public var associateNbr : Any?
     public var associateName : String?
     public var inq28Status : Int?
     public var associateStatus : String?
@@ -20,7 +20,6 @@ public class AssociateInfo {
     public var empClass : Int?
     public var clientTodo : String?
     
-    
     /**
      Constructs the object based on the given dictionary.
      
@@ -31,21 +30,20 @@ public class AssociateInfo {
      
      - returns: AssociateInfo Instance.
      */
-    required public init?(dictionary: JSON) {
-        
-        associateNbr = dictionary["associateNbr"].int
-        associateName = dictionary["associateName"].string
-        inq28Status = dictionary["inq28Status"].int
-        associateStatus = dictionary["associateStatus"].string
-        clockStatus = dictionary["clockStatus"].int
-        exemptStatus = dictionary["exemptStatus"].int
-        exemptType = dictionary["exemptType"].int
-        clienteleAccess = dictionary["clienteleAccess"].string
-        managerLevel = dictionary["managerLevel"].int
-        empClass = dictionary["empClass"].int
-        clientTodo = dictionary["clientTodo"].string
-    }
     
+    required public init?(dictionary: JSON) {
+        associateNbr = dictionary["associateNbr"].stringValue;
+        associateName = dictionary["associateName"].string;
+        inq28Status = dictionary["inq28Status"].int;
+        associateStatus = dictionary["associateStatus"].string;
+        clockStatus = dictionary["clockStatus"].int;
+        exemptStatus = dictionary["exemptStatus"].int;
+        exemptType = dictionary["exemptType"].int;
+        clienteleAccess = dictionary["clienteleAccess"].string;
+        managerLevel = dictionary["managerLevel"].int;
+        empClass = dictionary["empClass"].int;
+        clientTodo = dictionary["clientTodo"].string;
+    }
     
     /**
      Returns the dictionary representation for the current instance.

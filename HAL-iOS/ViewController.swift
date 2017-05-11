@@ -367,7 +367,14 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         SSORequest.makeSSORequest(associateNumber: associateNumber, associatePin: associatePin){
             (result: String) in
             if(CommonUtils.isSSOAuthenticated()){
-                self.loadPreviousWebPage()
+                if(result=="prevAuth")
+                {
+                    ViewController.webView!.goBack();
+                }
+                else
+                {
+                    self.loadPreviousWebPage();
+                }
             }
             else {
                 self.evaluateJavaScript(javascriptMessage: "switchErrorState(true);"); // it's okay this one is hard coded

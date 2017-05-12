@@ -116,6 +116,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         DLog("Website calling: " + message.name);
         
         if(message.name == "launchSSOPage") {
+            CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
             let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
             loadWebView(url: url!)
         }
@@ -367,7 +368,14 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         SSORequest.makeSSORequest(associateNumber: associateNumber, associatePin: associatePin){
             (result: String) in
             if(CommonUtils.isSSOAuthenticated()){
-                self.loadPreviousWebPage()
+                if(result=="prevAuth")
+                {
+                    self.loadPreviousWebPage();
+                }
+                else
+                {
+                    self.loadWebView(url: CommonUtils.getLandingPage());
+                }
             }
             else {
                 self.evaluateJavaScript(javascriptMessage: "switchErrorState(true);"); // it's okay this one is hard coded

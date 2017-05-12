@@ -41,6 +41,18 @@ class SSORequest{
             request.addValue("POS", forHTTPHeaderField: "RequesterInfo.subclientId");
             
             let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                var isAlreadyAuthenticated = false;
+                var isValidPrevAssociate = false;
+                if(CommonUtils.isSSOAuthenticated())
+                {
+                    let associate = (UserDefaults.standard.dictionary(forKey: CommonUtils.ssoAssociateInfo))! as [String:Any];
+                    let previousAssocNbr=String( describing: ( associate["associateInfo"] as! NSDictionary)["associateNbr"]! );
+                    if associateNumber==previousAssocNbr
+                    {
+                        isAlreadyAuthenticated=true;
+                    }
+                }
+                
                 if(error != nil) {
                     DLog(error!.localizedDescription);
                     
@@ -79,6 +91,10 @@ class SSORequest{
                         if( ssoJsonObject.associateInfo != nil ) {
                             CommonUtils.setIsSSOAuthenticated(value: true);
                             defaults.setValue(ssoJsonObject.dictionaryRepresentation(), forKey: CommonUtils.ssoAssociateInfo);
+                            if(isAlreadyAuthenticated)
+                            {
+                                isValidPrevAssociate=true;
+                            }
                         }
                         else {
                             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by nil ssoJsonObject.", type: "STRING", indexable: true);
@@ -96,7 +112,14 @@ class SSORequest{
                         CommonUtils.setIsSSOAuthenticated(value: false);
                         defaults.setValue([:], forKey: CommonUtils.ssoAssociateInfo);
                     }
-                    onCompletion(strData as! String);
+                    if(isValidPrevAssociate)
+                    {
+                        onCompletion("prevAuth");
+                    }
+                    else
+                    {
+                        onCompletion(strData as! String);
+                    }
                 }
             })
             task.resume();

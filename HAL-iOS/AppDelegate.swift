@@ -131,6 +131,16 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         {
             autoLogout();
         }
+        else
+        {
+            if let viewController:ViewController = window!.rootViewController as? ViewController
+            {
+                CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
+                let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
+                viewController.loadWebView(url: url!)
+            }
+            
+        }
         LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
         LoggingRequest.logStoredData();
         LogAnalyticsRequest.logStoredData();

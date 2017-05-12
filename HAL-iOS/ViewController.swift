@@ -475,6 +475,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     func updateMSRData(msrData: String)
     {
         DLog("Received MSR data: " + msrData);
-        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"msrCallback\", false, \"" + msrData + "\" )");
+        showAlert(title: "msr", message: msrData);
+        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"msrCallback\", false, " + msrData + " )");
     }
 }

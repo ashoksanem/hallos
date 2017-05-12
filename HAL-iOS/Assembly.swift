@@ -25,6 +25,7 @@ class Assembly{
         var availableFunctions=[String]();
         if(isScannerAvailable()){
         availableFunctions.append("Scanner");
+        availableFunctions.append("MSR");
         }
         if(isCameraAvailable()){
             availableFunctions.append("Camera");

@@ -49,6 +49,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "storeAnalyticsLogs",
                                          "restoreData",
                                          "storeLog",
+                                         "getMSRStatus",
+                                         "enableMSR",
+                                         "disableMSR",
                                          "captureIncorrectLog"];
         
         for message in messageHandlers
@@ -349,6 +352,27 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             LogAnalyticsRequest.logDataTest()
         }
+        else if(message.name == "enableMSR")
+        {
+            Sled.enableMSR();
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMSREnabled() ) + " )");
+            }
+        }
+        else if(message.name == "disableMSR")
+        {
+            Sled.disableMSR();
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMSREnabled() ) + " )");
+            }
+        }
+        else if(message.name == "getMSRStatus")
+        {
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMSREnabled() ) + " )");
+            }
+        }
+
     }
     
     func loadWebView(url: URL){
@@ -446,5 +470,11 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else {
             sledBatteryView?.text = "";
         }
+    }
+    
+    func updateMSRData(msrData: String)
+    {
+        DLog("Received MSR data: " + msrData);
+        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"msrCallback\", false, \"" + msrData + "\" )");
     }
 }

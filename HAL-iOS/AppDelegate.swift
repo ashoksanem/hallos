@@ -477,6 +477,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             {
                 disableScanner();
             }
+            disableMSR();
         }
         else {
             LoggingRequest.logData(name: LoggingRequest.metrics_lost_peripheral_connection, value: "sled", type: "STRING", indexable: true);
@@ -548,5 +549,106 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         {
             viewController.loadWebView(url: CommonUtils.getLandingPage() );
         }
+    }
+    
+    func enableMSR()
+    {
+        do{
+            try sled?.msEnable();
+            try sled?.msSetCardDataMode(0);
+            CommonUtils.setEnableMSR(value: true);
+        }
+        catch {
+            CommonUtils.setEnableMSR(value: false);
+            DLog("Enable MSR error: " + String(describing:error));
+        }
+    }
+    
+    func disableMSR()
+    {
+        do{
+            try sled?.msDisable();
+            CommonUtils.setEnableMSR(value: false);
+            
+        }
+        catch {
+            DLog("Disable MSR error: " + String(describing:error));
+        }
+    }
+    func updateMSRData(msrData: String)
+    {
+        if(CommonUtils.isScanEnabled())
+        {
+            if let viewController:ViewController = window!.rootViewController as? ViewController
+            {
+                viewController.updateMSRData(msrData: msrData);
+            }
+        }
+    }
+    
+    func magneticCardRawData(_ tracks: Data!) {
+        let cardData = tracks ?? Data.init();
+        let msrData = [
+            "tracks": cardData.base64EncodedString(),
+            ] as [String : Any]
+        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
+        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+    }
+    
+    func magneticCardData(_ track1: String!, track2: String!, track3: String!) {
+        let msrData = [
+            "track1": track1 ?? "",
+            "track2": track2 ?? "",
+            "track3": track3 ?? ""
+            ] as [String : Any]
+        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
+        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+        
+    }
+    func magneticCardEncryptedRawData(_ encryption: Int32, data: Data!) {
+        let cardData = data ?? Data.init();
+        let msrData = [
+            "data": cardData.base64EncodedString(),
+            "encryption": encryption
+            ] as [String : Any]
+        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
+        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+    }
+    func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!) {
+        let cardData = data ?? Data.init();
+        let msrData = [
+            "data": cardData.base64EncodedString(),
+            "encryption": encryption,
+            "tracks":tracks
+            ] as [String : Any]
+        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
+        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+    }
+    func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!, track1masked: String!, track2masked: String!, track3: String!) {
+        let cardData = data ?? Data.init();
+        let msrData = [
+            "data": cardData.base64EncodedString(),
+            "encryption": encryption,
+            "tracks":tracks,
+            "track1masked":track1masked ?? "",
+            "track2masked":track2masked ?? "",
+            "track3":track3 ?? ""
+            ] as [String : Any]
+        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
+        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+    }
+    func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!, track1masked: String!, track2masked: String!, track3: String!, source: Int32) {
+        let cardData = data ?? Data.init();
+        let msrData = [
+            "data": cardData.base64EncodedString(),
+            "encryption": encryption,
+            "tracks":tracks,
+            "track1masked":track1masked ?? "",
+            "track2masked":track2masked ?? "",
+            "track3":track3 ?? "",
+            "source":source
+            ] as [String : Any]
+        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
+        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
     }
 }

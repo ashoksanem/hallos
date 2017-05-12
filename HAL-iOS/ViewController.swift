@@ -49,9 +49,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "storeAnalyticsLogs",
                                          "restoreData",
                                          "storeLog",
-                                         "getMSRStatus",
-                                         "enableMSR",
-                                         "disableMSR",
+                                         "getMsrStatus",
+                                         "enableMsr",
+                                         "disableMsr",
                                          "captureIncorrectLog"];
         
         for message in messageHandlers
@@ -352,24 +352,24 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             LogAnalyticsRequest.logDataTest()
         }
-        else if(message.name == "enableMSR")
+        else if(message.name == "enableMsr")
         {
-            Sled.enableMSR();
+            Sled.enableMsr();
             if let id = message.body as? String {
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMSREnabled() ) + " )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMsrEnabled() ) + " )");
             }
         }
-        else if(message.name == "disableMSR")
+        else if(message.name == "disableMsr")
         {
-            Sled.disableMSR();
+            Sled.disableMsr();
             if let id = message.body as? String {
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMSREnabled() ) + " )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMsrEnabled() ) + " )");
             }
         }
-        else if(message.name == "getMSRStatus")
+        else if(message.name == "getMsrStatus")
         {
             if let id = message.body as? String {
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMSREnabled() ) + " )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMsrEnabled() ) + " )");
             }
         }
 
@@ -472,7 +472,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
     }
     
-    func updateMSRData(msrData: String)
+    func updateMsrData(msrData: String)
     {
         DLog("Received MSR data: " + msrData);
         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"msrCallback\", false, " + msrData + " )");

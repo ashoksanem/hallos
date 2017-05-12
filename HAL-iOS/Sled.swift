@@ -46,15 +46,15 @@ class Sled
         }
     }
     
-    class func enableMSR() -> Void {
+    class func enableMsr() -> Void {
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
-            delegate.enableMSR()
+            delegate.enableMsr()
         }
     }
     
-    class func disableMSR() -> Void {
+    class func disableMsr() -> Void {
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
-            delegate.disableMSR()
+            delegate.disableMsr()
         }
     }
 

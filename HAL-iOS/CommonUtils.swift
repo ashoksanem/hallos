@@ -32,7 +32,7 @@ class CommonUtils
     static let webviewLoading = "webviewLoading";
     static let commonLogMetrics = "getCommonLogMetrics";
     static let autoLogoutStartTime = "autoLogoutStartTime";
-    static let allowMSR = "allowMSR";
+    static let allowMsr = "allowMsr";
     
     class func setUpUserDefaults() -> Void
     {
@@ -76,16 +76,16 @@ class CommonUtils
         return defaults.bool(forKey: ssoSignedInKey);
     }
     
-    class func setEnableMSR(value: Bool)
+    class func setEnableMsr(value: Bool)
     {
         let defaults = UserDefaults.standard;
-        defaults.set(value, forKey: allowMSR);
+        defaults.set(value, forKey: allowMsr);
     }
     
-    class func isMSREnabled() -> Bool
+    class func isMsrEnabled() -> Bool
     {
         let defaults = UserDefaults.standard;
-        return defaults.bool(forKey: allowMSR);
+        return defaults.bool(forKey: allowMsr);
     }
     
     class func isScanEnabled() -> Bool

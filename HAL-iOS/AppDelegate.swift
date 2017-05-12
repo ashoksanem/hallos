@@ -477,7 +477,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             {
                 disableScanner();
             }
-            disableMSR();
+            disableMsr();
         }
         else {
             LoggingRequest.logData(name: LoggingRequest.metrics_lost_peripheral_connection, value: "sled", type: "STRING", indexable: true);
@@ -551,37 +551,37 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
     }
     
-    func enableMSR()
+    func enableMsr()
     {
         do{
             try sled?.msEnable();
             try sled?.msSetCardDataMode(0);
-            CommonUtils.setEnableMSR(value: true);
+            CommonUtils.setEnableMsr(value: true);
         }
         catch {
-            CommonUtils.setEnableMSR(value: false);
+            CommonUtils.setEnableMsr(value: false);
             DLog("Enable MSR error: " + String(describing:error));
         }
     }
     
-    func disableMSR()
+    func disableMsr()
     {
         do{
             try sled?.msDisable();
-            CommonUtils.setEnableMSR(value: false);
+            CommonUtils.setEnableMsr(value: false);
             
         }
         catch {
             DLog("Disable MSR error: " + String(describing:error));
         }
     }
-    func updateMSRData(msrData: String)
+    func updateMsrData(msrData: String)
     {
-        if(CommonUtils.isScanEnabled())
+        if(CommonUtils.isMsrEnabled())
         {
             if let viewController:ViewController = window!.rootViewController as? ViewController
             {
-                viewController.updateMSRData(msrData: msrData);
+                viewController.updateMsrData(msrData: msrData);
             }
         }
     }
@@ -592,7 +592,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             "tracks": cardData.base64EncodedString(),
             ] as [String : Any]
         let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
     }
     
     func magneticCardData(_ track1: String!, track2: String!, track3: String!) {
@@ -602,7 +602,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             "track3": track3 ?? ""
             ] as [String : Any]
         let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
         
     }
     func magneticCardEncryptedRawData(_ encryption: Int32, data: Data!) {
@@ -612,7 +612,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             "encryption": encryption
             ] as [String : Any]
         let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
     }
     func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!) {
         let cardData = data ?? Data.init();
@@ -622,7 +622,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             "tracks":tracks
             ] as [String : Any]
         let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
     }
     func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!, track1masked: String!, track2masked: String!, track3: String!) {
         let cardData = data ?? Data.init();
@@ -635,7 +635,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             "track3":track3 ?? ""
             ] as [String : Any]
         let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
     }
     func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!, track1masked: String!, track2masked: String!, track3: String!, source: Int32) {
         let cardData = data ?? Data.init();
@@ -649,6 +649,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             "source":source
             ] as [String : Any]
         let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMSRData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
     }
 }

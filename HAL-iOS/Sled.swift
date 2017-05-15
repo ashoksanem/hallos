@@ -46,6 +46,18 @@ class Sled
         }
     }
     
+    class func enableMsr() -> Void {
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.enableMsr()
+        }
+    }
+    
+    class func disableMsr() -> Void {
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.disableMsr()
+        }
+    }
+
     class func enableCharging( val: Bool ) -> Void {
         //Linea Logic
         if let delegate = UIApplication.shared.delegate as? AppDelegate {

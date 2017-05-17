@@ -486,6 +486,14 @@ class CommonUtils
         return defaults.array(forKey: commonLogMetrics) as! [[String : Any]];
     }
     
+    class func getDateformatter() -> DateFormatter
+    {
+        let dateFormatter = DateFormatter();
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+        dateFormatter.timeZone = TimeZone.current;
+        return dateFormatter;
+    }
+    
     class func setCommonLogMetrics()
     {
         let defaults = UserDefaults.standard;

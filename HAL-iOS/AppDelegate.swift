@@ -569,20 +569,16 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func enableMsr()
     {
-        let dateFormatter = DateFormatter();
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-        dateFormatter.timeZone = TimeZone.current;
-
         do{
             try sled?.msEnable();
             try sled?.msSetCardDataMode(0);
             CommonUtils.setEnableMsr(value: true);
-            let val = "Timestamp : " + dateFormatter.string(from: Date());
+            let val = "Timestamp : " + CommonUtils.getDateformatter().string(from: Date());
             LoggingRequest.logData(name: LoggingRequest.metrics_msr_startup, value: val , type: "STRING", indexable: true);
         }
         catch {
             CommonUtils.setEnableMsr(value: false);
-            let val = "Error in activating MSR at timestamp : " + dateFormatter.string(from: Date()) + " with error : "+String(describing:error);
+            let val = "Error in activating MSR at timestamp : " + CommonUtils.getDateformatter().string(from: Date()) + " with error : "+String(describing:error);
             LoggingRequest.logData(name: LoggingRequest.metrics_msr_connectionError, value: val , type: "STRING", indexable: true);
             DLog("Enable MSR error : " + String(describing:error));
         }
@@ -590,18 +586,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func disableMsr()
     {
-        let dateFormatter = DateFormatter();
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-        dateFormatter.timeZone = TimeZone.current;
-
         do{
             try sled?.msDisable();
             CommonUtils.setEnableMsr(value: false);
-            let val = "Timestamp : " + dateFormatter.string(from: Date());
+            let val = "Timestamp : " + CommonUtils.getDateformatter().string(from: Date());
             LoggingRequest.logData(name: LoggingRequest.metrics_msr_shutdown, value: val , type: "STRING", indexable: true);
         }
         catch {
-            let val = "Error in deactivating MSR at timestamp : " + dateFormatter.string(from: Date()) + " with error : "+String(describing:error);
+            let val = "Error in deactivating MSR at timestamp : " + CommonUtils.getDateformatter().string(from: Date()) + " with error : "+String(describing:error);
             LoggingRequest.logData(name: LoggingRequest.metrics_msr_connectionError, value: val , type: "STRING", indexable: true);
             DLog("Disable MSR error: " + String(describing:error));
         }

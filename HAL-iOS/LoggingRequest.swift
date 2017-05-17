@@ -118,13 +118,10 @@ class LoggingRequest{
         }
         
         metricDataArray.append(contentsOf: CommonUtils.getCommonLogMetrics());
-        let dateFormatter = DateFormatter();
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-        dateFormatter.timeZone = TimeZone.current;
         
         let metricdata = ["data":metricDataArray,
                           "count":0,
-                          "date": dateFormatter.string(from: Date())] as [String:Any];
+                          "date": CommonUtils.getDateformatter().string(from: Date())] as [String:Any];
         
         let val = [
             "application": "Stores",
@@ -172,10 +169,7 @@ class LoggingRequest{
             sendInProgress = true;
             
             let defaults = UserDefaults.standard;
-            let dateFormatter = DateFormatter();
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-            dateFormatter.timeZone = TimeZone.current;
-        
+            
             if(!( defaults.value(forKey: metricsLog) == nil))
             {
                 let metricsStored =  defaults.value(forKey: metricsLog) as? [[String:Any]];
@@ -212,7 +206,7 @@ class LoggingRequest{
                         {
                             if var metricRetryCount = metric["count"] as? Int {
                                 if let metricDate = metric["date"] as? String {
-                                    let metricTimestamp = dateFormatter.date(from: metricDate);
+                                    let metricTimestamp = CommonUtils.getDateformatter().date(from: metricDate);
                                     let timeGap = dateNow.timeIntervalSince(metricTimestamp!);
                                     
                                     if((metricRetryCount<logRetryCount) && (timeGap<logTimeLimit))

@@ -109,14 +109,12 @@ class LogAnalyticsRequest{
     }
     
     class func logData(data:Data)-> Void {
-        let dateFormatter = DateFormatter();
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-        dateFormatter.timeZone = TimeZone.current;
+        
         let defaults = UserDefaults.standard;
 
         let metricdata = ["data":data,
                           "count":0,
-                          "date": dateFormatter.string(from: Date())] as [String:Any];
+                          "date": CommonUtils.getDateformatter().string(from: Date())] as [String:Any];
         
         if let metricsinfo = defaults.value(forKey: metricsLog) {
             if var metricsArray =  metricsinfo as? [[String:Any]] {
@@ -140,9 +138,7 @@ class LogAnalyticsRequest{
             sendInProgress = true;
             
             let defaults = UserDefaults.standard;
-            let dateFormatter = DateFormatter();
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
-            dateFormatter.timeZone = TimeZone.current;
+            
             let metricslist = defaults.value(forKey: metricsLog);
             
             if(!(metricslist == nil))
@@ -158,7 +154,7 @@ class LogAnalyticsRequest{
                         if(!sendData(data: metric["data"] as! Data)) {
                             if var metricRetryCount = metric["count"] as? Int {
                                 if let metricDate = metric["date"] as? String {
-                                    let metricTimestamp = dateFormatter.date(from: metricDate)
+                                    let metricTimestamp = CommonUtils.getDateformatter().date(from: metricDate)
                                     let timeGap = dateNow.timeIntervalSince(metricTimestamp!)
                                     if((metricRetryCount<logRetryCount) && (timeGap<logTimeLimit))
                                     {

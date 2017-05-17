@@ -21,6 +21,9 @@ class LoggingRequest{
     static let metrics_lost_peripheral_connection = "LostPeripheralConnection";
     static let metrics_lost_printer_connection = "LostPrinterConnection";
     static let metrics_print_failed = "PrintFailed";
+    static let metrics_msr_startup = "MsrStartUp";
+    static let metrics_msr_shutdown = "MsrShutDown";
+    static let metrics_msr_connectionError = "MsrConnectionError";
     
     class func makeServerRequest(data: Data, onCompletion: @escaping (_ result: Bool)->Void) {
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;

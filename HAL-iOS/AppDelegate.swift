@@ -457,10 +457,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         {
             //viewController.showAlert(title: (sled?.firmwareRevision)!,message:String(describing: sled?.sdkVersion))
             let val = "Sled firmware version: " + (sled?.firmwareRevision)!;
-            
+            let eMSRversion = "Sled eMSR firmware version: " + getSledEmsrFirmwareVersion();
             DLog(val);
             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
-            
+            LoggingRequest.logData(name: LoggingRequest.metrics_info, value: eMSRversion, type: "STRING", indexable: true);
             do {
                 try sled?.setPassThroughSync(false);
                 //disableScanner();
@@ -527,6 +527,22 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
         return 0;
     }
+    func getSledEmsrFirmwareVersion() -> String
+    {
+        if( isLineaConnected() )
+        {
+            do{
+                let firmwareVersion = try (sled?.emsrGetDeviceInfo().firmwareVersionString)! as String;
+                return firmwareVersion;
+            }
+            catch {
+                
+                DLog("Get sled eMSR firmware version error: " + String(describing:error));
+                
+            }
+        }
+        return "";
+    }
     
     func getDeviceBatteryLevel() -> Float
     {
@@ -557,10 +573,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             try sled?.msEnable();
             try sled?.msSetCardDataMode(0);
             CommonUtils.setEnableMsr(value: true);
+            let val = "Timestamp : " + CommonUtils.getDateformatter().string(from: Date());
+            LoggingRequest.logData(name: LoggingRequest.metrics_msr_startup, value: val , type: "STRING", indexable: true);
         }
         catch {
             CommonUtils.setEnableMsr(value: false);
-            DLog("Enable MSR error: " + String(describing:error));
+            let val = "Error in activating MSR at timestamp : " + CommonUtils.getDateformatter().string(from: Date()) + " with error : "+String(describing:error);
+            LoggingRequest.logData(name: LoggingRequest.metrics_msr_connectionError, value: val , type: "STRING", indexable: true);
+            DLog("Enable MSR error : " + String(describing:error));
         }
     }
     
@@ -569,9 +589,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         do{
             try sled?.msDisable();
             CommonUtils.setEnableMsr(value: false);
-            
+            let val = "Timestamp : " + CommonUtils.getDateformatter().string(from: Date());
+            LoggingRequest.logData(name: LoggingRequest.metrics_msr_shutdown, value: val , type: "STRING", indexable: true);
         }
         catch {
+            let val = "Error in deactivating MSR at timestamp : " + CommonUtils.getDateformatter().string(from: Date()) + " with error : "+String(describing:error);
+            LoggingRequest.logData(name: LoggingRequest.metrics_msr_connectionError, value: val , type: "STRING", indexable: true);
             DLog("Disable MSR error: " + String(describing:error));
         }
     }

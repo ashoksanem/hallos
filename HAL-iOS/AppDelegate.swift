@@ -153,9 +153,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         detectDevice();
         
         NotificationCenter.default.addObserver( self,
-                                            selector: #selector(readMDMValues),
-                                            name: UserDefaults.didChangeNotification,
-                                            object: nil);
+                                                selector: #selector(readMDMValues),
+                                                name: UserDefaults.didChangeNotification,
+                                                object: nil);
         
         if let app = application as? HALApplication
         {

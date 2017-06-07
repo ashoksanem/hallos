@@ -20,6 +20,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         
         CommonUtils.setUpUserDefaults();
         
+        //since the sumulator isn't in AW let's force some values
+        if(CommonUtils.isSimulator())
+        {
+            setSimulatorValues();
+        }
+        
         if let app = application as? HALApplication
         {
             app.startTimer();
@@ -147,9 +153,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         detectDevice();
         
         NotificationCenter.default.addObserver( self,
-                                                selector: #selector(readMDMValues),
-                                                name: UserDefaults.didChangeNotification,
-                                                object: nil);
+                                            selector: #selector(readMDMValues),
+                                            name: UserDefaults.didChangeNotification,
+                                            object: nil);
         
         if let app = application as? HALApplication
         {
@@ -161,6 +167,28 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
     }
     
+    func setSimulatorValues()
+    {
+        CommonUtils.setLandingPage(value: URL(string: "http://mstore.devops.fds.com/")!);
+        CommonUtils.setAutoLogoutTimeinterval(value: 2500);
+        CommonUtils.setDivNum(value: 71);
+        CommonUtils.setStoreNum(value: 572);
+        SharedContainer.setIsp(value: "fs572asisp01");
+        SharedContainer.setSsp(value: "fs008asssp01");
+        SharedContainer.setCloud(value: "junk");
+        CommonUtils.setLogRetryCount(value: 25);
+        CommonUtils.setLogCountLimit(value: 25);
+        CommonUtils.setLogRetryFrequency(value: 25);
+        CommonUtils.setLogTimeLimit(value: 25);
+        
+        let esp = ESPRequest();
+        esp.getZipCode();
+        
+        _ = Locn();
+    
+        CommonUtils.setCommonLogMetrics();
+    }
+
     func readMDMValues()
     { //addLineZPL()
         NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil);

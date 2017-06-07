@@ -535,4 +535,13 @@ class CommonUtils
             "indexable":indexable
         ];
     }
+    
+    class func isSimulator() -> Bool
+    {
+        #if arch(i386) || arch(x86_64)
+            return true;
+        #endif
+        
+        return false;
+    }
 }

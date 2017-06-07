@@ -301,8 +301,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 }
             }
             
-            // if we add anything else to change on the fly it might also need to be added to
-            // setSimultorValues()
+            // if we add anything else to change on the fly it might also need to be added to setSimultorValues()
             let esp = ESPRequest();
             esp.getZipCode();
             

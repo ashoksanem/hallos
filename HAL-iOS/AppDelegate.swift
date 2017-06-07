@@ -170,16 +170,16 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func setSimulatorValues()
     {
         CommonUtils.setLandingPage(value: URL(string: "http://mstore.devops.fds.com/")!);
-        CommonUtils.setAutoLogoutTimeinterval(value: 2500);
+        CommonUtils.setAutoLogoutTimeinterval(value: 3600);
         CommonUtils.setDivNum(value: 71);
         CommonUtils.setStoreNum(value: 572);
         SharedContainer.setIsp(value: "fs572asisp01");
         SharedContainer.setSsp(value: "fs008asssp01");
         SharedContainer.setCloud(value: "junk");
-        CommonUtils.setLogRetryCount(value: 25);
-        CommonUtils.setLogCountLimit(value: 25);
-        CommonUtils.setLogRetryFrequency(value: 25);
-        CommonUtils.setLogTimeLimit(value: 25);
+        CommonUtils.setLogRetryCount(value: 10);
+        CommonUtils.setLogCountLimit(value: 5);
+        CommonUtils.setLogRetryFrequency(value: 120);
+        CommonUtils.setLogTimeLimit(value: 120);
         
         let esp = ESPRequest();
         esp.getZipCode();

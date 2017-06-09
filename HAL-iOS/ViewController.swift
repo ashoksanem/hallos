@@ -477,4 +477,41 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         DLog("Received MSR data: " + msrData);
         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"msrCallback\", false, " + msrData + " )");
     }
+    
+    func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        if(CommonUtils.isCertificatePinningEnabled())
+        {
+        print(challenge.protectionSpace.authenticationMethod)
+        if(challenge.protectionSpace.authenticationMethod==NSURLAuthenticationMethodServerTrust)
+        {
+            let serverTrust = challenge.protectionSpace.serverTrust;
+            if((serverTrust) != nil)
+            {
+                let rootCa = "Certificates/comodo"
+                if let rootCaPath = Bundle.main.path(forResource: rootCa, ofType: "der") {
+                    if let rootCaData: NSData = NSData(contentsOfFile: rootCaPath) {
+                        let cfData = CFDataCreate(kCFAllocatorDefault, rootCaData.bytes.assumingMemoryBound(to: UInt8.self), rootCaData.length)
+                        let rootCert = SecCertificateCreateWithData(kCFAllocatorDefault, cfData!)
+                        let certs: [CFTypeRef] = [rootCert as CFTypeRef]
+                        let certArrayRef : CFArray = CFBridgingRetain(certs as NSArray) as! CFArray
+                        SecTrustSetAnchorCertificates(serverTrust!, certArrayRef)
+                        SecTrustSetAnchorCertificatesOnly(serverTrust!, true)
+                    }
+                }
+                var trustResult: SecTrustResultType = SecTrustResultType(rawValue: 0)!
+                SecTrustEvaluate(serverTrust!, &trustResult)
+                if (Int(trustResult.rawValue) == 5) {
+                    let secTrustCertificate =   SecTrustGetCertificateAtIndex(serverTrust!,0);
+                    LoggingRequest.logError(name: LoggingRequest.metrics_unAuthorizedCertificate, value: secTrustCertificate.debugDescription, type: "STRING", indexable: false);
+                    let alertController = UIAlertController(title: "UnAuthorized certificate", message:
+                        "The certificate accessed is unauthorized.", preferredStyle: UIAlertControllerStyle.alert)
+                    alertController.addAction(UIAlertAction(title: "Close App", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in exit(0)}))
+                    self.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+        }
+        completionHandler(.useCredential, nil);
+    }
+
 }

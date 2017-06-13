@@ -2,7 +2,7 @@
 
 CI Pipeline @ http://web-ci.devops.fds.com/jenkins/view/HALiOS/
 
-# To build Hal
+# To build HAL
 - Clone the repo.
 - Change directory to `halIos/HAL-iOS/Git Projects`
 - Clone the HAL API project (https://code.devops.fds.com/stores/HALApi)

@@ -47,6 +47,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "saveData",
                                          "sendSSOAuthenticationMessageToWeb",
                                          "storeAnalyticsLogs",
+                                         "forwardMsg",
                                          "restoreData",
                                          "storeLog",
                                          "getMsrStatus",
@@ -351,6 +352,24 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "storeLog")
         {
             LogAnalyticsRequest.logDataTest()
+        }
+        else if(message.name == "forwardMsg")
+        {
+            if let data = message.body as? NSDictionary {
+                if let id = data["handle"] as? String {
+                    
+                    if let messageBody:NSDictionary = message.body as? NSDictionary
+                    {
+                        let mutDict: NSMutableDictionary = messageBody.mutableCopy() as! NSMutableDictionary;
+                        mutDict.removeObject(forKey: "handle");
+                        DataForwarder.forwardData(data: mutDict as NSDictionary,id: (data["handle"] as? String) ?? "");
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
+                    }
+                }
+            }
         }
         else if(message.name == "enableMsr")
         {

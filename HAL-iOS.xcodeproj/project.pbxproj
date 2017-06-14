@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538E5651EF1809700F82E1D /* DataForwarder.swift */; };
 		858988BD1EAE208A00AF2024 /* DLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858988BC1EAE208A00AF2024 /* DLog.swift */; };
 		85DDE7081EEB171500700EFC /* Certificates in Resources */ = {isa = PBXBuildFile; fileRef = 85DDE7071EEB171500700EFC /* Certificates */; };
 		BC22EE621E203A8300C3F597 /* LOCN.json in Resources */ = {isa = PBXBuildFile; fileRef = BC22EE611E203A8300C3F597 /* LOCN.json */; };
@@ -68,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8538E5651EF1809700F82E1D /* DataForwarder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataForwarder.swift; sourceTree = "<group>"; };
 		858988BC1EAE208A00AF2024 /* DLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLog.swift; sourceTree = "<group>"; };
 		85DDE7071EEB171500700EFC /* Certificates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Certificates; sourceTree = "<group>"; };
 		BC22EE611E203A8300C3F597 /* LOCN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = LOCN.json; path = "Project Files/LOCN.json"; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				BC534ABD1E01976300C65BAC /* logAnalytics.json */,
 				BC534ABB1E018BD800C65BAC /* LogAnalyticsRequest.swift */,
 				BC534AB91DFF17E200C65BAC /* LoggingRequest.swift */,
+				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CC2585641D9AF71C00294506 /* Main.storyboard */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
@@ -427,6 +430,7 @@
 				CCB404921D9D82C600A314FC /* Assembly.swift in Sources */,
 				CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */,
 				CC837B571E08341B00A14ECB /* KeychainWrapper.swift in Sources */,
+				8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */,
 				CC50DB261DCA21AF00A46576 /* Sled.swift in Sources */,
 				CC41EF321DB54D6B0059C7C5 /* Json4Swift_Base.swift in Sources */,
 				858988BD1EAE208A00AF2024 /* DLog.swift in Sources */,

@@ -113,9 +113,7 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
                 let storeData = ["payload":payload,
                                  "method":method,
                                  "server":server,
-                                 "route":route,
-                                 "count":0,
-                                 "date": CommonUtils.getDateformatter().string(from: Date())] as [String:Any];
+                                 "route":route] as [String:Any];
                 if let storedDataInfo = SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [[String:Any]] {
                     if var storedDataArray =  storedDataInfo as? [[String:Any]] {
                         storedDataArray.append(storeData);
@@ -141,11 +139,7 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
             {
                 let dataStored =  SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [[String:Any]];
                 var dataUndelivered = [[String : Any]]();
-                let countLimit = CommonUtils.getLogCountLimit();
-                let timeLimit = CommonUtils.getLogTimeLimit();
-                let retryCount = CommonUtils.getLogRetryCount();
-                
-                if dataStored != nil {
+                    if dataStored != nil {
                     for data in dataStored!
                     {
                         let method = data["method"] as? String ?? ""
@@ -155,19 +149,7 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
                         let requestData = try! JSONSerialization.data(withJSONObject: payload, options: []);
                         if(!sendData(data:requestData, method:method, server:server, route:route))
                         {
-                            if var dataRetryCount = data["count"] as? Int {
-                                if let dataDate = data["date"] as? String {
-                                    let metricTimestamp = CommonUtils.getDateformatter().date(from: dataDate);
-                                    let timeGap = Date().timeIntervalSince(metricTimestamp!);
-                                    if((dataRetryCount<retryCount) && (timeGap<timeLimit))
-                                    {
-                                        dataRetryCount = retryCount + 1;
-                                        var dataTemp = data;
-                                        dataTemp["count"] = dataRetryCount;
-                                        dataUndelivered.append(dataTemp);
-                                    }
-                                }
-                            }
+                          dataUndelivered.append(data);
                         }
                     }
                 }
@@ -177,14 +159,6 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
                 for data in dataNewlyAdded!
                 {
                     dataUndelivered.append(data);
-                }
-                
-                if(dataUndelivered.count > 0)
-                {
-                    if(dataUndelivered.count>countLimit)
-                    {
-                        dataUndelivered = Array(dataUndelivered.dropFirst(dataUndelivered.count-countLimit));
-                    }
                 }
                 SharedContainer.saveWebData(data: dataUndelivered)
             }

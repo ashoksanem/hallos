@@ -10,7 +10,7 @@ import Foundation
 class SharedContainer
 {
     static let sharedContainerKey = "group.com.macys.technology";
-    
+    static let webDataKey = "webData";
     class func saveData(data: NSDictionary) -> Void {
         if let key=data["key"] as? String {
             KeychainWrapper.standard.set(data, forKey: key)
@@ -32,6 +32,14 @@ class SharedContainer
     
     class func removeData(key: String){
         KeychainWrapper.standard.removeObject(forKey: key)
+    }
+    
+    class func saveWebData(data: [[String:Any]]) -> Void {
+        KeychainWrapper.standard.set(([webDataKey:data] as NSDictionary), forKey: webDataKey)
+    }
+    
+    class func removeWebData(){
+        KeychainWrapper.standard.removeObject(forKey: webDataKey)
     }
     
     class func getData(key: String) -> NSDictionary {

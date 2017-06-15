@@ -10,7 +10,6 @@ import Foundation
 class DataForwarder{
     
 static var sendInProgress = false;
-static let webDataKey = "webData";
     
 class func makeServerRequest(method: String, networkReqURL: String, data: Data, onCompletion: @escaping (_ result: Bool,_ error:String)->Void) {
      if let url = NSURL(string: networkReqURL) as URL? {
@@ -111,25 +110,23 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
             else
             {
                 ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + handle + "\", true, false )");
-                let defaults = UserDefaults.standard;
                 let storeData = ["payload":payload,
                                  "method":method,
                                  "server":server,
                                  "route":route,
                                  "count":0,
                                  "date": CommonUtils.getDateformatter().string(from: Date())] as [String:Any];
-                if let storedDataInfo = defaults.value(forKey: webDataKey) {
+                if let storedDataInfo = SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [[String:Any]] {
                     if var storedDataArray =  storedDataInfo as? [[String:Any]] {
                         storedDataArray.append(storeData);
-                        defaults.set(storedDataArray, forKey: webDataKey);
+                        SharedContainer.saveWebData(data: storedDataArray);
                     }
                 }
                 else
                 {
                     let storedDataInfo:[[String:Any]] = [storeData];
-                    defaults.set(storedDataInfo, forKey: webDataKey);
+                    SharedContainer.saveWebData(data: storedDataInfo);
                 }
-                defaults.synchronize();
             }
         }
     }
@@ -139,11 +136,10 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
     {
         if( !sendInProgress ) {
             sendInProgress = true;
-            let defaults = UserDefaults.standard;
             
-            if(!( defaults.value(forKey: webDataKey) == nil))
+            if(!( SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] == nil))
             {
-                let dataStored =  defaults.value(forKey: webDataKey) as? [[String:Any]];
+                let dataStored =  SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [[String:Any]];
                 var dataUndelivered = [[String : Any]]();
                 let countLimit = CommonUtils.getLogCountLimit();
                 let timeLimit = CommonUtils.getLogTimeLimit();
@@ -176,7 +172,7 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
                     }
                 }
                 
-                let dataStoredTemp =  defaults.value(forKey: webDataKey) as? [[String:Any]];
+                let dataStoredTemp =  SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [[String:Any]];
                 let dataNewlyAdded = dataStoredTemp?.dropFirst((dataStored?.count)!);
                 for data in dataNewlyAdded!
                 {
@@ -190,8 +186,7 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
                         dataUndelivered = Array(dataUndelivered.dropFirst(dataUndelivered.count-countLimit));
                     }
                 }
-                defaults.set(dataUndelivered, forKey: webDataKey);
-                defaults.synchronize();
+                SharedContainer.saveWebData(data: dataUndelivered)
             }
         }
         sendInProgress = false;

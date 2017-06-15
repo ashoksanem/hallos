@@ -361,8 +361,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                     if let messageBody:NSDictionary = message.body as? NSDictionary
                     {
                         let mutDict: NSMutableDictionary = messageBody.mutableCopy() as! NSMutableDictionary;
-                        mutDict.removeObject(forKey: "handle");
-                        DataForwarder.forwardData(data: mutDict as NSDictionary,id: (data["handle"] as? String) ?? "");
+                        DataForwarder.forwardData(data: mutDict as NSDictionary);
                     }
                     else
                     {

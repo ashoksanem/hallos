@@ -95,9 +95,10 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
     }
     
     
-    class func forwardData(data: NSDictionary,id:String)
+    class func forwardData(data: NSDictionary)
     {
         DispatchQueue.global(qos: .background).async {
+            let handle = data["handle"] as? String ?? ""
             let method = data["method"] as? String ?? ""
             let server = data["server"] as? String ?? ""
             let route = data["route"] as? String ?? ""
@@ -105,11 +106,11 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
             let requestData = try! JSONSerialization.data(withJSONObject: payload, options: []);
             if( sendData(data:requestData, method:method, server:server, route:route) ) {
                 DLog("Data forwarder data: " + String(data: requestData, encoding: String.Encoding.utf8)!);
-                ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + id + "\", false, true )");
+                ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + handle + "\", false, true )");
             }
             else
             {
-                ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + id + "\", true, false )");
+                ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + handle + "\", true, false )");
                 let defaults = UserDefaults.standard;
                 let storeData = ["payload":payload,
                                  "method":method,

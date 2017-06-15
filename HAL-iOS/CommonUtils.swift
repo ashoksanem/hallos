@@ -194,8 +194,7 @@ class CommonUtils
     class func getLandingPage() -> URL
     {
         let defaults = UserDefaults.standard;
-        return Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
-        //return defaults.url(forKey: landingPage)!;
+        return defaults.url(forKey: landingPage)!;
     }
     
     class func setCurrentPage(value: URL) -> Void

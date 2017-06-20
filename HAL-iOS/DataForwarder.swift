@@ -75,20 +75,47 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
     
     
     
-    class func sendData(data: Data,method: String,server: String,route: String) -> Bool
+    class func sendData(data: NSDictionary, isOfflineData:Bool) -> Bool
     {
+        let method = data["method"] as? String ?? ""
+        let server = data["server"] as? String ?? ""
+        let route = data["route"] as? String ?? ""
+        let payload = data["payload"] as? NSDictionary
+        let requestData = try! JSONSerialization.data(withJSONObject: payload, options: []);
         var response = false;
         let sem = DispatchSemaphore(value: 0);
         let networkReqURL = "https://"+server+route;
-        makeServerRequest(method: method, networkReqURL: networkReqURL, data: data) {
+        makeServerRequest(method: method, networkReqURL: networkReqURL, data: requestData) {
             (result: Bool,error: String) in
             response = result;
-            if(!response)
+            if(isOfflineData && response)
+            {
+                if let storedDataInfo = SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [NSDictionary] {
+                    var storedDataArray =  storedDataInfo
+                    if let index = storedDataArray.index(of: data)
+                    {
+                        storedDataArray.remove(at: index)
+                        SharedContainer.saveWebData(data: storedDataArray);
+                    }
+                }
+            }
+            else if(!response && !isOfflineData)
             {
                 LoggingRequest.logError(name: LoggingRequest.metrics_error, value: error, type: "STRING", indexable: false);
+                if let storedDataInfo = SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [NSDictionary] {
+                    var storedDataArray =  storedDataInfo
+                    storedDataArray.append(data);
+                    SharedContainer.saveWebData(data: storedDataArray);
+                }
+                else
+                {
+                    let storedDataInfo:[NSDictionary] = [data];
+                    SharedContainer.saveWebData(data: storedDataInfo);
+                }
             }
-            sem.signal();
         }
+            sem.signal();
+        
         _ = sem.wait(timeout: DispatchTime.distantFuture);
         return response;
     }
@@ -98,33 +125,12 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
     {
         DispatchQueue.global(qos: .background).async {
             let handle = data["handle"] as? String ?? ""
-            let method = data["method"] as? String ?? ""
-            let server = data["server"] as? String ?? ""
-            let route = data["route"] as? String ?? ""
-            let payload = data["payload"] as? NSDictionary
-            let requestData = try! JSONSerialization.data(withJSONObject: payload, options: []);
-            if( sendData(data:requestData, method:method, server:server, route:route) ) {
-                DLog("Data forwarder data: " + String(data: requestData, encoding: String.Encoding.utf8)!);
+            if( sendData(data:data,isOfflineData: false) ) {
                 ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + handle + "\", false, true )");
             }
             else
             {
                 ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + handle + "\", true, false )");
-                let storeData = ["payload":payload,
-                                 "method":method,
-                                 "server":server,
-                                 "route":route] as [String:Any];
-                if let storedDataInfo = SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [[String:Any]] {
-                    if var storedDataArray =  storedDataInfo as? [[String:Any]] {
-                        storedDataArray.append(storeData);
-                        SharedContainer.saveWebData(data: storedDataArray);
-                    }
-                }
-                else
-                {
-                    let storedDataInfo:[[String:Any]] = [storeData];
-                    SharedContainer.saveWebData(data: storedDataInfo);
-                }
             }
         }
     }
@@ -137,30 +143,13 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
             
             if(!( SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] == nil))
             {
-                let dataStored =  SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [[String:Any]];
-                var dataUndelivered = [[String : Any]]();
-                    if dataStored != nil {
+                let dataStored =  SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [NSDictionary];
+               if dataStored != nil {
                     for data in dataStored!
                     {
-                        let method = data["method"] as? String ?? ""
-                        let server = data["server"] as? String ?? ""
-                        let route = data["route"] as? String ?? ""
-                        let payload = data["payload"] as? NSDictionary
-                        let requestData = try! JSONSerialization.data(withJSONObject: payload, options: []);
-                        if(!sendData(data:requestData, method:method, server:server, route:route))
-                        {
-                          dataUndelivered.append(data);
-                        }
+                       sendData(data:data, isOfflineData: true)
                     }
                 }
-                
-                let dataStoredTemp =  SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [[String:Any]];
-                let dataNewlyAdded = dataStoredTemp?.dropFirst((dataStored?.count)!);
-                for data in dataNewlyAdded!
-                {
-                    dataUndelivered.append(data);
-                }
-                SharedContainer.saveWebData(data: dataUndelivered)
             }
         }
         sendInProgress = false;

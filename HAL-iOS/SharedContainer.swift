@@ -34,7 +34,7 @@ class SharedContainer
         KeychainWrapper.standard.removeObject(forKey: key)
     }
     
-    class func saveWebData(data: [[String:Any]]) -> Void {
+    class func saveWebData(data: [NSDictionary]) -> Void {
         KeychainWrapper.standard.set(([webDataKey:data] as NSDictionary), forKey: webDataKey)
     }
     

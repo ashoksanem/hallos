@@ -119,6 +119,7 @@ class HALApplication: UIApplication {
         DLog("Send stored logs to server");
         LogAnalyticsRequest.logStoredData();
         LoggingRequest.logStoredData();
+        DataForwarder.forwardStoredData()
     }
     
     func updateBattery() {

@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 }
                 catch {
                     DLog("Could not parse crash report.");
-                    LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Could not parse crash report.", type: "STRING", indexable: true);
+                    LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Could not parse crash report.", type: "STRING", indexable: true);
                 }
                 
                 crashReporter?.purgePendingCrashReport();

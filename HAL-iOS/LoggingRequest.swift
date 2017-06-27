@@ -114,13 +114,6 @@ class LoggingRequest{
         var metricDataArray = [[String:Any]]();
         
         metricDataArray.append(["name": name, "value": value, "type": type, "indexable":indexable]);
-
-//        metricDataArray.append(["name": "AppEventType","value": name,"type": "STRING","indexable":indexable]);
-//        
-//        if(!(value.characters.count==0))
-//        {
-//            metricDataArray.append(["name": "AppEventValue","value": value,"type": type,"indexable":indexable]);
-//        }
         
         metricDataArray.append(contentsOf: CommonUtils.getCommonLogMetrics());
         

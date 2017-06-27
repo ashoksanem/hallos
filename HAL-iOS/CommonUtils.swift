@@ -521,9 +521,7 @@ class CommonUtils
         commonMetricsArray.append(metricJson(name: "AW_LogRetryFrequency", value: getLogRetryFrequency().description, type: "DOUBLE", indexable: true))
         commonMetricsArray.append(metricJson(name: "AW_LogStorageTimeLimit", value: getLogTimeLimit().description, type: "DOUBLE", indexable: true))
         
-        
         defaults.set(commonMetricsArray, forKey: commonLogMetrics)
-        
     }
     
     class func metricJson(name:String,value:String,type:String,indexable:Bool)-> [String:Any]

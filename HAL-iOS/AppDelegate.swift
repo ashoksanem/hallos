@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SystemConfiguration.CaptiveNetwork
 
 //@UIApplicationMain
 class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
@@ -19,6 +20,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         CommonUtils.setUpUserDefaults();
+        
+        //since the sumulator isn't in AW let's force some values
+        if(CommonUtils.isSimulator())
+        {
+            setSimulatorValues();
+        }
         
         if let app = application as? HALApplication
         {
@@ -58,14 +65,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 }
                 catch {
                     DLog("Could not parse crash report.");
-                    LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: "Could not parse crash report.", type: "STRING", indexable: true);
+                    LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Could not parse crash report.", type: "STRING", indexable: true);
                 }
                 
                 crashReporter?.purgePendingCrashReport();
             }
             catch {
                 DLog("Could not load crash report.");
-                LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: "Could not load crash report.", type: "STRING", indexable: true);
+                LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Could not load crash report.", type: "STRING", indexable: true);
                 crashReporter?.purgePendingCrashReport();
             }
         }
@@ -74,17 +81,66 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         do {
             try crashReporter?.enableAndReturnError();
             DLog("Crash reporter enabled.");
-            LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "Crash reporter enabled.", type: "STRING", indexable: true);
+            LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Crash reporter enabled.", type: "STRING", indexable: true);
         }
         catch
         {
             DLog("Could not enable crash reporter.");
-            LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "Could not enable crash reporter.", type: "STRING", indexable: true);
+            LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Could not enable crash reporter.", type: "STRING", indexable: true);
         }
         
         //_ = [][0];
         
         return true
+    }
+    
+    func checkSSID() -> Bool
+    {
+        if( CommonUtils.isSimulator() )
+        {
+            return true;
+        }
+
+        let ssids = currentSSIDs();
+        
+        for ssid in ssids {
+            if( ssid == "FDS030A" ) ||
+              ( ssid == "FDS030B" ) ||
+              ( ssid == "FDS030C" ) ||
+              ( ssid == "MST030B" ) ||
+              ( ssid == "MST030A" ) ||
+              ( ssid == "MST030C" ) ||
+              ( ssid == "FDS030AZ" ) ||
+              ( ssid == "LAB030A" ) ||
+              ( ssid == "MB030A" )
+            {
+                return true;
+            }
+        }
+        
+        if( ssids.count > 0 ) {
+            LoggingRequest.logData(name: "IncorrectSSID", value: ssids[0], type: "STRING", indexable: true);
+        }
+        else {
+            LoggingRequest.logData(name: "IncorrectSSID", value: "No SSID found", type: "STRING", indexable: true);
+        }
+        
+        return false;
+    }
+
+    func currentSSIDs() -> [String] {
+        guard let interfaceNames = CNCopySupportedInterfaces() as? [String] else {
+            return []
+        }
+        return interfaceNames.flatMap { name in
+            guard let info = CNCopyCurrentNetworkInfo(name as CFString) as? [String:AnyObject] else {
+                return nil
+            }
+            guard let ssid = info[kCNNetworkInfoKeySSID as String] as? String else {
+                return nil
+            }
+            return ssid
+        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -126,6 +182,38 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        
+//        LoggingRequest.logData(name: "BRIAN", value: "DEMBINSKI", type: "STRING", indexable: true);
+        
+        if( !checkSSID() )
+        {
+            if let viewController:ViewController = window!.rootViewController as? ViewController
+            {
+                let jail = "The network settings on this device are not correct. Remove the device from the sales floor immediately and open a ticket.";
+            
+                // create the alert
+                let alert = UIAlertController(title: "Network Error", message: jail, preferredStyle: UIAlertControllerStyle.alert)
+            
+                // add an action (button)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    switch action.style
+                    {
+                        case .default:
+                            exit(0);
+                        case .cancel:
+                            exit(0);
+                        case .destructive:
+                            exit(0);
+                    }
+                }))
+            
+                // show the alert
+                viewController.present(alert, animated: true, completion: nil)
+            
+                //exit(0);
+            }
+        }
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if((Date().timeIntervalSince(CommonUtils.getAutoLogoutStartTime())>TimeInterval(CommonUtils.getAutoLogoutTimeinterval()))||(!CommonUtils.isSSOAuthenticated()) )
         {
@@ -139,8 +227,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
                 viewController.loadWebView(url: url!)
             }
-            
         }
+        
         LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
         LoggingRequest.logStoredData();
         LogAnalyticsRequest.logStoredData();
@@ -159,6 +247,28 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             app.startJSTimer();
             app.startChargingTimer();
         }
+    }
+    
+    func setSimulatorValues()
+    {
+        CommonUtils.setLandingPage(value: URL(string: "http://mstore.devops.fds.com/")!);
+        CommonUtils.setAutoLogoutTimeinterval(value: 3600);
+        CommonUtils.setDivNum(value: 71);
+        CommonUtils.setStoreNum(value: 572);
+        SharedContainer.setIsp(value: "fs572asisp01");
+        SharedContainer.setSsp(value: "fs008asssp01");
+        SharedContainer.setCloud(value: "junk");
+        CommonUtils.setLogRetryCount(value: 10);
+        CommonUtils.setLogCountLimit(value: 5);
+        CommonUtils.setLogRetryFrequency(value: 120);
+        CommonUtils.setLogTimeLimit(value: 120);
+    
+        let esp = ESPRequest();
+        esp.getZipCode();
+    
+        _ = Locn();
+    
+        CommonUtils.setCommonLogMetrics();
     }
     
     func readMDMValues()
@@ -273,6 +383,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 }
             }
             
+            // if we add anything else to change on the fly it might also need to be added to setSimultorValues()
             let esp = ESPRequest();
             esp.getZipCode();
             
@@ -459,8 +570,13 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             let val = "Sled firmware version: " + (sled?.firmwareRevision)!;
             let eMSRversion = "Sled eMSR firmware version: " + getSledEmsrFirmwareVersion();
             DLog(val);
+            
             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: eMSRversion, type: "STRING", indexable: true);
+
+            LoggingRequest.logData(name: "Sled_Firmware_Version", value: (sled?.firmwareRevision)!, type: "STRING", indexable: true);
+            LoggingRequest.logData(name: "eMSR_Version", value: getSledEmsrFirmwareVersion(), type: "STRING", indexable: true);
+            
             do {
                 try sled?.setPassThroughSync(false);
                 //disableScanner();

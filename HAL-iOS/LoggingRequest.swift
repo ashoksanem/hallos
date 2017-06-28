@@ -96,8 +96,10 @@ class LoggingRequest{
         }
     }
     
-    class func logCommon(name:String,value:String,type:String,indexable:Bool,isException:Bool) {
+    class func logCommon(name:String, value:String, type:String, indexable:Bool, isException:Bool) {
+        
         var logType = "", message = "", correlationID = "1";
+        
         if(isException == true) {
             logType = "ERROR";
             message = name + ": " + value;
@@ -109,14 +111,10 @@ class LoggingRequest{
             logType = "INFO";
             message = name;
         }
-        var value=value;
-        var metricDataArray = [[String:Any]]();
-        metricDataArray.append(["name": "AppEventType","value": name,"type": "STRING","indexable":indexable]);
         
-        if(!(value.characters.count==0))
-        {
-            metricDataArray.append(["name": "AppEventValue","value": value,"type": type,"indexable":indexable]);
-        }
+        var metricDataArray = [[String:Any]]();
+        
+        metricDataArray.append(["name": name, "value": value, "type": type, "indexable":indexable]);
         
         metricDataArray.append(contentsOf: CommonUtils.getCommonLogMetrics());
         

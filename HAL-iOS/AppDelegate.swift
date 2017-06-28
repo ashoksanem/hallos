@@ -91,6 +91,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         
         //_ = [][0];
         
+        Heap.setAppId("282132961"); //282132961 = development       1675328291 = production
+        Heap.enableVisualizer();
+        
         return true
     }
     

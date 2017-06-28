@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		858988BD1EAE208A00AF2024 /* DLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858988BC1EAE208A00AF2024 /* DLog.swift */; };
+		BC174CC81F02DDA4005FBA9A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */; };
+		BC174CCA1F02DDB0005FBA9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CC91F02DDB0005FBA9A /* Foundation.framework */; };
+		BC174CCC1F02DDC1005FBA9A /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CCB1F02DDC1005FBA9A /* libicucore.tbd */; };
+		BC174CCE1F02DDCA005FBA9A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CCD1F02DDCA005FBA9A /* Security.framework */; };
+		BC174CD01F02DDD2005FBA9A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CCF1F02DDD2005FBA9A /* SystemConfiguration.framework */; };
+		BC174CD21F02DDDB005FBA9A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CD11F02DDDB005FBA9A /* UIKit.framework */; };
+		BC174CD61F04254C005FBA9A /* libHeap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CD51F04254C005FBA9A /* libHeap.a */; };
 		BC22EE621E203A8300C3F597 /* LOCN.json in Resources */ = {isa = PBXBuildFile; fileRef = BC22EE611E203A8300C3F597 /* LOCN.json */; };
 		BC22EE641E203D9600C3F597 /* Locn.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC22EE631E203D9600C3F597 /* Locn.swift */; };
 		BC484D9B1E854B820057610A /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
@@ -68,6 +75,14 @@
 
 /* Begin PBXFileReference section */
 		858988BC1EAE208A00AF2024 /* DLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLog.swift; sourceTree = "<group>"; };
+		BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		BC174CC91F02DDB0005FBA9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BC174CCB1F02DDC1005FBA9A /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		BC174CCD1F02DDCA005FBA9A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		BC174CCF1F02DDD2005FBA9A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BC174CD11F02DDDB005FBA9A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BC174CD41F04254C005FBA9A /* Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Heap.h; path = "HAL-iOS/Heap/Heap.h"; sourceTree = "<group>"; };
+		BC174CD51F04254C005FBA9A /* libHeap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHeap.a; path = "HAL-iOS/Heap/libHeap.a"; sourceTree = "<group>"; };
 		BC22EE611E203A8300C3F597 /* LOCN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = LOCN.json; path = "Project Files/LOCN.json"; sourceTree = "<group>"; };
 		BC22EE631E203D9600C3F597 /* Locn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locn.swift; sourceTree = "<group>"; };
 		BC484D9A1E854B820057610A /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = "HAL-iOS/CrashReporter.framework"; sourceTree = "<group>"; };
@@ -124,7 +139,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC174CD21F02DDDB005FBA9A /* UIKit.framework in Frameworks */,
+				BC174CD01F02DDD2005FBA9A /* SystemConfiguration.framework in Frameworks */,
+				BC174CCE1F02DDCA005FBA9A /* Security.framework in Frameworks */,
+				BC174CCC1F02DDC1005FBA9A /* libicucore.tbd in Frameworks */,
+				BC174CCA1F02DDB0005FBA9A /* Foundation.framework in Frameworks */,
+				BC174CC81F02DDA4005FBA9A /* CFNetwork.framework in Frameworks */,
 				CC6EEEAE1DBFE374003D895B /* ExternalAccessory.framework in Frameworks */,
+				BC174CD61F04254C005FBA9A /* libHeap.a in Frameworks */,
 				BC484D9B1E854B820057610A /* CrashReporter.framework in Frameworks */,
 				BCB0EBA81DDE667300E6A3F7 /* libdtdev.a in Frameworks */,
 			);
@@ -147,6 +169,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC174CD31F04251C005FBA9A /* Heap */ = {
+			isa = PBXGroup;
+			children = (
+				BC174CD41F04254C005FBA9A /* Heap.h */,
+				BC174CD51F04254C005FBA9A /* libHeap.a */,
+			);
+			name = Heap;
+			sourceTree = "<group>";
+		};
 		BCB0EBA41DDE665600E6A3F7 /* sled */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +292,13 @@
 		CC6EEEAC1DBFE374003D895B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BC174CD11F02DDDB005FBA9A /* UIKit.framework */,
+				BC174CCF1F02DDD2005FBA9A /* SystemConfiguration.framework */,
+				BC174CCD1F02DDCA005FBA9A /* Security.framework */,
+				BC174CCB1F02DDC1005FBA9A /* libicucore.tbd */,
+				BC174CC91F02DDB0005FBA9A /* Foundation.framework */,
+				BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */,
+				BC174CD31F04251C005FBA9A /* Heap */,
 				BC484D9A1E854B820057610A /* CrashReporter.framework */,
 				CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */,
 			);
@@ -611,6 +649,11 @@
 					"$(inherited)",
 					"$(SRCROOT)/HAL-iOS/sled/**",
 					"$(PROJECT_DIR)/HAL-iOS/sled",
+					"$(PROJECT_DIR)/HAL-iOS/Heap",
+				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
@@ -646,6 +689,11 @@
 					"$(inherited)",
 					"$(SRCROOT)/HAL-iOS/sled/**",
 					"$(PROJECT_DIR)/HAL-iOS/sled",
+					"$(PROJECT_DIR)/HAL-iOS/Heap",
+				);
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "-D RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;

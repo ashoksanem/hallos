@@ -52,6 +52,13 @@ class SSORequest{
                         isAlreadyAuthenticated=true;
                     }
                 }
+
+//                Used in case we need to force offline for testing.
+//                if( true ) {
+//                    CommonUtils.setAuthServiceUnavailableInfo(assocNbr: associateNumber);
+//                    onCompletion("sdfsdfsdf");
+//                }
+//                else
                 
                 if(error != nil) {
                     DLog(error!.localizedDescription);

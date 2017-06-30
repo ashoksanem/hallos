@@ -18,6 +18,7 @@ class CommonUtils
     static let isPreProdEnv = "isPreProdEnv";
     static let ssoSignedInKey = "ssoSignedInKey";
     static let ssoAssociateInfo = "ssoAssociateInfo";
+    static let ssoAssociateTimestamp = "ssoAssociateTimestamp";
     static let currentPage = "currentPage";
     static let allowScan = "allowScan";
     static let scannerModeFromWeb = "scannerModeFromWeb";
@@ -40,6 +41,7 @@ class CommonUtils
         defaults.setValue(false, forKey: ssoSignedInKey);
         defaults.setValue(false, forKey: allowScan);
         defaults.setValue([:], forKey: ssoAssociateInfo);
+        defaults.setValue(nil, forKey: ssoAssociateTimestamp);
         defaults.setValue("", forKey: currentPage);
         defaults.setValue("-1", forKey: divNum);
         defaults.setValue("-1", forKey: storeNum);
@@ -157,10 +159,16 @@ class CommonUtils
         
         LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Using offline associate info.", type: "STRING", indexable: true);
         
+        Heap.track("AssociateAuthentication", withProperties:[AnyHashable("offlineAssociate"):true,
+                                                              AnyHashable("associateNumber"):assocNbr,
+                                                              AnyHashable("divNum"):CommonUtils.getDivNum(),
+                                                              AnyHashable("storeNum"):CommonUtils.getStoreNum()]);
+        
         CommonUtils.setIsSSOAuthenticated(value: true);
         
         let defaults = UserDefaults.standard;
         defaults.setValue(authMessage, forKey: ssoAssociateInfo);
+        defaults.setValue(Date(), forKey: ssoAssociateTimestamp);
     }
     
     class func setIsSSOAuthenticated(value: Bool) -> Void
@@ -170,6 +178,7 @@ class CommonUtils
         
         if( value == false ) {
             defaults.setValue([:], forKey: ssoAssociateInfo);
+            defaults.setValue(nil, forKey: ssoAssociateTimestamp);
         }
     }
     
@@ -211,12 +220,49 @@ class CommonUtils
     class func getSSOData() -> [String:Any]
     {
         let defaults = UserDefaults.standard
-        if(!((defaults.value(forKey: ssoAssociateInfo) as? [String:Any])==nil))
+        if(!((defaults.value(forKey: ssoAssociateInfo) as? [String:Any]) == nil))
         {
-            return defaults.value(forKey: ssoAssociateInfo) as! [String:Any]
+            return defaults.value(forKey: ssoAssociateInfo) as! [String:Any];
         }
 
-        return [:]
+        return [:];
+    }
+    
+    class func getSSOTimestamp() -> Date?
+    {
+        let defaults = UserDefaults.standard
+        if(!((defaults.value(forKey: ssoAssociateTimestamp) as? Date) == nil))
+        {
+            return defaults.value(forKey: ssoAssociateTimestamp) as? Date;
+        }
+        
+        return nil;
+    }
+    
+    class func getSSODuration() -> String
+    {
+        let loginTimestamp = getSSOTimestamp();
+        if( loginTimestamp == nil ) {
+            return "Unavailable";
+        }
+        
+        let duration = NSInteger( Date().timeIntervalSince( CommonUtils.getSSOTimestamp()! ) );
+        
+        let seconds = duration % 60;
+        let minutes = (duration / 60 ) % 60;
+        let hours = (duration / 3600 );
+        
+        return String(format: "%0.2d:%0.2d:%0.2d", hours, minutes, seconds);
+    }
+    
+    class func getCurrentAssociate() -> String {
+        let associate = (UserDefaults.standard.dictionary(forKey: CommonUtils.ssoAssociateInfo))! as [String:Any];
+        if( associate["associateInfo"] != nil ) {
+            return String( describing: ( associate["associateInfo"] as! NSDictionary)["associateNbr"]! );
+        }
+        else {
+            return "";
+        }
     }
     
     class func getAutoLogoutTimeinterval() -> Int

@@ -268,13 +268,13 @@ class CommonUtils
         return String(format: "%0.2d:%0.2d:%0.2d", hours, minutes, seconds);
     }
     
-    class func getCurrentAssociate() -> String {
+    class func getCurrentAssociateNum() -> String {
         let associate = (UserDefaults.standard.dictionary(forKey: CommonUtils.ssoAssociateInfo))! as [String:Any];
         if( associate["associateInfo"] != nil ) {
             return String( describing: ( associate["associateInfo"] as! NSDictionary)["associateNbr"]! );
         }
         else {
-            return "";
+            return "Unavailable";
         }
     }
     

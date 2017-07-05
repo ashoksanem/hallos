@@ -689,7 +689,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func autoLogout() {
         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout due to inactivity.", type: "STRING", indexable: true);
         Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"inactivity",
-                                                      AnyHashable("associateNumber"):CommonUtils.getCurrentAssociate(),
+                                                      AnyHashable("associateNumber"):CommonUtils.getCurrentAssociateNum(),
                                                       AnyHashable("duration"):CommonUtils.getSSODuration(),
                                                       AnyHashable("divNum"):CommonUtils.getDivNum(),
                                                       AnyHashable("storeNum"):CommonUtils.getStoreNum()]);

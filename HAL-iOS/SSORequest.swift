@@ -46,7 +46,7 @@ class SSORequest{
                 
                 if(CommonUtils.isSSOAuthenticated())
                 {
-                    let previousAssocNbr = CommonUtils.getCurrentAssociate();
+                    let previousAssocNbr = CommonUtils.getCurrentAssociateNum();
                     
                     if( associateNumber == previousAssocNbr )
                     {
@@ -114,7 +114,7 @@ class SSORequest{
                         else {
                             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by nil ssoJsonObject.", type: "STRING", indexable: true);
                             Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"nil ssoJsonObject",
-                                                                          AnyHashable("associateNumber"):CommonUtils.getCurrentAssociate(),
+                                                                          AnyHashable("associateNumber"):CommonUtils.getCurrentAssociateNum(),
                                                                           AnyHashable("duration"):CommonUtils.getSSODuration(),
                                                                           AnyHashable("divNum"):CommonUtils.getDivNum(),
                                                                           AnyHashable("storeNum"):CommonUtils.getStoreNum()]);
@@ -130,7 +130,7 @@ class SSORequest{
                     else {
                         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by other.", type: "STRING", indexable: true);
                         Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"other",
-                                                                      AnyHashable("associateNumber"):CommonUtils.getCurrentAssociate(),
+                                                                      AnyHashable("associateNumber"):CommonUtils.getCurrentAssociateNum(),
                                                                       AnyHashable("duration"):CommonUtils.getSSODuration(),
                                                                       AnyHashable("divNum"):CommonUtils.getDivNum(),
                                                                       AnyHashable("storeNum"):CommonUtils.getStoreNum()]);

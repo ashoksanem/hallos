@@ -34,6 +34,7 @@ class CommonUtils
     static let commonLogMetrics = "getCommonLogMetrics";
     static let autoLogoutStartTime = "autoLogoutStartTime";
     static let allowMsr = "allowMsr";
+    static let certificatePinningEnabled = "certificatePinningEnabled";
     
     class func setUpUserDefaults() -> Void
     {
@@ -78,6 +79,18 @@ class CommonUtils
         return defaults.bool(forKey: ssoSignedInKey);
     }
     
+    class func isCertificatePinningEnabled() -> Bool
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: certificatePinningEnabled);
+    }
+    
+    class func setCertificatePinningEnabled(value: Bool)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: certificatePinningEnabled);
+    }
+
     class func setEnableMsr(value: Bool)
     {
         let defaults = UserDefaults.standard;
@@ -588,5 +601,4 @@ class CommonUtils
         
         return false;
     }
-
 }

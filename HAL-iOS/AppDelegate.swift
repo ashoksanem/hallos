@@ -180,6 +180,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
         LoggingRequest.logStoredData();
         LogAnalyticsRequest.logStoredData();
+        DataForwarder.forwardStoredData();
         
     }
 
@@ -188,7 +189,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-
         if( !checkSSID() )
         {
             if let viewController:ViewController = window!.rootViewController as? ViewController
@@ -243,6 +243,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
         LoggingRequest.logStoredData();
         LogAnalyticsRequest.logStoredData();
+        DataForwarder.forwardStoredData()
         detectDevice();
         
         NotificationCenter.default.addObserver( self,

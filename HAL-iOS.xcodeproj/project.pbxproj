@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538E5651EF1809700F82E1D /* DataForwarder.swift */; };
 		858988BD1EAE208A00AF2024 /* DLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858988BC1EAE208A00AF2024 /* DLog.swift */; };
 		BC174CC81F02DDA4005FBA9A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */; };
 		BC174CCA1F02DDB0005FBA9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CC91F02DDB0005FBA9A /* Foundation.framework */; };
@@ -15,6 +16,7 @@
 		BC174CD01F02DDD2005FBA9A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CCF1F02DDD2005FBA9A /* SystemConfiguration.framework */; };
 		BC174CD21F02DDDB005FBA9A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CD11F02DDDB005FBA9A /* UIKit.framework */; };
 		BC174CD61F04254C005FBA9A /* libHeap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CD51F04254C005FBA9A /* libHeap.a */; };
+		85DDE7081EEB171500700EFC /* Certificates in Resources */ = {isa = PBXBuildFile; fileRef = 85DDE7071EEB171500700EFC /* Certificates */; };
 		BC22EE621E203A8300C3F597 /* LOCN.json in Resources */ = {isa = PBXBuildFile; fileRef = BC22EE611E203A8300C3F597 /* LOCN.json */; };
 		BC22EE641E203D9600C3F597 /* Locn.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC22EE631E203D9600C3F597 /* Locn.swift */; };
 		BC484D9B1E854B820057610A /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
@@ -74,6 +76,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8538E5651EF1809700F82E1D /* DataForwarder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataForwarder.swift; sourceTree = "<group>"; };
 		858988BC1EAE208A00AF2024 /* DLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLog.swift; sourceTree = "<group>"; };
 		BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC174CC91F02DDB0005FBA9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -83,6 +86,7 @@
 		BC174CD11F02DDDB005FBA9A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BC174CD41F04254C005FBA9A /* Heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Heap.h; path = "HAL-iOS/Heap/Heap.h"; sourceTree = "<group>"; };
 		BC174CD51F04254C005FBA9A /* libHeap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHeap.a; path = "HAL-iOS/Heap/libHeap.a"; sourceTree = "<group>"; };
+		85DDE7071EEB171500700EFC /* Certificates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Certificates; sourceTree = "<group>"; };
 		BC22EE611E203A8300C3F597 /* LOCN.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = LOCN.json; path = "Project Files/LOCN.json"; sourceTree = "<group>"; };
 		BC22EE631E203D9600C3F597 /* Locn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Locn.swift; sourceTree = "<group>"; };
 		BC484D9A1E854B820057610A /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = "HAL-iOS/CrashReporter.framework"; sourceTree = "<group>"; };
@@ -241,6 +245,7 @@
 				CC41EF271DB54D6B0059C7C5 /* Error.swift */,
 				CC21C0481E16A332006CD57B /* ESPRequest.swift */,
 				858988BC1EAE208A00AF2024 /* DLog.swift */,
+				85DDE7071EEB171500700EFC /* Certificates */,
 				BCD698231DB7B91400F856CE /* Git Projects */,
 				CC8872EC1DDE3A930042F089 /* HALApplication.swift */,
 				CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */,
@@ -252,6 +257,7 @@
 				BC22EE631E203D9600C3F597 /* Locn.swift */,
 				BC534ABB1E018BD800C65BAC /* LogAnalyticsRequest.swift */,
 				BC534AB91DFF17E200C65BAC /* LoggingRequest.swift */,
+				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CC2585641D9AF71C00294506 /* Main.storyboard */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
@@ -430,6 +436,7 @@
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				CC837B5D1E083B4B00A14ECB /* HALApi in Resources */,
+				85DDE7081EEB171500700EFC /* Certificates in Resources */,
 				BC22EE621E203A8300C3F597 /* LOCN.json in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
 				CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */,
@@ -461,6 +468,7 @@
 				CCB404921D9D82C600A314FC /* Assembly.swift in Sources */,
 				CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */,
 				CC837B571E08341B00A14ECB /* KeychainWrapper.swift in Sources */,
+				8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */,
 				CC50DB261DCA21AF00A46576 /* Sled.swift in Sources */,
 				CC41EF321DB54D6B0059C7C5 /* Json4Swift_Base.swift in Sources */,
 				858988BD1EAE208A00AF2024 /* DLog.swift in Sources */,

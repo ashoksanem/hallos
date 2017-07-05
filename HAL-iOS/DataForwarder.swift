@@ -113,9 +113,8 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
                     SharedContainer.saveWebData(data: storedDataInfo);
                 }
             }
-        }
             sem.signal();
-        
+        }
         _ = sem.wait(timeout: DispatchTime.distantFuture);
         return response;
     }

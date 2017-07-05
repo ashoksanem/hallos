@@ -91,7 +91,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         
         //_ = [][0];
         
-        Heap.setAppId("282132961"); //282132961 = development       1675328291 = production
+        let iHateYouApple = SharedContainer.getIsp();
+        iHateYouApple.substring(to: iHateYouApple.index(iHateYouApple.startIndex, offsetBy: 2)) == "fs" ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development       1675328291 = production
+        
+        //Heap.setAppId("282132961"); //282132961 = development       1675328291 = production
         //Heap.enableVisualizer();  // let's keep this here for future research but don't want it turned on now. 
         
         return true;

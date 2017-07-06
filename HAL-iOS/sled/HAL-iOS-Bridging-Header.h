@@ -4,3 +4,4 @@
 #import "ZPLConnector.h"
 #include <ifaddrs.h>
 #import "CrashReporter.h"
+#import "Heap.h"

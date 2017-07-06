@@ -91,7 +91,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         
         //_ = [][0];
         
-        return true
+        let iHateYouApple = SharedContainer.getIsp();
+        iHateYouApple.substring(to: iHateYouApple.index(iHateYouApple.startIndex, offsetBy: 2)) == "fs" ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development       1675328291 = production
+        
+        //Heap.enableVisualizer();  // let's keep this here for future research but don't want it turned on now. 
+        
+        return true;
     }
     
     func checkSSID() -> Bool
@@ -183,9 +188,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        
-//        LoggingRequest.logData(name: "BRIAN", value: "DEMBINSKI", type: "STRING", indexable: true);
-        
         if( !checkSSID() )
         {
             if let viewController:ViewController = window!.rootViewController as? ViewController
@@ -216,13 +218,20 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
         
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        if((Date().timeIntervalSince(CommonUtils.getAutoLogoutStartTime())>TimeInterval(CommonUtils.getAutoLogoutTimeinterval()))||(!CommonUtils.isSSOAuthenticated()) )
+        if( ( Date().timeIntervalSince( CommonUtils.getAutoLogoutStartTime() ) > TimeInterval( CommonUtils.getAutoLogoutTimeinterval() ) ) )
         {
             autoLogout();
         }
         else
         {
-            if let viewController:ViewController = window!.rootViewController as? ViewController
+            if( !CommonUtils.isSSOAuthenticated() )
+            {
+                if let viewController:ViewController = window!.rootViewController as? ViewController
+                {
+                    viewController.loadWebView(url: CommonUtils.getLandingPage() );
+                }
+            }
+            else if let viewController:ViewController = window!.rootViewController as? ViewController
             {
                 CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
                 let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
@@ -264,10 +273,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         CommonUtils.setLogCountLimit(value: 5);
         CommonUtils.setLogRetryFrequency(value: 120);
         CommonUtils.setLogTimeLimit(value: 120);
-        
+    
         let esp = ESPRequest();
         esp.getZipCode();
-        
+    
         _ = Locn();
     
         CommonUtils.setCommonLogMetrics();
@@ -676,9 +685,17 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             viewController.updateBattery();
         }
     }
-    func autoLogout(){
-        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate autoLogout due to inactivity.", type: "STRING", indexable: true);
+    
+    func autoLogout() {
+        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout due to inactivity.", type: "STRING", indexable: true);
+        Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"inactivity",
+                                                      AnyHashable("associateNumber"):CommonUtils.getCurrentAssociateNum(),
+                                                      AnyHashable("duration"):CommonUtils.getSSODuration(),
+                                                      AnyHashable("divNum"):CommonUtils.getDivNum(),
+                                                      AnyHashable("storeNum"):CommonUtils.getStoreNum()]);
+        
         CommonUtils.setIsSSOAuthenticated( value: false );
+        
         if let viewController:ViewController = window!.rootViewController as? ViewController
         {
             viewController.loadWebView(url: CommonUtils.getLandingPage() );

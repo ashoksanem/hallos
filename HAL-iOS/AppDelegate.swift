@@ -92,7 +92,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         //_ = [][0];
         
         let iHateYouApple = SharedContainer.getIsp();
-        iHateYouApple.substring(to: iHateYouApple.index(iHateYouApple.startIndex, offsetBy: 2)) == "fs" ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development       1675328291 = production
+        iHateYouApple.substring(to: iHateYouApple.index(iHateYouApple.startIndex, offsetBy: 2)) == "fs" ?
+            Heap.setAppId("282132961") :
+            Heap.setAppId("1675328291");   //282132961 = development       1675328291 = production
         
         //Heap.enableVisualizer();  // let's keep this here for future research but don't want it turned on now. 
         
@@ -117,6 +119,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
               ( ssid == "MST030C" ) ||
               ( ssid == "FDS030AZ" ) ||
               ( ssid == "LAB030A" ) ||
+              //( ssid == "FDS010" ) || // used for QE testing on a dev build only
               ( ssid == "MB030A" )
             {
                 return true;

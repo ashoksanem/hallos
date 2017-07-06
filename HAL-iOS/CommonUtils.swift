@@ -172,7 +172,7 @@ class CommonUtils
         
         LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Using offline associate info.", type: "STRING", indexable: true);
         
-        Heap.track("AssociateAuthentication", withProperties:[AnyHashable("offlineAssociate"):true,
+        Heap.track("AssociateAuthentication", withProperties:[AnyHashable("offlineAssociate"):"true",
                                                               AnyHashable("associateNumber"):assocNbr,
                                                               AnyHashable("divNum"):CommonUtils.getDivNum(),
                                                               AnyHashable("storeNum"):CommonUtils.getStoreNum()]);

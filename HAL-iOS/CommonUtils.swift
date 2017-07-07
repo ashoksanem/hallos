@@ -601,4 +601,32 @@ class CommonUtils
         
         return false;
     }
+    
+    class func getConfigurationParams() -> String
+    {
+        var uuidData = JSON.parse(getDeviceId()).dictionary;
+        let configJson = [
+            "DeviceOSName": "iOS",
+            "DeviceOSVersion": UIDevice.current.systemVersion,
+            "DeviceUUID": (uuidData?["deviceId"]?.description) ?? "",
+            "DeviceName": UIDevice.current.name,
+            "AppVersion": Assembly.halVersion(),
+            "AW_LandingPage": getLandingPage().absoluteString,
+            "AW_DivNumber": getDivNum().description,
+            "AW_StoreNumber": getStoreNum().description,
+            "AW_ISP": SharedContainer.getIsp(),
+            "AW_SSP": SharedContainer.getSsp(),
+            "AW_Cloud": SharedContainer.getCloud(),
+            "AW_AutoLogout": getAutoLogoutTimeinterval().description,
+            "AW_LogRetryCount": getLogRetryCount().description,
+            "AW_LogStorageCountLimit": getLogCountLimit().description,
+            "AW_LogRetryFrequency": getLogRetryFrequency().description,
+            "AW_LogStorageTimeLimit": getLogTimeLimit().description,
+            "AvailableFunctions":Assembly.halFunctions()
+            ] as [String : Any]
+        
+        let halConfigurationData = try! JSONSerialization.data(withJSONObject: configJson, options: [])
+        let  halConfiguration = String(data: halConfigurationData, encoding: String.Encoding.utf8)
+        return halConfiguration ?? "";
+    }
 }

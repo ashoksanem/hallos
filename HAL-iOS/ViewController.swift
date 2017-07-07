@@ -53,6 +53,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "getMsrStatus",
                                          "enableMsr",
                                          "disableMsr",
+                                         "getConfigurationParams",
                                          "captureIncorrectLog"];
         
         for message in messageHandlers
@@ -348,6 +349,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "captureIncorrectLog")
         {
             LogAnalyticsRequest.logIncorrectDataTest()
+        }
+        else if(message.name == "getConfigurationParams")
+        {
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.getConfigurationParams() ) + " )");
+            }
         }
         else if(message.name == "storeLog")
         {

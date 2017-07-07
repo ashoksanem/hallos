@@ -158,8 +158,15 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "logoutAssociate" )
         {
             if let id = message.body as? String {
-                LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by logoutAssociate.", type: "STRING", indexable: true);
+                LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by logoutAssociate JavaScript call.", type: "STRING", indexable: true);
+                Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"logoutAssociate JavaScript call",
+                                                              AnyHashable("associateNumber"):CommonUtils.getCurrentAssociateNum(),
+                                                              AnyHashable("duration"):CommonUtils.getSSODuration(),
+                                                              AnyHashable("divNum"):CommonUtils.getDivNum(),
+                                                              AnyHashable("storeNum"):CommonUtils.getStoreNum()]);
+                
                 CommonUtils.setIsSSOAuthenticated( value: false );
+                
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
         }

@@ -43,11 +43,12 @@ class SSORequest{
             let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
                 var isAlreadyAuthenticated = false;
                 var isValidPrevAssociate = false;
+                
                 if(CommonUtils.isSSOAuthenticated())
                 {
-                    let associate = (UserDefaults.standard.dictionary(forKey: CommonUtils.ssoAssociateInfo))! as [String:Any];
-                    let previousAssocNbr=String( describing: ( associate["associateInfo"] as! NSDictionary)["associateNbr"]! );
-                    if associateNumber==previousAssocNbr
+                    let previousAssocNbr = CommonUtils.getCurrentAssociateNum();
+                    
+                    if( associateNumber == previousAssocNbr )
                     {
                         isAlreadyAuthenticated=true;
                     }
@@ -97,7 +98,14 @@ class SSORequest{
                     if( resp != nil && resp?.statusCode == 200 ) {
                         if( ssoJsonObject.associateInfo != nil ) {
                             CommonUtils.setIsSSOAuthenticated(value: true);
+                            
                             defaults.setValue(ssoJsonObject.dictionaryRepresentation(), forKey: CommonUtils.ssoAssociateInfo);
+                            defaults.setValue(Date(), forKey: CommonUtils.ssoAssociateTimestamp);
+                            
+                            Heap.track("AssociateAuthentication", withProperties:[AnyHashable("associateNumber"):associateNumber,
+                                                                                  AnyHashable("divNum"):CommonUtils.getDivNum(),
+                                                                                  AnyHashable("storeNum"):CommonUtils.getStoreNum()]);
+                            
                             if(isAlreadyAuthenticated)
                             {
                                 isValidPrevAssociate=true;
@@ -105,8 +113,13 @@ class SSORequest{
                         }
                         else {
                             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by nil ssoJsonObject.", type: "STRING", indexable: true);
+                            Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"nil ssoJsonObject",
+                                                                          AnyHashable("associateNumber"):CommonUtils.getCurrentAssociateNum(),
+                                                                          AnyHashable("duration"):CommonUtils.getSSODuration(),
+                                                                          AnyHashable("divNum"):CommonUtils.getDivNum(),
+                                                                          AnyHashable("storeNum"):CommonUtils.getStoreNum()]);
+                            
                             CommonUtils.setIsSSOAuthenticated(value: false);
-                            defaults.setValue([:], forKey: CommonUtils.ssoAssociateInfo);
                         }
                     }
                     else if ( ( ssoJsonObject.code == nil ) && !( Int( associateNumber ) == nil ) &&
@@ -116,9 +129,15 @@ class SSORequest{
                     }
                     else {
                         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by other.", type: "STRING", indexable: true);
+                        Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"other",
+                                                                      AnyHashable("associateNumber"):CommonUtils.getCurrentAssociateNum(),
+                                                                      AnyHashable("duration"):CommonUtils.getSSODuration(),
+                                                                      AnyHashable("divNum"):CommonUtils.getDivNum(),
+                                                                      AnyHashable("storeNum"):CommonUtils.getStoreNum()]);
+                        
                         CommonUtils.setIsSSOAuthenticated(value: false);
-                        defaults.setValue([:], forKey: CommonUtils.ssoAssociateInfo);
                     }
+                    
                     if(isValidPrevAssociate)
                     {
                         onCompletion("prevAuth");

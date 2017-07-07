@@ -110,8 +110,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         super.viewDidLoad()
         var url = CommonUtils.getLandingPage();
         //for debugging for testing
-//        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!
-//        url = URL(string: "http://node1.sdpd.c4d.devops.fds.com:9001/")!;
+//        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; CommonUtils.setLandingPage(value: url);
         CommonUtils.setCurrentPage(value: url);
         loadWebView(url: url);
     }

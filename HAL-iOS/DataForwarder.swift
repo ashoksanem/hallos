@@ -47,18 +47,8 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
                 if(resp != nil && resp?.statusCode==200) {
                     do {
                         let json = JSON(data: data!).dictionaryObject;
-                        if let reasonCode=json?["reasonCode"] as? String {
-                            if(reasonCode=="0")
-                            {
-                                DLog("Sent message through Data forwarder.");
-                                onCompletion(true,logvalue);
-                            }
-                            else
-                            {
-                                logvalue = "Failed sending data:"+String(describing:jsonData)+" with response: "+String(describing:json);
-                                onCompletion(false,logvalue);
-                            }
-                        }
+                        onCompletion(true,logvalue);
+                        
                     }
                 }
                 else

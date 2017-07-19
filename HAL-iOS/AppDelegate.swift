@@ -13,8 +13,8 @@ import SystemConfiguration.CaptiveNetwork
 //@UIApplicationMain
 class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 
-    var window: UIWindow?
-    var sled: DTDevices?
+    var window: UIWindow?;
+    var sled: DTDevices?;
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -22,13 +22,11 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         CommonUtils.setUpUserDefaults();
         
         //since the sumulator isn't in AW let's force some values
-        if(CommonUtils.isSimulator())
-        {
+        if( CommonUtils.isSimulator() ) {
             setSimulatorValues();
         }
         
-        if let app = application as? HALApplication
-        {
+        if let app = application as? HALApplication {
             app.startTimer();
         }
         
@@ -36,13 +34,13 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         detectDevice();
         
         NotificationCenter.default.addObserver( self,
-            selector: #selector(readMDMValues),
-            name: UserDefaults.didChangeNotification,
-            object: nil);
+                                                selector: #selector(readMDMValues),
+                                                name: UserDefaults.didChangeNotification,
+                                                object: nil);
         
         NSSetUncaughtExceptionHandler { exception in
-            DLog("error details : " + exception.reason!)
-            LoggingRequest.logData(name: LoggingRequest.metrics_app_crash, value: exception.reason!, type: "STRING", indexable: true);
+            DLog( "error details : " + exception.reason! );
+            LoggingRequest.logData( name: LoggingRequest.metrics_app_crash, value: exception.reason!, type: "STRING", indexable: true );
         }
         
         let crashReporter = PLCrashReporter.shared();
@@ -591,15 +589,17 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             LoggingRequest.logData(name: "Sled_Firmware_Version", value: (sled?.firmwareRevision)!, type: "STRING", indexable: true);
             LoggingRequest.logData(name: "eMSR_Version", value: getSledEmsrFirmwareVersion(), type: "STRING", indexable: true);
             
-            do {
-                try sled?.setPassThroughSync(false);
+            do
+            {
+                try sled?.setPassThroughSync( false );
                 //disableScanner();
             }
-            catch {
-                
+            catch
+            {
                 DLog("Sled pass through error: " + String(describing:error));
             }
-            if(CommonUtils.isScannerModeEnabledFromWeb())
+            
+            if( CommonUtils.isScannerModeEnabledFromWeb() )
             {
                 enableScanner();
             }
@@ -607,12 +607,236 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             {
                 disableScanner();
             }
+            
+            //inject the default key into the MSR head
+            let info = sled?.emsrGetDeviceInfo;
+            
+            if( info != nil )
+            {
+                if( sled?.emsrGetKeysInfo != nil )
+                {
+                    var retries = 4;
+                    let newKeKData = [UInt8](getKek().utf8);
+                    
+                    //use version 1 for default key because we can't use version 0
+                    let default_key_version = 1;
+                    
+                    repeat
+                    {
+                        if( loadKeyId(keyID: KEY_EH_AES256_LOADING, keyData: newKeKData, keyVersion: Int(getKekVersion()), kekData: newKeKData ) )
+                        {
+                            //We loaded the KEK, and there was much rejoicing
+
+                            if( loadKeyId(keyID: KEY_EH_AES256_ENCRYPTION1, keyData: getDefaultAESKey(), keyVersion: default_key_version, kekData: newKeKData ) )
+                            {
+                                break;
+                            }
+                        }
+                        
+                        retries -= 1;
+                        sleep(1);
+                    }
+                    while( retries > 0 );
+                    
+                    if( retries == 0 )
+                    {
+                        //we tried too many times, bail out
+                        if let viewController:ViewController = window!.rootViewController as? ViewController
+                        {
+                            let message = "This device does not have the required security key. Please remove device from sales floor immediately and open a ticket.";
+                        
+                            // create the alert
+                            let alert = UIAlertController(title: "No Security Key", message: message, preferredStyle: UIAlertControllerStyle.alert)
+                        
+                            // add an action (button)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                                switch action.style
+                                {
+                                    case .default:
+                                        exit(0);
+                                    case .cancel:
+                                        exit(0);
+                                    case .destructive:
+                                        exit(0);
+                                }
+                            }))
+                        
+                            // show the alert
+                            viewController.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
+            
             disableMsr();
         }
         else {
             LoggingRequest.logData(name: LoggingRequest.metrics_lost_peripheral_connection, value: "sled", type: "STRING", indexable: true);
         }
     }
+    
+    //prepares and loads a key
+    //NOTE!!!! There can't be a key with duplicate value, this is PCI requirement!
+    func loadKeyId(keyID: Int32, keyData:[UInt8], keyVersion:Int, kekData:[UInt8]?) -> Bool
+    {
+        //format the key to load it, optionally encrypt with KEK
+        let generatedKeyData = emsrGenerateKeyData(keyID: keyID, keyVersion: keyVersion, keyData: keyData, kekData: kekData);
+        
+        do {
+            let lib: DTDevices = DTDevices.sharedDevice() as! DTDevices;
+            
+            //try to load the key in the slot
+            try lib.emsrLoadKey(generatedKeyData.getNSData());
+            return true;
+        } catch let error as NSError {
+            DLog("ERROR: Danger Will Robinson! [" + error.localizedDescription + "]");
+        }
+        return false;
+    }
+    
+    /**
+     Loads initial key in plain text or changes existing key. Keys in plain text can be loaded only once,
+     on every subsequent key change, they needs to be encrypted with KEY_EH_AES256_LOADING.
+     
+     KEY_EH_AES256_LOADING can be used to change all the keys in the head except for the TMK, and KEY_AES256_LOADING
+     can be loaded in plain text the first time too.
+     */
+    func emsrGenerateKeyData(keyID: Int32, keyVersion: Int, keyData: [UInt8], kekData: [UInt8]?) -> [UInt8] {
+        var data: [UInt8] = [];
+        
+        data.append(0x2b);
+        //key to encrypt with, either KEY_AES256_LOADING or 0xff to use plain text
+        data.append((kekData != nil) ? UInt8(KEY_EH_AES256_LOADING) : 0xff);
+        data.append(UInt8(keyID)); //key to set
+        data.append(UInt8(keyVersion>>24)); //key version
+        data.append(UInt8(keyVersion>>16)); //key version
+        data.append(UInt8(keyVersion>>8)); //key version
+        data.append(UInt8(keyVersion)); //key version
+        
+        let keyStart = data.count;
+        
+        var hashed: [UInt8] = [];
+        hashed.append(contentsOf: data);
+        hashed.append(contentsOf: keyData); //key data
+        let hash = SHA256(data: NSData(bytes: hashed, length: hashed.count));
+        
+        hashed.append(contentsOf: hash.getBytes());
+        
+        //encrypt the data if using the encryption key
+        if kekData != nil {
+            let toEncrypt = Array( hashed[keyStart..<hashed.count] );
+            let encrypted = AESEncryptWithKey(data: toEncrypt.getNSData() as NSData, key: kekData!.getNSData() as NSData);
+            
+            //store the encryptd data back into the packet
+            data.append(contentsOf: encrypted!.getBytes());
+        } else {
+            //should never get here
+        }
+        return data;
+    }
+    
+    func getKek() -> String
+    {
+        //a4387054:imas b415570$ openssl enc -aes-256-ecb -k InfinitePeripherals -P -md sha1 -nosalt
+        //key=4475C493C0AE0B2A112B40535DFE0A61A3FEB9BFB999404DCD8D650932D3F799
+        return "4475C493C0AE0B2A112B40535DFE0A61";
+    }
+    
+    func getKekVersion() -> Int32
+    {
+        return 1;
+    }
+    
+    func getDefaultAESKey() -> [UInt8]
+    {
+        var array : [UInt8] = [UInt8](repeating: 0x00, count: 32 );
+        array[0] = 0xFC;
+        array[1] = 0xF3;
+        array[2] = 0x80;
+        array[3] = 0xD1;
+        array[4] = 0xAC;
+        array[5] = 0xC2;
+        array[6] = 0x72;
+        array[7] = 0xEB;
+        array[8] = 0x40;
+        array[9] = 0x53;
+        array[10] = 0x40;
+        array[11] = 0x48;
+        array[12] = 0x40;
+        array[13] = 0xC1;
+        array[14] = 0xFC;
+        array[15] = 0x6E;
+        array[16] = 0x40;
+        array[17] = 0xD6;
+        array[18] = 0x64;
+        array[19] = 0xC2;
+        array[20] = 0x6E;
+        array[21] = 0xC1;
+        array[22] = 0xE2;
+        array[23] = 0xCD;
+        array[24] = 0x6D;
+        array[25] = 0x52;
+        array[26] = 0xC8;
+        array[27] = 0x66;
+        array[28] = 0xA0;
+        array[29] = 0x48;
+        array[30] = 0x50;
+        array[31] = 0xB0;
+        
+        return array;
+    }
+    
+    func SHA256(data: NSData) -> NSData
+    {
+        let hash = UnsafeMutablePointer<UInt8>.allocate( capacity: Int( CC_SHA256_DIGEST_LENGTH ) );
+        
+        CC_SHA256( data.bytes,UInt32( data.length ),hash );
+        
+        let r = NSData( bytes: hash, length: Int( CC_SHA256_DIGEST_LENGTH ) );
+        free( hash );
+        
+        return r;
+    }
+    
+    func AESOperation(data: NSData, operation:CCOperation, key:NSData) -> NSData?
+    {
+        var keySize=kCCKeySizeAES256;
+        if( key.length <= 16 )
+        {
+            keySize = kCCKeySizeAES128;
+        }
+        
+        //See the doc: For block ciphers, the output size will always be less than or
+        //equal to the input size plus the size of one block.
+        //That's why we need to add the size of one block here
+        let bufferSize = data.length + kCCBlockSizeAES128;
+        
+        //        let hash = UnsafeMutablePointer<UInt8>.alloc(Int(CC_SHA256_DIGEST_LENGTH))
+        let buffer = malloc(bufferSize);
+        var numBytes:size_t = 0;
+        let cryptStatus = CCCrypt(operation, CCAlgorithm(kCCAlgorithmAES128), 0, key.bytes, keySize, nil, data.bytes, data.length, buffer, bufferSize, &numBytes);
+        
+        var d: NSData? = nil;
+        if( cryptStatus == CCCryptorStatus(kCCSuccess) )
+        {
+            //the returned NSData takes ownership of the buffer and will free it on deallocation
+            d=NSData(bytes: buffer, length: numBytes);
+        }
+        
+        free(buffer); //free the buffer;
+        return d;
+    }
+    
+    func AESEncryptWithKey(data: NSData, key:NSData) -> NSData?
+    {
+        return AESOperation(data: data, operation:CCAlgorithm(kCCEncrypt), key:key);
+    }
+    
+    func AESDecryptWithKey(data: NSData, key:NSData) -> NSData?
+    {
+        return AESOperation(data: data, operation:CCAlgorithm(kCCDecrypt), key:key);
+    }
+
     
     func enableScanner()
     {
@@ -736,6 +960,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             DLog("Disable MSR error: " + String(describing:error));
         }
     }
+    
     func updateMsrData(msrData: String)
     {
         if(CommonUtils.isMsrEnabled())
@@ -800,6 +1025,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     }
     func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!, track1masked: String!, track2masked: String!, track3: String!, source: Int32) {
         let cardData = data ?? Data.init();
+       
+//        let decrypted = AESDecryptWithKey(data: data as NSData, key: getDefaultAESKey().getNSData() as NSData );
+//        let decryptedBytes = decrypted?.getBytes();
+        
         let msrData = [
             "data": cardData.base64EncodedString(),
             "encryption": encryption,

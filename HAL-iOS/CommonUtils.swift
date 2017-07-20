@@ -52,7 +52,7 @@ class CommonUtils
         defaults.removeObject(forKey: LoggingRequest.metricsLog);
         defaults.removeObject(forKey: LogAnalyticsRequest.metricsLog);
         defaults.setValue(false, forKey: webviewLoading);
-        
+        defaults.setValue(false, forKey: certificatePinningEnabled)
         //BJD No, this isn't perfet. It needs to be stored persistently where others can't easily overwrite it. That functionality is coming in
         //SDF-208 so hopefully this will suffice for now. I'll come back and fix it later.
         var uuid = "";

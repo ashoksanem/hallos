@@ -111,7 +111,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         let ssids = currentSSIDs();
         
         for ssid in ssids {
-            if( ssid == "FDS030A" ) ||
+            if( ssid == "FDS010" ) ||
               ( ssid == "FDS030B" ) ||
               ( ssid == "FDS030C" ) ||
               ( ssid == "MST030B" ) ||
@@ -276,7 +276,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         CommonUtils.setLogCountLimit(value: 5);
         CommonUtils.setLogRetryFrequency(value: 120);
         CommonUtils.setLogTimeLimit(value: 120);
-    
+        CommonUtils.setCertificatePinningEnabled(value: false);
         let esp = ESPRequest();
         esp.getZipCode();
     
@@ -394,6 +394,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 if(!((val as? Double)==nil))
                 {
                     CommonUtils.setLogTimeLimit(value: val as! Double);
+                }
+            }
+            
+            if let val = answersSaved["CertificatePinning"]
+            {
+                if(!((val as? Bool)==nil))
+                {
+                    CommonUtils.setCertificatePinningEnabled(value: val as! Bool);
                 }
             }
             

@@ -110,7 +110,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         super.viewDidLoad()
         var url = CommonUtils.getLandingPage();
         //for debugging for testing
-//        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; CommonUtils.setLandingPage(value: url);
+        //url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; CommonUtils.setLandingPage(value: url);
         CommonUtils.setCurrentPage(value: url);
         loadWebView(url: url);
     }
@@ -512,34 +512,42 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         if(CommonUtils.isCertificatePinningEnabled())
         {
-        if(challenge.protectionSpace.authenticationMethod==NSURLAuthenticationMethodServerTrust)
-        {
-            let serverTrust = challenge.protectionSpace.serverTrust;
-            if((serverTrust) != nil)
+            print(challenge.protectionSpace.authenticationMethod)
+            if(challenge.protectionSpace.authenticationMethod==NSURLAuthenticationMethodServerTrust)
             {
-                let rootCa = "Certificates/comodo"
-                if let rootCaPath = Bundle.main.path(forResource: rootCa, ofType: "der") {
-                    if let rootCaData: NSData = NSData(contentsOfFile: rootCaPath) {
-                        let cfData = CFDataCreate(kCFAllocatorDefault, rootCaData.bytes.assumingMemoryBound(to: UInt8.self), rootCaData.length)
-                        let rootCert = SecCertificateCreateWithData(kCFAllocatorDefault, cfData!)
-                        let certs: [CFTypeRef] = [rootCert as CFTypeRef]
-                        let certArrayRef : CFArray = CFBridgingRetain(certs as NSArray) as! CFArray
-                        SecTrustSetAnchorCertificates(serverTrust!, certArrayRef)
-                        SecTrustSetAnchorCertificatesOnly(serverTrust!, true)
+                let serverTrust = challenge.protectionSpace.serverTrust;
+                if((serverTrust) != nil)
+                {
+                    var trusted:Bool = false;
+                    let rootCaPath = Bundle.main.paths(forResourcesOfType: "der", inDirectory: "Certificates");
+                    for cert in rootCaPath
+                    {
+                        if let rootCaData: NSData = NSData(contentsOfFile: cert ) {
+                            let cfData = CFDataCreate(kCFAllocatorDefault, rootCaData.bytes.assumingMemoryBound(to: UInt8.self), rootCaData.length)
+                            let rootCert = SecCertificateCreateWithData(kCFAllocatorDefault, cfData!)
+                            let certs: [CFTypeRef] = [rootCert as CFTypeRef] 
+                            let certArrayRef : CFArray = CFBridgingRetain(certs as NSArray) as! CFArray
+                            SecTrustSetAnchorCertificates(serverTrust!, certArrayRef)
+                            SecTrustSetAnchorCertificatesOnly(serverTrust!, true)
+                        }
+                        var trustResult: SecTrustResultType = SecTrustResultType(rawValue: 0)!
+                        SecTrustEvaluate(serverTrust!, &trustResult)
+                        if (Int(trustResult.rawValue) == 1 || Int(trustResult.rawValue) == 4) {
+                            trusted = true;
+                            break;
+                        }
+                    }
+                    if( !trusted )
+                    {
+                        let secTrustCertificate =   SecTrustGetCertificateAtIndex(serverTrust!,0);
+                        LoggingRequest.logError(name: LoggingRequest.metrics_unAuthorizedCertificate, value: secTrustCertificate.debugDescription, type: "STRING", indexable: false);
+                        let alertController = UIAlertController(title: "UnAuthorized certificate", message:
+                            "The certificate accessed is unauthorized.", preferredStyle: UIAlertControllerStyle.alert)
+                        alertController.addAction(UIAlertAction(title: "Close App", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in exit(0)}))
+                        self.present(alertController, animated: true, completion: nil)
                     }
                 }
-                var trustResult: SecTrustResultType = SecTrustResultType(rawValue: 0)!
-                SecTrustEvaluate(serverTrust!, &trustResult)
-                if (Int(trustResult.rawValue) == 5) {
-                    let secTrustCertificate =   SecTrustGetCertificateAtIndex(serverTrust!,0);
-                    LoggingRequest.logError(name: LoggingRequest.metrics_unAuthorizedCertificate, value: secTrustCertificate.debugDescription, type: "STRING", indexable: false);
-                    let alertController = UIAlertController(title: "UnAuthorized certificate", message:
-                        "The certificate accessed is unauthorized.", preferredStyle: UIAlertControllerStyle.alert)
-                    alertController.addAction(UIAlertAction(title: "Close App", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in exit(0)}))
-                    self.present(alertController, animated: true, completion: nil)
-                }
             }
-        }
         }
         completionHandler(.useCredential, nil);
     }

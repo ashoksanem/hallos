@@ -512,7 +512,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         if(CommonUtils.isCertificatePinningEnabled())
         {
-            print(challenge.protectionSpace.authenticationMethod)
             if(challenge.protectionSpace.authenticationMethod==NSURLAuthenticationMethodServerTrust)
             {
                 let serverTrust = challenge.protectionSpace.serverTrust;

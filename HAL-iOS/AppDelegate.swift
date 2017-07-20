@@ -1037,6 +1037,22 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 //        let decrypted = AESDecryptWithKey(data: data as NSData, key: getDefaultAESKey().getNSData() as NSData );
 //        let decryptedBytes = decrypted?.getBytes();
         
+        do {
+            let keyInfo = try sled?.emsrGetKeysInfo();
+            if( keyInfo != nil ) {
+                if( keyInfo?.getKeyVersion(KEY_EH_AES256_ENCRYPTION1 ) == 1 ) {
+                    // Version 1 is the default key. Whoops!
+                    LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "MSR swipe using default key.", type: "STRING", indexable: true);
+                }
+            }
+            else {
+                LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Unable to get MSR keyInfo.", type: "STRING", indexable: true);
+            }
+        }
+        catch {
+            LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Unable to get MSR key version.", type: "STRING", indexable: true);
+        }
+        
         let msrData = [
             "data": cardData.base64EncodedString(),
             "encryption": encryption,

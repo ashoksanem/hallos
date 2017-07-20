@@ -111,7 +111,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         let ssids = currentSSIDs();
         
         for ssid in ssids {
-            if( ssid == "FDS010" ) ||
+            if( ssid == "FDS030A" ) ||
               ( ssid == "FDS030B" ) ||
               ( ssid == "FDS030C" ) ||
               ( ssid == "MST030B" ) ||

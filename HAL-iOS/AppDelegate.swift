@@ -569,13 +569,22 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func updateBarcodeData(barcode: String)
     {
-        if(CommonUtils.isScanEnabled())
+        /*if(CommonUtils.isScanEnabled())
         {
             if let viewController:ViewController = window!.rootViewController as? ViewController
             {
                 viewController.updateBarcodeData(barcode: barcode);
             }
+        }*/
+        
+        if let printerViewController:PrinterViewController = window!.rootViewController?.presentedViewController as? PrinterViewController
+        {
+            printerViewController.updateMacAddress(barcode: barcode)
         }
+        else if let viewController:ViewController = window!.rootViewController as? ViewController        {
+            viewController.updateBarcodeData(barcode: barcode)
+        }
+
     }
     
     func connectionState(_ state: Int32) {

@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538E5651EF1809700F82E1D /* DataForwarder.swift */; };
+		853DEFB21F2260B600BEDE1D /* PrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */; };
 		858988BD1EAE208A00AF2024 /* DLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858988BC1EAE208A00AF2024 /* DLog.swift */; };
+		85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CCB4131F22649C0088BD5D /* sampleBarcode.png */; };
 		85DDE7081EEB171500700EFC /* Certificates in Resources */ = {isa = PBXBuildFile; fileRef = 85DDE7071EEB171500700EFC /* Certificates */; };
 		BC174CC81F02DDA4005FBA9A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */; };
 		BC174CCA1F02DDB0005FBA9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CC91F02DDB0005FBA9A /* Foundation.framework */; };
@@ -78,7 +80,9 @@
 
 /* Begin PBXFileReference section */
 		8538E5651EF1809700F82E1D /* DataForwarder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataForwarder.swift; sourceTree = "<group>"; };
+		853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterViewController.swift; sourceTree = "<group>"; };
 		858988BC1EAE208A00AF2024 /* DLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLog.swift; sourceTree = "<group>"; };
+		85CCB4131F22649C0088BD5D /* sampleBarcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sampleBarcode.png; path = "Project Files/sampleBarcode.png"; sourceTree = "<group>"; };
 		85DDE7071EEB171500700EFC /* Certificates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Certificates; sourceTree = "<group>"; };
 		BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC174CC91F02DDB0005FBA9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -212,6 +216,7 @@
 				BCD6982A1DB7C34600F856CE /* icons */,
 				CC25856F1D9AF71C00294506 /* Info.plist */,
 				BC7461E51E40E59400F4A359 /* Cobranding.png */,
+				85CCB4131F22649C0088BD5D /* sampleBarcode.png */,
 			);
 			name = "Project Files";
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */,
 				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
@@ -430,6 +436,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
@@ -472,6 +479,7 @@
 				CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */,
 				CC837B571E08341B00A14ECB /* KeychainWrapper.swift in Sources */,
 				8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */,
+				853DEFB21F2260B600BEDE1D /* PrinterViewController.swift in Sources */,
 				BCE513561F1D0EA40060CAB8 /* Utils.swift in Sources */,
 				CC50DB261DCA21AF00A46576 /* Sled.swift in Sources */,
 				CC41EF321DB54D6B0059C7C5 /* Json4Swift_Base.swift in Sources */,

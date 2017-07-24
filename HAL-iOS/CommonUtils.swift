@@ -35,6 +35,7 @@ class CommonUtils
     static let autoLogoutStartTime = "autoLogoutStartTime";
     static let allowMsr = "allowMsr";
     static let certificatePinningEnabled = "certificatePinningEnabled";
+    static let savedPrinterMACAddress = "savedPrinterMACAddress";
     
     class func setUpUserDefaults() -> Void
     {
@@ -628,5 +629,21 @@ class CommonUtils
         let halConfigurationData = try! JSONSerialization.data(withJSONObject: configJson, options: [])
         let  halConfiguration = String(data: halConfigurationData, encoding: String.Encoding.utf8)
         return halConfiguration ?? "";
+    }
+    
+    class func setSavedPrinterMACAddress(value: String)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: savedPrinterMACAddress);
+    }
+    class func getSavedPrinterMACAddress() -> String
+    {
+        let defaults = UserDefaults.standard
+        if let macAddress = defaults.string(forKey: savedPrinterMACAddress)
+        {
+            return macAddress
+        }
+        
+        return "";
     }
 }

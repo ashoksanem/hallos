@@ -16,7 +16,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     static var webView: WKWebView?;
     static var storedJS = [String]();
     var sledBatteryView: UITextView?;
-    
+    var printerData:NSDictionary = [:];
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
@@ -44,6 +44,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "makeAuthenticationRequest",
                                          "passDataToWeb",
                                          "printdata",
+                                         "hasSavedPrinter",
                                          "saveData",
                                          "sendSSOAuthenticationMessageToWeb",
                                          "storeAnalyticsLogs",
@@ -303,19 +304,17 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             exc.raise()
         }
         else if(message.name == "printdata"){
-            if let data = message.body as? NSDictionary {
-                if let id = data["handle"] as? String {
-                    if let receipt = data["receipt"] as? String {
-                        if(ZebraBluetooth.printData(receiptMarkUp: receipt))
-                        {
-                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
-                        }
-                        else
-                        {
-                            LoggingRequest.logData(name: LoggingRequest.metrics_print_failed, value: "could not print receipt in the printer", type: "STRING", indexable: true);
-                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
-                        }
-                    }
+            printData(message: message)
+        }
+        else if(message.name == "hasSavedPrinter"){
+            if let id = message.body as? String {
+                if(CommonUtils.getPrinterMACAddress()=="")
+                {
+                    evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                }
+                else
+                {
+                    evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
                 }
             }
         }
@@ -549,6 +548,36 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             }
         }
         completionHandler(.useCredential, nil);
+    }
+    
+    func printData(message:WKScriptMessage)
+    {
+        
+        if let data = message.body as? NSDictionary {
+            printerData = data;
+            let addPrinter = data["addPrinter"] as? Bool ?? false;
+            if(addPrinter)
+            {
+                CommonUtils.setPrinterMACAddress(value: "")
+                CommonUtils.setSavedPrinterMACAddress(value: "")
+            }   
+                    if((CommonUtils.getSavedPrinterMACAddress()==""))
+                    {
+                        performSegue(withIdentifier: "showPrinter", sender: self);
+                    }
+                    else
+                    {
+                        if(!PrinterViewController.connectAndPrintReceipt(address: CommonUtils.getSavedPrinterMACAddress(),printerData: printerData))
+                        {
+                            performSegue(withIdentifier: "showPrinter", sender: self);
+                        }
+                    }
+                }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let printerViewController = segue.destination as! PrinterViewController
+        printerViewController.printerData = printerData;
     }
 
 }

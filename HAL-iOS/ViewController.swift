@@ -223,8 +223,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                     {
                         let mutDict: NSMutableDictionary = messageBody.mutableCopy() as! NSMutableDictionary;
                         mutDict.removeObject(forKey: "handle");
-                        SharedContainer.saveData(data: mutDict as NSDictionary);
-                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                        let rc = SharedContainer.saveData(data: mutDict as NSDictionary);
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + ( rc ? "true" : "false" ) + " )");
                     }
                     else
                     {

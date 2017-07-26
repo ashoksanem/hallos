@@ -54,20 +54,10 @@ class CommonUtils
         defaults.removeObject(forKey: LogAnalyticsRequest.metricsLog);
         defaults.setValue(false, forKey: webviewLoading);
         defaults.setValue(false, forKey: certificatePinningEnabled)
-        //BJD No, this isn't perfet. It needs to be stored persistently where others can't easily overwrite it. That functionality is coming in
-        //SDF-208 so hopefully this will suffice for now. I'll come back and fix it later.
+        defaults.setValue("", forKey: landingPage);
+        
         var uuid = "";
-        /*if( UIPasteboard.general.string != "" && UIPasteboard.general.string?.lengthOfBytes(using: String.Encoding.utf8) == 36 ) {
-            uuid = UIPasteboard.general.string!;
-        }
-        else {
-            uuid = UUID().uuidString;
-            UIPasteboard.general.string = uuid;
-        }
         
-        print(uuid.lengthOfBytes(using: String.Encoding.utf8));
-        
-        defaults.setValue(["deviceId":uuid], forKey: deviceId);*/
         if !(KeychainWrapper.standard.hasValue(forKey: deviceId)){
             uuid = UUID().uuidString;
             KeychainWrapper.standard.set(["deviceId":uuid] as NSCoding, forKey: deviceId);
@@ -204,7 +194,14 @@ class CommonUtils
     class func getLandingPage() -> URL
     {
         let defaults = UserDefaults.standard;
-        return defaults.url(forKey: landingPage)!;
+        
+        if( !( defaults.url(forKey: landingPage) == nil) )
+        {
+            return defaults.url(forKey: landingPage)!;
+        }
+        
+        //I don't think we should get here but incase we somehow have the app but it's not configured though AW we need to go someplace
+        return Bundle.main.url(forResource: "default", withExtension:"html")!
     }
     
     class func setCurrentPage(value: URL) -> Void

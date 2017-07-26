@@ -11,23 +11,44 @@ class SharedContainer
 {
     static let sharedContainerKey = "group.com.macys.technology";
     static let webDataKey = "webData";
-    class func saveData(data: NSDictionary) -> Void {
-        if let key=data["key"] as? String {
-            KeychainWrapper.standard.set(data, forKey: key)
-            if let dict = KeychainWrapper.standard.object(forKey: key) as? NSDictionary {
-                print(dict); //specifically don't want to use NSLog here
+    class func saveData(data: NSDictionary) -> Bool {
+        if let key = data["key"] as? String {
+            if( JSONSerialization.isValidJSONObject( data ) ) {
+                KeychainWrapper.standard.set(data, forKey: key);
+                
+                if let dict = KeychainWrapper.standard.object(forKey: key) as? NSDictionary {
+                    print(dict); //specifically don't want to use NSLog here
+                }
+                return true;
+            }
+            else {
+                LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Storing invalid JSON object for key: " + key, type: "STRING", indexable: true);
             }
         }
+        return false;
     }
     
     class func restoreData(key: String) -> String {
-        let jsonData = try! JSONSerialization.data(withJSONObject: getData(key: key), options: [])
-
-        if let dict = KeychainWrapper.standard.object(forKey: key) as? NSDictionary {
-            print(dict); //specifically don't want to use NSLog here
+        do {
+            let data = getData(key:key);
+            if( JSONSerialization.isValidJSONObject( data ) ) {
+                let jsonData = try JSONSerialization.data(withJSONObject: getData(key: key), options: [])
+                
+                if let dict = KeychainWrapper.standard.object(forKey: key) as? NSDictionary {
+                    print(dict); //specifically don't want to use NSLog here
+                }
+                
+                return String(data: jsonData, encoding: String.Encoding.utf8)!
+            }
+            else {
+                LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Restoring invalid JSON object for key: " + key, type: "STRING", indexable: true);
+            }
         }
-
-        return String(data: jsonData, encoding: String.Encoding.utf8)!
+        catch {
+            LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Unable to restore data for key: " + key, type: "STRING", indexable: true);
+        }
+        
+        return "";
     }
     
     class func removeData(key: String){

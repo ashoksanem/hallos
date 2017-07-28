@@ -104,6 +104,7 @@ class LoggingRequest{
             logType = "ERROR";
             message = name + ": " + value;
             if(name == "AppCrash") {
+                message = "device: " + UIDevice.current.name + "    name: " + value;
                 correlationID = "iOS - Crash Report"; //makes it easy to search for all iOS crash reports via filter
             }
         }

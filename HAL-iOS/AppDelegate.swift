@@ -988,77 +988,32 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             }
         }
     }
-    
-    func magneticCardRawData(_ tracks: Data!) {
-        let cardData = tracks ?? Data.init();
-        let msrData = [
-            "tracks": cardData.base64EncodedString(),
-            ] as [String : Any]
-        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
-    }
-    
-    func magneticCardData(_ track1: String!, track2: String!, track3: String!) {
-        let msrData = [
-            "track1": track1 ?? "",
-            "track2": track2 ?? "",
-            "track3": track3 ?? ""
-            ] as [String : Any]
-        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
-        
-    }
-    func magneticCardEncryptedRawData(_ encryption: Int32, data: Data!) {
-        let cardData = data ?? Data.init();
-        let msrData = [
-            "data": cardData.base64EncodedString(),
-            "encryption": encryption
-            ] as [String : Any]
-        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
-    }
-    func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!) {
-        let cardData = data ?? Data.init();
-        let msrData = [
-            "data": cardData.base64EncodedString(),
-            "encryption": encryption,
-            "tracks":tracks
-            ] as [String : Any]
-        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
-    }
-    func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!, track1masked: String!, track2masked: String!, track3: String!) {
-        let cardData = data ?? Data.init();
-        let msrData = [
-            "data": cardData.base64EncodedString(),
-            "encryption": encryption,
-            "tracks":tracks,
-            "track1masked":track1masked ?? "",
-            "track2masked":track2masked ?? "",
-            "track3":track3 ?? ""
-            ] as [String : Any]
-        let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
-    }
+
     func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!, track1masked: String!, track2masked: String!, track3: String!, source: Int32) {
         let cardData = data ?? Data.init();
-       
+        
 //        let decrypted = AESDecryptWithKey(data: data as NSData, key: getDefaultAESKey().getNSData() as NSData );
 //        let decryptedBytes = decrypted?.getBytes();
         
+        var keyVersion : Int32? = (-1);
         do {
             let keyInfo = try sled?.emsrGetKeysInfo();
-            if( keyInfo != nil ) {
-                if( keyInfo?.getKeyVersion(KEY_EH_AES256_ENCRYPTION1 ) == 1 ) {
+            if( keyInfo != nil )
+            {
+                keyVersion = keyInfo?.getKeyVersion(KEY_EH_AES256_ENCRYPTION1 );
+                if( keyVersion == 1 )
+                {
                     // Version 1 is the default key. Whoops!
                     LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "MSR swipe using default key.", type: "STRING", indexable: true);
                 }
             }
-            else {
+            else
+            {
                 LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Unable to get MSR keyInfo.", type: "STRING", indexable: true);
             }
         }
-        catch {
+        catch
+        {
             LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Unable to get MSR key version.", type: "STRING", indexable: true);
         }
         
@@ -1069,7 +1024,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             "track1masked":track1masked ?? "",
             "track2masked":track2masked ?? "",
             "track3":track3 ?? "",
-            "source":source
+            "source": "IPC",
+            "encryptionType": "AES",
+            "keyVersion": keyVersion as Any
             ] as [String : Any]
         let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
         updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);

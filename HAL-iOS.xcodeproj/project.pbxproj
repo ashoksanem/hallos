@@ -247,7 +247,6 @@
 		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */,
 				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
@@ -271,6 +270,7 @@
 				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CC2585641D9AF71C00294506 /* Main.storyboard */,
+				853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
 				CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */,
 				BCB0EBA41DDE665600E6A3F7 /* sled */,

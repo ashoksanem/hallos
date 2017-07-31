@@ -48,7 +48,7 @@ class SharedContainer
             LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Unable to restore data for key: " + key, type: "STRING", indexable: true);
         }
         
-        return "";
+        return "{}";
     }
     
     class func removeData(key: String){

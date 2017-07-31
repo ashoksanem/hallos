@@ -386,14 +386,16 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             Sled.enableMsr();
             if let id = message.body as? String {
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMsrEnabled() ) + " )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", " +
+                    String( !CommonUtils.isMsrEnabled() ) + ", " + String( CommonUtils.isMsrEnabled() ) + " )");
             }
         }
         else if(message.name == "disableMsr")
         {
             Sled.disableMsr();
             if let id = message.body as? String {
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMsrEnabled() ) + " )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", " +
+                    String( CommonUtils.isMsrEnabled() ) + ", " + String( CommonUtils.isMsrEnabled() ) + " )");
             }
         }
         else if(message.name == "getMsrStatus")
@@ -402,7 +404,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMsrEnabled() ) + " )");
             }
         }
-
     }
     
     func loadWebView(url: URL){

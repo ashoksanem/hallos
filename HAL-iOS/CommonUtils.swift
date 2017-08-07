@@ -36,6 +36,7 @@ class CommonUtils
     static let allowMsr = "allowMsr";
     static let certificatePinningEnabled = "certificatePinningEnabled";
     static let savedPrinterMACAddress = "savedPrinterMACAddress";
+    static let injectedKeyVersion = "injectedKeyVersion";
     
     class func setUpUserDefaults() -> Void
     {
@@ -55,6 +56,7 @@ class CommonUtils
         defaults.setValue(false, forKey: webviewLoading);
         defaults.setValue(false, forKey: certificatePinningEnabled)
         defaults.setValue("", forKey: landingPage);
+        defaults.setValue(0, forKey: injectedKeyVersion);
         
         var uuid = "";
         
@@ -127,6 +129,18 @@ class CommonUtils
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: isPrinterCPCL);
+    }
+    
+    class func setInjectedKeyVersion(value: Int32)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: injectedKeyVersion);
+    }
+    
+    class func getInjectedKeyVersion() -> Int32
+    {
+        let defaults = UserDefaults.standard;
+        return Int32( defaults.integer(forKey: injectedKeyVersion) );
     }
     
     class func isSSOAuthenticatedMessage() -> String {
@@ -633,6 +647,7 @@ class CommonUtils
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: savedPrinterMACAddress);
     }
+    
     class func getSavedPrinterMACAddress() -> String
     {
         let defaults = UserDefaults.standard
@@ -642,5 +657,11 @@ class CommonUtils
         }
         
         return "";
+    }
+    
+    class func isPreProd() -> Bool
+    {
+        let iHateYouApple = SharedContainer.getIsp();
+        return ( iHateYouApple.substring(to: iHateYouApple.index(iHateYouApple.startIndex, offsetBy: 2)) == "fs" ? true : false );
     }
 }

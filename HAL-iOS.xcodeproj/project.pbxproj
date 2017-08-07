@@ -29,7 +29,13 @@
 		BC534ABC1E018BD800C65BAC /* LogAnalyticsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC534ABB1E018BD800C65BAC /* LogAnalyticsRequest.swift */; };
 		BC534ABE1E01976300C65BAC /* logAnalytics.json in Resources */ = {isa = PBXBuildFile; fileRef = BC534ABD1E01976300C65BAC /* logAnalytics.json */; };
 		BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */ = {isa = PBXBuildFile; fileRef = BC7461E51E40E59400F4A359 /* Cobranding.png */; };
+		BC96551A1F334FF1008D811F /* EESRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9655191F334FF1008D811F /* EESRequest.swift */; };
 		BCB0EBA81DDE667300E6A3F7 /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCB0EBA71DDE667300E6A3F7 /* libdtdev.a */; };
+		BCD2B85E1F31094300F3496D /* Encryption in Resources */ = {isa = PBXBuildFile; fileRef = BCD2B85D1F31094300F3496D /* Encryption */; };
+		BCD2B8601F310C2700F3496D /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD2B85F1F310C2700F3496D /* Encryption.swift */; };
+		BCD2B8621F311A8B00F3496D /* GenericEncryption.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD2B8611F311A8A00F3496D /* GenericEncryption.m */; };
+		BCD2B8651F311B1900F3496D /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2B8631F311B1900F3496D /* libcrypto.a */; };
+		BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2B8641F311B1900F3496D /* libssl.a */; };
 		BCD6982B1DB7C34600F856CE /* icons in Resources */ = {isa = PBXBuildFile; fileRef = BCD6982A1DB7C34600F856CE /* icons */; };
 		BCE513561F1D0EA40060CAB8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE513551F1D0EA40060CAB8 /* Utils.swift */; };
 		CC14AF421DB56F93007208F7 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = CC14AF411DB56F93007208F7 /* sso */; };
@@ -104,9 +110,15 @@
 		BC534ABB1E018BD800C65BAC /* LogAnalyticsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogAnalyticsRequest.swift; sourceTree = "<group>"; };
 		BC534ABD1E01976300C65BAC /* logAnalytics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logAnalytics.json; sourceTree = "<group>"; };
 		BC7461E51E40E59400F4A359 /* Cobranding.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cobranding.png; path = "Project Files/splah images/Cobranding.png"; sourceTree = "<group>"; };
+		BC9655191F334FF1008D811F /* EESRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EESRequest.swift; sourceTree = "<group>"; };
 		BCB0EBA51DDE666200E6A3F7 /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTDevices.h; path = sled/DTDevices.h; sourceTree = "<group>"; };
 		BCB0EBA61DDE666C00E6A3F7 /* HAL-iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HAL-iOS-Bridging-Header.h"; path = "sled/HAL-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCB0EBA71DDE667300E6A3F7 /* libdtdev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdtdev.a; path = sled/libdtdev.a; sourceTree = "<group>"; };
+		BCD2B85D1F31094300F3496D /* Encryption */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Encryption; sourceTree = "<group>"; };
+		BCD2B85F1F310C2700F3496D /* Encryption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encryption.swift; sourceTree = "<group>"; };
+		BCD2B8611F311A8A00F3496D /* GenericEncryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericEncryption.m; path = Encryption/GenericEncryption.m; sourceTree = "<group>"; };
+		BCD2B8631F311B1900F3496D /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = "HAL-iOS/Encryption/openssl/lib/libcrypto.a"; sourceTree = "<group>"; };
+		BCD2B8641F311B1900F3496D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "HAL-iOS/Encryption/openssl/lib/libssl.a"; sourceTree = "<group>"; };
 		BCD6982A1DB7C34600F856CE /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = "Project Files/icons"; sourceTree = "<group>"; };
 		BCE513551F1D0EA40060CAB8 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = sled/Utils.swift; sourceTree = "<group>"; };
 		CC14AF411DB56F93007208F7 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
@@ -151,6 +163,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCD2B8651F311B1900F3496D /* libcrypto.a in Frameworks */,
+				BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */,
 				BC174CD21F02DDDB005FBA9A /* UIKit.framework in Frameworks */,
 				BC174CD01F02DDD2005FBA9A /* SystemConfiguration.framework in Frameworks */,
 				BC174CCE1F02DDCA005FBA9A /* Security.framework in Frameworks */,
@@ -251,8 +265,12 @@
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
+				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				BC25B5141F27B8BE0028E81F /* default.html */,
 				858988BC1EAE208A00AF2024 /* DLog.swift */,
+				BC9655191F334FF1008D811F /* EESRequest.swift */,
+				BCD2B85F1F310C2700F3496D /* Encryption.swift */,
+				BCD2B85D1F31094300F3496D /* Encryption */,
 				CC41EF271DB54D6B0059C7C5 /* Error.swift */,
 				CC21C0481E16A332006CD57B /* ESPRequest.swift */,
 				85DDE7071EEB171500700EFC /* Certificates */,
@@ -264,10 +282,10 @@
 				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
 				BC534ABD1E01976300C65BAC /* logAnalytics.json */,
 				BC22EE611E203A8300C3F597 /* LOCN.json */,
+				CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */,
 				BC22EE631E203D9600C3F597 /* Locn.swift */,
 				BC534ABB1E018BD800C65BAC /* LogAnalyticsRequest.swift */,
 				BC534AB91DFF17E200C65BAC /* LoggingRequest.swift */,
-				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CC2585641D9AF71C00294506 /* Main.storyboard */,
 				853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */,
@@ -278,13 +296,13 @@
 				CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */,
 				CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */,
 				CCE9D9BF1E00AD2200F0814B /* logAnalytics.json */,
-				CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */,
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
 				BCE513551F1D0EA40060CAB8 /* Utils.swift */,
 				CC2585621D9AF71C00294506 /* ViewController.swift */,
 				BC534AB41DFF179200C65BAC /* ZebraBluetooth.swift */,
 				BC534AB51DFF179200C65BAC /* ZPLConnector.h */,
 				BC534AB61DFF179200C65BAC /* ZPLConnector.mm */,
+				BCD2B8611F311A8A00F3496D /* GenericEncryption.m */,
 			);
 			path = "HAL-iOS";
 			sourceTree = "<group>";
@@ -310,6 +328,8 @@
 		CC6EEEAC1DBFE374003D895B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BCD2B8631F311B1900F3496D /* libcrypto.a */,
+				BCD2B8641F311B1900F3496D /* libssl.a */,
 				BC174CD11F02DDDB005FBA9A /* UIKit.framework */,
 				BC174CCF1F02DDD2005FBA9A /* SystemConfiguration.framework */,
 				BC174CCD1F02DDCA005FBA9A /* Security.framework */,
@@ -444,6 +464,7 @@
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
+				BCD2B85E1F31094300F3496D /* Encryption in Resources */,
 				CCE9D9C01E00AD2200F0814B /* logAnalytics.json in Resources */,
 				CC14AF421DB56F93007208F7 /* sso in Resources */,
 				BC534ABE1E01976300C65BAC /* logAnalytics.json in Resources */,
@@ -481,7 +502,9 @@
 				CC2585631D9AF71C00294506 /* ViewController.swift in Sources */,
 				CCB404921D9D82C600A314FC /* Assembly.swift in Sources */,
 				CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */,
+				BCD2B8601F310C2700F3496D /* Encryption.swift in Sources */,
 				CC837B571E08341B00A14ECB /* KeychainWrapper.swift in Sources */,
+				BC96551A1F334FF1008D811F /* EESRequest.swift in Sources */,
 				8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */,
 				853DEFB21F2260B600BEDE1D /* PrinterViewController.swift in Sources */,
 				BCE513561F1D0EA40060CAB8 /* Utils.swift in Sources */,
@@ -491,6 +514,7 @@
 				CC41EF2E1DB54D6B0059C7C5 /* AssociateInfo.swift in Sources */,
 				CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */,
 				CC41EF2F1DB54D6B0059C7C5 /* CommonUtils.swift in Sources */,
+				BCD2B8621F311A8B00F3496D /* GenericEncryption.m in Sources */,
 				CC8872EE1DDE3A930042F089 /* HALApplication.swift in Sources */,
 				BC22EE641E203D9600C3F597 /* Locn.swift in Sources */,
 				BC534AB71DFF179200C65BAC /* ZebraBluetooth.swift in Sources */,
@@ -667,7 +691,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HAL-iOS",
 				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers",
+					"$(PROJECT_DIR)/HAL-iOS/Encryption/openssl/include/**",
+				);
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -676,6 +703,7 @@
 					"$(SRCROOT)/HAL-iOS/sled/**",
 					"$(PROJECT_DIR)/HAL-iOS/sled",
 					"$(PROJECT_DIR)/HAL-iOS/Heap",
+					"$(PROJECT_DIR)/HAL-iOS/Encryption/openssl/lib",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -707,7 +735,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HAL-iOS",
 				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers",
+					"$(PROJECT_DIR)/HAL-iOS/Encryption/openssl/include/**",
+				);
 				INFOPLIST_FILE = "HAL-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -716,6 +747,7 @@
 					"$(SRCROOT)/HAL-iOS/sled/**",
 					"$(PROJECT_DIR)/HAL-iOS/sled",
 					"$(PROJECT_DIR)/HAL-iOS/Heap",
+					"$(PROJECT_DIR)/HAL-iOS/Encryption/openssl/lib",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",

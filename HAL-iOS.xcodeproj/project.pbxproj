@@ -31,6 +31,7 @@
 		BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */ = {isa = PBXBuildFile; fileRef = BC7461E51E40E59400F4A359 /* Cobranding.png */; };
 		BC96551A1F334FF1008D811F /* EESRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9655191F334FF1008D811F /* EESRequest.swift */; };
 		BCB0EBA81DDE667300E6A3F7 /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCB0EBA71DDE667300E6A3F7 /* libdtdev.a */; };
+		BCB8CA561F3A52AD008EA783 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BCB8CA551F3A52AD008EA783 /* Settings.bundle */; };
 		BCD2B85E1F31094300F3496D /* Encryption in Resources */ = {isa = PBXBuildFile; fileRef = BCD2B85D1F31094300F3496D /* Encryption */; };
 		BCD2B8601F310C2700F3496D /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD2B85F1F310C2700F3496D /* Encryption.swift */; };
 		BCD2B8621F311A8B00F3496D /* GenericEncryption.m in Sources */ = {isa = PBXBuildFile; fileRef = BCD2B8611F311A8A00F3496D /* GenericEncryption.m */; };
@@ -114,6 +115,7 @@
 		BCB0EBA51DDE666200E6A3F7 /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTDevices.h; path = sled/DTDevices.h; sourceTree = "<group>"; };
 		BCB0EBA61DDE666C00E6A3F7 /* HAL-iOS-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "HAL-iOS-Bridging-Header.h"; path = "sled/HAL-iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		BCB0EBA71DDE667300E6A3F7 /* libdtdev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdtdev.a; path = sled/libdtdev.a; sourceTree = "<group>"; };
+		BCB8CA551F3A52AD008EA783 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = "Project Files/Settings.bundle"; sourceTree = "<group>"; };
 		BCD2B85D1F31094300F3496D /* Encryption */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Encryption; sourceTree = "<group>"; };
 		BCD2B85F1F310C2700F3496D /* Encryption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encryption.swift; sourceTree = "<group>"; };
 		BCD2B8611F311A8A00F3496D /* GenericEncryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenericEncryption.m; path = Encryption/GenericEncryption.m; sourceTree = "<group>"; };
@@ -227,12 +229,13 @@
 			isa = PBXGroup;
 			children = (
 				CC25856A1D9AF71C00294506 /* Assets.xcassets */,
+				BC7461E51E40E59400F4A359 /* Cobranding.png */,
 				CC43DCB41DD39AD000CC4BD2 /* HAL-iOS.entitlements */,
 				CC2585671D9AF71C00294506 /* HAL_iOS.xcdatamodeld */,
 				BCD6982A1DB7C34600F856CE /* icons */,
 				CC25856F1D9AF71C00294506 /* Info.plist */,
-				BC7461E51E40E59400F4A359 /* Cobranding.png */,
 				85CCB4131F22649C0088BD5D /* sampleBarcode.png */,
+				BCB8CA551F3A52AD008EA783 /* Settings.bundle */,
 			);
 			name = "Project Files";
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCB8CA561F3A52AD008EA783 /* Settings.bundle in Resources */,
 				BC25B5151F27B8BE0028E81F /* default.html in Resources */,
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,

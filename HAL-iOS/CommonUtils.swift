@@ -609,9 +609,9 @@ class CommonUtils
     {
         #if arch(i386) || arch(x86_64)
             return true;
+        #else
+            return false;
         #endif
-        
-        return false;
     }
     
     class func getConfigurationParams() -> String

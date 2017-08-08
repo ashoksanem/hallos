@@ -864,6 +864,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func injectMsr()
     {
+        if( getSled() == nil )
+        {
+            //no reason to inject if there's no sled
+            return;
+        }
+        
         //inject the default key into the MSR head
         let info = sled?.emsrGetDeviceInfo;
         

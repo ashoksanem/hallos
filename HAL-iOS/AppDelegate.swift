@@ -21,6 +21,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         
         CommonUtils.setUpUserDefaults();
         
+        let defaults = UserDefaults.standard;
+        defaults.set(Assembly.halVersion(), forKey: "application_version");
+        defaults.synchronize();
+        
         //since the sumulator isn't in AW let's force some values
         if( CommonUtils.isSimulator() ) {
             setSimulatorValues();

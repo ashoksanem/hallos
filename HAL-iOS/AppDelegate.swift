@@ -88,10 +88,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
         
         //_ = [][0];
-        
-        CommonUtils.isPreProd() ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development  1675328291 = production
-        
-        //Heap.enableVisualizer();  // let's keep this here for future research but don't want it turned on now. 
 
         let concurrentQueue = DispatchQueue(label: "encryptionQueue", attributes: .concurrent)
         concurrentQueue.sync {
@@ -284,6 +280,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
         _ = Locn();
     
+        CommonUtils.isPreProd() ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development  1675328291 = production
+        //Heap.enableVisualizer();  // let's keep this here for future research but don't want it turned on now.
+        
         CommonUtils.setCommonLogMetrics();
     }
     
@@ -413,6 +412,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             
             _ = Locn();
         }
+
+        CommonUtils.isPreProd() ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development  1675328291 = production
+        //Heap.enableVisualizer();  // let's keep this here for future research but don't want it turned on now.
         
         CommonUtils.setCommonLogMetrics();
     };

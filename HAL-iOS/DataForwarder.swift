@@ -70,11 +70,16 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
         let method = data["method"] as? String ?? ""
         let server = data["server"] as? String ?? ""
         let route = data["route"] as? String ?? ""
+        var port = data["port"] as? String ?? ""
+        if(!(port==""))
+        {
+            port=":"+port;
+        }
         let payload = data["payload"] as? NSDictionary
         let requestData = try! JSONSerialization.data(withJSONObject: payload, options: []);
         var response = false;
         let sem = DispatchSemaphore(value: 0);
-        let networkReqURL = "https://"+server+route;
+        let networkReqURL = "https://"+server+port+route;
         makeServerRequest(method: method, networkReqURL: networkReqURL, data: requestData) {
             (result: Bool,error: String) in
             response = result;

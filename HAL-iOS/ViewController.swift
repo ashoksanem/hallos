@@ -568,9 +568,18 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                     }
                     else
                     {
-                        if(!PrinterViewController.connectAndPrintReceipt(address: CommonUtils.getSavedPrinterMACAddress(),printerData: printerData))
+                        let printStatus = PrinterViewController.connectAndPrintReceipt(address: CommonUtils.getSavedPrinterMACAddress(),printerData: printerData);
+                        if(!(printStatus=="success"))
                         {
-                            performSegue(withIdentifier: "showPrinter", sender: self);
+                            let alertController = UIAlertController(title: "", message:
+                                PrinterViewController.getPrinterErrorMessage(status: printStatus), preferredStyle: UIAlertControllerStyle.alert)
+                            let okAction = UIAlertAction(
+                                title: "ok",
+                                style: UIAlertActionStyle.cancel) { (action) in
+                                    self.performSegue(withIdentifier: "showPrinter", sender: self);
+                            }
+                            alertController.addAction(okAction)
+                            self.present(alertController, animated: true, completion: nil)
                         }
                     }
                 }

@@ -637,7 +637,16 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             
             injectMsr();
             
-            disableMsr();
+            if( CommonUtils.isMSRModeEnabledFromWeb() )
+            {
+                enableMsr();
+            }
+            else
+            {
+                disableMsr();
+            }
+
+            //disableMsr();
         }
         else {
             LoggingRequest.logData(name: LoggingRequest.metrics_lost_peripheral_connection, value: "sled", type: "STRING", indexable: true);
@@ -827,6 +836,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func enableMsr()
     {
+        CommonUtils.setMSRModeFromWeb(value: true)
         do{
             try sled?.msEnable();
             try sled?.msSetCardDataMode(0);
@@ -844,6 +854,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func disableMsr()
     {
+        CommonUtils.setMSRModeFromWeb(value: false)
         do{
             try sled?.msDisable();
             CommonUtils.setEnableMsr(value: false);

@@ -37,6 +37,7 @@ class CommonUtils
     static let certificatePinningEnabled = "certificatePinningEnabled";
     static let savedPrinterMACAddress = "savedPrinterMACAddress";
     static let injectedKeyVersion = "injectedKeyVersion";
+    static let mSRModeFromWeb = "msrModeFromWeb";
     
     class func setUpUserDefaults() -> Void
     {
@@ -664,4 +665,17 @@ class CommonUtils
         let iHateYouApple = SharedContainer.getIsp();
         return ( iHateYouApple.substring(to: iHateYouApple.index(iHateYouApple.startIndex, offsetBy: 2)) == "fs" ? true : false );
     }
+    
+    class func isMSRModeEnabledFromWeb() -> Bool
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: mSRModeFromWeb);
+    }
+    
+    class func setMSRModeFromWeb(value: Bool)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: mSRModeFromWeb);
+    }
+
 }

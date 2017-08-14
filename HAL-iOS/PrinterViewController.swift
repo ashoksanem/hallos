@@ -49,15 +49,13 @@ class PrinterViewController: UIViewController {
         let cancelAction = UIAlertAction(
             title: "No",
             style: UIAlertActionStyle.cancel) { (action) in
-                PrinterViewController.connectAndPrintReceipt(address:CommonUtils.getPrinterMACAddress(),printerData: self.printerData)
-                self.dismiss(animated: true, completion: nil)
+                self.printReceipt()
         }
         
         let saveAction = UIAlertAction(
         title: "Yes", style: UIAlertActionStyle.default) { (action) in
             CommonUtils.setSavedPrinterMACAddress(value: CommonUtils.getPrinterMACAddress())
-            PrinterViewController.connectAndPrintReceipt(address:CommonUtils.getPrinterMACAddress(),printerData: self.printerData)
-            self.dismiss(animated: true, completion: nil)
+            self.printReceipt()
         }
         alertController.addAction(cancelAction)
         alertController.addAction(saveAction)
@@ -66,22 +64,69 @@ class PrinterViewController: UIViewController {
         
     }
     
-    class func connectAndPrintReceipt(address:String,printerData:NSDictionary)  -> Bool
+    func printReceipt()
+    {
+        let printStatus = PrinterViewController.connectAndPrintReceipt(address:CommonUtils.getPrinterMACAddress(),printerData: self.printerData);
+        if(!(printStatus=="success"))
+        {
+            let alertController = UIAlertController(title: "", message:
+                PrinterViewController.getPrinterErrorMessage(status: printStatus), preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(
+                title: "ok",
+                style: UIAlertActionStyle.cancel) { (action) in
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else
+        {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    class func getPrinterErrorMessage(status:String) -> String
+    {
+        if(status=="NoPaper")
+        {
+            return "The printer is out of paper. Please add paper to print or select another printer."
+        }
+        else if(status=="LatchOpen")
+        {
+            return "The latch on the printer is open. Please close it to print."
+        }
+        else if(status=="LowBattery")
+        {
+            return "The battery on the printer is low. Please charge the printer to continue use."
+        }
+        else if(status=="Busy")
+        {
+            return "The printer is busy. Try again in a few seconds or select another printer."
+        }
+        else if(status=="NoResponse")
+        {
+            return "We can't connect to the printer. You may be out of range. Please try again or select another printer."
+        }
+        return "There was an issue with printing. Select another printer or try again."
+    }
+    
+    class func connectAndPrintReceipt(address:String,printerData:NSDictionary)  -> String
     {
         let callBackId = printerData["handle"] as? String ?? ""
         let receiptInfo = printerData["receipt"] as? String ?? ""
+        var printStatus = "error";
         if(ZebraBluetooth.connectToDevice(address: address))
         {
-            if( ZebraBluetooth.printData(receiptMarkUp: receiptInfo))
+            printStatus = ZebraBluetooth.printData(receiptMarkUp: receiptInfo)
+            if( printStatus == "success")
             {
                 ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + callBackId + "\", false, true )");
-                ZebraBluetooth.disconnectFromDevice()
-                return true;
+                ZebraBluetooth.disconnectFromDevice();
+                return printStatus;
             }
         }
-        ZebraBluetooth.disconnectFromDevice()
-        LoggingRequest.logData(name: LoggingRequest.metrics_print_failed, value: "could not print receipt in the printer", type: "STRING", indexable: true);
-        ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + callBackId + "\", false, false )");
-        return false;
+        ZebraBluetooth.disconnectFromDevice();
+        LoggingRequest.logData(name: LoggingRequest.metrics_print_failed, value: "could not print receipt in the printer with status : "+printStatus, type: "STRING", indexable: true);
+        //ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + callBackId + "\", false, false )");
+        return printStatus;
     }
 }

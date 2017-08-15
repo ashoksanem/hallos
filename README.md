@@ -8,3 +8,5 @@ CI Pipeline @ http://web-ci.devops.fds.com/jenkins/view/HALiOS/
 - Clone the HAL API project (https://code.devops.fds.com/stores/HALApi)
 - Clone the Single Sign On (SSO) project (https://code.devops.fds.com/stores/sso)
 - Build the SSO project acording to the instructions on the SSO README. (Currently titled "Installing in HAL")
+
+Testing

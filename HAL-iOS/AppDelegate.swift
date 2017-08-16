@@ -666,7 +666,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             //try to load the key in the slot
             try lib.emsrLoadKey(generatedKeyData.getNSData());
             return true;
-        } catch let error as NSError {
+        }
+        catch let error as NSError
+        {
             DLog("ERROR: Danger Will Robinson! [" + error.localizedDescription + "]");
         }
         return false;
@@ -712,14 +714,18 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         hashed.append(contentsOf: hash.getBytes());
         
         //encrypt the data if using the encryption key
-        if kekData != nil {
+        if kekData != nil
+        {
             let toEncrypt = Array( hashed[keyStart..<hashed.count] );
             let encrypted = AESEncryptWithKey(data: toEncrypt.getNSData() as NSData, key: kekData!.getNSData() as NSData);
             
             //store the encryptd data back into the packet
             data.append(contentsOf: encrypted!.getBytes());
-        } else {
-            //should never get here
+        }
+        else
+        {
+            //we only get here when he KEK is first being injected
+            data = hashed;
         }
         
 //        let string2 = NSMutableString(capacity: data.count * 2);
@@ -895,11 +901,33 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             if( sled?.emsrGetKeysInfo != nil )
             {
                 var retries = 4;
-                let newKeKData = [UInt8](getKek().utf8);
-                
+                let newKekData = [UInt8](getKek().utf8);
+
                 repeat
                 {
-                    if( loadKeyId(keyID: KEY_EH_AES256_LOADING, keyData: newKeKData, keyVersion: getKekVersion(), kekData: newKeKData ) )
+                    // Brian note: I just realized we don't handle changing the KEK, which is probably fine. We also don't need to inject the KEK every single 
+                    // time if it hasn't changed. When that day comes that we do change the KEK we'll have to save the old KEK to encrypt the new KEK before 
+                    // injecting it. Since we haven't done that in the last 8 years I'm not going to worry about it yet.
+                    
+                    var kekVer:Int32 = 0
+                    do
+                    {
+                        try sled?.emsrGetKeyVersion(KEY_EH_AES256_LOADING, keyVersion: &kekVer);
+                        
+                        if( kekVer <= 0 )
+                        {
+                            if( loadKeyId(keyID: KEY_EH_AES256_LOADING, keyData: newKekData, keyVersion: getKekVersion(), kekData: nil) )
+                            {
+                                try sled?.emsrGetKeyVersion(KEY_EH_AES256_LOADING, keyVersion: &kekVer);
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Unable to get MSR KEK key version.", type: "STRING", indexable: true);
+                    }
+                    
+                    if( kekVer == getKekVersion() )
                     {
                         //We loaded the KEK, and there was much rejoicing
                         
@@ -916,7 +944,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                                 keyVersion = Encryption.shared.getDailyAesKeyVersion();
                             }
                             
-                            if( loadKeyId(keyID: KEY_EH_AES256_ENCRYPTION1, keyData: key, keyVersion: keyVersion, kekData: newKeKData ) )
+                            if( loadKeyId(keyID: KEY_EH_AES256_ENCRYPTION1, keyData: key, keyVersion: keyVersion, kekData: newKekData ) )
                             {
                                 CommonUtils.setInjectedKeyVersion(value: keyVersion )
                                 break;

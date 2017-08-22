@@ -288,7 +288,7 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
             char *sendBuffer = new char[buff_size];
             
             memset(sendBuffer, 0, buff_size);
-            strncpy(sendBuffer, currentReceipt.str().substr(receipt_pos,buff_size).c_str(), buff_size );
+            strlcpy(sendBuffer, currentReceipt.str().substr(receipt_pos,buff_size).c_str(), buff_size );
             
             tries = 0;
             int bytesWritten = 0;
@@ -636,7 +636,7 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
             char *sendBuffer = new char[buff_size];
             
             memset(sendBuffer, 0, buff_size);
-            strncpy(sendBuffer, currentReceipt.str().substr(receipt_pos,buff_size).c_str(), buff_size );
+            strlcpy(sendBuffer, currentReceipt.str().substr(receipt_pos,buff_size).c_str(), buff_size );
             
             int bytesWritten = 0;
             while( bytesWritten <= 0 )

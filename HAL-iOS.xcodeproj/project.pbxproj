@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3CE9CDD4177270193D3E01FC /* Pods_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773E4FA0ADDCA8BAB2127144 /* Pods_HAL_iOSTests.framework */; };
+		60DD681E17AFC28325F14795 /* Pods_HAL_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4658339D45E6C5D2372B8C23 /* Pods_HAL_iOS.framework */; };
 		8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538E5651EF1809700F82E1D /* DataForwarder.swift */; };
 		853DEFB21F2260B600BEDE1D /* PrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */; };
 		858988BD1EAE208A00AF2024 /* DLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858988BC1EAE208A00AF2024 /* DLog.swift */; };
 		85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CCB4131F22649C0088BD5D /* sampleBarcode.png */; };
 		85DDE7081EEB171500700EFC /* Certificates in Resources */ = {isa = PBXBuildFile; fileRef = 85DDE7071EEB171500700EFC /* Certificates */; };
+		A91A7471A3B481F9F4225248 /* Pods_HAL_iOS_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */; };
 		BC174CC81F02DDA4005FBA9A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */; };
 		BC174CCA1F02DDB0005FBA9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CC91F02DDB0005FBA9A /* Foundation.framework */; };
 		BC174CCC1F02DDC1005FBA9A /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CCB1F02DDC1005FBA9A /* libicucore.tbd */; };
@@ -27,7 +30,6 @@
 		BC534AB81DFF179200C65BAC /* ZPLConnector.mm in Sources */ = {isa = PBXBuildFile; fileRef = BC534AB61DFF179200C65BAC /* ZPLConnector.mm */; };
 		BC534ABA1DFF17E200C65BAC /* LoggingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC534AB91DFF17E200C65BAC /* LoggingRequest.swift */; };
 		BC534ABC1E018BD800C65BAC /* LogAnalyticsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC534ABB1E018BD800C65BAC /* LogAnalyticsRequest.swift */; };
-		BC534ABE1E01976300C65BAC /* logAnalytics.json in Resources */ = {isa = PBXBuildFile; fileRef = BC534ABD1E01976300C65BAC /* logAnalytics.json */; };
 		BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */ = {isa = PBXBuildFile; fileRef = BC7461E51E40E59400F4A359 /* Cobranding.png */; };
 		BC96551A1F334FF1008D811F /* EESRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9655191F334FF1008D811F /* EESRequest.swift */; };
 		BCB0EBA81DDE667300E6A3F7 /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCB0EBA71DDE667300E6A3F7 /* libdtdev.a */; };
@@ -39,6 +41,7 @@
 		BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2B8641F311B1900F3496D /* libssl.a */; };
 		BCD6982B1DB7C34600F856CE /* icons in Resources */ = {isa = PBXBuildFile; fileRef = BCD6982A1DB7C34600F856CE /* icons */; };
 		BCE513561F1D0EA40060CAB8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE513551F1D0EA40060CAB8 /* Utils.swift */; };
+		BF5744C7AC954EC71EB3DB72 /* Pods_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */; };
 		CC14AF421DB56F93007208F7 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = CC14AF411DB56F93007208F7 /* sso */; };
 		CC21C0491E16A332006CD57B /* ESPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC21C0481E16A332006CD57B /* ESPRequest.swift */; };
 		CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585601D9AF71C00294506 /* AppDelegate.swift */; };
@@ -67,6 +70,7 @@
 		CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */ = {isa = PBXBuildFile; fileRef = CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */; };
 		CCE9D9C01E00AD2200F0814B /* logAnalytics.json in Resources */ = {isa = PBXBuildFile; fileRef = CCE9D9BF1E00AD2200F0814B /* logAnalytics.json */; };
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
+		ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,11 +91,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		297B3FE047E2A5FB3A6B68A4 /* Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		391A86DF28C49D0A99093243 /* Pods-HAL-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSTests/Pods-HAL-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		4658339D45E6C5D2372B8C23 /* Pods_HAL_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6989151A3C92DF8CFCF6EEF0 /* Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		773E4FA0ADDCA8BAB2127144 /* Pods_HAL_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85122EDC5C642EA6B46A0C1B /* Pods-HAL-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		8538E5651EF1809700F82E1D /* DataForwarder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataForwarder.swift; sourceTree = "<group>"; };
 		853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterViewController.swift; sourceTree = "<group>"; };
 		858988BC1EAE208A00AF2024 /* DLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLog.swift; sourceTree = "<group>"; };
 		85CCB4131F22649C0088BD5D /* sampleBarcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sampleBarcode.png; path = "Project Files/sampleBarcode.png"; sourceTree = "<group>"; };
 		85DDE7071EEB171500700EFC /* Certificates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Certificates; sourceTree = "<group>"; };
+		A76AC9536786AC17D6303564 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC174CC91F02DDB0005FBA9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		BC174CCB1F02DDC1005FBA9A /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
@@ -123,6 +135,7 @@
 		BCD2B8641F311B1900F3496D /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = "HAL-iOS/Encryption/openssl/lib/libssl.a"; sourceTree = "<group>"; };
 		BCD6982A1DB7C34600F856CE /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = "Project Files/icons"; sourceTree = "<group>"; };
 		BCE513551F1D0EA40060CAB8 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = sled/Utils.swift; sourceTree = "<group>"; };
+		C4F2375C69566D65ACF5BA47 /* Pods-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSTests/Pods-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CC14AF411DB56F93007208F7 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
 		CC21C0481E16A332006CD57B /* ESPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ESPRequest.swift; sourceTree = "<group>"; };
 		CC25855D1D9AF71C00294506 /* HAL-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HAL-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,6 +171,12 @@
 		CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logAnalyticsIncorrectData.json; sourceTree = "<group>"; };
 		CCE9D9BF1E00AD2200F0814B /* logAnalytics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = logAnalytics.json; sourceTree = "<group>"; };
 		CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedContainer.swift; sourceTree = "<group>"; };
+		CF5FDBA2CBF6FF8298719B6D /* Pods-HAL-iOS-HAL-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		D4D218B4817F7156A7D743BC /* Pods-HAL-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSUITests/Pods-HAL-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		DBC30386354F22573AAEE8BF /* Pods-HAL-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		F01A0AD9C8E731F41202C930 /* Pods-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSUITests/Pods-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +196,7 @@
 				BC174CD61F04254C005FBA9A /* libHeap.a in Frameworks */,
 				BC484D9B1E854B820057610A /* CrashReporter.framework in Frameworks */,
 				BCB0EBA81DDE667300E6A3F7 /* libdtdev.a in Frameworks */,
+				60DD681E17AFC28325F14795 /* Pods_HAL_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +204,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CE9CDD4177270193D3E01FC /* Pods_HAL_iOSTests.framework in Frameworks */,
+				A91A7471A3B481F9F4225248 /* Pods_HAL_iOS_HAL_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,12 +213,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF5744C7AC954EC71EB3DB72 /* Pods_HAL_iOSUITests.framework in Frameworks */,
+				ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		497A73E2E4056096AE61BFBB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85122EDC5C642EA6B46A0C1B /* Pods-HAL-iOS.debug.xcconfig */,
+				DBC30386354F22573AAEE8BF /* Pods-HAL-iOS.release.xcconfig */,
+				C4F2375C69566D65ACF5BA47 /* Pods-HAL-iOSTests.debug.xcconfig */,
+				391A86DF28C49D0A99093243 /* Pods-HAL-iOSTests.release.xcconfig */,
+				F01A0AD9C8E731F41202C930 /* Pods-HAL-iOSUITests.debug.xcconfig */,
+				D4D218B4817F7156A7D743BC /* Pods-HAL-iOSUITests.release.xcconfig */,
+				A76AC9536786AC17D6303564 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */,
+				CF5FDBA2CBF6FF8298719B6D /* Pods-HAL-iOS-HAL-iOSTests.release.xcconfig */,
+				6989151A3C92DF8CFCF6EEF0 /* Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig */,
+				297B3FE047E2A5FB3A6B68A4 /* Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BC174CD31F04251C005FBA9A /* Heap */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,6 +289,7 @@
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
 				CC25855E1D9AF71C00294506 /* Products */,
 				CC6EEEAC1DBFE374003D895B /* Frameworks */,
+				497A73E2E4056096AE61BFBB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -342,6 +384,11 @@
 				BC174CD31F04251C005FBA9A /* Heap */,
 				BC484D9A1E854B820057610A /* CrashReporter.framework */,
 				CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */,
+				4658339D45E6C5D2372B8C23 /* Pods_HAL_iOS.framework */,
+				773E4FA0ADDCA8BAB2127144 /* Pods_HAL_iOSTests.framework */,
+				FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */,
+				58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */,
+				F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -353,9 +400,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CC2585881D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOS" */;
 			buildPhases = (
+				FE5A3661F5D3FFEB6F7D2920 /* [CP] Check Pods Manifest.lock */,
 				CC2585591D9AF71C00294506 /* Sources */,
 				CC25855A1D9AF71C00294506 /* Frameworks */,
 				CC25855B1D9AF71C00294506 /* Resources */,
+				2ECF74AC60F146BB4403F3F2 /* [CP] Embed Pods Frameworks */,
+				DDB9727A42E151C80F075BAF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -370,9 +420,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CC25858B1D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOSTests" */;
 			buildPhases = (
+				60F1AC6C4E0F62CC3DD60263 /* [CP] Check Pods Manifest.lock */,
 				CC2585701D9AF71C00294506 /* Sources */,
 				CC2585711D9AF71C00294506 /* Frameworks */,
 				CC2585721D9AF71C00294506 /* Resources */,
+				1DE753F7B5FD0D555046339A /* [CP] Embed Pods Frameworks */,
+				F0557628881B0C46EAB9B5BD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -388,9 +441,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CC25858E1D9AF71C00294506 /* Build configuration list for PBXNativeTarget "HAL-iOSUITests" */;
 			buildPhases = (
+				D7DB3EA2BD4D4B7A95B4DE6A /* [CP] Check Pods Manifest.lock */,
 				CC25857B1D9AF71C00294506 /* Sources */,
 				CC25857C1D9AF71C00294506 /* Frameworks */,
 				CC25857D1D9AF71C00294506 /* Resources */,
+				067D28A02B211A72FB48550B /* [CP] Embed Pods Frameworks */,
+				DFD17882537E088F9D4CA2CA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -409,7 +465,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = macys;
 				TargetAttributes = {
 					CC25855C1D9AF71C00294506 = {
@@ -471,7 +527,6 @@
 				BCD2B85E1F31094300F3496D /* Encryption in Resources */,
 				CCE9D9C01E00AD2200F0814B /* logAnalytics.json in Resources */,
 				CC14AF421DB56F93007208F7 /* sso in Resources */,
-				BC534ABE1E01976300C65BAC /* logAnalytics.json in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				CC837B5D1E083B4B00A14ECB /* HALApi in Resources */,
@@ -497,6 +552,168 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		067D28A02B211A72FB48550B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Base64/Base64.framework",
+				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Base64.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWT.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1DE753F7B5FD0D555046339A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Base64/Base64.framework",
+				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Base64.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWT.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2ECF74AC60F146BB4403F3F2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Base64/Base64.framework",
+				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Base64.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWT.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		60F1AC6C4E0F62CC3DD60263 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HAL-iOS-HAL-iOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7DB3EA2BD4D4B7A95B4DE6A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HAL-iOS-HAL-iOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DDB9727A42E151C80F075BAF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DFD17882537E088F9D4CA2CA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F0557628881B0C46EAB9B5BD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE5A3661F5D3FFEB6F7D2920 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HAL-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CC2585591D9AF71C00294506 /* Sources */ = {
@@ -589,6 +806,7 @@
 		CC2585861D9AF71C00294506 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -604,6 +822,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -616,10 +835,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -627,8 +843,17 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_QUOTE_LINKER_ARGUMENTS_FOR_COMPILER_DRIVER = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"CryptoSwift\"",
+					"-framework",
+					"\"JWT\"",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -640,6 +865,7 @@
 		CC2585871D9AF71C00294506 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -655,6 +881,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -665,6 +892,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -672,7 +900,17 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_QUOTE_LINKER_ARGUMENTS_FOR_COMPILER_DRIVER = "$(inherited)";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"CryptoSwift\"",
+					"-framework",
+					"\"JWT\"",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = "";
@@ -683,7 +921,9 @@
 		};
 		CC2585891D9AF71C00294506 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85122EDC5C642EA6B46A0C1B /* Pods-HAL-iOS.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "HAL-iOS/HAL-iOS.entitlements";
@@ -713,7 +953,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				OTHER_SWIFT_FLAGS = "-D DEBUG";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -727,7 +967,9 @@
 		};
 		CC25858A1D9AF71C00294506 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBC30386354F22573AAEE8BF /* Pods-HAL-iOS.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "HAL-iOS/HAL-iOS.entitlements";
@@ -757,7 +999,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				OTHER_SWIFT_FLAGS = "-D RELEASE";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -770,6 +1012,7 @@
 		};
 		CC25858C1D9AF71C00294506 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A76AC9536786AC17D6303564 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -785,6 +1028,7 @@
 		};
 		CC25858D1D9AF71C00294506 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF5FDBA2CBF6FF8298719B6D /* Pods-HAL-iOS-HAL-iOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -800,6 +1044,7 @@
 		};
 		CC25858F1D9AF71C00294506 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6989151A3C92DF8CFCF6EEF0 /* Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
@@ -814,6 +1059,7 @@
 		};
 		CC2585901D9AF71C00294506 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 297B3FE047E2A5FB3A6B68A4 /* Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;

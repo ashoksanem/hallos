@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "90471AC09B053068086476FA00050FC43DEEDF31",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "C00380E2EE27CDFDCAE6540BF641F44FF06F7DA0" : 9223372036854775807,
+    "8866A30DF68F7C3CB687991F4742670E3BF9318B" : 9223372036854775807,
+    "90471AC09B053068086476FA00050FC43DEEDF31" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "192DBA90-107D-4C7F-A053-C268ABA27636",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "C00380E2EE27CDFDCAE6540BF641F44FF06F7DA0" : "halIos\/HAL-iOS\/Git%20Projects\/HALApi\/",
+    "8866A30DF68F7C3CB687991F4742670E3BF9318B" : "halIos\/HAL-iOS\/Git%20Projects\/sso\/",
+    "90471AC09B053068086476FA00050FC43DEEDF31" : "halIos\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "HAL-iOS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "HAL-iOS.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "code.devops.fds.com:stores\/sso.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8866A30DF68F7C3CB687991F4742670E3BF9318B"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "code.devops.fds.com:stores\/halIos.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "90471AC09B053068086476FA00050FC43DEEDF31"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "code.devops.fds.com:stores\/HALApi.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C00380E2EE27CDFDCAE6540BF641F44FF06F7DA0"
+    }
+  ]
+}

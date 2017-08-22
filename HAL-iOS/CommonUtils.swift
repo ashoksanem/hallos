@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import JWT
 
 class CommonUtils
 {
@@ -174,7 +175,8 @@ class CommonUtils
             "associateName": " ",
             "associateNbr": assocNbr,
             "managerLevel": 1
-            ] ]as [String : Any];
+            ],
+            "jwt":getOfflineJwt(associatenumber: assocNbr)]as [String : Any];
         
         LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Using offline associate info.", type: "STRING", indexable: true);
         
@@ -188,6 +190,23 @@ class CommonUtils
         let defaults = UserDefaults.standard;
         defaults.setValue(authMessage, forKey: ssoAssociateInfo);
         defaults.setValue(Date(), forKey: ssoAssociateTimestamp);
+    }
+    
+    class func getOfflineJwt(associatenumber :String) -> String
+    {
+        let payload = [
+            "exp": Int(Date().addingTimeInterval(21600).timeIntervalSince1970),
+            "authmethod": "pin",
+            "iss": "com.macys.associateauthenticate",
+            "Version": "1.0.0",
+            "Logon": associatenumber,
+            "offline":true
+            ] as [String : Any];
+        let rootCaPath = Bundle.main.path(forResource: "Certificates/upos_AssocAuthOffline", ofType: "p12");
+        let privateKeySecretData = NSData.init(contentsOfFile: rootCaPath!)
+        let builder = JWTBuilder.encodePayload(payload).secretData(privateKeySecretData as! Data)?.privateKeyCertificatePassphrase("rCCV6McHUmDuBUxoz01qO6b3L5BYUc")?.algorithmName("RS256");
+        let jwtToken = builder?.encode;
+        return jwtToken ?? "";
     }
     
     class func setIsSSOAuthenticated(value: Bool) -> Void
@@ -677,5 +696,7 @@ class CommonUtils
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: mSRModeFromWeb);
     }
+    
+    
 
 }

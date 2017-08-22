@@ -1,0 +1,1247 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03564429EFA015EB0CB10F809BB91AFE /* JWTCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 16461DDD278E5C5CBEC32AF0B2AAE415 /* JWTCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0D95F8C02C8F11B4603973E136170B66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD2B890D433CDF7BB5069D2DA90CBE27 /* Foundation.framework */; };
+		12B480FC5458C8916933BDBDCA0056F7 /* JWTAlgorithmFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 682F67EEF8E267AD3567990A155C3BA7 /* JWTAlgorithmFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1417BD614D6C59E9C5D7F3AE4809A648 /* JWTBase64Coder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B26C1CF8FCE727032C2AE06B2946D54 /* JWTBase64Coder.m */; };
+		14BFAAE3DA5473148C8513CE8B4E6001 /* JWTDeprecations.h in Headers */ = {isa = PBXBuildFile; fileRef = 250BA16FA1B3D38BBD4646270B0537EE /* JWTDeprecations.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1679F359921879B12FFD70CB6ABD8DFC /* MF_Base64Additions.h in Headers */ = {isa = PBXBuildFile; fileRef = 46C7AC7834C7199C1619BE2BBADCC78B /* MF_Base64Additions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		182E97636A153EE5C351349A1DFF724B /* JWTAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 22DB42ED2FE259B8014ED80BAEF0C1AD /* JWTAlgorithm.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1C1B2A9A9CB8966A8BD93181840620A9 /* JWTClaimsSetVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 9403FB04B531A4873509DFA79B6A7827 /* JWTClaimsSetVerifier.m */; };
+		21DF779A0FADD5267C1B79BFD649D0CF /* JWTCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = DF5536F291D62F3F0CBA7FBEA445962D /* JWTCoding.m */; };
+		2358A89173DEDD74555DE33E10C30440 /* JWTAlgorithmRSBase.h in Headers */ = {isa = PBXBuildFile; fileRef = CCBE4A56F1D2F048D9D044416F8FBD6B /* JWTAlgorithmRSBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		25EEC3F3BBA664B76B0883EE71F2016D /* JWTAlgorithmHS512.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B55D5F1E2E597124BB992FE0EBE772D /* JWTAlgorithmHS512.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2A554F281CB97F7CE80CC184349DEC6A /* JWTClaimsSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 355F351AA1D613D78F0A3CEB8036FF85 /* JWTClaimsSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		36459EFBCA63AD9E5DE342785F614B18 /* JWTAlgorithmDataHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2380D700F4E9D43C78C8BF2D377496 /* JWTAlgorithmDataHolder.m */; };
+		3F7EBB256B1E9B80246B00DC794B9F62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD2B890D433CDF7BB5069D2DA90CBE27 /* Foundation.framework */; };
+		43DEADBD31BE9740CDC1FF6E84139FB9 /* JWTBase64Coder.h in Headers */ = {isa = PBXBuildFile; fileRef = 244CFE2736D888AC617373C9CCF8F31B /* JWTBase64Coder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4A5DACB438FE43169FDF1C3B774D3925 /* JWT.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D784077CE5BA5E6C7864DF81BFA5113 /* JWT.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4F88E1FFC02D53264AAD469A1DFD5A43 /* JWTAlgorithmNone.m in Sources */ = {isa = PBXBuildFile; fileRef = D102873E1445FC885B752F571AEBCB5D /* JWTAlgorithmNone.m */; };
+		5175A241A7D7F6C8431DB7FF9C1FC66D /* JWTAlgorithmHSBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C1B84CFA613F078EBA5139B7E09BB58 /* JWTAlgorithmHSBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		56D4179F4D474E2CB5CC0358F8F84F43 /* JWTAlgorithmHS256.h in Headers */ = {isa = PBXBuildFile; fileRef = 6968983454E75542B01811674D253A54 /* JWTAlgorithmHS256.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5AF39F1F4AC15C49558B13368C3F773C /* Pods-HAL-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 17CF59C7C8D14BCC45980C8AF3B3001B /* Pods-HAL-iOS-dummy.m */; };
+		5F0FE80E966C87314397310F644DC9BD /* Base64.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3618AAB9FE1E53E73ED6871895C6FF0 /* Base64.framework */; };
+		636ED5C38BF735D374889738163BEAF8 /* JWTClaimsSetSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D9334631D30FC17E3E2C0D7FB9ACE0D /* JWTClaimsSetSerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		64BE5C76E0FEC38118DDCC568D5DE5B1 /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FD4173279D4803E71F10BA5EE66AB5 /* MF_Base64Additions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		67FA8775EC6FC5149AF464DBB8FA2D37 /* JWTAlgorithmDataHolderChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 077B096C7411706572BF55DAF041C477 /* JWTAlgorithmDataHolderChain.m */; };
+		695D2766862AE19CF6AF68FD81808036 /* JWTAlgorithmHS384.h in Headers */ = {isa = PBXBuildFile; fileRef = 39022E5D7B44B18393A7CFAB2C38FC0D /* JWTAlgorithmHS384.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7C981AA277086811C5DA8CAED22FC0B2 /* JWTAlgorithmHS256.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AB0F7509ED21C17F11679065B88349 /* JWTAlgorithmHS256.m */; };
+		82D6AE3F1D04112EBAB647A8CB4D0347 /* JWTClaimsSetSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 90BDFDFFA90E2B954959FAD9AB54CD58 /* JWTClaimsSetSerializer.m */; };
+		85F05215443DFB3B9D3B9E0DBC59D4AC /* JWTAlgorithmHS512.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B650F43F4B1E4611FC99CC610E69659 /* JWTAlgorithmHS512.m */; };
+		8EFD8876859AE883639E2F382339C3D7 /* Base64-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FBCDBCFDC00E2046342395FAE77AC6EB /* Base64-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8F5F37C33FDCB7E358F38E197F10B88B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83AA27FE1F1DD014EEE6E1FDCE07240D /* Security.framework */; };
+		8FE7ABB19C17FB8D56FBF7BAB3E13885 /* JWTClaimsSetVerifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 499F7E8AC78388D3883339D12047E457 /* JWTClaimsSetVerifier.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		908EAC7311368FC031FCA40F5DF3F330 /* Pods-HAL-iOS-HAL-iOSTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FCD56CB4622421AE85F63E345D866BC9 /* Pods-HAL-iOS-HAL-iOSTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		96695CE0647422164322F654BAF8CD7F /* Pods-HAL-iOS-HAL-iOSTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AEB3E3C3316F562219BD693FED70E52A /* Pods-HAL-iOS-HAL-iOSTests-dummy.m */; };
+		9983163A3CA0CC2136C8E6709DB05151 /* Pods-HAL-iOS-HAL-iOSUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 813F108BB69DB2C7E985B6FAD4ADA83F /* Pods-HAL-iOS-HAL-iOSUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A1EA9313BD2919EAD136A6117F5FEA01 /* JWTAlgorithmHS384.m in Sources */ = {isa = PBXBuildFile; fileRef = 371591A744E9E7BA0CD8A22B94B8BE89 /* JWTAlgorithmHS384.m */; };
+		A280AA273DA61239C92DA756E8AB8A60 /* Pods-HAL-iOS-HAL-iOSUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C924BD97B0E877FDB611DA5C3863EDC4 /* Pods-HAL-iOS-HAL-iOSUITests-dummy.m */; };
+		A6DE8DD5DA58E4DE8F6CD76DBCB4F900 /* JWTAlgorithmDataHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = 329D5373D2152DF776C160E352D06B8D /* JWTAlgorithmDataHolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B00F252CE31D623BF81E7D0485648EC9 /* JWT-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 918D0418893CCEFED32841453EB02ECE /* JWT-dummy.m */; };
+		B25B4A1401DB5B846500543931B86B84 /* JWTAlgorithmNone.h in Headers */ = {isa = PBXBuildFile; fileRef = E0DC0B0B1B67AC03B507C011B552B15D /* JWTAlgorithmNone.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B295974AF4D895F2EE645F0E3AE2C3D3 /* JWTClaimsSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F8A24A8DB7A9B49D7E7C130CD85209 /* JWTClaimsSet.m */; };
+		C35F95F4814914CAF49F7BB772062779 /* JWTClaim.m in Sources */ = {isa = PBXBuildFile; fileRef = 40147AF106CDC689B0C729C4064211AC /* JWTClaim.m */; };
+		C528BF1AA5F073565C21C248BD8FA8BA /* JWT-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E191B5C3E717E2008069312772A905A7 /* JWT-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D37DB387C178F638E21304930E230DCD /* Pods-HAL-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FDAB1920ED8EFB63C5E2D9222E83945 /* Pods-HAL-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5F0B57D3580342AE857E1D354D6F7BC /* JWTAlgorithmHSBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D91FF55438C9F8C5AD16ADC129A1F3D7 /* JWTAlgorithmHSBase.m */; };
+		DA760231F62C00D22DD2FE4FA139D76A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD2B890D433CDF7BB5069D2DA90CBE27 /* Foundation.framework */; };
+		DCD2358E8CC397AADAEF32EAAF6720F3 /* Base64-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A70ED429228D623CADF4016B4634987 /* Base64-dummy.m */; };
+		DE73DC4F6A6015EE136E66E15CD2B7F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD2B890D433CDF7BB5069D2DA90CBE27 /* Foundation.framework */; };
+		E2E6FC383EB17D9F0B2E3512876C5F5C /* JWTAlgorithmFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 19553283BD4A9B5F7C1D12EA19D5AD0B /* JWTAlgorithmFactory.m */; };
+		E37CA3AE0DB54F2281AAB12CC0B3ADB9 /* JWTRSAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = EB118CD5C4BE831E64C2A0D638FED66B /* JWTRSAlgorithm.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E9A9A92A533837797A092EE076CFA4DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD2B890D433CDF7BB5069D2DA90CBE27 /* Foundation.framework */; };
+		EF74546FDB9F7D22BEE79AE82AD31703 /* JWTClaim.h in Headers */ = {isa = PBXBuildFile; fileRef = FCEEF1571059B7DBB2CA33486435931B /* JWTClaim.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EFBE735EE3164438ACAA1B4C9F615B8F /* JWTAlgorithmDataHolderChain.h in Headers */ = {isa = PBXBuildFile; fileRef = 46997437C803F12E33B839243ACF9ED2 /* JWTAlgorithmDataHolderChain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F8866D91C0AF370D124B599DA343B535 /* JWTAlgorithmRSBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1F93D26AFCCC3D9090083FB129FBD0 /* JWTAlgorithmRSBase.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		14D24FD330E486698ECE00285C516049 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67A9F9106B32ACF952B66B2EE009513F;
+			remoteInfo = Base64;
+		};
+		40D29F3CF970B597289FDA963C337F12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13F3ECEDD8FACC405786411AC2E31ABC;
+			remoteInfo = JWT;
+		};
+		46EB161CAFC3F0FEA41E02F386747DBB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67A9F9106B32ACF952B66B2EE009513F;
+			remoteInfo = Base64;
+		};
+		4E4505BBC33349DBF7A4BF9DFA023026 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13F3ECEDD8FACC405786411AC2E31ABC;
+			remoteInfo = JWT;
+		};
+		6DFB83EEFF610A87AEBC4AC8B5CBB194 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13F3ECEDD8FACC405786411AC2E31ABC;
+			remoteInfo = JWT;
+		};
+		AF87C4A4DD1433251734E4E879DAAD53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67A9F9106B32ACF952B66B2EE009513F;
+			remoteInfo = Base64;
+		};
+		B094D725B35645C53EBD5E893281580A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67A9F9106B32ACF952B66B2EE009513F;
+			remoteInfo = Base64;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		02F3F36560169DA79628B5F58D7BB830 /* Pods-HAL-iOS-HAL-iOSTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-HAL-iOSTests-resources.sh"; sourceTree = "<group>"; };
+		03384D4CEE5E38AC1C5B564874063DF7 /* JWT.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = JWT.modulemap; sourceTree = "<group>"; };
+		0762A9245A6B7D23DFE0BB0AE2EE5793 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		077B096C7411706572BF55DAF041C477 /* JWTAlgorithmDataHolderChain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmDataHolderChain.m; path = Classes/Algorithms/Holders/JWTAlgorithmDataHolderChain.m; sourceTree = "<group>"; };
+		0A69EFC4EEBA60E0476B30AD1F40E647 /* Pods-HAL-iOS-HAL-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HAL-iOS-HAL-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		0B26C1CF8FCE727032C2AE06B2946D54 /* JWTBase64Coder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTBase64Coder.m; path = Classes/Supplement/JWTBase64Coder.m; sourceTree = "<group>"; };
+		0C992496CF8C9B404E281D9ACA051659 /* Pods-HAL-iOS-HAL-iOSUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-HAL-iOSUITests-resources.sh"; sourceTree = "<group>"; };
+		0CAD5ACF202B1FA87D5F21C5A7236B9D /* Pods-HAL-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-HAL-iOS.modulemap"; sourceTree = "<group>"; };
+		16461DDD278E5C5CBEC32AF0B2AAE415 /* JWTCoding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTCoding.h; path = Classes/Coding/JWTCoding.h; sourceTree = "<group>"; };
+		17CF59C7C8D14BCC45980C8AF3B3001B /* Pods-HAL-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HAL-iOS-dummy.m"; sourceTree = "<group>"; };
+		19553283BD4A9B5F7C1D12EA19D5AD0B /* JWTAlgorithmFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmFactory.m; path = Classes/Algorithms/Base/JWTAlgorithmFactory.m; sourceTree = "<group>"; };
+		1C1B84CFA613F078EBA5139B7E09BB58 /* JWTAlgorithmHSBase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmHSBase.h; path = Classes/Algorithms/HSFamily/JWTAlgorithmHSBase.h; sourceTree = "<group>"; };
+		1C32141FE909ABC8094FD99E84A34891 /* Pods-HAL-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HAL-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		1D9334631D30FC17E3E2C0D7FB9ACE0D /* JWTClaimsSetSerializer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTClaimsSetSerializer.h; path = Classes/ClaimSet/JWTClaimsSetSerializer.h; sourceTree = "<group>"; };
+		205DB3DBBD03BA67011E8D76ADEB25BA /* JWT.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = JWT.xcconfig; sourceTree = "<group>"; };
+		22DB42ED2FE259B8014ED80BAEF0C1AD /* JWTAlgorithm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithm.h; path = Classes/Algorithms/Base/JWTAlgorithm.h; sourceTree = "<group>"; };
+		244CFE2736D888AC617373C9CCF8F31B /* JWTBase64Coder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTBase64Coder.h; path = Classes/Supplement/JWTBase64Coder.h; sourceTree = "<group>"; };
+		250BA16FA1B3D38BBD4646270B0537EE /* JWTDeprecations.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTDeprecations.h; path = Classes/Supplement/JWTDeprecations.h; sourceTree = "<group>"; };
+		301FFDBEBE5BA577579E484F3ACB9C74 /* Pods-HAL-iOS-HAL-iOSTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HAL-iOS-HAL-iOSTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		329D5373D2152DF776C160E352D06B8D /* JWTAlgorithmDataHolder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmDataHolder.h; path = Classes/Algorithms/Holders/JWTAlgorithmDataHolder.h; sourceTree = "<group>"; };
+		355F351AA1D613D78F0A3CEB8036FF85 /* JWTClaimsSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTClaimsSet.h; path = Classes/ClaimSet/JWTClaimsSet.h; sourceTree = "<group>"; };
+		371591A744E9E7BA0CD8A22B94B8BE89 /* JWTAlgorithmHS384.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmHS384.m; path = Classes/Algorithms/HSFamily/JWTAlgorithmHS384.m; sourceTree = "<group>"; };
+		38A1DCA92EBDF5E9A67924900B8CB387 /* Pods-HAL-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HAL-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		39022E5D7B44B18393A7CFAB2C38FC0D /* JWTAlgorithmHS384.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmHS384.h; path = Classes/Algorithms/HSFamily/JWTAlgorithmHS384.h; sourceTree = "<group>"; };
+		3E6CD70ABFF216A269E52EF1ACF63C47 /* Pods-HAL-iOS-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-resources.sh"; sourceTree = "<group>"; };
+		3F11D8E7B1BD0C4AFF1CE56E7876B2B4 /* Pods-HAL-iOS-HAL-iOSUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HAL-iOS-HAL-iOSUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		40147AF106CDC689B0C729C4064211AC /* JWTClaim.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTClaim.m; path = Classes/ClaimSet/JWTClaim.m; sourceTree = "<group>"; };
+		4173DF97363CB26FDBBE1C9B01AC0D75 /* Base64-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Base64-prefix.pch"; sourceTree = "<group>"; };
+		42A76691236C6B4BE52B914BF0981D18 /* Base64.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Base64.modulemap; sourceTree = "<group>"; };
+		46997437C803F12E33B839243ACF9ED2 /* JWTAlgorithmDataHolderChain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmDataHolderChain.h; path = Classes/Algorithms/Holders/JWTAlgorithmDataHolderChain.h; sourceTree = "<group>"; };
+		46C7AC7834C7199C1619BE2BBADCC78B /* MF_Base64Additions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MF_Base64Additions.h; path = Base64/MF_Base64Additions.h; sourceTree = "<group>"; };
+		499F7E8AC78388D3883339D12047E457 /* JWTClaimsSetVerifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTClaimsSetVerifier.h; path = Classes/ClaimSet/JWTClaimsSetVerifier.h; sourceTree = "<group>"; };
+		4A70ED429228D623CADF4016B4634987 /* Base64-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Base64-dummy.m"; sourceTree = "<group>"; };
+		4AFAD8B4693D212DAC7E05EB76138F2A /* Base64.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Base64.framework; path = Base64.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E44BFFE8B6B3FCBE60B8CDC7B27FD0E /* Pods-HAL-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HAL-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		4FDAB1920ED8EFB63C5E2D9222E83945 /* Pods-HAL-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HAL-iOS-umbrella.h"; sourceTree = "<group>"; };
+		53C73BF22212F5D4309F5DBAF391105F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		54FD4173279D4803E71F10BA5EE66AB5 /* MF_Base64Additions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MF_Base64Additions.m; path = Base64/MF_Base64Additions.m; sourceTree = "<group>"; };
+		5EF8083E9D8A36AA63B733688CEEF751 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5F67624DBE7EB18779F38A0B4A2BAC9D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		63F8A24A8DB7A9B49D7E7C130CD85209 /* JWTClaimsSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTClaimsSet.m; path = Classes/ClaimSet/JWTClaimsSet.m; sourceTree = "<group>"; };
+		64B37479FE060D67484E2E7EAB8905F8 /* Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
+		682F67EEF8E267AD3567990A155C3BA7 /* JWTAlgorithmFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmFactory.h; path = Classes/Algorithms/Base/JWTAlgorithmFactory.h; sourceTree = "<group>"; };
+		6968983454E75542B01811674D253A54 /* JWTAlgorithmHS256.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmHS256.h; path = Classes/Algorithms/HSFamily/JWTAlgorithmHS256.h; sourceTree = "<group>"; };
+		6B650F43F4B1E4611FC99CC610E69659 /* JWTAlgorithmHS512.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmHS512.m; path = Classes/Algorithms/HSFamily/JWTAlgorithmHS512.m; sourceTree = "<group>"; };
+		76900CC9BE69AC13D1245DC29BF29955 /* Pods-HAL-iOS-HAL-iOSTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HAL-iOS-HAL-iOSTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		7D784077CE5BA5E6C7864DF81BFA5113 /* JWT.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWT.h; path = Classes/JWT.h; sourceTree = "<group>"; };
+		813F108BB69DB2C7E985B6FAD4ADA83F /* Pods-HAL-iOS-HAL-iOSUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HAL-iOS-HAL-iOSUITests-umbrella.h"; sourceTree = "<group>"; };
+		83AA27FE1F1DD014EEE6E1FDCE07240D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		8421797CE41FA01760768F9C44C27A5F /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_HAL_iOS_HAL_iOSUITests.framework; path = "Pods-HAL-iOS-HAL-iOSUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B1F93D26AFCCC3D9090083FB129FBD0 /* JWTAlgorithmRSBase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmRSBase.m; path = Classes/Algorithms/RSFamily/JWTAlgorithmRSBase.m; sourceTree = "<group>"; };
+		9005F2C199272B3BDDD3C3095B965255 /* Pods-HAL-iOS-HAL-iOSTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-HAL-iOSTests-frameworks.sh"; sourceTree = "<group>"; };
+		90BDFDFFA90E2B954959FAD9AB54CD58 /* JWTClaimsSetSerializer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTClaimsSetSerializer.m; path = Classes/ClaimSet/JWTClaimsSetSerializer.m; sourceTree = "<group>"; };
+		918D0418893CCEFED32841453EB02ECE /* JWT-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JWT-dummy.m"; sourceTree = "<group>"; };
+		92C7E109FEA49E37C485FB813A2235B7 /* Pods-HAL-iOS-HAL-iOSUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-HAL-iOS-HAL-iOSUITests.modulemap"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9403FB04B531A4873509DFA79B6A7827 /* JWTClaimsSetVerifier.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTClaimsSetVerifier.m; path = Classes/ClaimSet/JWTClaimsSetVerifier.m; sourceTree = "<group>"; };
+		993652364B690BA23527FC900B1AF3D2 /* Pods-HAL-iOS-HAL-iOSTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-HAL-iOS-HAL-iOSTests.modulemap"; sourceTree = "<group>"; };
+		999266DCD5E9F8BEF87F36CCBD64D809 /* Pods-HAL-iOS-HAL-iOSUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HAL-iOS-HAL-iOSUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		9B55D5F1E2E597124BB992FE0EBE772D /* JWTAlgorithmHS512.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmHS512.h; path = Classes/Algorithms/HSFamily/JWTAlgorithmHS512.h; sourceTree = "<group>"; };
+		9EFEB8364DB92C7C1EB2A94F7E98DFA0 /* JWT-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "JWT-prefix.pch"; sourceTree = "<group>"; };
+		AD2B890D433CDF7BB5069D2DA90CBE27 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		AEB3E3C3316F562219BD693FED70E52A /* Pods-HAL-iOS-HAL-iOSTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HAL-iOS-HAL-iOSTests-dummy.m"; sourceTree = "<group>"; };
+		B31B08BD10A9C8BA66B4F0BB44D9F858 /* Pods-HAL-iOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HAL-iOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B3618AAB9FE1E53E73ED6871895C6FF0 /* Base64.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Base64.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B44667967EB2D077BC265B14516B9F3B /* Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C924BD97B0E877FDB611DA5C3863EDC4 /* Pods-HAL-iOS-HAL-iOSUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HAL-iOS-HAL-iOSUITests-dummy.m"; sourceTree = "<group>"; };
+		CBB31FA7057A4438CE960D4D8484194C /* JWT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = JWT.framework; path = JWT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCBE4A56F1D2F048D9D044416F8FBD6B /* JWTAlgorithmRSBase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmRSBase.h; path = Classes/Algorithms/RSFamily/JWTAlgorithmRSBase.h; sourceTree = "<group>"; };
+		D102873E1445FC885B752F571AEBCB5D /* JWTAlgorithmNone.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmNone.m; path = Classes/Algorithms/Base/JWTAlgorithmNone.m; sourceTree = "<group>"; };
+		D3919FDED5A206A2B10086E688E84FB4 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D7DFEF63F9274B7709299924A0D1212A /* Pods-HAL-iOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-frameworks.sh"; sourceTree = "<group>"; };
+		D91FF55438C9F8C5AD16ADC129A1F3D7 /* JWTAlgorithmHSBase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmHSBase.m; path = Classes/Algorithms/HSFamily/JWTAlgorithmHSBase.m; sourceTree = "<group>"; };
+		DAB3CD2A5FE6B9CB880048A3BD197F34 /* Pods_HAL_iOS_HAL_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_HAL_iOS_HAL_iOSTests.framework; path = "Pods-HAL-iOS-HAL-iOSTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB2380D700F4E9D43C78C8BF2D377496 /* JWTAlgorithmDataHolder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmDataHolder.m; path = Classes/Algorithms/Holders/JWTAlgorithmDataHolder.m; sourceTree = "<group>"; };
+		DD9C8980E8E574E769501582FA96704A /* Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh"; sourceTree = "<group>"; };
+		DE52BD6DCC3B9CA9AA1969705889FF97 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF5536F291D62F3F0CBA7FBEA445962D /* JWTCoding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTCoding.m; path = Classes/Coding/JWTCoding.m; sourceTree = "<group>"; };
+		E0DC0B0B1B67AC03B507C011B552B15D /* JWTAlgorithmNone.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmNone.h; path = Classes/Algorithms/Base/JWTAlgorithmNone.h; sourceTree = "<group>"; };
+		E191B5C3E717E2008069312772A905A7 /* JWT-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "JWT-umbrella.h"; sourceTree = "<group>"; };
+		E55671EE2D62BFC3D35640730C9E55EC /* Base64.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Base64.xcconfig; sourceTree = "<group>"; };
+		EB118CD5C4BE831E64C2A0D638FED66B /* JWTRSAlgorithm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTRSAlgorithm.h; path = Classes/Algorithms/RSFamily/JWTRSAlgorithm.h; sourceTree = "<group>"; };
+		F5AB0F7509ED21C17F11679065B88349 /* JWTAlgorithmHS256.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmHS256.m; path = Classes/Algorithms/HSFamily/JWTAlgorithmHS256.m; sourceTree = "<group>"; };
+		FAF5F3D19A1996EF9F44CA3C6E6EF000 /* Pods_HAL_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_HAL_iOS.framework; path = "Pods-HAL-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBCDBCFDC00E2046342395FAE77AC6EB /* Base64-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Base64-umbrella.h"; sourceTree = "<group>"; };
+		FCD56CB4622421AE85F63E345D866BC9 /* Pods-HAL-iOS-HAL-iOSTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HAL-iOS-HAL-iOSTests-umbrella.h"; sourceTree = "<group>"; };
+		FCEEF1571059B7DBB2CA33486435931B /* JWTClaim.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTClaim.h; path = Classes/ClaimSet/JWTClaim.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2833F8A86133613517D6C19583AD637D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5F0FE80E966C87314397310F644DC9BD /* Base64.framework in Frameworks */,
+				DA760231F62C00D22DD2FE4FA139D76A /* Foundation.framework in Frameworks */,
+				8F5F37C33FDCB7E358F38E197F10B88B /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6339DCAA4A9D4228DEB63B964CA0DD3F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9A9A92A533837797A092EE076CFA4DA /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		636E58A90A182C363F72E7F01AAA100F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F7EBB256B1E9B80246B00DC794B9F62 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C74B03B8D26CCF02F83AF284B26D52FA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D95F8C02C8F11B4603973E136170B66 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5EAB9DB133E367A671B56BFCD781A85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DE73DC4F6A6015EE136E66E15CD2B7F0 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3233436DA4690993F137772FC0CCBF38 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				42A76691236C6B4BE52B914BF0981D18 /* Base64.modulemap */,
+				E55671EE2D62BFC3D35640730C9E55EC /* Base64.xcconfig */,
+				4A70ED429228D623CADF4016B4634987 /* Base64-dummy.m */,
+				4173DF97363CB26FDBBE1C9B01AC0D75 /* Base64-prefix.pch */,
+				FBCDBCFDC00E2046342395FAE77AC6EB /* Base64-umbrella.h */,
+				DE52BD6DCC3B9CA9AA1969705889FF97 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Base64";
+			sourceTree = "<group>";
+		};
+		32455DEA25F3223F0E7E872EF90774DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4AFAD8B4693D212DAC7E05EB76138F2A /* Base64.framework */,
+				CBB31FA7057A4438CE960D4D8484194C /* JWT.framework */,
+				FAF5F3D19A1996EF9F44CA3C6E6EF000 /* Pods_HAL_iOS.framework */,
+				DAB3CD2A5FE6B9CB880048A3BD197F34 /* Pods_HAL_iOS_HAL_iOSTests.framework */,
+				8421797CE41FA01760768F9C44C27A5F /* Pods_HAL_iOS_HAL_iOSUITests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		33D83B1500E04FB62D3814AC9EB306A1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B3618AAB9FE1E53E73ED6871895C6FF0 /* Base64.framework */,
+				5C55BEC91260E7DA3BD204D984C29C78 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5C55BEC91260E7DA3BD204D984C29C78 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				AD2B890D433CDF7BB5069D2DA90CBE27 /* Foundation.framework */,
+				83AA27FE1F1DD014EEE6E1FDCE07240D /* Security.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		7D47241F7BB11C10990216C391B546C4 /* Pods-HAL-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				5EF8083E9D8A36AA63B733688CEEF751 /* Info.plist */,
+				0CAD5ACF202B1FA87D5F21C5A7236B9D /* Pods-HAL-iOS.modulemap */,
+				B31B08BD10A9C8BA66B4F0BB44D9F858 /* Pods-HAL-iOS-acknowledgements.markdown */,
+				4E44BFFE8B6B3FCBE60B8CDC7B27FD0E /* Pods-HAL-iOS-acknowledgements.plist */,
+				17CF59C7C8D14BCC45980C8AF3B3001B /* Pods-HAL-iOS-dummy.m */,
+				D7DFEF63F9274B7709299924A0D1212A /* Pods-HAL-iOS-frameworks.sh */,
+				3E6CD70ABFF216A269E52EF1ACF63C47 /* Pods-HAL-iOS-resources.sh */,
+				4FDAB1920ED8EFB63C5E2D9222E83945 /* Pods-HAL-iOS-umbrella.h */,
+				1C32141FE909ABC8094FD99E84A34891 /* Pods-HAL-iOS.debug.xcconfig */,
+				38A1DCA92EBDF5E9A67924900B8CB387 /* Pods-HAL-iOS.release.xcconfig */,
+			);
+			name = "Pods-HAL-iOS";
+			path = "Target Support Files/Pods-HAL-iOS";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				33D83B1500E04FB62D3814AC9EB306A1 /* Frameworks */,
+				8754738B02763C40E2CB3CDFB99C632E /* Pods */,
+				32455DEA25F3223F0E7E872EF90774DD /* Products */,
+				DD520894E3EA8E3F44BE8A0FDB8329BB /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8754738B02763C40E2CB3CDFB99C632E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C9391BA242180D75672A974AE7D83470 /* Base64 */,
+				87E4A82D9F391CE516F77A7980C0406E /* JWT */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		87E4A82D9F391CE516F77A7980C0406E /* JWT */ = {
+			isa = PBXGroup;
+			children = (
+				7D784077CE5BA5E6C7864DF81BFA5113 /* JWT.h */,
+				22DB42ED2FE259B8014ED80BAEF0C1AD /* JWTAlgorithm.h */,
+				329D5373D2152DF776C160E352D06B8D /* JWTAlgorithmDataHolder.h */,
+				DB2380D700F4E9D43C78C8BF2D377496 /* JWTAlgorithmDataHolder.m */,
+				46997437C803F12E33B839243ACF9ED2 /* JWTAlgorithmDataHolderChain.h */,
+				077B096C7411706572BF55DAF041C477 /* JWTAlgorithmDataHolderChain.m */,
+				682F67EEF8E267AD3567990A155C3BA7 /* JWTAlgorithmFactory.h */,
+				19553283BD4A9B5F7C1D12EA19D5AD0B /* JWTAlgorithmFactory.m */,
+				6968983454E75542B01811674D253A54 /* JWTAlgorithmHS256.h */,
+				F5AB0F7509ED21C17F11679065B88349 /* JWTAlgorithmHS256.m */,
+				39022E5D7B44B18393A7CFAB2C38FC0D /* JWTAlgorithmHS384.h */,
+				371591A744E9E7BA0CD8A22B94B8BE89 /* JWTAlgorithmHS384.m */,
+				9B55D5F1E2E597124BB992FE0EBE772D /* JWTAlgorithmHS512.h */,
+				6B650F43F4B1E4611FC99CC610E69659 /* JWTAlgorithmHS512.m */,
+				1C1B84CFA613F078EBA5139B7E09BB58 /* JWTAlgorithmHSBase.h */,
+				D91FF55438C9F8C5AD16ADC129A1F3D7 /* JWTAlgorithmHSBase.m */,
+				E0DC0B0B1B67AC03B507C011B552B15D /* JWTAlgorithmNone.h */,
+				D102873E1445FC885B752F571AEBCB5D /* JWTAlgorithmNone.m */,
+				CCBE4A56F1D2F048D9D044416F8FBD6B /* JWTAlgorithmRSBase.h */,
+				8B1F93D26AFCCC3D9090083FB129FBD0 /* JWTAlgorithmRSBase.m */,
+				244CFE2736D888AC617373C9CCF8F31B /* JWTBase64Coder.h */,
+				0B26C1CF8FCE727032C2AE06B2946D54 /* JWTBase64Coder.m */,
+				FCEEF1571059B7DBB2CA33486435931B /* JWTClaim.h */,
+				40147AF106CDC689B0C729C4064211AC /* JWTClaim.m */,
+				355F351AA1D613D78F0A3CEB8036FF85 /* JWTClaimsSet.h */,
+				63F8A24A8DB7A9B49D7E7C130CD85209 /* JWTClaimsSet.m */,
+				1D9334631D30FC17E3E2C0D7FB9ACE0D /* JWTClaimsSetSerializer.h */,
+				90BDFDFFA90E2B954959FAD9AB54CD58 /* JWTClaimsSetSerializer.m */,
+				499F7E8AC78388D3883339D12047E457 /* JWTClaimsSetVerifier.h */,
+				9403FB04B531A4873509DFA79B6A7827 /* JWTClaimsSetVerifier.m */,
+				16461DDD278E5C5CBEC32AF0B2AAE415 /* JWTCoding.h */,
+				DF5536F291D62F3F0CBA7FBEA445962D /* JWTCoding.m */,
+				250BA16FA1B3D38BBD4646270B0537EE /* JWTDeprecations.h */,
+				EB118CD5C4BE831E64C2A0D638FED66B /* JWTRSAlgorithm.h */,
+				C6E47218916BE68791ABAF73EE953B95 /* Support Files */,
+			);
+			name = JWT;
+			path = JWT;
+			sourceTree = "<group>";
+		};
+		A102F115ADD028B79B672181EE5E3F66 /* Pods-HAL-iOS-HAL-iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				53C73BF22212F5D4309F5DBAF391105F /* Info.plist */,
+				993652364B690BA23527FC900B1AF3D2 /* Pods-HAL-iOS-HAL-iOSTests.modulemap */,
+				76900CC9BE69AC13D1245DC29BF29955 /* Pods-HAL-iOS-HAL-iOSTests-acknowledgements.markdown */,
+				301FFDBEBE5BA577579E484F3ACB9C74 /* Pods-HAL-iOS-HAL-iOSTests-acknowledgements.plist */,
+				AEB3E3C3316F562219BD693FED70E52A /* Pods-HAL-iOS-HAL-iOSTests-dummy.m */,
+				9005F2C199272B3BDDD3C3095B965255 /* Pods-HAL-iOS-HAL-iOSTests-frameworks.sh */,
+				02F3F36560169DA79628B5F58D7BB830 /* Pods-HAL-iOS-HAL-iOSTests-resources.sh */,
+				FCD56CB4622421AE85F63E345D866BC9 /* Pods-HAL-iOS-HAL-iOSTests-umbrella.h */,
+				D3919FDED5A206A2B10086E688E84FB4 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */,
+				0A69EFC4EEBA60E0476B30AD1F40E647 /* Pods-HAL-iOS-HAL-iOSTests.release.xcconfig */,
+			);
+			name = "Pods-HAL-iOS-HAL-iOSTests";
+			path = "Target Support Files/Pods-HAL-iOS-HAL-iOSTests";
+			sourceTree = "<group>";
+		};
+		A11C1555CF1C699C1B9B2C31B12FDDDC /* Pods-HAL-iOS-HAL-iOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5F67624DBE7EB18779F38A0B4A2BAC9D /* Info.plist */,
+				92C7E109FEA49E37C485FB813A2235B7 /* Pods-HAL-iOS-HAL-iOSUITests.modulemap */,
+				999266DCD5E9F8BEF87F36CCBD64D809 /* Pods-HAL-iOS-HAL-iOSUITests-acknowledgements.markdown */,
+				3F11D8E7B1BD0C4AFF1CE56E7876B2B4 /* Pods-HAL-iOS-HAL-iOSUITests-acknowledgements.plist */,
+				C924BD97B0E877FDB611DA5C3863EDC4 /* Pods-HAL-iOS-HAL-iOSUITests-dummy.m */,
+				DD9C8980E8E574E769501582FA96704A /* Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh */,
+				0C992496CF8C9B404E281D9ACA051659 /* Pods-HAL-iOS-HAL-iOSUITests-resources.sh */,
+				813F108BB69DB2C7E985B6FAD4ADA83F /* Pods-HAL-iOS-HAL-iOSUITests-umbrella.h */,
+				B44667967EB2D077BC265B14516B9F3B /* Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig */,
+				64B37479FE060D67484E2E7EAB8905F8 /* Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig */,
+			);
+			name = "Pods-HAL-iOS-HAL-iOSUITests";
+			path = "Target Support Files/Pods-HAL-iOS-HAL-iOSUITests";
+			sourceTree = "<group>";
+		};
+		C6E47218916BE68791ABAF73EE953B95 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				0762A9245A6B7D23DFE0BB0AE2EE5793 /* Info.plist */,
+				03384D4CEE5E38AC1C5B564874063DF7 /* JWT.modulemap */,
+				205DB3DBBD03BA67011E8D76ADEB25BA /* JWT.xcconfig */,
+				918D0418893CCEFED32841453EB02ECE /* JWT-dummy.m */,
+				9EFEB8364DB92C7C1EB2A94F7E98DFA0 /* JWT-prefix.pch */,
+				E191B5C3E717E2008069312772A905A7 /* JWT-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/JWT";
+			sourceTree = "<group>";
+		};
+		C9391BA242180D75672A974AE7D83470 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				46C7AC7834C7199C1619BE2BBADCC78B /* MF_Base64Additions.h */,
+				54FD4173279D4803E71F10BA5EE66AB5 /* MF_Base64Additions.m */,
+				3233436DA4690993F137772FC0CCBF38 /* Support Files */,
+			);
+			name = Base64;
+			path = Base64;
+			sourceTree = "<group>";
+		};
+		DD520894E3EA8E3F44BE8A0FDB8329BB /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7D47241F7BB11C10990216C391B546C4 /* Pods-HAL-iOS */,
+				A102F115ADD028B79B672181EE5E3F66 /* Pods-HAL-iOS-HAL-iOSTests */,
+				A11C1555CF1C699C1B9B2C31B12FDDDC /* Pods-HAL-iOS-HAL-iOSUITests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		01C73F76B15040FBE2B67843FB11F99C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				908EAC7311368FC031FCA40F5DF3F330 /* Pods-HAL-iOS-HAL-iOSTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2C84DA14180C07FCA8DDDFF9E953F645 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9983163A3CA0CC2136C8E6709DB05151 /* Pods-HAL-iOS-HAL-iOSUITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63084A7664AACC6CADE97631AB262728 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D37DB387C178F638E21304930E230DCD /* Pods-HAL-iOS-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9C672AC1F0B065F5E0929861D99E1D32 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EFD8876859AE883639E2F382339C3D7 /* Base64-umbrella.h in Headers */,
+				1679F359921879B12FFD70CB6ABD8DFC /* MF_Base64Additions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D33C4F16A11114DF7E809876923CB21B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C528BF1AA5F073565C21C248BD8FA8BA /* JWT-umbrella.h in Headers */,
+				4A5DACB438FE43169FDF1C3B774D3925 /* JWT.h in Headers */,
+				182E97636A153EE5C351349A1DFF724B /* JWTAlgorithm.h in Headers */,
+				A6DE8DD5DA58E4DE8F6CD76DBCB4F900 /* JWTAlgorithmDataHolder.h in Headers */,
+				EFBE735EE3164438ACAA1B4C9F615B8F /* JWTAlgorithmDataHolderChain.h in Headers */,
+				12B480FC5458C8916933BDBDCA0056F7 /* JWTAlgorithmFactory.h in Headers */,
+				56D4179F4D474E2CB5CC0358F8F84F43 /* JWTAlgorithmHS256.h in Headers */,
+				695D2766862AE19CF6AF68FD81808036 /* JWTAlgorithmHS384.h in Headers */,
+				25EEC3F3BBA664B76B0883EE71F2016D /* JWTAlgorithmHS512.h in Headers */,
+				5175A241A7D7F6C8431DB7FF9C1FC66D /* JWTAlgorithmHSBase.h in Headers */,
+				B25B4A1401DB5B846500543931B86B84 /* JWTAlgorithmNone.h in Headers */,
+				2358A89173DEDD74555DE33E10C30440 /* JWTAlgorithmRSBase.h in Headers */,
+				43DEADBD31BE9740CDC1FF6E84139FB9 /* JWTBase64Coder.h in Headers */,
+				EF74546FDB9F7D22BEE79AE82AD31703 /* JWTClaim.h in Headers */,
+				2A554F281CB97F7CE80CC184349DEC6A /* JWTClaimsSet.h in Headers */,
+				636ED5C38BF735D374889738163BEAF8 /* JWTClaimsSetSerializer.h in Headers */,
+				8FE7ABB19C17FB8D56FBF7BAB3E13885 /* JWTClaimsSetVerifier.h in Headers */,
+				03564429EFA015EB0CB10F809BB91AFE /* JWTCoding.h in Headers */,
+				14BFAAE3DA5473148C8513CE8B4E6001 /* JWTDeprecations.h in Headers */,
+				E37CA3AE0DB54F2281AAB12CC0B3ADB9 /* JWTRSAlgorithm.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		0DF0FA3710BAC0A280215CFE7E842B2F /* Pods-HAL-iOS-HAL-iOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BD6588279508C793A8C35E770EA0202 /* Build configuration list for PBXNativeTarget "Pods-HAL-iOS-HAL-iOSUITests" */;
+			buildPhases = (
+				29904971CA80BFE7F26F1888955EBF3D /* Sources */,
+				636E58A90A182C363F72E7F01AAA100F /* Frameworks */,
+				2C84DA14180C07FCA8DDDFF9E953F645 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				807375C7F986B9951BAD37CE744C208D /* PBXTargetDependency */,
+				124A819879F36E401936684CBE7441C8 /* PBXTargetDependency */,
+			);
+			name = "Pods-HAL-iOS-HAL-iOSUITests";
+			productName = "Pods-HAL-iOS-HAL-iOSUITests";
+			productReference = 8421797CE41FA01760768F9C44C27A5F /* Pods_HAL_iOS_HAL_iOSUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		13F3ECEDD8FACC405786411AC2E31ABC /* JWT */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7ABD1D0958FCCB967A5014FBE214D265 /* Build configuration list for PBXNativeTarget "JWT" */;
+			buildPhases = (
+				A864D8C259B4DD64BD19856683BFA9AA /* Sources */,
+				2833F8A86133613517D6C19583AD637D /* Frameworks */,
+				D33C4F16A11114DF7E809876923CB21B /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FEBE41005F678F6259A85D81918063C7 /* PBXTargetDependency */,
+			);
+			name = JWT;
+			productName = JWT;
+			productReference = CBB31FA7057A4438CE960D4D8484194C /* JWT.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		67A9F9106B32ACF952B66B2EE009513F /* Base64 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3CF454BE6A2913D72AC5E28E287E799 /* Build configuration list for PBXNativeTarget "Base64" */;
+			buildPhases = (
+				8221AE19AE4FD491952F8ED4AD8D9B75 /* Sources */,
+				D5EAB9DB133E367A671B56BFCD781A85 /* Frameworks */,
+				9C672AC1F0B065F5E0929861D99E1D32 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Base64;
+			productName = Base64;
+			productReference = 4AFAD8B4693D212DAC7E05EB76138F2A /* Base64.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		83E1769557296F234E05300BBAA83C38 /* Pods-HAL-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89B43C951781C5F1A6135B01E89E4009 /* Build configuration list for PBXNativeTarget "Pods-HAL-iOS" */;
+			buildPhases = (
+				FC549E9694D24B550A7771E3CAD009F9 /* Sources */,
+				C74B03B8D26CCF02F83AF284B26D52FA /* Frameworks */,
+				63084A7664AACC6CADE97631AB262728 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ACFB201E7BF270D89DF5B304C847F332 /* PBXTargetDependency */,
+				154F99272A96525DDCCE8FBB541E2D4A /* PBXTargetDependency */,
+			);
+			name = "Pods-HAL-iOS";
+			productName = "Pods-HAL-iOS";
+			productReference = FAF5F3D19A1996EF9F44CA3C6E6EF000 /* Pods_HAL_iOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		BAC9464EE00342F6F1C23F0B69292BB6 /* Pods-HAL-iOS-HAL-iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE05F5759D03D08749D52905C47373F4 /* Build configuration list for PBXNativeTarget "Pods-HAL-iOS-HAL-iOSTests" */;
+			buildPhases = (
+				93FC29B05DB73780F6B544086AED8D66 /* Sources */,
+				6339DCAA4A9D4228DEB63B964CA0DD3F /* Frameworks */,
+				01C73F76B15040FBE2B67843FB11F99C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D95C8AF84CA31A97319F62DA1AFD8E28 /* PBXTargetDependency */,
+				CD304AF9D1840F2C283F353E1147078E /* PBXTargetDependency */,
+			);
+			name = "Pods-HAL-iOS-HAL-iOSTests";
+			productName = "Pods-HAL-iOS-HAL-iOSTests";
+			productReference = DAB3CD2A5FE6B9CB880048A3BD197F34 /* Pods_HAL_iOS_HAL_iOSTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 32455DEA25F3223F0E7E872EF90774DD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				67A9F9106B32ACF952B66B2EE009513F /* Base64 */,
+				13F3ECEDD8FACC405786411AC2E31ABC /* JWT */,
+				83E1769557296F234E05300BBAA83C38 /* Pods-HAL-iOS */,
+				BAC9464EE00342F6F1C23F0B69292BB6 /* Pods-HAL-iOS-HAL-iOSTests */,
+				0DF0FA3710BAC0A280215CFE7E842B2F /* Pods-HAL-iOS-HAL-iOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		29904971CA80BFE7F26F1888955EBF3D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A280AA273DA61239C92DA756E8AB8A60 /* Pods-HAL-iOS-HAL-iOSUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8221AE19AE4FD491952F8ED4AD8D9B75 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCD2358E8CC397AADAEF32EAAF6720F3 /* Base64-dummy.m in Sources */,
+				64BE5C76E0FEC38118DDCC568D5DE5B1 /* MF_Base64Additions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93FC29B05DB73780F6B544086AED8D66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96695CE0647422164322F654BAF8CD7F /* Pods-HAL-iOS-HAL-iOSTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A864D8C259B4DD64BD19856683BFA9AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B00F252CE31D623BF81E7D0485648EC9 /* JWT-dummy.m in Sources */,
+				36459EFBCA63AD9E5DE342785F614B18 /* JWTAlgorithmDataHolder.m in Sources */,
+				67FA8775EC6FC5149AF464DBB8FA2D37 /* JWTAlgorithmDataHolderChain.m in Sources */,
+				E2E6FC383EB17D9F0B2E3512876C5F5C /* JWTAlgorithmFactory.m in Sources */,
+				7C981AA277086811C5DA8CAED22FC0B2 /* JWTAlgorithmHS256.m in Sources */,
+				A1EA9313BD2919EAD136A6117F5FEA01 /* JWTAlgorithmHS384.m in Sources */,
+				85F05215443DFB3B9D3B9E0DBC59D4AC /* JWTAlgorithmHS512.m in Sources */,
+				D5F0B57D3580342AE857E1D354D6F7BC /* JWTAlgorithmHSBase.m in Sources */,
+				4F88E1FFC02D53264AAD469A1DFD5A43 /* JWTAlgorithmNone.m in Sources */,
+				F8866D91C0AF370D124B599DA343B535 /* JWTAlgorithmRSBase.m in Sources */,
+				1417BD614D6C59E9C5D7F3AE4809A648 /* JWTBase64Coder.m in Sources */,
+				C35F95F4814914CAF49F7BB772062779 /* JWTClaim.m in Sources */,
+				B295974AF4D895F2EE645F0E3AE2C3D3 /* JWTClaimsSet.m in Sources */,
+				82D6AE3F1D04112EBAB647A8CB4D0347 /* JWTClaimsSetSerializer.m in Sources */,
+				1C1B2A9A9CB8966A8BD93181840620A9 /* JWTClaimsSetVerifier.m in Sources */,
+				21DF779A0FADD5267C1B79BFD649D0CF /* JWTCoding.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC549E9694D24B550A7771E3CAD009F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5AF39F1F4AC15C49558B13368C3F773C /* Pods-HAL-iOS-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		124A819879F36E401936684CBE7441C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JWT;
+			target = 13F3ECEDD8FACC405786411AC2E31ABC /* JWT */;
+			targetProxy = 4E4505BBC33349DBF7A4BF9DFA023026 /* PBXContainerItemProxy */;
+		};
+		154F99272A96525DDCCE8FBB541E2D4A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JWT;
+			target = 13F3ECEDD8FACC405786411AC2E31ABC /* JWT */;
+			targetProxy = 6DFB83EEFF610A87AEBC4AC8B5CBB194 /* PBXContainerItemProxy */;
+		};
+		807375C7F986B9951BAD37CE744C208D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Base64;
+			target = 67A9F9106B32ACF952B66B2EE009513F /* Base64 */;
+			targetProxy = 14D24FD330E486698ECE00285C516049 /* PBXContainerItemProxy */;
+		};
+		ACFB201E7BF270D89DF5B304C847F332 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Base64;
+			target = 67A9F9106B32ACF952B66B2EE009513F /* Base64 */;
+			targetProxy = AF87C4A4DD1433251734E4E879DAAD53 /* PBXContainerItemProxy */;
+		};
+		CD304AF9D1840F2C283F353E1147078E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JWT;
+			target = 13F3ECEDD8FACC405786411AC2E31ABC /* JWT */;
+			targetProxy = 40D29F3CF970B597289FDA963C337F12 /* PBXContainerItemProxy */;
+		};
+		D95C8AF84CA31A97319F62DA1AFD8E28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Base64;
+			target = 67A9F9106B32ACF952B66B2EE009513F /* Base64 */;
+			targetProxy = B094D725B35645C53EBD5E893281580A /* PBXContainerItemProxy */;
+		};
+		FEBE41005F678F6259A85D81918063C7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Base64;
+			target = 67A9F9106B32ACF952B66B2EE009513F /* Base64 */;
+			targetProxy = 46EB161CAFC3F0FEA41E02F386747DBB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		157AF0CD5E5AB2A2E74D3B8ECD865185 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		28BD4BD8E3BBAF99FE70BAB0F61E12B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38A1DCA92EBDF5E9A67924900B8CB387 /* Pods-HAL-iOS.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-HAL-iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_HAL_iOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2B509311CFDD6212C3EEEF9881F2EDC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 205DB3DBBD03BA67011E8D76ADEB25BA /* JWT.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/JWT/JWT-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/JWT/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/JWT/JWT.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = JWT;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		556F8805B632A240C5E4258536999021 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 205DB3DBBD03BA67011E8D76ADEB25BA /* JWT.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/JWT/JWT-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/JWT/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/JWT/JWT.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = JWT;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		9570703C2C47647A30F7620573DFB352 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B44667967EB2D077BC265B14516B9F3B /* Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_HAL_iOS_HAL_iOSUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		9CE47318A95F4459124F9C95B9A55703 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64B37479FE060D67484E2E7EAB8905F8 /* Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_HAL_iOS_HAL_iOSUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A1CED56E702395D9776A48AB7194A700 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E55671EE2D62BFC3D35640730C9E55EC /* Base64.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Base64/Base64-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Base64/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Base64/Base64.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = Base64;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A34BAC83B1F20A2C8BA3DE07AD8BAC07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C32141FE909ABC8094FD99E84A34891 /* Pods-HAL-iOS.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-HAL-iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_HAL_iOS;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A883315B5C1E7F6B00AF9D4DACEE5635 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A69EFC4EEBA60E0476B30AD1F40E647 /* Pods-HAL-iOS-HAL-iOSTests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_HAL_iOS_HAL_iOSTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		C4CC5F72D35F922F2F522B8B3A44B39D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3919FDED5A206A2B10086E688E84FB4 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_HAL_iOS_HAL_iOSTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EED546DBB23FC32035C9BDC4E22B30BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		FBC65E234BF624444A5E4A5C880AF208 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E55671EE2D62BFC3D35640730C9E55EC /* Base64.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Base64/Base64-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/Base64/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Base64/Base64.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = Base64;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EED546DBB23FC32035C9BDC4E22B30BD /* Debug */,
+				157AF0CD5E5AB2A2E74D3B8ECD865185 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7ABD1D0958FCCB967A5014FBE214D265 /* Build configuration list for PBXNativeTarget "JWT" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				556F8805B632A240C5E4258536999021 /* Debug */,
+				2B509311CFDD6212C3EEEF9881F2EDC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7BD6588279508C793A8C35E770EA0202 /* Build configuration list for PBXNativeTarget "Pods-HAL-iOS-HAL-iOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9570703C2C47647A30F7620573DFB352 /* Debug */,
+				9CE47318A95F4459124F9C95B9A55703 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89B43C951781C5F1A6135B01E89E4009 /* Build configuration list for PBXNativeTarget "Pods-HAL-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A34BAC83B1F20A2C8BA3DE07AD8BAC07 /* Debug */,
+				28BD4BD8E3BBAF99FE70BAB0F61E12B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE05F5759D03D08749D52905C47373F4 /* Build configuration list for PBXNativeTarget "Pods-HAL-iOS-HAL-iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4CC5F72D35F922F2F522B8B3A44B39D /* Debug */,
+				A883315B5C1E7F6B00AF9D4DACEE5635 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3CF454BE6A2913D72AC5E28E287E799 /* Build configuration list for PBXNativeTarget "Base64" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1CED56E702395D9776A48AB7194A700 /* Debug */,
+				FBC65E234BF624444A5E4A5C880AF208 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

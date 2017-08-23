@@ -95,9 +95,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 
         let concurrentQueue = DispatchQueue(label: "encryptionQueue", attributes: .concurrent)
         concurrentQueue.sync {
-            CommonUtils.setDivNum(value: 71);
-            CommonUtils.setStoreNum(value: 572);
-            
             GenericEncryption.rsaInit();
             let ees = EESRequest();
             ees.getDailyAESKey();
@@ -124,7 +121,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
               ( ssid == "MST030C" ) ||
               ( ssid == "FDS030AZ" ) ||
               ( ssid == "LAB030A" ) ||
-              ( ssid == "FDS010" ) || // used for QE testing on a dev build only
+              //( ssid == "FDS010" ) || // used for QE testing on a dev build only
               ( ssid == "MB030A" )
             {
                 return true;

@@ -349,7 +349,11 @@ OSStatus __extractIdentityAndTrust(CFDataRef inPKCS12Data,
      self.secPaddingPKCS1SHANumber = kSecPaddingPKCS1SHA256
      self.ccSHANumberDigestLength  = CC_SHA256_DIGEST_LENGTH
      */
-    unsigned char *str = [self CC_SHANumberWithData:[plainData bytes] withLength:(CC_LONG)[plainData length] withHashBytes:hashBytes];
+    
+    if( hashByes != NULL )
+        unsigned char *str = [self CC_SHANumberWithData:[plainData bytes] withLength:(CC_LONG)[plainData length] withHashBytes:hashBytes];
+    else
+        unsigned char *str = NULL;
     
     if (!str) {
         return nil;

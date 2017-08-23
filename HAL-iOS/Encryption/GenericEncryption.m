@@ -20,13 +20,16 @@ unsigned char *rsaPublicKey = nil;
 NSString *rsaPublicModulusHex = nil;
 NSString *rsaPublicExpHex = @"00010001";
 
-const int RSA_KEY_BYTES = 512;
-const int RSA_KEY_BITS = 2048;
+const unsigned int RSA_KEY_BYTES = 512;
+const unsigned int RSA_KEY_BITS = 2048;
 
 +(short)rsaInit {
     rsaContext = RSA_new();
     
     rsaPublicKey = (unsigned char *)malloc(RSA_KEY_BYTES);
+    
+    if( rsaPublicKey == NULL )
+        return (-1);
     
     memset( rsaPublicKey, 0, RSA_KEY_BYTES );
     
@@ -67,7 +70,7 @@ const int RSA_KEY_BITS = 2048;
 
 +(NSData *)decrypt:( NSString * ) encryptedString
 {
-    int asciiLength = encryptedString.length;
+    unsigned int asciiLength = encryptedString.length;
     
     // uh oh no data
     if( asciiLength <= 0 )
@@ -83,7 +86,7 @@ const int RSA_KEY_BITS = 2048;
     if( asciiLength % 2 != 0 )
         return nil;
     
-    int length = asciiLength / 2;
+    unsigned int length = asciiLength / 2;
     
     unsigned char tempTo[length];
     memset( tempTo, 0, length );

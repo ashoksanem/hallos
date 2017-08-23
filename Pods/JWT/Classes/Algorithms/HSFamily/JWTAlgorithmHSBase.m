@@ -50,11 +50,16 @@ NSString *const JWTAlgorithmNameHS512 = @"HS512";
     unsigned char* cHMAC = malloc(fullSize);
     CCHmacAlgorithm ccAlg = self.ccHmacAlgSHANumber;
 
-    CCHmac(ccAlg, cSecret, strlen(cSecret), cString, strlen(cString), cHMAC);
+    if( cHMAC != NULL )
+    {
+        CCHmac(ccAlg, cSecret, strlen(cSecret), cString, strlen(cString), cHMAC);
     
-    NSData *returnData = [[NSData alloc] initWithBytes:cHMAC length:fullSize];
-    free(cHMAC);
-    return returnData;
+        NSData *returnData = [[NSData alloc] initWithBytes:cHMAC length:fullSize];
+        free(cHMAC);
+        return returnData;
+    }
+    
+    return NULL;
 }
 
 - (NSData *)encodePayloadData:(NSData *)theStringData withSecret:(NSData *)theSecretData
@@ -64,11 +69,16 @@ NSString *const JWTAlgorithmNameHS512 = @"HS512";
     unsigned char* cHMAC = malloc(fullSize);
     CCHmacAlgorithm ccAlg = self.ccHmacAlgSHANumber;
     
-    CCHmac(ccAlg, theSecretData.bytes, [theSecretData length], theStringData.bytes, [theStringData length], cHMAC);
+    if( cHMAC != NULL )
+    {
+        CCHmac(ccAlg, theSecretData.bytes, [theSecretData length], theStringData.bytes, [theStringData length], cHMAC);
     
-    NSData *returnData = [[NSData alloc] initWithBytes:cHMAC length:fullSize];
-    free(cHMAC);
-    return returnData;
+        NSData *returnData = [[NSData alloc] initWithBytes:cHMAC length:fullSize];
+        free(cHMAC);
+        return returnData;
+    }
+    
+    return NULL;
 }
 
 - (BOOL)verifySignedInput:(NSString *)input withSignature:(NSString *)signature verificationKey:(NSString *)verificationKey

@@ -350,7 +350,7 @@ OSStatus __extractIdentityAndTrust(CFDataRef inPKCS12Data,
      self.ccSHANumberDigestLength  = CC_SHA256_DIGEST_LENGTH
      */
     
-    if( hashByes != NULL )
+    if( hashBytes != NULL )
         unsigned char *str = [self CC_SHANumberWithData:[plainData bytes] withLength:(CC_LONG)[plainData length] withHashBytes:hashBytes];
     else
         unsigned char *str = NULL;

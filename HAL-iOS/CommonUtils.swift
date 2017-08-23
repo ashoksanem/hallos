@@ -1,3 +1,4 @@
+
 //
 //  CommonUtils.swift
 //  HAL-iOS
@@ -344,8 +345,9 @@ class CommonUtils
         }
         
         if let zip = UserDefaults.standard.value(forKey: zipCode) as? String {
-            return zip;
+            return String(format: "%05d",Int(zip)!);
         }
+        
         
         return "";
     }

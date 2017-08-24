@@ -76,7 +76,7 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
             port=":"+port;
         }
         let payload = data["payload"] as? NSDictionary
-        let requestData = try! JSONSerialization.data(withJSONObject: payload, options: []);
+        let requestData = try! JSONSerialization.data(withJSONObject: payload ?? "", options: []);
         var response = false;
         let sem = DispatchSemaphore(value: 0);
         let networkReqURL = "https://"+server+port+route;

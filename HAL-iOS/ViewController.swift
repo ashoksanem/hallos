@@ -374,11 +374,11 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                     {
                         let mutDict: NSMutableDictionary = messageBody.mutableCopy() as! NSMutableDictionary;
                         if( JSONSerialization.isValidJSONObject( mutDict ) ) {
-                        DataForwarder.forwardData(data: mutDict as NSDictionary);
+                            DataForwarder.forwardData(data: mutDict as NSDictionary);
                         }
                         else
                         {
-                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");    
+                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
                         }
                     }
                     else

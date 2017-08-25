@@ -46,7 +46,6 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
                 let resp=response! as? HTTPURLResponse;
                 if(resp != nil && resp?.statusCode==200) {
                     do {
-                        let json = JSON(data: data!).dictionaryObject;
                         onCompletion(true,logvalue);
                         
                     }
@@ -75,9 +74,11 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
         {
             port=":"+port;
         }
-        let payload = data["payload"] as? NSDictionary
-        let requestData = try! JSONSerialization.data(withJSONObject: payload, options: []);
         var response = false;
+        let payload = data["payload"] as? NSDictionary ?? [:];
+        if(JSONSerialization.isValidJSONObject(payload))
+        {
+        let  requestData = try! JSONSerialization.data(withJSONObject: payload , options: []);
         let sem = DispatchSemaphore(value: 0);
         let networkReqURL = "https://"+server+port+route;
         makeServerRequest(method: method, networkReqURL: networkReqURL, data: requestData) {
@@ -111,6 +112,11 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
             sem.signal();
         }
         _ = sem.wait(timeout: DispatchTime.distantFuture);
+        }
+        else
+        {
+            return false;
+        }
         return response;
     }
     

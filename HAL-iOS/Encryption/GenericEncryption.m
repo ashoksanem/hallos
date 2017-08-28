@@ -20,8 +20,8 @@ unsigned char *rsaPublicKey = nil;
 NSString *rsaPublicModulusHex = nil;
 NSString *rsaPublicExpHex = @"00010001";
 
-const unsigned int RSA_KEY_BYTES = 512;
-const unsigned int RSA_KEY_BITS = 2048;
+const size_t RSA_KEY_BYTES = 512;
+const size_t RSA_KEY_BITS = 2048;
 
 +(short)rsaInit {
     rsaContext = RSA_new();

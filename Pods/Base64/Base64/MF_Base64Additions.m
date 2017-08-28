@@ -74,7 +74,7 @@
         NSUInteger encodedBlocks = (encodedLength+3) >> 2;
         NSUInteger expectedDataLength = encodedBlocks * 3;
         
-        const unsigned int literalLengh = 4;  // Modified for Checkmarx
+        const size_t literalLengh = 4;  // Modified for Checkmarx
         unsigned char decodingBlock[literalLengh];
         
         decodedBytes = malloc(expectedDataLength);

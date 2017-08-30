@@ -1019,13 +1019,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         
         let msrData = [
             "data": cardData.base64EncodedString(),
-            "encryption": encryption,
-            "tracks":tracks,
-            "track1masked":track1masked ?? "",
-            "track2masked":track2masked ?? "",
-            "track3":track3 ?? "",
-            "source": "IPC",
             "encryptionType": "AES",
+            "encryptionAlgorithm": "CBC",
             "keyVersion": keyVersion as Any
             ] as [String : Any]
         let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);

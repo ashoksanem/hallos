@@ -1005,6 +1005,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 {
                     // Version 1 is the default key. Whoops!
                     LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "MSR swipe using default key.", type: "STRING", indexable: true);
+                    //Since Macy's knows the default key as 0 and not 1 change the version over to 0
+                    keyVersion = 0;
                 }
             }
             else

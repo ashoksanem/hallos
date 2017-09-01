@@ -1022,8 +1022,11 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             "encryptionType": "AES",
             "encryptionAlgorithm": "CBC",
             "keyVersion": keyVersion as Any
-            ] as [String : Any]
+            ] as [String : Any];
+        
         let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
-        updateMsrData(msrData: String(data: msrJsonData, encoding: String.Encoding.utf8)!);
+        var msrJsonString = String(data: msrJsonData, encoding: String.Encoding.utf8)!;
+        msrJsonString = msrJsonString.replacingOccurrences(of: "\\", with: ""); //strip the backslashes since that's not valid base64
+        updateMsrData(msrData: msrJsonString);
     }
 }

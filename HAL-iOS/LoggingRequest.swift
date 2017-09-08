@@ -46,17 +46,21 @@ class LoggingRequest{
             request.httpBody=data;
         
             let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
-                if(error != nil) {
+                if(error != nil)
+                {
                     DLog(error.debugDescription);
                     onCompletion(false);
                 }
                 else
                 {
                     let resp=response! as? HTTPURLResponse;
-                    if(resp != nil && resp?.statusCode==200) {
-                        do {
-                            let json = JSON(data: data!).dictionaryObject;
-                            if let reasonCode=json?["reasonCode"] as? String {
+                    if( resp != nil && resp?.statusCode == 200 )
+                    {
+                        do
+                        {
+                            let json = try JSON(data: data!).dictionaryObject;
+                            if let reasonCode=json?["reasonCode"] as? String
+                            {
                                 if(reasonCode=="0")
                                 {
                                     DLog("Sent message through LoggingRequest.");
@@ -67,11 +71,12 @@ class LoggingRequest{
                                     onCompletion(false);
                                 }
                             }
-                        } catch {
+                        }
+                        catch
+                        {
                             DLog(error as! String);
                             onCompletion(false);
                         }
-                        
                     }
                     else
                     {
@@ -87,7 +92,7 @@ class LoggingRequest{
     class func logError(name:String,value:String,type:String,indexable:Bool)-> Void {
         DispatchQueue.global(qos: .background).async {
            logCommon(name: name, value: value, type: type, indexable: indexable, isException: true);
-	}
+        }
     }
     
     class func logData(name:String,value:String,type:String,indexable:Bool)-> Void {

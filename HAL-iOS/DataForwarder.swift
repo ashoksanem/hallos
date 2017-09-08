@@ -19,45 +19,57 @@ class func makeServerRequest(method: String, networkReqURL: String, data: Data, 
         
         config.connectionProxyDictionary = proxyDict as? [AnyHashable : Any];
         let session = URLSession(configuration: config);
-        
         request.httpMethod = method;
-        var jsonData = JSON(data: data).dictionaryObject
-        if (!(jsonData==nil) && !(jsonData?["headers"]==nil)) {
-            
-            if let headersDict = jsonData?["headers"] as? [String:String] {
-                for headerkey in headersDict.keys
-                {
-                    request.addValue(headersDict[headerkey]!,forHTTPHeaderField: headerkey)
-                }
-                jsonData?.removeValue(forKey: "headers")
-                let finalData=try! JSONSerialization.data(withJSONObject: jsonData ?? "" , options: [])
-                request.httpBody=finalData
-            }
         
-        let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
-            var logvalue="";
-            if(error != nil) {
-                DLog(error.debugDescription);
-                logvalue = "Error in sending data:"+String(describing:jsonData)+" with error: "+error.debugDescription;
-                onCompletion(false,logvalue);
-            }
-            else
-            {
-                let resp=response! as? HTTPURLResponse;
-                if(resp != nil && resp?.statusCode==200) {
-                    do {
-                        onCompletion(true,logvalue);
-                        
-                    }
-                }
-                else
+        do
+        {
+            var jsonData = try JSON(data: data).dictionaryObject;
+            
+            if (!(jsonData==nil) && !(jsonData?["headers"]==nil)) {
+            
+                if let headersDict = jsonData?["headers"] as? [String:String]
                 {
-                    DLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
-                    logvalue = "Error in sending data:"+String(describing:jsonData)+" with response"+String(describing:resp);
-                    onCompletion(false,logvalue);
+                    for headerkey in headersDict.keys
+                    {
+                        request.addValue(headersDict[headerkey]!,forHTTPHeaderField: headerkey)
+                    }
+                    jsonData?.removeValue(forKey: "headers")
+                    let finalData=try! JSONSerialization.data(withJSONObject: jsonData ?? "" , options: [])
+                    request.httpBody=finalData
                 }
-            }})
-        task.resume();
+        
+                let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                    var logvalue="";
+                    if(error != nil)
+                    {
+                        DLog(error.debugDescription);
+                        logvalue = "Error in sending data:"+String(describing:jsonData)+" with error: "+error.debugDescription;
+                        onCompletion(false,logvalue);
+                    }
+                    else
+                    {
+                        let resp=response! as? HTTPURLResponse;
+                        if(resp != nil && resp?.statusCode==200)
+                        {
+                            do {
+                                onCompletion(true,logvalue);
+                            }
+                        }
+                        else
+                        {
+                            DLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
+                            logvalue = "Error in sending data:"+String(describing:jsonData)+" with response"+String(describing:resp);
+                            onCompletion(false,logvalue);
+                        }
+                    }})
+                task.resume();
+            }
+        }
+        catch
+        {
+            let log = "DataForwarded: Unable to parse jsonData";
+            LoggingRequest.logData(name: LoggingRequest.metrics_error, value: log, type: "STRING", indexable: true);
+            onCompletion(false, log );
         }
     }
 }

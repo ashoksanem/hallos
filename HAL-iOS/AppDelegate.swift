@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
               ( ssid == "MST030C" ) ||
               ( ssid == "FDS030AZ" ) ||
               ( ssid == "LAB030A" ) ||
-              //( ssid == "FDS010" ) || // used for QE testing on a dev build only
+              ( ssid == "FDS010" ) || // used for QE testing on a dev build only
               ( ssid == "MB030A" )
             {
                 return true;
@@ -568,13 +568,25 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     }
     
     func barcodeNSData(_ barcode: Data!, type: Int32) {
-        let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue);
-        updateBarcodeData(barcode: strData as! String);
+        var translatedBarcode : String = "";
+        if( barcode[0] < 0x32 )
+        {
+            translatedBarcode = String(format:"0x%02X", barcode[0]);
+            //yes, this technically exceeds the bounds of the array but it's an open range so it should be okay
+            let tempBarcode = barcode.subdata( in: 1..<barcode.count );
+            translatedBarcode += NSString(data: tempBarcode, encoding: String.Encoding.utf8.rawValue)! as String;
+        }
+        else
+        {
+            translatedBarcode = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue)! as String;
+        }
+//        let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue);
+        updateBarcodeData(barcode: translatedBarcode);
     }
     
     func barcodeNSData(_ barcode: Data!, isotype: String!) {
         let strData = NSString(data: barcode, encoding: String.Encoding.utf8.rawValue);
-        updateBarcodeData(barcode: strData as! String);
+        updateBarcodeData(barcode: strData! as String);
     }
     
     func updateBarcodeData(barcode: String)
@@ -1029,6 +1041,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         let msrJsonData = try! JSONSerialization.data(withJSONObject: msrData, options: []);
         var msrJsonString = String(data: msrJsonData, encoding: String.Encoding.utf8)!;
         msrJsonString = msrJsonString.replacingOccurrences(of: "\\", with: ""); //strip the backslashes since that's not valid base64
+        DLog(msrJsonString);
         updateMsrData(msrData: msrJsonString);
     }
 }

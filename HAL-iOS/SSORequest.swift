@@ -97,7 +97,7 @@ class SSORequest{
                     }
                     catch
                     {
-
+                        // meh, if json is still nil that's okay as ssoJsonObject will be nil
                     }
                     
                     let ssoJsonObject : Json4Swift_Base = Json4Swift_Base(dictionary: json)!;

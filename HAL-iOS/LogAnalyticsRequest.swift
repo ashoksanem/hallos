@@ -38,9 +38,9 @@ class LogAnalyticsRequest{
                 //request.addValue(headersDict["RequesterInfo.clientId"]!, forHTTPHeaderField: "RequesterInfo.clientId")
                 //request.addValue(headersDict["RequesterInfo.subclientId"]!, forHTTPHeaderField: "RequesterInfo.subclientId")
                 jsonData?.removeValue(forKey: "headers")
-                let finalData=try! JSONSerialization.data(withJSONObject: jsonData, options: [])
+                let finalData = try! JSONSerialization.data(withJSONObject: jsonData, options: [])
                 
-                request.httpBody=finalData
+                request.httpBody = finalData;
             }
             let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
                 if(error != nil) {

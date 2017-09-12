@@ -359,7 +359,7 @@ class CommonUtils
      
         while (UserDefaults.standard.value(forKey: zipCode) == nil && count < 5) {
             let esp = ESPRequest();
-            esp.getZipCode();
+            esp.getParms( ["MST"] );
             count = count + 1;
         }
         

@@ -88,15 +88,28 @@ class SSORequest{
                     let defaults = UserDefaults.standard;
                     let resp = response! as? HTTPURLResponse;
                     let strData = NSString(data: data!, encoding: String.Encoding.utf8.rawValue);
-                    let json = JSON(data: data!);
+                    
+                    var json : JSON = JSON.null;
+                    
+                    do
+                    {
+                        json = try JSON(data: data!);
+                    }
+                    catch
+                    {
+                        // meh, if json is still nil that's okay as ssoJsonObject will be nil
+                    }
+                    
                     let ssoJsonObject : Json4Swift_Base = Json4Swift_Base(dictionary: json)!;
                     
 //                    DLog(response.debugDescription);
 //                    DLog(strData);
 //                    DLog(resp?.statusCode);
                     
-                    if( resp != nil && resp?.statusCode == 200 ) {
-                        if( ssoJsonObject.associateInfo != nil ) {
+                    if( resp != nil && resp?.statusCode == 200 )
+                    {
+                        if( ssoJsonObject.associateInfo != nil )
+                        {
                             CommonUtils.setIsSSOAuthenticated(value: true);
                             
                             defaults.setValue(ssoJsonObject.dictionaryRepresentation(), forKey: CommonUtils.ssoAssociateInfo);
@@ -111,7 +124,8 @@ class SSORequest{
                                 isValidPrevAssociate=true;
                             }
                         }
-                        else {
+                        else
+                        {
                             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by nil ssoJsonObject.", type: "STRING", indexable: true);
                             Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"nil ssoJsonObject",
                                                                           AnyHashable("associateNumber"):CommonUtils.getCurrentAssociateNum(),
@@ -123,11 +137,13 @@ class SSORequest{
                         }
                     }
                     else if ( ( ssoJsonObject.code == nil ) && !( Int( associateNumber ) == nil ) &&
-                        !( Int( associatePin ) == nil) && ( associateNumber.characters.count == 8 ) &&
-                        ( associatePin.characters.count == 4 ) ) {
+                           !( Int( associatePin ) == nil) && ( associateNumber.characters.count == 8 ) &&
+                            ( associatePin.characters.count == 4 ) )
+                    {
                         CommonUtils.setAuthServiceUnavailableInfo(assocNbr: associateNumber);
                     }
-                    else {
+                    else
+                    {
                         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by other.", type: "STRING", indexable: true);
                         Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"other",
                                                                       AnyHashable("associateNumber"):CommonUtils.getCurrentAssociateNum(),
@@ -144,7 +160,7 @@ class SSORequest{
                     }
                     else
                     {
-                        onCompletion(strData as! String);
+                        onCompletion(strData! as String);
                     }
                 }
             })

@@ -15,3 +15,4 @@
 #include <ifaddrs.h>
 #import "CrashReporter.h"
 #import "Heap.h"
+#import "XMLReader.h"

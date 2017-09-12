@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
               ( ssid == "MST030C" ) ||
               ( ssid == "FDS030AZ" ) ||
               ( ssid == "LAB030A" ) ||
-              //( ssid == "FDS010" ) || // used for QE testing on a dev build only
+//              ( ssid == "FDS010" ) || // used for QE testing on a dev build only
               ( ssid == "MB030A" )
             {
                 return true;
@@ -265,6 +265,72 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
     }
     
+    func verifyAppVersion(version: String)
+    {
+        let currentStringList = Assembly.halVersion().components(separatedBy: ".");
+        let appStringList = version.components(separatedBy: ".");
+        
+        if( appStringList.count == 3 )
+        {
+            let currentMajor = atoi( currentStringList[0] );
+            let currentMinor = atoi( currentStringList[1] );
+            let currentBuild = atoi( currentStringList[2] );
+            let appMajor = atoi( appStringList[0] );
+            let appMinor = atoi( appStringList[1] );
+            let appBuild = atoi( appStringList[2] );
+
+            if(( currentMajor > appMajor ) ||
+               ( currentMajor == appMajor && currentMinor > appMinor ) ||
+               ( currentMajor == appMajor && currentMinor == appMinor && currentBuild >= appBuild ) )
+            {
+                DLog("I'm newer? NICE.\n");
+            }
+            else
+            {
+                if let viewController:ViewController = window!.rootViewController as? ViewController
+                {
+                    let message = "The application is out of date. Tap Update to install the latest version.";
+                    DLog(message);
+                    
+                    // create the alert
+                    let alert = UIAlertController(title: "Update Required", message: message, preferredStyle: UIAlertControllerStyle.alert)
+                    
+                    // add an action (button)
+                    alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { action in
+                        switch action.style
+                        {
+                        case .default:
+                            self.openMstAppStore();
+                        case .cancel:
+                            self.openMstAppStore();
+                        case .destructive:
+                            self.openMstAppStore();
+                        }
+                    }))
+                    
+                    // show the alert
+                    viewController.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    func openMstAppStore()
+    {
+        let url = URL(string: "MacysAppStore://")!;
+        if( UIApplication.shared.canOpenURL(url) )
+        {
+            if #available(iOS 10.0, *)
+            {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil);
+            }
+            else
+            {
+                UIApplication.shared.openURL(url);
+            }
+        }
+    }
+    
     func setSimulatorValues()
     {
         CommonUtils.setLandingPage(value: URL(string: "http://mstore.devops.fds.com/")!);
@@ -280,8 +346,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         CommonUtils.setLogTimeLimit(value: 120);
         CommonUtils.setCertificatePinningEnabled(value: false);
         let esp = ESPRequest();
-        esp.getZipCode();
-    
+        esp.getParms( ["MST"] );
+        //lvl4 isn't yet needed for the simulator but I'll leave this here just in case
+//        might need to add LP4 to the above array
         _ = Locn();
     
         CommonUtils.isPreProd() ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development  1675328291 = production
@@ -412,7 +479,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             
             // if we add anything else to change on the fly it might also need to be added to setSimultorValues()
             let esp = ESPRequest();
-            esp.getZipCode();
+            esp.getParms( ["L4P", "MST"] );
             
             _ = Locn();
         }

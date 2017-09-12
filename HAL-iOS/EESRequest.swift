@@ -69,6 +69,7 @@ class EESRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         }
     }
     
+    //@TODO update this function to use format similar to ESP request because this will malfunction if the response is too large
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data)
     {
 //        let strData = NSString(data: data, encoding: String.Encoding.utf8.rawValue);

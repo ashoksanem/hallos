@@ -238,9 +238,13 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             }
             else if let viewController:ViewController = window!.rootViewController as? ViewController
             {
-                CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
-                let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
-                viewController.loadWebView(url: url!)
+                let currentUrl = ViewController.webView?.url?.absoluteString
+                if (!(currentUrl?.hasSuffix("HAL-iOS.app/sso/index.html") ?? true))
+                {
+                    CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
+                    let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
+                    viewController.loadWebView(url: url!)
+                }
             }
         }
         

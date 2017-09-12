@@ -23,66 +23,82 @@ class LogAnalyticsRequest{
             config.connectionProxyDictionary = proxyDict as? [AnyHashable : Any];
             let session = URLSession(configuration: config);
         
-            var jsonData = JSON(data: data).dictionaryObject
-            //print(jsonData?["headers"])
-            if (!(jsonData==nil) && !(jsonData?["headers"]==nil)) {
-                
-            if let headersDict = jsonData?["headers"] as? [String:String] {
-                for headerkey in headersDict.keys
+            do
+            {
+                var jsonData = try JSON(data: data).dictionaryObject
+                //print(jsonData?["headers"])
+                if (!(jsonData==nil) && !(jsonData?["headers"]==nil))
                 {
-                    request.addValue(headersDict[headerkey]!,forHTTPHeaderField: headerkey)
-                }
-                //request.addValue(headersDict["Content-Type"]!, forHTTPHeaderField: "Content-Type")
-                //request.addValue(headersDict["Accepts"]!, forHTTPHeaderField: "Accepts")
-                //request.addValue(headersDict["RequesterInfo.version"]!, forHTTPHeaderField: "RequesterInfo.version")
-                //request.addValue(headersDict["RequesterInfo.clientId"]!, forHTTPHeaderField: "RequesterInfo.clientId")
-                //request.addValue(headersDict["RequesterInfo.subclientId"]!, forHTTPHeaderField: "RequesterInfo.subclientId")
-                jsonData?.removeValue(forKey: "headers")
-                let finalData = try! JSONSerialization.data(withJSONObject: jsonData, options: [])
+                    if let headersDict = jsonData?["headers"] as? [String:String]
+                    {
+                        for headerkey in headersDict.keys
+                        {
+                            request.addValue(headersDict[headerkey]!,forHTTPHeaderField: headerkey)
+                        }
+                        //request.addValue(headersDict["Content-Type"]!, forHTTPHeaderField: "Content-Type")
+                        //request.addValue(headersDict["Accepts"]!, forHTTPHeaderField: "Accepts")
+                        //request.addValue(headersDict["RequesterInfo.version"]!, forHTTPHeaderField: "RequesterInfo.version")
+                        //request.addValue(headersDict["RequesterInfo.clientId"]!, forHTTPHeaderField: "RequesterInfo.clientId")
+                        //request.addValue(headersDict["RequesterInfo.subclientId"]!, forHTTPHeaderField: "RequesterInfo.subclientId")
+                        jsonData?.removeValue(forKey: "headers")
+                        let finalData=try! JSONSerialization.data(withJSONObject: jsonData, options: [])
                 
-                request.httpBody = finalData;
-            }
-            let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
-                if(error != nil) {
-                    DLog(error.debugDescription)
-                    onCompletion(false)
-                }
-                else
-                {
-                    let resp=response! as? HTTPURLResponse;
+                        request.httpBody=finalData
+                    }
                     
-                    if(resp != nil && resp?.statusCode==200){
-                        do {
-                            let json = JSON(data: data!).dictionaryObject
-                            let reasonCode=json?["reasonCode"] as? String
-                            if (reasonCode != nil) {
-                                if(reasonCode=="0") {
-                                    
-                                    DLog("Sent message through LogAnalyticsRequest.");
-                                    onCompletion(true)
-                                } else {
-                                    onCompletion(false)
-                                }
-                            }
-                        } catch {
-                            
-                            DLog("LogAnalyticsRequest error: " + String( describing: error));
+                    let task = session.dataTask(with: request as URLRequest, completionHandler: {data, response, error -> Void in
+                        if(error != nil)
+                        {
+                            DLog(error.debugDescription)
                             onCompletion(false)
                         }
-                    }
-                    else
-                    {
-                        
-                        DLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
-                        onCompletion(false)
-                    }
-                }})
-                task.resume()
+                        else
+                        {
+                            let resp=response! as? HTTPURLResponse;
+                    
+                            if(resp != nil && resp?.statusCode==200)
+                            {
+                                do
+                                {
+                                    let json = try JSON(data: data!).dictionaryObject
+                                    let reasonCode=json?["reasonCode"] as? String
+                                    if (reasonCode != nil)
+                                    {
+                                        if(reasonCode=="0")
+                                        {
+                                            DLog("Sent message through LogAnalyticsRequest.");
+                                            onCompletion(true);
+                                        }
+                                        else
+                                        {
+                                            onCompletion(false);
+                                        }
+                                    }
+                                }
+                                catch
+                                {
+                                    DLog("LogAnalyticsRequest error: " + String( describing: error));
+                                    onCompletion(false);
+                                }
+                            }
+                            else
+                            {
+                                DLog(String(data: data!, encoding: String.Encoding.utf8) ?? "failed sending data to server");
+                                onCompletion(false);
+                            }
+                        }
+                    })
+                    task.resume()
+                }
+            }
+            catch
+            {
+                onCompletion(false);
             }
         }
         else
         {
-            onCompletion(false)
+            onCompletion(false);
         }
     }
     

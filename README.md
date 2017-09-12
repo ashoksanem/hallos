@@ -12,5 +12,6 @@ CI Pipeline @ http://web-ci.devops.fds.com/jenkins/view/HALiOS/
 - Open `HAL-iOS.xcworkspace` and build
 
 ## If building Hal for the first time on a machine
+Note: If you try to build and get the "No such module: JWT" error then run the following steps.
 - run `sudo gem install cocoapods`
 - run `pod install`

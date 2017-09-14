@@ -166,6 +166,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         //CommonUtils.setIsSSOAuthenticated( value: false );
         //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);
         
+        CommonUtils.setInactivityStartTime();
         if let app = application as? HALApplication
         {
             app.stopNetworkTimer();
@@ -175,11 +176,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             app.stopChargingTimer();
         }
         self.setLineaCharging(val: false);
-        
-       /* if let viewController:ViewController = window!.rootViewController as? ViewController
-        {
-            viewController.loadWebView(url: CommonUtils.getLandingPage() );
-        }*/
         
         LoggingRequest.logData(name: LoggingRequest.metrics_app_shutdown, value: "", type: "STRING", indexable: true);
         LoggingRequest.logStoredData();
@@ -221,20 +217,28 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 //exit(0);
             }
         }
-        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        if( ( Date().timeIntervalSince( CommonUtils.getAutoLogoutStartTime() ) > TimeInterval( CommonUtils.getAutoLogoutTimeinterval() ) ) )
+        
+        if( !CommonUtils.isSSOAuthenticated() ) // check if they need pin re-entry
         {
-            autoLogout();
-        }
-        else
-        {
-            if( !CommonUtils.isSSOAuthenticated() )
+            if( Date().timeIntervalSince( CommonUtils.getInactivityStartTime() ) > TimeInterval( CommonUtils.getInactivityTimeInterval() ) ) // see if they've been inactive for too long
             {
                 if let viewController:ViewController = window!.rootViewController as? ViewController
                 {
                     viewController.loadWebView(url: CommonUtils.getLandingPage() );
                 }
+            }
+            // send to landing page, else just let em go to what's in memory!!!1!!!1!11!!1!!!!
+        }
+        else
+        {
+            if( Date().timeIntervalSince( CommonUtils.getAutoLogoutStartTime() ) > TimeInterval( CommonUtils.getAutoLogoutTimeinterval() ) )
+            {
+                autoLogout();
+            }
+            else if ( Date().timeIntervalSince( CommonUtils.getInactivityStartTime() ) < TimeInterval( CommonUtils.getAuthenticatedInactivityTimeInterval() ) )
+            {
+                // do nothing, they came back before we need to prompt for pin!!!11!!!!!!1
             }
             else if let viewController:ViewController = window!.rootViewController as? ViewController
             {
@@ -244,6 +248,13 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                     CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
                     let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
                     viewController.loadWebView(url: url!)
+                }
+            }
+            else //fallback to landing page
+            {
+                if let viewController:ViewController = window!.rootViewController as? ViewController
+                {
+                    viewController.loadWebView(url: CommonUtils.getLandingPage() );
                 }
             }
         }
@@ -339,6 +350,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     {
         CommonUtils.setLandingPage(value: URL(string: "http://mstore.devops.fds.com/")!);
         CommonUtils.setAutoLogoutTimeinterval(value: 3600);
+        CommonUtils.setAuthenticatedInactivityTimeInterval(60); // tells how long sso will wait before forcing pin re-entry
+        CommonUtils.setInactivityTimeInterval(3600);            // tells how long before the app will return to the landing page on open
         CommonUtils.setDivNum(value: 71);
         CommonUtils.setStoreNum(value: 572);
         SharedContainer.setIsp(value: "fs572asisp01");

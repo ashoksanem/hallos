@@ -43,7 +43,14 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         let config = URLSessionConfiguration.default;
         let session = URLSession(configuration:config, delegate: self, delegateQueue: OperationQueue.main);
         let task = session.dataTask(with: theRequest as URLRequest, completionHandler: {data, response, error -> Void in
-            self.processESPResponse(data!);
+            if(error == nil) {
+                self.processESPResponse(data!);
+            }
+            else {
+                let error = "***An error occurred obtaining a good response from the ESP service***";
+                DLog(error);
+                LoggingRequest.logData(name: LoggingRequest.metrics_error, value: error, type: "STRING", indexable: false);
+            }
         });
         task.resume();
     }
@@ -84,6 +91,16 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
                                 let versionNum = (lvl4Parm["value"] as? NSDictionary)?["text"] as! String;
                                 delegate.verifyAppVersion(version: versionNum);
                             }
+                        }
+                        else if(parmName as! String == "HAL_IOS_INACTIVITY_TIMEOUT")
+                        {
+                            let inactivityTimeout = Int((lvl4Parm["value"] as? NSDictionary)?["text"] as! String);
+                            CommonUtils.setInactivityTimeInterval(inactivityTimeout!);
+                        }
+                        else if(parmName as! String == "HAL_IOS_AUTHENTICATED_INACTIVITY_TIMEOUT")
+                        {
+                            let authenticatedInactivityTimeout = Int((lvl4Parm["value"] as? NSDictionary)?["text"] as! String);
+                            CommonUtils.setAuthenticatedInactivityTimeInterval(authenticatedInactivityTimeout!);
                         }
                     }
                 }

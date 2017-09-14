@@ -110,8 +110,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func viewDidLoad() {
         super.viewDidLoad()
         var url = CommonUtils.getLandingPage();
-        //for debugging for testing
-        //url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; CommonUtils.setLandingPage(value: url);
+//        for debugging for testing
+//        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; CommonUtils.setLandingPage(value: url);
         CommonUtils.setCurrentPage(value: url);
         loadWebView(url: url);
     }

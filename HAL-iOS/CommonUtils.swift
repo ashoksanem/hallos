@@ -14,6 +14,8 @@ import JWT
 class CommonUtils
 {
     static let autoLogout = "autoLogout";
+    static let inactivityTimeout = "inactivityTimeout";
+    static let authenticatedInactivityTimeout = "authenticatedInactivityTimeout";
     static let divNum = "divNumber";
     static let storeNum = "storeNumber";
     static let locnNum = "locnNumber";
@@ -35,6 +37,7 @@ class CommonUtils
     static let webviewLoading = "webviewLoading";
     static let commonLogMetrics = "getCommonLogMetrics";
     static let autoLogoutStartTime = "autoLogoutStartTime";
+    static let inactivityStartTime = "inactivityStartTime";
     static let allowMsr = "allowMsr";
     static let certificatePinningEnabled = "certificatePinningEnabled";
     static let savedPrinterMACAddress = "savedPrinterMACAddress";
@@ -60,6 +63,7 @@ class CommonUtils
         defaults.setValue(false, forKey: certificatePinningEnabled)
         defaults.setValue("", forKey: landingPage);
         defaults.setValue(0, forKey: injectedKeyVersion);
+        defaults.setValue(0, forKey: inactivityStartTime);
         
         var uuid = "";
         
@@ -329,6 +333,43 @@ class CommonUtils
         defaults.set(value, forKey: autoLogout);
     }
     
+    class func getAuthenticatedInactivityTimeInterval() -> Int
+    {
+        let defaults = UserDefaults.standard;
+        
+        if( defaults.integer(forKey: authenticatedInactivityTimeout) == 0)
+        {
+            return 60;
+        }
+        
+        return defaults.integer(forKey: authenticatedInactivityTimeout);
+    }
+    
+    class func setAuthenticatedInactivityTimeInterval(_ value: Int)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: authenticatedInactivityTimeout);
+    }
+    
+    
+    class func getInactivityTimeInterval() -> Int
+    {
+        let defaults = UserDefaults.standard;
+        
+        if( defaults.integer(forKey: inactivityTimeout) == 0)
+        {
+            return 1200;
+        }
+        
+        return defaults.integer(forKey: inactivityTimeout);
+    }
+    
+    class func setInactivityTimeInterval(_ value: Int)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: inactivityTimeout);
+    }
+    
     class func setDivNum(value: Int)
     {
         let defaults = UserDefaults.standard;
@@ -565,6 +606,25 @@ class CommonUtils
         else
         {
             setAutoLogoutStartTime();
+            return Date.init();
+        }
+    }
+    
+    class func setInactivityStartTime()
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(Date.init(), forKey: inactivityStartTime);
+    }
+    
+    class func getInactivityStartTime()-> Date
+    {
+        let defaults = UserDefaults.standard;
+        if let date = defaults.object(forKey: inactivityStartTime) as? Date {
+            return date as Date;
+        }
+        else
+        {
+            setInactivityStartTime();
             return Date.init();
         }
     }

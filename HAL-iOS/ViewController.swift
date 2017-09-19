@@ -202,6 +202,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "enableScanner")
         {
+            CommonUtils.setScannerModeFromWeb(value: true);
             Sled.enableScanner();
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
@@ -559,8 +560,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     func printData(message:WKScriptMessage)
     {
-        
-        if let data = message.body as? NSDictionary {
+        if let data = message.body as? NSDictionary
+        {
             printerData = data;
             let addPrinter = data["addPrinter"] as? Bool ?? false;
             if(addPrinter)
@@ -568,27 +569,29 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 CommonUtils.setPrinterMACAddress(value: "")
                 CommonUtils.setSavedPrinterMACAddress(value: "")
             }   
-                    if((CommonUtils.getSavedPrinterMACAddress()==""))
-                    {
-                        performSegue(withIdentifier: "showPrinter", sender: self);
+            
+            Sled.enableScanner();
+            if((CommonUtils.getSavedPrinterMACAddress()==""))
+            {
+                performSegue(withIdentifier: "showPrinter", sender: self);
+            }
+            else
+            {
+                let printStatus = PrinterViewController.connectAndPrintReceipt(address: CommonUtils.getSavedPrinterMACAddress(),printerData: printerData);
+                if( !(printStatus=="success") )
+                {
+                    let alertController = UIAlertController(title: "", message:
+                    PrinterViewController.getPrinterErrorMessage(status: printStatus), preferredStyle: UIAlertControllerStyle.alert)
+                    let okAction = UIAlertAction(
+                        title: "ok",
+                        style: UIAlertActionStyle.cancel) { (action) in
+                        self.performSegue(withIdentifier: "showPrinter", sender: self);
                     }
-                    else
-                    {
-                        let printStatus = PrinterViewController.connectAndPrintReceipt(address: CommonUtils.getSavedPrinterMACAddress(),printerData: printerData);
-                        if(!(printStatus=="success"))
-                        {
-                            let alertController = UIAlertController(title: "", message:
-                                PrinterViewController.getPrinterErrorMessage(status: printStatus), preferredStyle: UIAlertControllerStyle.alert)
-                            let okAction = UIAlertAction(
-                                title: "ok",
-                                style: UIAlertActionStyle.cancel) { (action) in
-                                    self.performSegue(withIdentifier: "showPrinter", sender: self);
-                            }
-                            alertController.addAction(okAction)
-                            self.present(alertController, animated: true, completion: nil)
-                        }
-                    }
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
                 }
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
               ( ssid == "MST030C" ) ||
               ( ssid == "FDS030AZ" ) ||
               ( ssid == "LAB030A" ) ||
-              //( ssid == "FDS010" ) || // used for QE testing on a dev build only
+//              ( ssid == "FDS010" ) || // used for QE testing on a dev build only
               ( ssid == "MB030A" )
             {
                 return true;

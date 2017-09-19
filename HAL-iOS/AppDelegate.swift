@@ -685,6 +685,11 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         if let printerViewController:PrinterViewController = window!.rootViewController?.presentedViewController as? PrinterViewController
         {
             printerViewController.updateMacAddress(barcode: barcode)
+            
+            if( !CommonUtils.isScannerModeEnabledFromWeb() )
+            {
+                disableScanner();
+            }
         }
         else if let viewController:ViewController = window!.rootViewController as? ViewController        {
             viewController.updateBarcodeData(barcode: barcode)
@@ -696,6 +701,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         //let viewController:ViewController = window!.rootViewController as! ViewController;
         //viewController.connectionState(state)
         
+        DLog("Sled state [" + String(state) + "]");
         updateBattery();
         
         if(state==2)
@@ -846,8 +852,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func enableScanner()
     {
-        CommonUtils.setScannerModeFromWeb(value: true);
-       do{
+        do{
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.ENABLED.rawValue)
             CommonUtils.setScanEnabled(value: true);
         }

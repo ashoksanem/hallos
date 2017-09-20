@@ -51,7 +51,7 @@ class PrinterViewController: UIViewController {
     {
         if(Sled.isConnected())
         {
-            sledBatteryView?.text = Sled.getSledBatteryLevel()+"%🔋";
+            sledBatteryView?.text = Sled.getSledBatteryLevel() + "%🔋";
         }
         else
         {
@@ -69,7 +69,7 @@ class PrinterViewController: UIViewController {
         macAddress.text = barcode;
         CommonUtils.setPrinterMACAddress(value: barcode);
         CommonUtils.setSavedPrinterMACAddress(value: "");
-        printButton.isHidden=false;
+        printButton.isHidden = false;
     }
     
     func displayPrinterAlert()

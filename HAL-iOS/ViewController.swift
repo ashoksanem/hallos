@@ -17,6 +17,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     static var storedJS = [String]();
     var sledBatteryView: UITextView?;
     var printerData:NSDictionary = [:];
+    
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();

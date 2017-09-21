@@ -29,7 +29,7 @@ class LoggingRequest{
     class func makeServerRequest(data: Data, onCompletion: @escaping (_ result: Bool)->Void) {
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
         
-        if let url = NSURL(string: networkReqURL) as? URL {
+        if let url = NSURL(string: networkReqURL) as URL? {
             let request = NSMutableURLRequest(url: url);
             let proxyDict : NSDictionary = [ "HTTPEnable": 0, "HTTPSEnable": 0 ];
             let config = URLSessionConfiguration.default;
@@ -74,7 +74,8 @@ class LoggingRequest{
                         }
                         catch
                         {
-                            DLog(error as! String);
+                            //this error class is different than the one above
+                            DLog("ERROR LoggingRequest. locatlizedDescription [" + error.localizedDescription + "]");
                             onCompletion(false);
                         }
                     }

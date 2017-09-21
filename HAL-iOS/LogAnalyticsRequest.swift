@@ -14,7 +14,7 @@ class LogAnalyticsRequest{
     class func makeServerRequest(data: Data,onCompletion: @escaping (_ result: Bool)->Void) {
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;
         
-        if let url = NSURL(string: networkReqURL) as? URL {
+        if let url = NSURL(string: networkReqURL) as URL? {
             let request = NSMutableURLRequest(url: url);
             let proxyDict : NSDictionary = [ "HTTPEnable": 0, "HTTPSEnable": 0 ];
             let config = URLSessionConfiguration.default;
@@ -41,7 +41,7 @@ class LogAnalyticsRequest{
                         //request.addValue(headersDict["RequesterInfo.clientId"]!, forHTTPHeaderField: "RequesterInfo.clientId")
                         //request.addValue(headersDict["RequesterInfo.subclientId"]!, forHTTPHeaderField: "RequesterInfo.subclientId")
                         jsonData?.removeValue(forKey: "headers")
-                        let finalData=try! JSONSerialization.data(withJSONObject: jsonData, options: [])
+                        let finalData=try! JSONSerialization.data(withJSONObject: jsonData as Any, options: [])
                 
                         request.httpBody=finalData
                     }
@@ -77,7 +77,7 @@ class LogAnalyticsRequest{
                                 }
                                 catch
                                 {
-                                    DLog("LogAnalyticsRequest error: " + String( describing: error));
+                                    DLog("ERROR LogAnalyticsRequest. locatlizedDescription [" + error.localizedDescription + "]");
                                     onCompletion(false);
                                 }
                             }

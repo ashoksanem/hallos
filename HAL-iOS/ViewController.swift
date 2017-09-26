@@ -56,7 +56,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "enableMsr",
                                          "disableMsr",
                                          "getConfigurationParams",
-                                         "captureIncorrectLog"];
+                                         "captureIncorrectLog",
+                                         "isFixedRegister"];
         
         for message in messageHandlers
         {
@@ -410,6 +411,13 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMsrEnabled() ) + " )");
+            }
+        }
+        else if(message.name == "isFixedRegister")
+        {
+            //ios isn't a fixed register....Ever.
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
             }
         }
     }

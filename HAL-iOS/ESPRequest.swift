@@ -80,28 +80,36 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
                 {
                     let lvl4 = ((parmsDictionary?["level_4_parms_list_v5"] as? NSDictionary)?["level_4_parms_list"] as? NSDictionary)?["level_4_parms"] as? [NSDictionary];
                     
-                    for lvl4Parm in lvl4!
+                    if lvl4 != nil
                     {
-                        let parmName = (lvl4Parm["name"] as? NSDictionary)?["text"];
-                        // access any level 4 parm using the syntax: parmName as! String == "PARM_NAME"
-                        if(parmName as! String == "HAL_IOS_CLIENT_VERSION")
+                        for lvl4Parm in lvl4!
                         {
-                            if let delegate = UIApplication.shared.delegate as? AppDelegate
+                            let parmName = (lvl4Parm["name"] as? NSDictionary)?["text"];
+                            // access any level 4 parm using the syntax: parmName as! String == "PARM_NAME"
+                            if(parmName as! String == "HAL_IOS_CLIENT_VERSION")
                             {
-                                let versionNum = (lvl4Parm["value"] as? NSDictionary)?["text"] as! String;
-                                delegate.verifyAppVersion(version: versionNum);
+                                if let delegate = UIApplication.shared.delegate as? AppDelegate
+                                {
+                                    let versionNum = (lvl4Parm["value"] as? NSDictionary)?["text"] as! String;
+                                    delegate.verifyAppVersion(version: versionNum);
+                                }
+                            }
+                            else if(parmName as! String == "HAL_IOS_INACTIVITY_TIMEOUT")
+                            {
+                                let inactivityTimeout = Int((lvl4Parm["value"] as? NSDictionary)?["text"] as! String);
+                                CommonUtils.setInactivityTimeInterval(inactivityTimeout!);
+                            }
+                            else if(parmName as! String == "HAL_IOS_AUTHENTICATED_INACTIVITY_TIMEOUT")
+                            {
+                                let authenticatedInactivityTimeout = Int((lvl4Parm["value"] as? NSDictionary)?["text"] as! String);
+                                CommonUtils.setAuthenticatedInactivityTimeInterval(authenticatedInactivityTimeout!);
                             }
                         }
-                        else if(parmName as! String == "HAL_IOS_INACTIVITY_TIMEOUT")
-                        {
-                            let inactivityTimeout = Int((lvl4Parm["value"] as? NSDictionary)?["text"] as! String);
-                            CommonUtils.setInactivityTimeInterval(inactivityTimeout!);
-                        }
-                        else if(parmName as! String == "HAL_IOS_AUTHENTICATED_INACTIVITY_TIMEOUT")
-                        {
-                            let authenticatedInactivityTimeout = Int((lvl4Parm["value"] as? NSDictionary)?["text"] as! String);
-                            CommonUtils.setAuthenticatedInactivityTimeInterval(authenticatedInactivityTimeout!);
-                        }
+                    }
+                    else {
+                        let error = "***An error occurred parsing the ESP service response***";
+                        DLog(error);
+                        LoggingRequest.logData(name: LoggingRequest.metrics_error, value: error, type: "STRING", indexable: false);
                     }
                 }
                 else

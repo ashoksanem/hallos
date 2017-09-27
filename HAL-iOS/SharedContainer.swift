@@ -73,6 +73,34 @@ class SharedContainer
         return [:]
     }
     
+    class func getStoredDataCount(dataCollectKey: String) -> String {
+        var msgCount = 0;
+        if dataCollectKey == "unspecified" { //return all stored msgs
+            if let storedDataInfo = self.getData(key: self.webDataKey)[self.webDataKey] as? [NSDictionary] {
+                msgCount = storedDataInfo.count;
+            }
+        }
+        else if dataCollectKey == "dc" { //regular Data Collect
+            if var storedDataInfo = self.getData(key: self.webDataKey)[self.webDataKey] as? [NSDictionary] {
+                for entry in storedDataInfo {
+                    if entry["dataCollectType"] as? String == "dc" || entry["dataCollectType"] as? String == "DC" {
+                        msgCount += 1;
+                    }
+                }
+            }
+        }
+        else { //covers all non-financial types of DC
+            if let storedDataInfo = self.getData(key: self.webDataKey)[self.webDataKey] as? [NSDictionary] {
+                for entry in storedDataInfo {
+                    if entry["dataCollectType"] as? String != "dc" && entry["dataCollectType"] as? String != "DC" {
+                        msgCount += 1;
+                    }
+                }
+            }
+        }
+        return String(msgCount);
+    }
+    
     class func getIsp() -> String {
         if KeychainWrapper.standard.hasValue(forKey: "isp") {
             if(!(KeychainWrapper.standard.string(forKey: "isp")==nil)) {

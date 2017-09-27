@@ -74,8 +74,6 @@ class DataForwarder {
         }
     }
     
-    
-    
     class func sendData(data: NSDictionary, isOfflineData:Bool) -> Bool
     {
         let method = data["method"] as? String ?? ""
@@ -132,21 +130,20 @@ class DataForwarder {
         return response;
     }
     
-    
-    class func forwardData(data: NSDictionary)
-    {
-        DispatchQueue.global(qos: .background).async {
-            let handle = data["handle"] as? String ?? ""
-            if( sendData(data:data,isOfflineData: false) ) {
-                ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + handle + "\", false, true )");
-            }
-            else
-            {
-                ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + handle + "\", true, false )");
-            }
-        }
-    }
-    
+//    no longer used but i will leave here in case someone wants to send any data without queueing it up
+//    class func forwardData(data: NSDictionary)
+//    {
+//        DispatchQueue.global(qos: .background).async {
+//            let handle = data["handle"] as? String ?? ""
+//            if( sendData(data:data,isOfflineData: false) ) {
+//                ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + handle + "\", false, true )");
+//            }
+//            else
+//            {
+//                ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + handle + "\", true, false )");
+//            }
+//        }
+//    }
     
     class func forwardStoredData()
     {
@@ -159,7 +156,7 @@ class DataForwarder {
                if dataStored != nil {
                     for data in dataStored!
                     {
-                       sendData(data:data, isOfflineData: true)
+                       _ = sendData(data:data, isOfflineData: true)
                     }
                 }
             }

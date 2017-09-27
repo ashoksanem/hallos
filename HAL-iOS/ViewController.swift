@@ -351,7 +351,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "initHal")
         {
-            if let id = message.body as? String {
+            if let id = message.body as? String
+            {
                 let data = [
                     "hostInformation":[
                         "isp": SharedContainer.getIsp(),
@@ -371,7 +372,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "getConfigurationParams")
         {
-            if let id = message.body as? String {
+            if let id = message.body as? String
+            {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.getConfigurationParams() ) + " )");
             }
         }
@@ -381,14 +383,24 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "forwardMsg")
         {
-            if let data = message.body as? NSDictionary {
-                if let id = data["handle"] as? String {
+            if let data = message.body as? NSDictionary
+            {
+                if let id = data["handle"] as? String
+                {
                     
                     if let messageBody:NSDictionary = message.body as? NSDictionary
                     {
                         let mutDict: NSMutableDictionary = messageBody.mutableCopy() as! NSMutableDictionary;
-                        if( JSONSerialization.isValidJSONObject( mutDict ) ) {
-                            DataForwarder.forwardData(data: mutDict as NSDictionary);
+                        if( JSONSerialization.isValidJSONObject( mutDict ) )
+                        {
+                            if let storedDataInfo = SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [NSDictionary]
+                            {
+                                var storedDataArray =  storedDataInfo
+                                storedDataArray.append(mutDict);
+                                SharedContainer.saveWebData(data: storedDataArray);
+                            }
+                            DataForwarder.forwardStoredData();
+                            ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + id + "\", false, true )");
                         }
                         else
                         {

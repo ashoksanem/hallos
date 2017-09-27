@@ -57,7 +57,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "disableMsr",
                                          "getConfigurationParams",
                                          "captureIncorrectLog",
-                                         "isFixedRegister"];
+                                         "isFixedRegister",
+                                         "queryMsgs"];
         
         for message in messageHandlers
         {
@@ -232,6 +233,16 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                     else
                     {
                         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", true, false )");
+                    }
+                }
+            }
+        }
+        else if(message.name == "queryMsgs")
+        {
+            if let data = message.body as? NSDictionary {
+                if let id = data["handle"] as? String {
+                    if let key = data["key"] as? String {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + SharedContainer.getStoredDataCount(dataCollectKey: key.lowercased()) + " )");
                     }
                 }
             }

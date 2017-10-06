@@ -744,6 +744,10 @@ class CommonUtils
     class func isPreProd() -> Bool
     {
         let iHateYouApple = SharedContainer.getIsp();
+        if( iHateYouApple.count < 2 )
+        {
+            return false;
+        }
         return ( iHateYouApple.substring(to: iHateYouApple.index(iHateYouApple.startIndex, offsetBy: 2)) == "fs" ? true : false );
     }
     

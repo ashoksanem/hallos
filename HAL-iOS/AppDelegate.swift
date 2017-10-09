@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
         
         //app.startNetworkTimer()
-        detectDevice();
+        //detectDevice(); commenting out per IPC
         
         NotificationCenter.default.addObserver( self,
                                                 selector: #selector(readMDMValues),
@@ -182,6 +182,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         LogAnalyticsRequest.logStoredData();
         DataForwarder.forwardStoredData();
         
+        //The following lines are suggestions of IPC
+        sled = DTDevices.sharedDevice() as? DTDevices;
+        sled?.disconnect();
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

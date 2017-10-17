@@ -206,7 +206,7 @@ class CommonUtils
             "iss": "com.macys.associateauthenticate",
             "Version": "1.0.0",
             "Logon": associatenumber,
-            "offline":true
+            "isOffline":true
             ] as [String : Any];
         let rootCaPath = Bundle.main.path(forResource: "Certificates/upos_AssocAuthOffline", ofType: "p12");
         let privateKeySecretData = NSData.init(contentsOfFile: rootCaPath!)

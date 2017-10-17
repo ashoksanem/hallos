@@ -181,6 +181,7 @@ class CommonUtils
             "associateNbr": assocNbr,
             "managerLevel": 1
             ],
+            "isOffline": true,
             "jwt":getOfflineJwt(associatenumber: assocNbr)]as [String : Any];
         
         LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Using offline associate info.", type: "STRING", indexable: true);

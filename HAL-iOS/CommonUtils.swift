@@ -745,7 +745,7 @@ class CommonUtils
     class func isPreProd() -> Bool
     {
         let iHateYouApple = SharedContainer.getIsp();
-        if( iHateYouApple.characters.count < 2 )
+        if( iHateYouApple.count < 2 )
         {
             return false;
         }

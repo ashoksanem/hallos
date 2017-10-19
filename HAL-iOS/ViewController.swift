@@ -399,6 +399,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                 storedDataArray.append(mutDict);
                                 SharedContainer.saveWebData(data: storedDataArray);
                             }
+                            else
+                            {
+                                var storedDataArray =  [NSDictionary]()
+                                storedDataArray.append(mutDict);
+                                SharedContainer.saveWebData(data: storedDataArray);
+                            }
                             DataForwarder.forwardStoredData();
                             ViewController.webView?.evaluateJavaScript("window.onMessageReceive(\"" + id + "\", false, true )");
                         }

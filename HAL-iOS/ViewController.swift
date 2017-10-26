@@ -625,7 +625,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                         style: UIAlertActionStyle.cancel) { (action) in
                         self.performSegue(withIdentifier: "showPrinter", sender: self);
                     }
-                    alertController.addAction(okAction)
+                    let skipAction = UIAlertAction(
+                        title: "Skip Printing",
+                        style: UIAlertActionStyle.destructive) { (action) in
+                    }
+                    alertController.addAction(okAction);
+                    alertController.addAction(skipAction);
                     self.present(alertController, animated: true, completion: nil)
                 }
             }

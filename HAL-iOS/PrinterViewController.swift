@@ -102,10 +102,16 @@ class PrinterViewController: UIViewController {
             let alertController = UIAlertController(title: "", message:
                 PrinterViewController.getPrinterErrorMessage(status: printStatus), preferredStyle: UIAlertControllerStyle.alert);
             let okAction = UIAlertAction(
-                title: "ok",
+                title: "Try Again",
                 style: UIAlertActionStyle.cancel) { (action) in
             }
+            let skipAction = UIAlertAction(
+                title: "Skip Printing",
+                style: UIAlertActionStyle.destructive) { (action) in self.dismiss(animated: true, completion: nil)
+                }
+            
             alertController.addAction(okAction);
+            alertController.addAction(skipAction);
             self.present(alertController, animated: true, completion: nil);
         }
         else

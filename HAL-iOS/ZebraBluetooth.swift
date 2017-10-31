@@ -148,9 +148,7 @@ class ZebraBluetooth
                     _ = strlcpy(&rawData, "~HQES", 6 );
                     try sled.btWrite(&rawData, length: 5)
                     var resp = [CUnsignedChar](repeating:0x00, count:144)
-                    //let abc = sled.btRead(&resp, length: Int32(resp.count), timeout: 1,error:nil)
-                    
-                    let abc = try sled.btRead(&resp, length: 144, timeout: 5, error:nil);
+                    let abc = sled.btRead(&resp, length: Int32(resp.count), timeout: 1,error:nil)
                     
                     returnCode = String(describing: resp)
                     DLog(abc.description)

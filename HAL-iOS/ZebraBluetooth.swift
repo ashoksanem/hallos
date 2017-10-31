@@ -14,11 +14,13 @@ class ZebraBluetooth
      var isCPCL = false;
      var printerState = 0;
      var address="";
+    
     init(address: String) {
         self.address = address as String;
         printerState = 0;
         receiptWidth = 615;
     }
+    
     class func connectToDevice(address:String) -> Bool {
         
         let delegate = UIApplication.shared.delegate as? AppDelegate;
@@ -111,9 +113,11 @@ class ZebraBluetooth
     }
     func getCurrentStatus() -> String {
         
-        if( isCPCL ){
-        return getCurrentStatusCPCL();
-        } else
+        if( isCPCL )
+        {
+            return getCurrentStatusCPCL();
+        }
+        else
         {
             var rc = "PrinterUnknown";
             rc = getCurrentStatusZPL();
@@ -140,11 +144,12 @@ class ZebraBluetooth
             {
                 do{
                     var rawData=[CChar]();
-                    memset(&rawData, 0, 5);
-                    _ = strlcpy(&rawData, "~HQES", 5 );
+                    memset(&rawData, 0, 6);
+                    _ = strlcpy(&rawData, "~HQES", 6 );
                     try sled.btWrite(&rawData, length: 5)
                     var resp = [CUnsignedChar](repeating:0x00, count:144)
                     let abc = sled.btRead(&resp, length: Int32(resp.count), timeout: 1,error:nil)
+                    
                     returnCode = String(describing: resp)
                     DLog(abc.description)
                     if( resp[70] == 0x31 )
@@ -157,7 +162,7 @@ class ZebraBluetooth
                         else if( (a&8).hashValue==8 ){
                             returnCode = "LowBattery";}
                         else{
-                        returnCode = "Busy";
+                            returnCode = "Busy";
                         }
                     }
                     else

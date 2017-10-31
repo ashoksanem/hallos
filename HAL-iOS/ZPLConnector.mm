@@ -14,17 +14,18 @@
 
 -(bool)printStuff:(NSString *)printData withSled:(DTDevices *)sled isCPCL:(bool)isCPCL
 {
-    
     std::string bar = std::string([printData UTF8String]);
-    if(isCPCL){
-    printStuffCPCL( bar,  sled );
+    if(isCPCL)
+    {
+        printStuffCPCL( bar,  sled );
     }
     else
     {
-     printStuffZPL( bar,  sled );   
+        printStuffZPL( bar,  sled );
     }
     return true;
 }
+
 void printLineCPCL(std::string dat, std::stringstream &printerBuffer, std::string fontNumber, int fontSize, int lineOffset)
 {
     int strikeCount = (fontNumber == "5" && fontSize == 0 ? 0 : 1);
@@ -40,31 +41,40 @@ void printLineCPCL(std::string dat, std::stringstream &printerBuffer, std::strin
         printerBuffer <<  dat << "\r\n";
     }
 }
+
 int addLineCPCL(std::string dat, std::stringstream &printerBuffer, std::string fontNumber, int fontSize, int lineOffset,int thisLineHeight)
 {
     int charlimit=37;
+
     if( fontSize >0 )
     {
         charlimit=22;
     }
-    while(dat.length()>charlimit){
+    
+    while(dat.length()>charlimit)
+    {
         std::string newline = dat.substr(0, charlimit);
         int lastspaceoffset= newline.find_last_of(" ");
+    
         if(!(lastspaceoffset>0))
         {
             lastspaceoffset=charlimit;
         }
+        
         std::string thisline = dat.substr(0, lastspaceoffset);
         printLineCPCL(thisline, printerBuffer, fontNumber,fontSize,lineOffset);
         dat=dat.substr(lastspaceoffset,dat.length()-1);
         lineOffset=lineOffset+thisLineHeight;
     }
+    
     if(dat.length()>0)
     {
         printLineCPCL(dat, printerBuffer, fontNumber,fontSize,lineOffset);
     }
+    
     return lineOffset;
 }
+
 bool printStuffCPCL( std::string printData ,DTDevices* sled  )
 {
     int cutPosition = 0;
@@ -103,6 +113,7 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
         
         thisLine =  trimEndingSpaces( thisLine );
         int thisLineHeight = fontHeight;
+
         while (thisLine.length() > 0)
         {
             int xmlStart = thisLine.find('<');
@@ -258,11 +269,10 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
         }
         lineOffset += thisLineHeight;
     }
-       printerBuffer << "PRINT\r\n";
+    printerBuffer << "PRINT\r\n";
     
     while(receiptLengths.size() > 0)
     {
-        
         cutPosition = printerBuffer.str().find(cutString);
         
         currentReceipt << "! UTILITIES\r\nPW " << 40 * fontWidth << "\r\nPRINT\r\n! 0 200 200 " << (int)receiptLengths.front() << " 1\r\n" << printerBuffer.str().substr( 0, cutPosition + cutString.length() );
@@ -280,7 +290,6 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
         int receipt_pos = 0;
         
         NSError *error = nil;
-
         
         while( size_left > 0 )
         {
@@ -333,6 +342,7 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
     
     return true;
 }
+
 void printLineZPL(std::string dat, std::stringstream &printerBuffer, std::string fontNumber, bool isBold, bool isCenter, int lineOffset)
 {
     int strikeCount = 2;
@@ -359,6 +369,7 @@ void printLineZPL(std::string dat, std::stringstream &printerBuffer, std::string
         printerBuffer << "^FH\\^FD" << dat << "^FS";
     }
 }
+
 int addLineZPL(std::string dat, std::stringstream &printerBuffer, std::string fontNumber, bool isBold, bool isCenter, int lineOffset,int thisLineHeight)
 {
     int charlimit=22;
@@ -366,24 +377,30 @@ int addLineZPL(std::string dat, std::stringstream &printerBuffer, std::string fo
     {
         charlimit=37;
     }
-    while(dat.length()>charlimit){
+
+    while(dat.length()>charlimit)
+    {
         std::string newline = dat.substr(0, charlimit);
         int lastspaceoffset= newline.find_last_of(" ");
+        
         if(!(lastspaceoffset>0))
         {
             lastspaceoffset=charlimit;
         }
+        
         std::string thisline = dat.substr(0, lastspaceoffset);
         printLineZPL(thisline, printerBuffer, fontNumber,isBold,isCenter,lineOffset);
         dat=dat.substr(lastspaceoffset,dat.length()-1);
         lineOffset=lineOffset+thisLineHeight;
     }
+    
     if(dat.length()>0)
     {
         printLineZPL(dat, printerBuffer, fontNumber,isBold,isCenter,lineOffset);
     }
     return lineOffset;
 }
+
 bool printStuffZPL( std::string printData, DTDevices* sled )
 {
     //this should be an int function to return different values based on the return values from the printer, lid open, no paper, etc
@@ -408,14 +425,13 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
     
     // Need to change & to amp
     
-    
     pData << printData;
     
     while (pData.str().length() > 0)
     {
         int newLinesLoc = pData.str().find('\n');
-        
         std::string thisLine = (newLinesLoc >= 0 ? pData.str().substr(0, newLinesLoc) : pData.str() );
+        
         if (newLinesLoc == 0)
         {
             lineOffset += normalHeight;
@@ -428,10 +444,10 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
             pData.str( "" );
         
         int index = thisLine.find_last_not_of(" ");
-        thisLine= ( index == std::string::npos )
-        ? std::string("") : thisLine.substr( 0, index + 1 );
+        thisLine= ( index == std::string::npos ) ? std::string("") : thisLine.substr( 0, index + 1 );
         thisLine =  trimEndingSpaces( thisLine );
         int thisLineHeight = fontHeight; //changed to default to current height instead of 0
+        
         while (thisLine.length() > 0)
         {
             int xmlStart = thisLine.find('<');
@@ -464,6 +480,7 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
                     else
                         newString += oldString[i];
                 }
+                
                 std::string tagName = newString;
                 if (tagName == "center/")
                 {
@@ -607,12 +624,8 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
         lineOffset += thisLineHeight;
     }
     
-    
-    
-    
     while(receiptLengths.size() > 0)
     {
-        
         cutPosition = printerBuffer.str().find(cutString);
         
         currentReceipt << "^XA~PS^MMC,N^PW" << receiptWidth << "^LL" << (int)receiptLengths.front() <<"^LS0" << printerBuffer.str().substr( 0, cutPosition + cutString.length() );
@@ -621,14 +634,9 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
         receiptLengths.pop_front();
         int size = currentReceipt.str().length();
         int max_send_size = 3000;
-        
         int size_left = size;
         int receipt_pos = 0;
-        
-        
-        
         NSError *error = nil;
-        
         
         while( size_left > 0 )
         {
@@ -670,9 +678,9 @@ bool printStuffZPL( std::string printData, DTDevices* sled )
 std::string trimEndingSpaces( const std::string str )
 {
     int index = str.find_last_not_of(" ");
-    return ( index == std::string::npos )
-    ? std::string("") : str.substr( 0, index + 1 );
+    return ( index == std::string::npos ) ? std::string("") : str.substr( 0, index + 1 );
 }
+
 std::string formatLowerCase( const std::string str )
 {
     std::string newString = "";

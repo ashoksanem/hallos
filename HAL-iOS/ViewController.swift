@@ -621,7 +621,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                     let alertController = UIAlertController(title: "", message:
                     PrinterViewController.getPrinterErrorMessage(status: printStatus), preferredStyle: UIAlertControllerStyle.alert)
                     let okAction = UIAlertAction(
-                        title: "ok",
+                        title: "Try Again",
                         style: UIAlertActionStyle.cancel) { (action) in
                         self.performSegue(withIdentifier: "showPrinter", sender: self);
                     }

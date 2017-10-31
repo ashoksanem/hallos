@@ -201,19 +201,22 @@ class ZebraBluetooth
                     {
                         let x=resp[0].hashValue;
                         
-                         if( (x&1).hashValue==1 ){
+                        returnCode = "Available";
+                        
+                        if( x==17 ){
                             returnCode = "Busy";
-                            if( (x&2).hashValue==2 ){
-                                returnCode = "NoPaper";}
-                            if( (x&4).hashValue==4 ){
-                                returnCode = "LatchOpen";}
-                            if( (x&8).hashValue==8 ){
-                                returnCode = "LowBattery";}
-                         }
-                        else{
-                            returnCode = "Available";
-                            CommonUtils.setCPCLPrinter(value: true)
                         }
+                        if( x==18 ){
+                            returnCode = "NoPaper";
+                        }
+                        if( x==20 ){
+                            returnCode = "LatchOpen";
+                        }
+                        if( x==24 ){
+                            returnCode = "LowBattery";
+                        }
+                        
+                        CommonUtils.setCPCLPrinter(value: true)
                     }
                     else{
                         returnCode = "NoResponse";

@@ -656,7 +656,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func barcodeNSData(_ barcode: Data!, type: Int32) {
         var translatedBarcode : String = "";
-        if( barcode[0] < 0x32 )
+        if( barcode[0] < 0x20 )
         {
             translatedBarcode = String(format:"0x%02X", barcode[0]);
             //yes, this technically exceeds the bounds of the array but it's an open range so it should be okay

@@ -57,13 +57,20 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 do {
                     let report = try PLCrashReport.init(data: crashData);
                     
-                    let humanReadableReport: String = PLCrashReportTextFormatter.stringValue(for: report, with: PLCrashReportTextFormatiOS);
-                    
-                    //convert to NSData type
-                    let crashReport = humanReadableReport.data(using: String.Encoding.utf8);
-                   
-                    //log the base64 encoded stack trace
-                    LoggingRequest.logError(name: LoggingRequest.metrics_app_crash, value: (crashReport?.base64EncodedString())!, type: "STRING", indexable: false);
+                    if var humanReadableReport = PLCrashReportTextFormatter.stringValue(for: report, with: PLCrashReportTextFormatiOS)
+                    {
+                        //max char count will be 15k, leading to a 20k max base64 encoded message after we truncate
+                        if(humanReadableReport.count > 15000)
+                        {
+                            humanReadableReport = humanReadableReport.substring(to: humanReadableReport.index(humanReadableReport.startIndex, offsetBy: 15000));
+                        }
+                        
+                        //convert to NSData type
+                        let crashReport = humanReadableReport.data(using: String.Encoding.utf8);
+                        
+                        //log the base64 encoded stack trace
+                        LoggingRequest.logError(name: LoggingRequest.metrics_app_crash, value: (crashReport?.base64EncodedString())!, type: "STRING", indexable: false);
+                    }
                 }
                 catch {
                     DLog("Could not parse crash report.");

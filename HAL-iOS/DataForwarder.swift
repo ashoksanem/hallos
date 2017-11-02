@@ -119,6 +119,12 @@ class DataForwarder {
                     SharedContainer.saveWebData(data: storedDataInfo);
                 }
             }
+//            else { //uncomment this else block if you have messed up stored messages attempting to be forwarded. don't merge to master
+//                if var storedDataInfo = SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [NSDictionary] {
+//                    storedDataInfo.removeAll()
+//                    SharedContainer.saveWebData(data: storedDataInfo);
+//                }
+//            }
             sem.signal();
         }
         _ = sem.wait(timeout: DispatchTime.distantFuture);

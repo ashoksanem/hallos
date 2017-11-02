@@ -314,8 +314,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             //showAlert(title: "PRINTER STATUS",message:zb.getCurrentStatus())
         }
         else if(message.name == "crashapp"){
-            let exc = NSException.init(name: NSExceptionName(rawValue: "exception"), reason: "custom crash", userInfo: nil)
-            exc.raise()
+            let exc = NSException.init(name: NSExceptionName(rawValue: "exception"), reason: "custom crash", userInfo: nil);
+            exc.raise();
         }
         else if(message.name == "printdata"){
             printData(message: message)
@@ -451,23 +451,28 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
     }
     
-    func loadWebView(url: URL){
-        let req = NSURLRequest(url:url);
-        let req2 = req as URLRequest;
-        
-        ViewController.webView!.navigationDelegate = self;
-        ViewController.webView!.load(req2);
+    func loadWebView(url: URL)
+    {
+            let req = NSURLRequest(url: url);
+            let req2 = req as URLRequest;
+            
+            ViewController.webView!.navigationDelegate = self;
+            ViewController.webView!.load(req2);
     }
     
-    func loadPreviousWebPage(){
+    func loadPreviousWebPage()
+    {
         loadWebView(url: CommonUtils.getCurrentPage())
     }
     
     //Function to authenticate user based on the associate number and associatePin
-    func authenticateUser(associateNumber: String,associatePin: String){
-        SSORequest.makeSSORequest(associateNumber: associateNumber, associatePin: associatePin){
+    func authenticateUser(associateNumber: String,associatePin: String)
+    {
+        SSORequest.makeSSORequest(associateNumber: associateNumber, associatePin: associatePin)
+        {
             (result: String) in
-            if(CommonUtils.isSSOAuthenticated()){
+            if(CommonUtils.isSSOAuthenticated())
+            {
                 if(result=="prevAuth")
                 {
                     self.loadPreviousWebPage();
@@ -477,7 +482,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                     self.loadWebView(url: CommonUtils.getLandingPage());
                 }
             }
-            else {
+            else
+            {
                 self.evaluateJavaScript(javascriptMessage: "switchErrorState(true);"); // it's okay this one is hard coded
             }
         }

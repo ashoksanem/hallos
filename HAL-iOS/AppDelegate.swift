@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         //detectDevice(); commenting out per IPC
         
         NotificationCenter.default.addObserver( self,
-                                                selector: #selector(readMDMValues),
+                                                selector: #selector(readConfigurationParams),
                                                 name: UserDefaults.didChangeNotification,
                                                 object: nil);
         
@@ -144,6 +144,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         
         return false;
     }
+    
+    func readConfigurationParams() {
+        ConfigurationManager.readMDMValues();
+    }
 
     func currentSSIDs() -> [String] {
         guard let interfaceNames = CNCopySupportedInterfaces() as? [String] else {
@@ -228,46 +232,67 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             }
         }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        
-        if( !CommonUtils.isSSOAuthenticated() ) // check if they need pin re-entry
-        {
-            if( Date().timeIntervalSince( CommonUtils.getInactivityStartTime() ) > TimeInterval( CommonUtils.getInactivityTimeInterval() ) ) // see if they've been inactive for too long
+        let esp = ESPRequest();
+        esp.getParms( ["L4P", "MST"] ) {
+            (result: String) in
+            
+            if(result == "error")
             {
-                if let viewController:ViewController = window!.rootViewController as? ViewController
+                CommonUtils.setLandingPage(Bundle.main.url(forResource: "default", withExtension:"html")!);
+                if let viewController:ViewController = self.window!.rootViewController as? ViewController
                 {
                     viewController.loadWebView(url: CommonUtils.getLandingPage() );
                 }
             }
-            // send to landing page, else just let em go to what's in memory!!!1!!!1!11!!1!!!!
-        }
-        else
-        {
-            if( Date().timeIntervalSince( CommonUtils.getAutoLogoutStartTime() ) > TimeInterval( CommonUtils.getAutoLogoutTimeinterval() ) )
+            else if( !CommonUtils.isSSOAuthenticated() ) // check if they need pin re-entry
             {
-                autoLogout();
-            }
-            else if ( Date().timeIntervalSince( CommonUtils.getInactivityStartTime() ) < TimeInterval( CommonUtils.getAuthenticatedInactivityTimeInterval() ) )
-            {
-                // do nothing, they came back before we need to prompt for pin!!!11!!!!!!1
-            }
-            else if let viewController:ViewController = window!.rootViewController as? ViewController
-            {
-                let currentUrl = ViewController.webView?.url?.absoluteString
-                if (!(currentUrl?.hasSuffix("HAL-iOS.app/sso/index.html") ?? true))
+                _ = Locn();
+                CommonUtils.setCommonLogMetrics();
+                if( Date().timeIntervalSince( CommonUtils.getInactivityStartTime() ) > TimeInterval( CommonUtils.getInactivityTimeInterval() ) ) // see if they've been inactive for too long
                 {
-                    CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
-                    let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
-                    viewController.loadWebView(url: url!)
+                    if let viewController:ViewController = self.window!.rootViewController as? ViewController
+                    {
+                        viewController.loadWebView(url: CommonUtils.getLandingPage() );
+                    }
+                }
+                else
+                {
+                    //if this code is hit, we're attempting to load the last page in memory
+                    let currentPage = CommonUtils.getCurrentPage().absoluteString;
+                    let defaultPage = Bundle.main.url(forResource: "default", withExtension: "html")?.absoluteString;
+                    if(currentPage == defaultPage)
+                    {
+                        if let viewController:ViewController = self.window!.rootViewController as? ViewController
+                        {
+                            viewController.loadWebView(url: CommonUtils.getLandingPage() );
+                        }
+                    }
                 }
             }
-            else //fallback to landing page
+            else
             {
-                if let viewController:ViewController = window!.rootViewController as? ViewController
+                _ = Locn();
+                CommonUtils.setCommonLogMetrics();
+                if( Date().timeIntervalSince( CommonUtils.getAutoLogoutStartTime() ) > TimeInterval( CommonUtils.getAutoLogoutTimeinterval() ) )
                 {
-                    viewController.loadWebView(url: CommonUtils.getLandingPage() );
+                    self.autoLogout();
+                }
+                else if ( Date().timeIntervalSince( CommonUtils.getInactivityStartTime() ) < TimeInterval( CommonUtils.getAuthenticatedInactivityTimeInterval() ) )
+                {
+                    // do nothing, they came back before we need to prompt for pin!!!11!!!!!!1
+                }
+                else if let viewController:ViewController = self.window!.rootViewController as? ViewController
+                {
+                    let currentUrl = ViewController.webView?.url?.absoluteString
+                    if (!(currentUrl?.hasSuffix("HAL-iOS.app/sso/index.html") ?? true))
+                    {
+                        CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
+                        let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
+                        viewController.loadWebView(url: url!)
+                    }
                 }
             }
-        }
+        };
         
         LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
         LoggingRequest.logStoredData();
@@ -276,10 +301,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         detectDevice();
         
         NotificationCenter.default.addObserver( self,
-                                                selector: #selector(readMDMValues),
+                                                selector: #selector(readConfigurationParams),
                                                 name: UserDefaults.didChangeNotification,
                                                 object: nil);
-        
+
         if let app = application as? HALApplication
         {
             app.startNetworkTimer();
@@ -358,164 +383,39 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func setSimulatorValues()
     {
-        CommonUtils.setLandingPage(value: URL(string: "http://mstore.devops.fds.com/")!);
-        CommonUtils.setAutoLogoutTimeinterval(value: 3600);
+        CommonUtils.setLandingPage(URL(string: "http://mstore.devops.fds.com/")!);
+        CommonUtils.setAutoLogoutTimeinterval(1200);
         CommonUtils.setAuthenticatedInactivityTimeInterval(60); // tells how long sso will wait before forcing pin re-entry
         CommonUtils.setInactivityTimeInterval(3600);            // tells how long before the app will return to the landing page on open
         CommonUtils.setDivNum(value: 71);
         CommonUtils.setStoreNum(value: 572);
         SharedContainer.setIsp(value: "fs572asisp01");
-        SharedContainer.setSsp(value: "fs008asssp01");
+        SharedContainer.setSsp(value: "fs024asssp01");
         SharedContainer.setCloud(value: "junk");
-        CommonUtils.setLogRetryCount(value: 10);
-        CommonUtils.setLogCountLimit(value: 5);
-        CommonUtils.setLogRetryFrequency(value: 120);
-        CommonUtils.setLogTimeLimit(value: 120);
+        CommonUtils.setLogRetryCount(10);
+        CommonUtils.setLogCountLimit(5);
+        CommonUtils.setLogRetryFrequency(120);
+        CommonUtils.setLogTimeLimit(120);
         CommonUtils.setCertificatePinningEnabled(value: false);
         let esp = ESPRequest();
-        esp.getParms( ["MST"] );
+        esp.getParms( ["MST"] ) {
+            (result: String) in
+            if(result == "error")
+            {
+                DLog("ERROR returning parms: " + result);
+            }
+            else
+            {
+                _ = Locn();
+                CommonUtils.setCommonLogMetrics();
+            }
+        };
         //lvl4 isn't yet needed for the simulator but I'll leave this here just in case
 //        might need to add LP4 to the above array
-        _ = Locn();
     
         CommonUtils.isPreProd() ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development  1675328291 = production
         //Heap.enableVisualizer();  // let's keep this here for future research but don't want it turned on now.
-        
-        CommonUtils.setCommonLogMetrics();
     }
-    
-    func readMDMValues()
-    { //addLineZPL()
-        NotificationCenter.default.removeObserver(self, name: UserDefaults.didChangeNotification, object: nil);
-        let userDefaults = UserDefaults.standard;
-        if let answersSaved = userDefaults.dictionary(forKey: CommonUtils.managedAppConfig)
-        {
-            if let val = answersSaved["landingPage"]
-            {
-                if let _val = val as? String {
-                    let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
-                    let url = URL(string: trimmed)!;
-                    CommonUtils.setLandingPage(value: url);
-                    
-                    DLog("Setting landingPage to: " + trimmed);
-                }
-            }
-            
-            if let val = answersSaved["autoLogout"]
-            {
-                if(!((val as? Int)==nil))
-                {
-                    CommonUtils.setAutoLogoutTimeinterval(value: val as! Int);
-                    let val = "Setting autoLogout to: " + String(describing:val);
-                    
-                    DLog( val );
-
-                    //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
-                }
-            }
-            
-            if let val = answersSaved["divNum"]
-            {
-                if(!((val as? Int)==nil))
-                {
-                    CommonUtils.setDivNum(value: val as! Int);
-                    
-                    DLog("Setting divNum to: " + String(describing:val));
-                }
-            }
-            
-            if let val = answersSaved["storeNum"]
-            {
-                if(!((val as? Int)==nil))
-                {
-                    CommonUtils.setStoreNum(value: val as! Int);
-                    
-                    DLog("Setting storeNum to: " + String(describing:val));
-                }
-            }
-            
-            if let val = answersSaved["isp"]
-            {
-                if let _val = val as? String {
-                    let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
-                    SharedContainer.setIsp(value: trimmed);
-                    
-                    DLog("Setting isp to: " + trimmed);
-                }
-            }
-            
-            if let val = answersSaved["ssp"]
-            {
-                if let _val = val as? String {
-                    let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
-                    SharedContainer.setSsp(value: trimmed);
-                    
-                    DLog("Setting ssp to: " + trimmed);
-                }
-            }
-            
-            if let val = answersSaved["cloud"]
-            {
-                if let _val = val as? String {
-                    let trimmed = _val.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines);
-                    SharedContainer.setCloud(value: trimmed);
-                    
-                    DLog("Setting cloud to: " + trimmed);
-                }
-            }
-            
-            if let val = answersSaved["LogRetryCount"]
-            {
-                if(!((val as? Int)==nil))
-                {
-                    CommonUtils.setLogRetryCount(value: val as! Int);
-                }
-            }
-            
-            if let val = answersSaved["LogStorageCountLimit"]
-            {
-                if(!((val as? Int)==nil))
-                {
-                    CommonUtils.setLogCountLimit(value: val as! Int);
-                }
-            }
-            
-            if let val = answersSaved["LogRetryFrequency"]
-            {
-                if(!((val as? Double)==nil))
-                {
-                    CommonUtils.setLogRetryFrequency(value: val as! Double);
-                }
-            }
-            
-            if let val = answersSaved["LogStorageTimeLimit"]
-            {
-                if(!((val as? Double)==nil))
-                {
-                    CommonUtils.setLogTimeLimit(value: val as! Double);
-                }
-            }
-            
-            if let val = answersSaved["CertificatePinning"]
-            {
-                if(!((val as? Bool)==nil))
-                {
-                    CommonUtils.setCertificatePinningEnabled(value: val as! Bool);
-                }
-            }
-            
-            // if we add anything else to change on the fly it might also need to be added to setSimultorValues()
-            let esp = ESPRequest();
-            esp.getParms( ["L4P", "MST"] );
-            
-            _ = Locn();
-        }
-
-        CommonUtils.isPreProd() ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development  1675328291 = production
-        //Heap.enableVisualizer();  // let's keep this here for future research but don't want it turned on now.
-        
-        CommonUtils.setCommonLogMetrics();
-    };
     
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

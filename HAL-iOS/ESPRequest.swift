@@ -10,7 +10,7 @@ import Foundation
 class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSessionTaskDelegate, XMLParserDelegate {
     var parms = [String]();
     
-    func getParms( _ parms:Array<String> )
+    func getParms( _ parms:Array<String>, onCompletion: @escaping (_ result: String) -> Void )
     {
         let espVersion = "5";
         
@@ -31,7 +31,7 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         let urlString = "https://" + SharedContainer.getIsp() + "/parm/v" + espVersion;
         let url = NSURL(string: urlString);
         let theRequest = NSMutableURLRequest(url: url! as URL);
-        let msgLength = String(soapMessage.characters.count);
+        let msgLength = String(soapMessage.count);
         
         theRequest.addValue("text/xml; charset=utf-8", forHTTPHeaderField: "Content-Type");
         theRequest.addValue(msgLength, forHTTPHeaderField: "Content-Length");
@@ -44,87 +44,25 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         let session = URLSession(configuration:config, delegate: self, delegateQueue: OperationQueue.main);
         let task = session.dataTask(with: theRequest as URLRequest, completionHandler: {data, response, error -> Void in
             if(error == nil) {
-                self.processESPResponse(data!);
+                if ( ConfigurationManager.readESPValues(parms: self.parms, data!) )
+                {
+                    onCompletion("");
+                }
+                else
+                {
+                    onCompletion("error");
+                }
+                self.parms.removeAll();
             }
             else {
                 let error = "***An error occurred obtaining a good response from the ESP service***";
                 DLog(error);
                 LoggingRequest.logData(name: LoggingRequest.metrics_error, value: error, type: "STRING", indexable: false);
+                self.parms.removeAll();
+                onCompletion("error");
             }
         });
         task.resume();
-    }
-    
-    
-    func processESPResponse( _ data:Data )
-    {
-//        response from esp in readable format
-//        let readableESPResponse = String(data: data, encoding: String.Encoding.utf8);
-//        DLog(readableESPResponse ?? "");
-        do{
-            let jsonDictionary = try XMLReader.dictionary(forXMLData: data);
-            var jsonData = JSON(jsonDictionary).dictionaryObject;
-            let parmsDictionary = ((((jsonData?["soap:Envelope"] as? NSDictionary)?["soap:Body"] as? NSDictionary)?["ns2:getRequestedParametersResponse"] as? NSDictionary)?["parameterResponse"] as? NSDictionary)?["data"] as? NSDictionary;
-            
-            for parm in self.parms
-            {
-                if(parm == "MST")
-                {
-                    let masterStoreParms = parmsDictionary?["master_store_v5"] as? NSDictionary;
-                    
-                    // access any master store parm using the syntax: (masterStoreParms?["parm_name"] as? NSDictionary)?["text"]
-                    let zipCode = (masterStoreParms?["zip"] as? NSDictionary)?["text"];
-                    CommonUtils.setZipCode(value: zipCode as? String ?? "");
-                }
-                else if(parm == "L4P")
-                {
-                    let lvl4 = ((parmsDictionary?["level_4_parms_list_v5"] as? NSDictionary)?["level_4_parms_list"] as? NSDictionary)?["level_4_parms"] as? [NSDictionary];
-                    
-                    if lvl4 != nil
-                    {
-                        for lvl4Parm in lvl4!
-                        {
-                            let parmName = (lvl4Parm["name"] as? NSDictionary)?["text"];
-                            // access any level 4 parm using the syntax: parmName as! String == "PARM_NAME"
-                            if(parmName as! String == "HAL_IOS_CLIENT_VERSION")
-                            {
-                                if let delegate = UIApplication.shared.delegate as? AppDelegate
-                                {
-                                    let versionNum = (lvl4Parm["value"] as? NSDictionary)?["text"] as! String;
-                                    delegate.verifyAppVersion(version: versionNum);
-                                }
-                            }
-                            else if(parmName as! String == "HAL_IOS_INACTIVITY_TIMEOUT")
-                            {
-                                let inactivityTimeout = Int((lvl4Parm["value"] as? NSDictionary)?["text"] as! String);
-                                CommonUtils.setInactivityTimeInterval(inactivityTimeout!);
-                            }
-                            else if(parmName as! String == "HAL_IOS_AUTHENTICATED_INACTIVITY_TIMEOUT")
-                            {
-                                let authenticatedInactivityTimeout = Int((lvl4Parm["value"] as? NSDictionary)?["text"] as! String);
-                                CommonUtils.setAuthenticatedInactivityTimeInterval(authenticatedInactivityTimeout!);
-                            }
-                        }
-                    }
-                    else {
-                        let error = "***An error occurred parsing the ESP service response***";
-                        DLog(error);
-                        LoggingRequest.logData(name: LoggingRequest.metrics_error, value: error, type: "STRING", indexable: false);
-                    }
-                }
-                else
-                {
-                    DLog("The parm handler hasn't been written for this parm yet");
-                }
-            }
-        }
-        catch
-        {
-            let error = "***An error occurred parsing the ESP service response***";
-            DLog(error);
-            LoggingRequest.logData(name: LoggingRequest.metrics_error, value: error, type: "STRING", indexable: false);
-        }
-        self.parms.removeAll();
     }
     
     func getWiFiAddress() -> String?

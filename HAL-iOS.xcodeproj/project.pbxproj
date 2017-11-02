@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3CE9CDD4177270193D3E01FC /* Pods_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773E4FA0ADDCA8BAB2127144 /* Pods_HAL_iOSTests.framework */; };
+		4843DD781FA8ED7E00FBAAE6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */; };
 		48BB01291F66CF470019E881 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 48BB01281F66CF470019E881 /* XMLReader.m */; };
 		60DD681E17AFC28325F14795 /* Pods_HAL_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4658339D45E6C5D2372B8C23 /* Pods_HAL_iOS.framework */; };
 		8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538E5651EF1809700F82E1D /* DataForwarder.swift */; };
@@ -94,6 +95,7 @@
 		297B3FE047E2A5FB3A6B68A4 /* Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		391A86DF28C49D0A99093243 /* Pods-HAL-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSTests/Pods-HAL-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		4658339D45E6C5D2372B8C23 /* Pods_HAL_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		48BB01271F66CF470019E881 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		48BB01281F66CF470019E881 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
 		58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -312,6 +314,7 @@
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
 				85DDE7071EEB171500700EFC /* Certificates */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
+				4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */,
 				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				BC25B5141F27B8BE0028E81F /* default.html */,
 				858988BC1EAE208A00AF2024 /* DLog.swift */,
@@ -742,6 +745,7 @@
 				BC534AB71DFF179200C65BAC /* ZebraBluetooth.swift in Sources */,
 				CC41EF301DB54D6B0059C7C5 /* Error.swift in Sources */,
 				CC2585691D9AF71C00294506 /* HAL_iOS.xcdatamodeld in Sources */,
+				4843DD781FA8ED7E00FBAAE6 /* ConfigurationManager.swift in Sources */,
 				BC534AB81DFF179200C65BAC /* ZPLConnector.mm in Sources */,
 				48BB01291F66CF470019E881 /* XMLReader.m in Sources */,
 				CC837B561E08341B00A14ECB /* KeychainItemAccessibility.swift in Sources */,

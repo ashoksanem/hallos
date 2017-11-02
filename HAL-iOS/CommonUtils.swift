@@ -226,22 +226,31 @@ class CommonUtils
         }
     }
     
-    class func setLandingPage(value: URL) -> Void {
+    class func setLandingPage(_ value: URL) -> Void {
         let defaults = UserDefaults.standard;
-        defaults.set(value, forKey: landingPage);
+        if (value.absoluteString == Bundle.main.url(forResource: "default", withExtension:"html")?.absoluteString || UIApplication.shared.canOpenURL(value) )
+        { //if the url is a valid web url or if we're attempting to load a webpage from the file system, this passes
+            defaults.set(value, forKey: landingPage);
+        }
+        else
+        {
+            defaults.set(Bundle.main.url(forResource: "default", withExtension:"html")!, forKey: landingPage);
+            let errorMsg = "The application attempted to open a URL and failed. URL: " + value.absoluteString;
+            LoggingRequest.logError(name: LoggingRequest.metrics_error, value: errorMsg, type: "STRING", indexable: true);
+        }
     }
     
     class func getLandingPage() -> URL
     {
         let defaults = UserDefaults.standard;
-        
-        if( !( defaults.url(forKey: landingPage) == nil) )
+
+        if let landPage = defaults.url(forKey: landingPage)
         {
-            return defaults.url(forKey: landingPage)!;
+            return landPage;
         }
         
         //I don't think we should get here but incase we somehow have the app but it's not configured though AW we need to go someplace
-        return Bundle.main.url(forResource: "default", withExtension:"html")!
+        return Bundle.main.url(forResource: "default", withExtension:"html")!;
     }
     
     class func setCurrentPage(value: URL) -> Void
@@ -271,9 +280,9 @@ class CommonUtils
     class func getSSOData() -> [String:Any]
     {
         let defaults = UserDefaults.standard
-        if(!((defaults.value(forKey: ssoAssociateInfo) as? [String:Any]) == nil))
+        if let ssoData = defaults.value(forKey: ssoAssociateInfo) as? [String:Any]
         {
-            return defaults.value(forKey: ssoAssociateInfo) as! [String:Any];
+            return ssoData;
         }
 
         return [:];
@@ -282,9 +291,9 @@ class CommonUtils
     class func getSSOTimestamp() -> Date?
     {
         let defaults = UserDefaults.standard
-        if(!((defaults.value(forKey: ssoAssociateTimestamp) as? Date) == nil))
+        if let ssoTimestamp = defaults.value(forKey: ssoAssociateTimestamp) as? Date
         {
-            return defaults.value(forKey: ssoAssociateTimestamp) as? Date;
+            return ssoTimestamp;
         }
         
         return nil;
@@ -319,16 +328,15 @@ class CommonUtils
     class func getAutoLogoutTimeinterval() -> Int
     {
         let defaults = UserDefaults.standard;
-        
         if( defaults.integer(forKey: autoLogout) == 0)
         {
             return 1200;
         }
-
+        
         return defaults.integer(forKey: autoLogout);
     }
     
-    class func setAutoLogoutTimeinterval(value: Int)
+    class func setAutoLogoutTimeinterval(_ value: Int)
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: autoLogout);
@@ -359,7 +367,7 @@ class CommonUtils
         
         if( defaults.integer(forKey: inactivityTimeout) == 0)
         {
-            return 1200;
+            return 3600;
         }
         
         return defaults.integer(forKey: inactivityTimeout);
@@ -401,14 +409,23 @@ class CommonUtils
      
         while (UserDefaults.standard.value(forKey: zipCode) == nil && count < 5) {
             let esp = ESPRequest();
-            esp.getParms( ["MST"] );
+            esp.getParms( ["MST"] ) {
+                (result: String) in
+                if(result == "error")
+                {
+                    DLog("ERROR returning parms: " + result);
+                }
+                else
+                {
+                    _ = Locn();
+                }
+            };
             count = count + 1;
         }
         
         if let zip = UserDefaults.standard.value(forKey: zipCode) as? String {
             return String(format: "%05d",Int(zip)!);
         }
-        
         
         return "";
     }
@@ -515,15 +532,15 @@ class CommonUtils
     class func getLogCountLimit() -> Int
     {
         let defaults = UserDefaults.standard;
-        if( defaults.integer(forKey: "LogCountLimit")==0)
+        if( defaults.integer(forKey: "LogCountLimit") == 0)
         {
-            return 5000;
+            return 500;
         }
         
         return defaults.integer(forKey: "LogCountLimit");
     }
     
-    class func setLogCountLimit(value: Int)
+    class func setLogCountLimit(_ value: Int)
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: "LogCountLimit");
@@ -532,35 +549,35 @@ class CommonUtils
     class func getLogTimeLimit() -> Double
     {
         let defaults = UserDefaults.standard;
-        if( defaults.double(forKey: "LogTimeLimit")==0)
+        if( defaults.double(forKey: "LogTimeLimit") == 0)
         {
-            return 10800;
+            return 1200;
         }
         
         return defaults.double(forKey: "LogTimeLimit");
     }
     
-    class func setLogTimeLimit(value: Double)
+    class func setLogTimeLimit(_ value: Double)
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: "LogTimeLimit");
     }
     
-    class func getLogRetryCount() -> Int
-    {
-        let defaults = UserDefaults.standard;
-        if( defaults.integer(forKey: "LogRetryCount")==0)
-        {
-            return 25;
-        }
-        
-        return defaults.integer(forKey: "LogRetryCount");
-    }
-    
-    class func setLogRetryCount(value: Int)
+    class func setLogRetryCount(_ value: Int)
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: "LogRetryCount");
+    }
+    
+    class func getLogRetryCount() -> Int
+    {
+        let defaults = UserDefaults.standard;
+        if( defaults.integer(forKey: "LogRetryCount") == 0)
+        {
+            return 10;
+        }
+        
+        return defaults.integer(forKey: "LogRetryCount");
     }
     
     class func getLogRetryFrequency() -> Double
@@ -568,13 +585,13 @@ class CommonUtils
         let defaults = UserDefaults.standard;
         if( defaults.double(forKey: "LogRetryFrequency") == 0)
         {
-            return 30;
+            return 120;
         }
         
         return defaults.double(forKey: "LogRetryFrequency");
     }
     
-    class func setLogRetryFrequency(value: Double)
+    class func setLogRetryFrequency(_ value: Double)
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: "LogRetryFrequency");
@@ -633,7 +650,7 @@ class CommonUtils
     class func getCommonLogMetrics() -> [[String:Any]]
     {
         let defaults = UserDefaults.standard;
-        if(defaults.array(forKey: commonLogMetrics)==nil)
+        if(defaults.array(forKey: commonLogMetrics) == nil)
         {
             setCommonLogMetrics();
         }
@@ -656,7 +673,7 @@ class CommonUtils
         commonMetricsArray.append(metricJson(name: "DeviceOSVersion", value: UIDevice.current.systemVersion, type: "STRING", indexable: true))
         var uuidData = JSON.parse(getDeviceId()).dictionary;
         
-        if (!(uuidData==nil) && !(uuidData?["deviceId"]==nil)) {
+        if (!(uuidData == nil) && !(uuidData?["deviceId"] == nil)) {
             commonMetricsArray.append(metricJson(name: "DeviceUUID", value: (uuidData?["deviceId"]?.description)!, type: "STRING", indexable: true))
         }
         
@@ -736,7 +753,7 @@ class CommonUtils
         let defaults = UserDefaults.standard
         if let macAddress = defaults.string(forKey: savedPrinterMACAddress)
         {
-            return macAddress
+            return macAddress;
         }
         
         return "";

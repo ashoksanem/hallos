@@ -81,9 +81,9 @@ class SharedContainer
             }
         }
         else if dataCollectKey == "dc" { //regular Data Collect
-            if var storedDataInfo = self.getData(key: self.webDataKey)[self.webDataKey] as? [NSDictionary] {
+            if let storedDataInfo = self.getData(key: self.webDataKey)[self.webDataKey] as? [NSDictionary] {
                 for entry in storedDataInfo {
-                    if entry["dataCollectType"] as? String == "dc" || entry["dataCollectType"] as? String == "DC" {
+                    if (entry["dataCollectType"] as? String)?.lowercased() == "dc" {
                         msgCount += 1;
                     }
                 }
@@ -92,7 +92,7 @@ class SharedContainer
         else { //covers all non-financial types of DC
             if let storedDataInfo = self.getData(key: self.webDataKey)[self.webDataKey] as? [NSDictionary] {
                 for entry in storedDataInfo {
-                    if entry["dataCollectType"] as? String != "dc" && entry["dataCollectType"] as? String != "DC" {
+                    if (entry["dataCollectType"] as? String)?.lowercased() != "dc" {
                         msgCount += 1;
                     }
                 }
@@ -108,7 +108,7 @@ class SharedContainer
             }
         }
 
-        return "";
+        return "ISP01";
     }
     
     class func getSsp() -> String {
@@ -117,7 +117,7 @@ class SharedContainer
                 return KeychainWrapper.standard.string(forKey: "ssp")!
             }
         }
-        return "";
+        return "SSP";
     }
     
     class func getCloud() -> String {
@@ -132,14 +132,14 @@ class SharedContainer
     }
     
     class func setIsp(value: String) -> Void {
-       KeychainWrapper.standard.set(value, forKey: "isp")
+        KeychainWrapper.standard.set(value, forKey: "isp");
     }
     
     class func setSsp(value: String) -> Void {
-        KeychainWrapper.standard.set(value, forKey: "ssp")
+        KeychainWrapper.standard.set(value, forKey: "ssp");
     }
     
     class func setCloud(value: String) -> Void {
-        KeychainWrapper.standard.set(value, forKey: "cloud")
+        KeychainWrapper.standard.set(value, forKey: "cloud");
     }
 }

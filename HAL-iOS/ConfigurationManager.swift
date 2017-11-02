@@ -54,7 +54,7 @@ class ConfigurationManager : NSObject {
                     
                     if let divNum = Int(getMstParm("div_num"))
                     {
-                        CommonUtils.setStoreNum(value: divNum);
+                        CommonUtils.setDivNum(value: divNum);
                     }
                     else
                     {

@@ -124,7 +124,16 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         DLog("Website calling: " + message.name);
         
         if(message.name == "launchSSOPage") {
-            CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
+            var returnBackUrl = (ViewController.webView?.url)!;
+            if let messageBody = message.body as? NSDictionary
+            {
+                if let redirectUrl = URL(string:messageBody["redirectURL"] as? String ?? "")
+                {
+                    returnBackUrl = redirectUrl;
+                    CommonUtils.setSSORedirectURL(value: true);
+                }
+            }
+            CommonUtils.setCurrentPage(value: returnBackUrl);
             let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
             loadWebView(url: url!)
         }
@@ -473,7 +482,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             (result: String) in
             if(CommonUtils.isSSOAuthenticated())
             {
-                if(result=="prevAuth")
+                if((result=="prevAuth") || CommonUtils.hasSSORedirectURL())
                 {
                     self.loadPreviousWebPage();
                 }
@@ -481,6 +490,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 {
                     self.loadWebView(url: CommonUtils.getLandingPage());
                 }
+                CommonUtils.setSSORedirectURL(value: false);
             }
             else
             {

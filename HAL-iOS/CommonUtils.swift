@@ -43,6 +43,7 @@ class CommonUtils
     static let savedPrinterMACAddress = "savedPrinterMACAddress";
     static let injectedKeyVersion = "injectedKeyVersion";
     static let mSRModeFromWeb = "msrModeFromWeb";
+    static let ssoRedirectURL = "ssoRedirectURL";
     
     class func setUpUserDefaults() -> Void
     {
@@ -779,6 +780,18 @@ class CommonUtils
     {
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: mSRModeFromWeb);
+    }
+    
+    class func hasSSORedirectURL() -> Bool
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: ssoRedirectURL);
+    }
+    
+    class func setSSORedirectURL(value: Bool)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: ssoRedirectURL);
     }
     
     

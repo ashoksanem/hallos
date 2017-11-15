@@ -207,29 +207,42 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         {
             if let viewController:ViewController = window!.rootViewController as? ViewController
             {
-                let jail = "The network settings on this device are not correct. Remove the device from the sales floor immediately and open a ticket.";
+                var jail = "";
+                var failedSSIDLaunches = CommonUtils.getFailedSSIDLaunchAttempts();
+                failedSSIDLaunches += 1;
+                if(failedSSIDLaunches < 3)
+                {
+                    jail = "This application cannot run on this network. Connect to a valid selling network and try again.";
+                    CommonUtils.setFailedSSIDLaunchAttempts(failedSSIDLaunches);
+                }
+                else
+                {
+                    jail = "This application cannot run on this network. Remove this device from the selling floor immediately and open a ticket.";
+                }
             
                 // create the alert
-                let alert = UIAlertController(title: "Network Error", message: jail, preferredStyle: UIAlertControllerStyle.alert)
+                let alertController = UIAlertController(title: "Network Error", message: jail, preferredStyle: UIAlertControllerStyle.alert);
             
                 // add an action (button)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { action in
                     switch action.style
                     {
                         case .default:
-                            exit(0);
+                            UIApplication.shared.openURL(URL(string:"App-Prefs:root=WIFI")!); //open settings app on WIFI screen
                         case .cancel:
                             exit(0);
                         case .destructive:
                             exit(0);
                     }
-                }))
+                }));
             
                 // show the alert
-                viewController.present(alert, animated: true, completion: nil)
-            
-                //exit(0);
+                viewController.present(alertController, animated: true, completion: nil);
             }
+        }
+        else
+        {
+            CommonUtils.setFailedSSIDLaunchAttempts(0);
         }
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         let esp = ESPRequest();
@@ -239,6 +252,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             if(result == "error")
             {
                 CommonUtils.setLandingPage(Bundle.main.url(forResource: "default", withExtension:"html")!);
+                CommonUtils.setCurrentPage(value: Bundle.main.url(forResource: "default", withExtension:"html")!);
                 if let viewController:ViewController = self.window!.rootViewController as? ViewController
                 {
                     viewController.loadWebView(url: CommonUtils.getLandingPage() );

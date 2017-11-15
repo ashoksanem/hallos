@@ -44,6 +44,7 @@ class CommonUtils
     static let injectedKeyVersion = "injectedKeyVersion";
     static let mSRModeFromWeb = "msrModeFromWeb";
     static let ssoRedirectURL = "ssoRedirectURL";
+    static let failedSSIDLaunchAttempts = "failedSSIDLaunchAttempts";
     
     class func setUpUserDefaults() -> Void
     {
@@ -65,6 +66,7 @@ class CommonUtils
         defaults.setValue("", forKey: landingPage);
         defaults.setValue(0, forKey: injectedKeyVersion);
         defaults.setValue(0, forKey: inactivityStartTime);
+        defaults.setValue(0, forKey: failedSSIDLaunchAttempts);
         
         var uuid = "";
         
@@ -794,6 +796,16 @@ class CommonUtils
         defaults.set(value, forKey: ssoRedirectURL);
     }
     
+    class func getFailedSSIDLaunchAttempts() -> Int
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.integer(forKey: failedSSIDLaunchAttempts);
+    }
     
+    class func setFailedSSIDLaunchAttempts(_ value: Int)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: failedSSIDLaunchAttempts);
+    }
 
 }

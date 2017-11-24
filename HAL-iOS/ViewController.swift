@@ -58,7 +58,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "getConfigurationParams",
                                          "captureIncorrectLog",
                                          "isFixedRegister",
-                                         "queryMsgs"];
+                                         "queryMsgs",
+                                         "getCRUInfo"];
         
         for message in messageHandlers
         {
@@ -454,6 +455,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "isFixedRegister")
         {
             //ios isn't a fixed register....Ever.
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+            }
+        }
+        else if(message.name == "getCRUInfo")
+        {
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
             }

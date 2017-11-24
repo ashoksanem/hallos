@@ -59,7 +59,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "captureIncorrectLog",
                                          "isFixedRegister",
                                          "queryMsgs",
-                                         "getCruInfo"];
+                                         "getCRUInfo"];
         
         for message in messageHandlers
         {
@@ -459,7 +459,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
             }
         }
-        else if(message.name == "getCruInfo")
+        else if(message.name == "getCRUInfo")
         {
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");

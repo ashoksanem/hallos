@@ -179,13 +179,14 @@ class CommonUtils
     
     class func setAuthServiceUnavailableInfo(assocNbr: String) -> Void {
         let authMessage = [
-            "associateInfo":[
-            "associateName": " ",
-            "associateNbr": assocNbr,
-            "managerLevel": 1
-            ],
-            "isOffline": true,
-            "jwt":getOfflineJwt(associatenumber: assocNbr)]as [String : Any];
+                "associateInfo": [
+                    "associateName": " ",
+                    "associateNbr": assocNbr,
+                    "managerLevel": 1,
+                    "isOffline": 1
+                ],
+                "jwt": getOfflineJwt(associatenumber: assocNbr)
+            ] as [String : Any];
         
         LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Using offline associate info.", type: "STRING", indexable: true);
         

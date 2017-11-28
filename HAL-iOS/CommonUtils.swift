@@ -183,7 +183,7 @@ class CommonUtils
                     "associateName": " ",
                     "associateNbr": assocNbr,
                     "managerLevel": 1,
-                    "isOffline": 1
+                    "isOffline": true
                 ],
                 "jwt": getOfflineJwt(associatenumber: assocNbr)
             ] as [String : Any];

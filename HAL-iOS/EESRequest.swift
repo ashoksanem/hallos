@@ -40,7 +40,7 @@ class EESRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         theRequest.httpMethod = "POST";
         theRequest.httpBody = reqMessage.data(using: String.Encoding.utf8, allowLossyConversion: false);
         
-        //DLog( "EES Request: " + String(data: theRequest.httpBody!, encoding: .utf8)! );
+//        DLog( "EES Request: " + String(data: theRequest.httpBody!, encoding: .utf8)! );
         
         let config = URLSessionConfiguration.default;
         let session = URLSession(configuration:config, delegate: self, delegateQueue: OperationQueue.main);
@@ -64,7 +64,6 @@ class EESRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         if( currentElementName == "Active-Key" )
         {
             //DLog( "Daily AES key: " + string );
-            //Encryption.shared.setDailyAesKey( key: string.data(using: .utf8 )! );
             Encryption.shared.setDailyAesKey( key: string );
         }
     }

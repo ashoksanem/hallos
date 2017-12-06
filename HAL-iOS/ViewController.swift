@@ -77,10 +77,13 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
          configuration: config
          )
          self.view = self.webView!*/
+        
         ViewController.webView = WKWebView(
             frame: (CGRect(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height-20)),
             configuration: config
         );
+        
+//        ViewController.webView?.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil); observer for the change of the progress of a GET request
         
         sledBatteryView = UITextView(frame: CGRect(x: ((self.view.bounds.width/2) - 100), y: -4, width: 80, height: 20));
         sledBatteryView?.textAlignment = NSTextAlignment.center;
@@ -96,17 +99,25 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         
         switch keyPath {
             case "loading": // new:1 or 0
-                if let val = change[.newKey] as? Bool {
-                    if val {
+                if let val = change[.newKey] as? Bool
+                {
+                    if( val )
+                    {
                         
                         DLog("Starting webview loading.")
                         CommonUtils.setWebviewLoading(value: true);
-                    } else {
+                    } else
+                    {
                         
                         DLog("Stopping webview loading.")
                         CommonUtils.setWebviewLoading(value: false);
                     }
                 }
+//            case "estimatedProgress": // to have ui implemented with a future story, see UIProgressView @ https://developer.apple.com/documentation/uikit/uiprogressview
+//                if let val = change[.newKey] as? Double
+//                {
+//                    DLog("progress " + String(val)); outputs a double from 0.0 to 1.0 indicating how far along the get request to a web page is
+//                }
             default:break;
         }
     }

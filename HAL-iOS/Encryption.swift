@@ -35,6 +35,10 @@ class Encryption: NSObject
         dailyAesKey = GenericEncryption.decrypt( key );
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
             delegate.injectMsr();
+            let start = dailyAesKey?.startIndex;
+            let end = dailyAesKey?.endIndex;
+            dailyAesKey?.resetBytes(in: start!..<end!);
+            dailyAesKey = nil; //remove the aes key from memory once it's in the sled or if it fails to add it to the sled
         }
     }
     

@@ -98,14 +98,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Could not enable crash reporter.", type: "STRING", indexable: true);
         }
         
-        //_ = [][0];
-
-        let concurrentQueue = DispatchQueue(label: "encryptionQueue", attributes: .concurrent)
-        concurrentQueue.sync {
-            GenericEncryption.rsaInit();
-            let ees = EESRequest();
-            ees.getDailyAESKey();
-        }
+        //_ = [][0]; force an app crash to test the crash reporter/crash logger
 
         return true;
     }
@@ -306,6 +299,16 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                     }
                 }
             }
+            
+            if( Encryption.shared.getDailyAesKeyVersion() == -1 ) //if we have a default AES key, call EES to get a real one, should only run on initial launch
+            {
+                let concurrentQueue = DispatchQueue(label: "encryptionQueue", attributes: .concurrent)
+                concurrentQueue.sync {
+                    GenericEncryption.rsaInit();
+                    EESRequest().getDailyAESKey();
+                }
+            }
+
         };
         
         LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
@@ -970,7 +973,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                             
                             if( loadKeyId(keyID: KEY_EH_AES256_ENCRYPTION1, keyData: key, keyVersion: keyVersion, kekData: newKekData ) )
                             {
-                                CommonUtils.setInjectedKeyVersion(value: keyVersion )
+                                CommonUtils.setInjectedKeyVersion( value: keyVersion );
                                 break;
                             }
                         }
@@ -989,7 +992,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                         let message = "This device does not have the required security key. Please remove device from sales floor immediately and open a ticket.";
                         
                         // create the alert
-                        let alert = UIAlertController(title: "No Security Key", message: message, preferredStyle: UIAlertControllerStyle.alert)
+                        let alert = UIAlertController(title: "No Security Key", message: message, preferredStyle: UIAlertControllerStyle.alert);
                         
                         // add an action (button)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
@@ -1002,10 +1005,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                             case .destructive:
                                 exit(0);
                             }
-                        }))
+                        }));
                         
                         // show the alert
-                        viewController.present(alert, animated: true, completion: nil)
+                        viewController.present(alert, animated: true, completion: nil);
                     }
                 }
             }

@@ -45,6 +45,7 @@ class CommonUtils
     static let mSRModeFromWeb = "msrModeFromWeb";
     static let ssoRedirectURL = "ssoRedirectURL";
     static let failedSSIDLaunchAttempts = "failedSSIDLaunchAttempts";
+    static let lastTimeParmsWereRetrieved = "lastTimeParmsWereRetrieved";
     
     class func setUpUserDefaults() -> Void
     {
@@ -67,12 +68,32 @@ class CommonUtils
         defaults.setValue(0, forKey: injectedKeyVersion);
         defaults.setValue(0, forKey: inactivityStartTime);
         defaults.setValue(0, forKey: failedSSIDLaunchAttempts);
+        defaults.setValue(0, forKey: lastTimeParmsWereRetrieved);
         
         var uuid = "";
         
         if !(KeychainWrapper.standard.hasValue(forKey: deviceId)){
             uuid = UUID().uuidString;
             KeychainWrapper.standard.set(["deviceId":uuid] as NSCoding, forKey: deviceId);
+        }
+    }
+    
+    class func setLastTimeParmsWereRetrieved()
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(Date.init(), forKey: lastTimeParmsWereRetrieved);
+    }
+    
+    class func getLastTimeParmsWereRetrieved() -> Date
+    {
+        let defaults = UserDefaults.standard;
+        if let date = defaults.object(forKey: lastTimeParmsWereRetrieved) as? Date {
+            return date as Date;
+        }
+        else
+        {
+            setLastTimeParmsWereRetrieved();
+            return Date.distantPast;
         }
     }
     

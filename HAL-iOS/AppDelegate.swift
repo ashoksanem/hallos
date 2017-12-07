@@ -299,11 +299,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                     }
                 }
             }
-            
+
+            //occurs even if parms returns an error, but won't run until after parms function has returned
             if( Encryption.shared.getDailyAesKeyVersion() == -1 ) //if we have a default AES key, call EES to get a real one, should only run on initial launch
             {
                 let concurrentQueue = DispatchQueue(label: "encryptionQueue", attributes: .concurrent)
-                concurrentQueue.sync {
+                concurrentQueue.async {
                     GenericEncryption.rsaInit();
                     EESRequest().getDailyAESKey();
                 }

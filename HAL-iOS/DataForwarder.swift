@@ -160,13 +160,15 @@ class DataForwarder {
             {
                 let dataStored =  SharedContainer.getData(key: SharedContainer.webDataKey)[SharedContainer.webDataKey] as? [NSDictionary];
                if dataStored != nil {
-                    for data in dataStored!
-                    {
-                       _ = sendData(data:data, isOfflineData: true)
+                    DispatchQueue.global(qos: .background).async {
+                        for data in dataStored!
+                        {
+                            _ = sendData(data:data, isOfflineData: true);
+                        }
+                        sendInProgress = false;
                     }
                 }
             }
         }
-        sendInProgress = false;
     }
 }

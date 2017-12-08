@@ -273,7 +273,7 @@ class CommonUtils
         {
             return landPage;
         }
-        
+//        return URL(string: "http://11.120.166.30:10100/purchase")!;
         //I don't think we should get here but incase we somehow have the app but it's not configured though AW we need to go someplace
         return Bundle.main.url(forResource: "default", withExtension:"html")!;
     }
@@ -765,6 +765,18 @@ class CommonUtils
         let halConfigurationData = try! JSONSerialization.data(withJSONObject: configJson, options: [])
         let  halConfiguration = String(data: halConfigurationData, encoding: String.Encoding.utf8)
         return halConfiguration ?? "";
+    }
+    
+    class func getScannerInfo() -> String
+    {
+        let infoJson = [
+            "enabled": String( isScanEnabled() ),
+            "version": "not implimented",
+            ] as [String : Any]
+        
+        let scannerInfoData = try! JSONSerialization.data(withJSONObject: infoJson, options: [])
+        let  scannerInfo = String(data: scannerInfoData, encoding: String.Encoding.utf8)
+        return scannerInfo ?? "";
     }
     
     class func setSavedPrinterMACAddress(value: String)

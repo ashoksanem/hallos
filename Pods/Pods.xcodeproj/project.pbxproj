@@ -116,13 +116,13 @@
 
 /* Begin PBXFileReference section */
 		02F3F36560169DA79628B5F58D7BB830 /* Pods-HAL-iOS-HAL-iOSTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-HAL-iOSTests-resources.sh"; sourceTree = "<group>"; };
-		03384D4CEE5E38AC1C5B564874063DF7 /* JWT.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = JWT.modulemap; sourceTree = "<group>"; };
+		03384D4CEE5E38AC1C5B564874063DF7 /* JWT.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = JWT.modulemap; sourceTree = "<group>"; };
 		0762A9245A6B7D23DFE0BB0AE2EE5793 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		077B096C7411706572BF55DAF041C477 /* JWTAlgorithmDataHolderChain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmDataHolderChain.m; path = Classes/Algorithms/Holders/JWTAlgorithmDataHolderChain.m; sourceTree = "<group>"; };
 		0A69EFC4EEBA60E0476B30AD1F40E647 /* Pods-HAL-iOS-HAL-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HAL-iOS-HAL-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		0B26C1CF8FCE727032C2AE06B2946D54 /* JWTBase64Coder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTBase64Coder.m; path = Classes/Supplement/JWTBase64Coder.m; sourceTree = "<group>"; };
 		0C992496CF8C9B404E281D9ACA051659 /* Pods-HAL-iOS-HAL-iOSUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-HAL-iOSUITests-resources.sh"; sourceTree = "<group>"; };
-		0CAD5ACF202B1FA87D5F21C5A7236B9D /* Pods-HAL-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-HAL-iOS.modulemap"; sourceTree = "<group>"; };
+		0CAD5ACF202B1FA87D5F21C5A7236B9D /* Pods-HAL-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-HAL-iOS.modulemap"; sourceTree = "<group>"; };
 		16461DDD278E5C5CBEC32AF0B2AAE415 /* JWTCoding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTCoding.h; path = Classes/Coding/JWTCoding.h; sourceTree = "<group>"; };
 		17CF59C7C8D14BCC45980C8AF3B3001B /* Pods-HAL-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HAL-iOS-dummy.m"; sourceTree = "<group>"; };
 		19553283BD4A9B5F7C1D12EA19D5AD0B /* JWTAlgorithmFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmFactory.m; path = Classes/Algorithms/Base/JWTAlgorithmFactory.m; sourceTree = "<group>"; };
@@ -143,12 +143,12 @@
 		3F11D8E7B1BD0C4AFF1CE56E7876B2B4 /* Pods-HAL-iOS-HAL-iOSUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HAL-iOS-HAL-iOSUITests-acknowledgements.plist"; sourceTree = "<group>"; };
 		40147AF106CDC689B0C729C4064211AC /* JWTClaim.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTClaim.m; path = Classes/ClaimSet/JWTClaim.m; sourceTree = "<group>"; };
 		4173DF97363CB26FDBBE1C9B01AC0D75 /* Base64-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Base64-prefix.pch"; sourceTree = "<group>"; };
-		42A76691236C6B4BE52B914BF0981D18 /* Base64.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Base64.modulemap; sourceTree = "<group>"; };
+		42A76691236C6B4BE52B914BF0981D18 /* Base64.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Base64.modulemap; sourceTree = "<group>"; };
 		46997437C803F12E33B839243ACF9ED2 /* JWTAlgorithmDataHolderChain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmDataHolderChain.h; path = Classes/Algorithms/Holders/JWTAlgorithmDataHolderChain.h; sourceTree = "<group>"; };
 		46C7AC7834C7199C1619BE2BBADCC78B /* MF_Base64Additions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MF_Base64Additions.h; path = Base64/MF_Base64Additions.h; sourceTree = "<group>"; };
 		499F7E8AC78388D3883339D12047E457 /* JWTClaimsSetVerifier.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTClaimsSetVerifier.h; path = Classes/ClaimSet/JWTClaimsSetVerifier.h; sourceTree = "<group>"; };
 		4A70ED429228D623CADF4016B4634987 /* Base64-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Base64-dummy.m"; sourceTree = "<group>"; };
-		4AFAD8B4693D212DAC7E05EB76138F2A /* Base64.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Base64.framework; path = Base64.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AFAD8B4693D212DAC7E05EB76138F2A /* Base64.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Base64.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E44BFFE8B6B3FCBE60B8CDC7B27FD0E /* Pods-HAL-iOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HAL-iOS-acknowledgements.plist"; sourceTree = "<group>"; };
 		4FDAB1920ED8EFB63C5E2D9222E83945 /* Pods-HAL-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HAL-iOS-umbrella.h"; sourceTree = "<group>"; };
 		53C73BF22212F5D4309F5DBAF391105F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -164,15 +164,15 @@
 		7D784077CE5BA5E6C7864DF81BFA5113 /* JWT.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWT.h; path = Classes/JWT.h; sourceTree = "<group>"; };
 		813F108BB69DB2C7E985B6FAD4ADA83F /* Pods-HAL-iOS-HAL-iOSUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HAL-iOS-HAL-iOSUITests-umbrella.h"; sourceTree = "<group>"; };
 		83AA27FE1F1DD014EEE6E1FDCE07240D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		8421797CE41FA01760768F9C44C27A5F /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_HAL_iOS_HAL_iOSUITests.framework; path = "Pods-HAL-iOS-HAL-iOSUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8421797CE41FA01760768F9C44C27A5F /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B1F93D26AFCCC3D9090083FB129FBD0 /* JWTAlgorithmRSBase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmRSBase.m; path = Classes/Algorithms/RSFamily/JWTAlgorithmRSBase.m; sourceTree = "<group>"; };
 		9005F2C199272B3BDDD3C3095B965255 /* Pods-HAL-iOS-HAL-iOSTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-HAL-iOSTests-frameworks.sh"; sourceTree = "<group>"; };
 		90BDFDFFA90E2B954959FAD9AB54CD58 /* JWTClaimsSetSerializer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTClaimsSetSerializer.m; path = Classes/ClaimSet/JWTClaimsSetSerializer.m; sourceTree = "<group>"; };
 		918D0418893CCEFED32841453EB02ECE /* JWT-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "JWT-dummy.m"; sourceTree = "<group>"; };
-		92C7E109FEA49E37C485FB813A2235B7 /* Pods-HAL-iOS-HAL-iOSUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-HAL-iOS-HAL-iOSUITests.modulemap"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		92C7E109FEA49E37C485FB813A2235B7 /* Pods-HAL-iOS-HAL-iOSUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-HAL-iOS-HAL-iOSUITests.modulemap"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9403FB04B531A4873509DFA79B6A7827 /* JWTClaimsSetVerifier.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTClaimsSetVerifier.m; path = Classes/ClaimSet/JWTClaimsSetVerifier.m; sourceTree = "<group>"; };
-		993652364B690BA23527FC900B1AF3D2 /* Pods-HAL-iOS-HAL-iOSTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-HAL-iOS-HAL-iOSTests.modulemap"; sourceTree = "<group>"; };
+		993652364B690BA23527FC900B1AF3D2 /* Pods-HAL-iOS-HAL-iOSTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-HAL-iOS-HAL-iOSTests.modulemap"; sourceTree = "<group>"; };
 		999266DCD5E9F8BEF87F36CCBD64D809 /* Pods-HAL-iOS-HAL-iOSUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HAL-iOS-HAL-iOSUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9B55D5F1E2E597124BB992FE0EBE772D /* JWTAlgorithmHS512.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmHS512.h; path = Classes/Algorithms/HSFamily/JWTAlgorithmHS512.h; sourceTree = "<group>"; };
 		9EFEB8364DB92C7C1EB2A94F7E98DFA0 /* JWT-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "JWT-prefix.pch"; sourceTree = "<group>"; };
@@ -182,13 +182,13 @@
 		B3618AAB9FE1E53E73ED6871895C6FF0 /* Base64.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Base64.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44667967EB2D077BC265B14516B9F3B /* Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C924BD97B0E877FDB611DA5C3863EDC4 /* Pods-HAL-iOS-HAL-iOSUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HAL-iOS-HAL-iOSUITests-dummy.m"; sourceTree = "<group>"; };
-		CBB31FA7057A4438CE960D4D8484194C /* JWT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = JWT.framework; path = JWT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBB31FA7057A4438CE960D4D8484194C /* JWT.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JWT.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCBE4A56F1D2F048D9D044416F8FBD6B /* JWTAlgorithmRSBase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTAlgorithmRSBase.h; path = Classes/Algorithms/RSFamily/JWTAlgorithmRSBase.h; sourceTree = "<group>"; };
 		D102873E1445FC885B752F571AEBCB5D /* JWTAlgorithmNone.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmNone.m; path = Classes/Algorithms/Base/JWTAlgorithmNone.m; sourceTree = "<group>"; };
 		D3919FDED5A206A2B10086E688E84FB4 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D7DFEF63F9274B7709299924A0D1212A /* Pods-HAL-iOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-frameworks.sh"; sourceTree = "<group>"; };
 		D91FF55438C9F8C5AD16ADC129A1F3D7 /* JWTAlgorithmHSBase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmHSBase.m; path = Classes/Algorithms/HSFamily/JWTAlgorithmHSBase.m; sourceTree = "<group>"; };
-		DAB3CD2A5FE6B9CB880048A3BD197F34 /* Pods_HAL_iOS_HAL_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_HAL_iOS_HAL_iOSTests.framework; path = "Pods-HAL-iOS-HAL-iOSTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB3CD2A5FE6B9CB880048A3BD197F34 /* Pods_HAL_iOS_HAL_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB2380D700F4E9D43C78C8BF2D377496 /* JWTAlgorithmDataHolder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmDataHolder.m; path = Classes/Algorithms/Holders/JWTAlgorithmDataHolder.m; sourceTree = "<group>"; };
 		DD9C8980E8E574E769501582FA96704A /* Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh"; sourceTree = "<group>"; };
 		DE52BD6DCC3B9CA9AA1969705889FF97 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -198,7 +198,7 @@
 		E55671EE2D62BFC3D35640730C9E55EC /* Base64.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Base64.xcconfig; sourceTree = "<group>"; };
 		EB118CD5C4BE831E64C2A0D638FED66B /* JWTRSAlgorithm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTRSAlgorithm.h; path = Classes/Algorithms/RSFamily/JWTRSAlgorithm.h; sourceTree = "<group>"; };
 		F5AB0F7509ED21C17F11679065B88349 /* JWTAlgorithmHS256.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JWTAlgorithmHS256.m; path = Classes/Algorithms/HSFamily/JWTAlgorithmHS256.m; sourceTree = "<group>"; };
-		FAF5F3D19A1996EF9F44CA3C6E6EF000 /* Pods_HAL_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_HAL_iOS.framework; path = "Pods-HAL-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAF5F3D19A1996EF9F44CA3C6E6EF000 /* Pods_HAL_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBCDBCFDC00E2046342395FAE77AC6EB /* Base64-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Base64-umbrella.h"; sourceTree = "<group>"; };
 		FCD56CB4622421AE85F63E345D866BC9 /* Pods-HAL-iOS-HAL-iOSTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-HAL-iOS-HAL-iOSTests-umbrella.h"; sourceTree = "<group>"; };
 		FCEEF1571059B7DBB2CA33486435931B /* JWTClaim.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JWTClaim.h; path = Classes/ClaimSet/JWTClaim.h; sourceTree = "<group>"; };
@@ -371,7 +371,6 @@
 				EB118CD5C4BE831E64C2A0D638FED66B /* JWTRSAlgorithm.h */,
 				C6E47218916BE68791ABAF73EE953B95 /* Support Files */,
 			);
-			name = JWT;
 			path = JWT;
 			sourceTree = "<group>";
 		};
@@ -432,7 +431,6 @@
 				54FD4173279D4803E71F10BA5EE66AB5 /* MF_Base64Additions.m */,
 				3233436DA4690993F137772FC0CCBF38 /* Support Files */,
 			);
-			name = Base64;
 			path = Base64;
 			sourceTree = "<group>";
 		};

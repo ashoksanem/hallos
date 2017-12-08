@@ -160,7 +160,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-        
+        CommonUtils.setInactivityStartTime();
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -170,7 +170,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         //CommonUtils.setIsSSOAuthenticated( value: false );
         //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);
         
-        CommonUtils.setInactivityStartTime();
         if let app = application as? HALApplication
         {
             app.stopNetworkTimer();
@@ -278,15 +277,18 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             }
             else
             {
+                let timeSinceLastActivity = Date().timeIntervalSince( CommonUtils.getInactivityStartTime() );
+                let allowedInactivityTime = TimeInterval( CommonUtils.getAuthenticatedInactivityTimeInterval() );
+                
                 _ = Locn();
                 CommonUtils.setCommonLogMetrics();
                 if( Date().timeIntervalSince( CommonUtils.getAutoLogoutStartTime() ) > TimeInterval( CommonUtils.getAutoLogoutTimeinterval() ) )
                 {
                     self.autoLogout();
                 }
-                else if ( Date().timeIntervalSince( CommonUtils.getInactivityStartTime() ) < TimeInterval( CommonUtils.getAuthenticatedInactivityTimeInterval() ) )
+                else if ( timeSinceLastActivity < allowedInactivityTime )
                 {
-                    // do nothing, they came back before we need to prompt for pin!!!11!!!!!!1
+                    //user is authenticated, but came back before they needed to re-enter pin, do nothing
                 }
                 else if let viewController:ViewController = self.window!.rootViewController as? ViewController
                 {

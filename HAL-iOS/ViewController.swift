@@ -128,7 +128,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         let url = CommonUtils.getLandingPage();
 //        let url = URL(string: "http://11.120.166.30:10100/purchase")!;
 //        for debugging for testing
-//        var url = Bundle.main.url(forResource: "11.120.166.30:10100/purchase", withExtension:"html")!;
+//        var url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!;
         CommonUtils.setCurrentPage(value: url);
         loadWebView(url: url);
     }

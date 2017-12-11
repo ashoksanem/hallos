@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3CE9CDD4177270193D3E01FC /* Pods_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773E4FA0ADDCA8BAB2127144 /* Pods_HAL_iOSTests.framework */; };
 		4843DD781FA8ED7E00FBAAE6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */; };
+		48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */ = {isa = PBXBuildFile; fileRef = 48AD2A6A1FDEF32700C2F509 /* defaultBlank.html */; };
 		48BB01291F66CF470019E881 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 48BB01281F66CF470019E881 /* XMLReader.m */; };
 		60DD681E17AFC28325F14795 /* Pods_HAL_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4658339D45E6C5D2372B8C23 /* Pods_HAL_iOS.framework */; };
 		8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538E5651EF1809700F82E1D /* DataForwarder.swift */; };
@@ -96,6 +97,7 @@
 		391A86DF28C49D0A99093243 /* Pods-HAL-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSTests/Pods-HAL-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		4658339D45E6C5D2372B8C23 /* Pods_HAL_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
+		48AD2A6A1FDEF32700C2F509 /* defaultBlank.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = defaultBlank.html; sourceTree = "<group>"; };
 		48BB01271F66CF470019E881 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		48BB01281F66CF470019E881 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
 		58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,10 +319,11 @@
 				4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */,
 				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				BC25B5141F27B8BE0028E81F /* default.html */,
+				48AD2A6A1FDEF32700C2F509 /* defaultBlank.html */,
 				858988BC1EAE208A00AF2024 /* DLog.swift */,
 				BC9655191F334FF1008D811F /* EESRequest.swift */,
-				BCD2B85F1F310C2700F3496D /* Encryption.swift */,
 				BCD2B85D1F31094300F3496D /* Encryption */,
+				BCD2B85F1F310C2700F3496D /* Encryption.swift */,
 				CC41EF271DB54D6B0059C7C5 /* Error.swift */,
 				CC21C0481E16A332006CD57B /* ESPRequest.swift */,
 				BCD2B8611F311A8A00F3496D /* GenericEncryption.m */,
@@ -330,14 +333,14 @@
 				CC837B541E08341B00A14ECB /* KeychainItemAccessibility.swift */,
 				CC837B551E08341B00A14ECB /* KeychainWrapper.swift */,
 				CC25856C1D9AF71C00294506 /* LaunchScreen.storyboard */,
-				BC534ABD1E01976300C65BAC /* logAnalytics.json */,
 				BC22EE611E203A8300C3F597 /* LOCN.json */,
-				CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */,
 				BC22EE631E203D9600C3F597 /* Locn.swift */,
+				BC534ABD1E01976300C65BAC /* logAnalytics.json */,
+				CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */,
 				BC534ABB1E018BD800C65BAC /* LogAnalyticsRequest.swift */,
 				BC534AB91DFF17E200C65BAC /* LoggingRequest.swift */,
-				CC8872ED1DDE3A930042F089 /* main.swift */,
 				CC2585641D9AF71C00294506 /* Main.storyboard */,
+				CC8872ED1DDE3A930042F089 /* main.swift */,
 				853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
 				CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */,
@@ -524,6 +527,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB8CA561F3A52AD008EA783 /* Settings.bundle in Resources */,
+				48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */,
 				BC25B5151F27B8BE0028E81F /* default.html in Resources */,
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,

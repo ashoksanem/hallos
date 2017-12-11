@@ -321,4 +321,17 @@ class ConfigurationManager : NSObject {
         }
         return false;
     }
+    
+    class func hasCriticalParms() -> Bool
+    {
+        if( CommonUtils.isDefaultLandingPage(CommonUtils.getLandingPage()) ||
+            CommonUtils.isBlankPage(CommonUtils.getLandingPage()) ||
+            CommonUtils.getDivNum() == -1 ||
+            CommonUtils.getStoreNum() == -1
+            )
+        {
+            return false;
+        }
+        return true;
+    }
 }

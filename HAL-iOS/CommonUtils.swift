@@ -64,7 +64,6 @@ class CommonUtils
         defaults.removeObject(forKey: LogAnalyticsRequest.metricsLog);
         defaults.setValue(false, forKey: webviewLoading);
         defaults.setValue(false, forKey: certificatePinningEnabled)
-        defaults.setValue("", forKey: landingPage);
         defaults.setValue(0, forKey: injectedKeyVersion);
         defaults.setValue(0, forKey: inactivityStartTime);
         defaults.setValue(0, forKey: failedSSIDLaunchAttempts);
@@ -259,7 +258,7 @@ class CommonUtils
         }
         else
         {
-            defaults.set(Bundle.main.url(forResource: "default", withExtension:"html")!, forKey: landingPage);
+            defaults.set(CommonUtils.getDefaultLandingPage(), forKey: landingPage);
             let errorMsg = "The application attempted to open a URL and failed. URL: " + value.absoluteString;
             LoggingRequest.logError(name: LoggingRequest.metrics_error, value: errorMsg, type: "STRING", indexable: true);
         }
@@ -275,7 +274,39 @@ class CommonUtils
         }
 //        return URL(string: "http://11.120.166.30:10100/purchase")!;
         //I don't think we should get here but incase we somehow have the app but it's not configured though AW we need to go someplace
+        return getDefaultLandingPage();
+    }
+    
+    class func getDefaultLandingPage() -> URL
+    {
         return Bundle.main.url(forResource: "default", withExtension:"html")!;
+    }
+    
+    class func getBlankPage() -> URL
+    {
+        return Bundle.main.url(forResource: "defaultBlank", withExtension:"html")!;
+    }
+    
+    class func isDefaultLandingPage(_ value: URL?) -> Bool
+    {
+        if let val = value {
+            if (val.isFileURL && val.absoluteString.range(of: "default.html") != nil)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    class func isBlankPage(_ value: URL?) -> Bool
+    {
+        if let val = value {
+            if (val.isFileURL && val.absoluteString.range(of: "defaultBlank.html") != nil)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     
     class func setCurrentPage(value: URL) -> Void
@@ -284,10 +315,10 @@ class CommonUtils
         defaults.set(value, forKey: currentPage);
     }
     
-    class func getCurrentPage() -> URL
+    class func getCurrentPage() -> URL?
     {
         let defaults = UserDefaults.standard;
-        return defaults.url(forKey: currentPage)!;
+        return defaults.url(forKey: currentPage);
     }
 
     class func getDeviceId() -> String

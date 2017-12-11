@@ -161,6 +161,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
         CommonUtils.setInactivityStartTime();
+        CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -199,6 +200,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         {
             if let viewController:ViewController = window!.rootViewController as? ViewController
             {
+                let blank = CommonUtils.getBlankPage();
+                CommonUtils.setLandingPage(blank);
+                CommonUtils.setCurrentPage(value: blank);
+                viewController.loadWebView(url: blank);
                 var jail = "";
                 var failedSSIDLaunches = CommonUtils.getFailedSSIDLaunchAttempts();
                 failedSSIDLaunches += 1;
@@ -235,111 +240,114 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         else
         {
             CommonUtils.setFailedSSIDLaunchAttempts(0);
-        }
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        let esp = ESPRequest();
-        esp.getParms( ["L4P", "MST"] ) {
-            (result: String) in
             
-            if(result == "error")
-            {
-                CommonUtils.setLandingPage(Bundle.main.url(forResource: "default", withExtension:"html")!);
-                CommonUtils.setCurrentPage(value: Bundle.main.url(forResource: "default", withExtension:"html")!);
-                if let viewController:ViewController = self.window!.rootViewController as? ViewController
+            // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+            let esp = ESPRequest();
+            esp.getParms( ["L4P", "MST"] ) {
+                (result: String) in
+                
+                if(result == "error")
                 {
-                    viewController.loadWebView(url: CommonUtils.getLandingPage() );
-                }
-            }
-            else if( !CommonUtils.isSSOAuthenticated() ) // check if they need pin re-entry
-            {
-                _ = Locn();
-                CommonUtils.setCommonLogMetrics();
-                if( Date().timeIntervalSince( CommonUtils.getInactivityStartTime() ) > TimeInterval( CommonUtils.getInactivityTimeInterval() ) ) // see if they've been inactive for too long
-                {
+                    let defaultLandingPage = CommonUtils.getDefaultLandingPage();
+                    CommonUtils.setLandingPage(defaultLandingPage);
+                    CommonUtils.setCurrentPage(value: defaultLandingPage);
                     if let viewController:ViewController = self.window!.rootViewController as? ViewController
                     {
                         viewController.loadWebView(url: CommonUtils.getLandingPage() );
                     }
                 }
-                else
+                else if( !CommonUtils.isSSOAuthenticated() ) // check if they need pin re-entry
                 {
-                    //if this code is hit, we're attempting to load the last page in memory
-                    let currentPage = CommonUtils.getCurrentPage().absoluteString;
-                    let defaultPage = Bundle.main.url(forResource: "default", withExtension: "html")?.absoluteString;
-                    if(currentPage == defaultPage)
+                    _ = Locn();
+                    CommonUtils.setCommonLogMetrics();
+                    if( Date().timeIntervalSince( CommonUtils.getInactivityStartTime() ) > TimeInterval( CommonUtils.getInactivityTimeInterval() ) ) // see if they've been inactive for too long
                     {
                         if let viewController:ViewController = self.window!.rootViewController as? ViewController
                         {
                             viewController.loadWebView(url: CommonUtils.getLandingPage() );
                         }
                     }
-                }
-            }
-            else
-            {
-                let timeSinceLastActivity = Date().timeIntervalSince( CommonUtils.getInactivityStartTime() );
-                let allowedInactivityTime = TimeInterval( CommonUtils.getAuthenticatedInactivityTimeInterval() );
-                
-                _ = Locn();
-                CommonUtils.setCommonLogMetrics();
-                if( Date().timeIntervalSince( CommonUtils.getAutoLogoutStartTime() ) > TimeInterval( CommonUtils.getAutoLogoutTimeinterval() ) )
-                {
-                    self.autoLogout();
-                }
-                else if ( timeSinceLastActivity < allowedInactivityTime )
-                {
-                    //user is authenticated, but came back before they needed to re-enter pin, do nothing
-                }
-                else if let viewController:ViewController = self.window!.rootViewController as? ViewController
-                {
-                    let currentUrl = ViewController.webView?.url?.absoluteString
-                    if (!(currentUrl?.hasSuffix("HAL-iOS.app/sso/index.html") ?? true))
+                    else
                     {
-                        CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
-                        let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
-                        viewController.loadWebView(url: url!)
+                        //if this code is hit, we're attempting to load the last page in memory
+                        let currentPage = CommonUtils.getCurrentPage();
+                        if(CommonUtils.isDefaultLandingPage(currentPage) || CommonUtils.isBlankPage(currentPage))
+                        {
+                            //if we're on one of the default pages, we want to try to load landing page
+                            if let viewController:ViewController = self.window!.rootViewController as? ViewController
+                            {
+                                viewController.loadWebView(url: CommonUtils.getLandingPage() );
+                            }
+                        }
                     }
                 }
-            }
-
-            //occurs even if parms returns an error, but won't run until after parms function has returned
-            if( Encryption.shared.getDailyAesKeyVersion() == -1 ) //if we have a default AES key, call EES to get a real one, should only run on initial launch
-            {
-                let concurrentQueue = DispatchQueue(label: "encryptionQueue", attributes: .concurrent)
-                concurrentQueue.async {
-                    GenericEncryption.rsaInit();
-                    EESRequest().getDailyAESKey();
+                else
+                {
+                    let timeSinceLastActivity = Date().timeIntervalSince( CommonUtils.getInactivityStartTime() );
+                    let allowedInactivityTime = TimeInterval( CommonUtils.getAuthenticatedInactivityTimeInterval() );
+                    
+                    _ = Locn();
+                    CommonUtils.setCommonLogMetrics();
+                    if( Date().timeIntervalSince( CommonUtils.getAutoLogoutStartTime() ) > TimeInterval( CommonUtils.getAutoLogoutTimeinterval() ) )
+                    {
+                        self.autoLogout();
+                    }
+                    else if ( timeSinceLastActivity < allowedInactivityTime )
+                    {
+                        //user is authenticated, but came back before they needed to re-enter pin, do nothing
+                    }
+                    else if let viewController:ViewController = self.window!.rootViewController as? ViewController
+                    {
+                        let currentUrl = ViewController.webView?.url?.absoluteString
+                        if (!(currentUrl?.hasSuffix("HAL-iOS.app/sso/index.html") ?? true))
+                        {
+                            CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
+                            let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")
+                            viewController.loadWebView(url: url!)
+                        }
+                    }
                 }
+                
+                //occurs even if parms returns an error, but won't run until after parms function has returned
+                if( Encryption.shared.getDailyAesKeyVersion() == -1 ) //if we have a default AES key, call EES to get a real one, should only run on initial launch
+                {
+                    let concurrentQueue = DispatchQueue(label: "encryptionQueue", attributes: .concurrent)
+                    concurrentQueue.async {
+                        GenericEncryption.rsaInit();
+                        EESRequest().getDailyAESKey();
+                    }
+                }
+                
+            };
+            
+            LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
+            LoggingRequest.logStoredData();
+            LogAnalyticsRequest.logStoredData();
+            DataForwarder.forwardStoredData()
+            detectDevice();
+            
+            NotificationCenter.default.addObserver( self,
+                                                    selector: #selector(readConfigurationParams),
+                                                    name: UserDefaults.didChangeNotification,
+                                                    object: nil);
+            
+            if let app = application as? HALApplication
+            {
+                app.startNetworkTimer();
+                app.startMetricTimer();
+                app.startBatteryTimer();
+                app.startJSTimer();
+                app.startChargingTimer();
             }
-
-        };
-        
-        LoggingRequest.logData(name: LoggingRequest.metrics_app_startup, value: "", type: "STRING", indexable: true);
-        LoggingRequest.logStoredData();
-        LogAnalyticsRequest.logStoredData();
-        DataForwarder.forwardStoredData()
-        detectDevice();
-        
-        NotificationCenter.default.addObserver( self,
-                                                selector: #selector(readConfigurationParams),
-                                                name: UserDefaults.didChangeNotification,
-                                                object: nil);
-
-        if let app = application as? HALApplication
-        {
-            app.startNetworkTimer();
-            app.startMetricTimer();
-            app.startBatteryTimer();
-            app.startJSTimer();
-            app.startChargingTimer();
         }
+        
     }
     
     func verifyAppVersion(version: String)
     {
         let currentStringList = Assembly.halVersion().components(separatedBy: ".");
         let appStringList = version.components(separatedBy: ".");
-        
+
         if( appStringList.count == 3 )
         {
             let currentMajor = atoi( currentStringList[0] );
@@ -361,10 +369,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 {
                     let message = "The application is out of date. Tap Update to install the latest version.";
                     DLog(message);
-                    
+
                     // create the alert
                     let alert = UIAlertController(title: "Update Required", message: message, preferredStyle: UIAlertControllerStyle.alert)
-                    
+
                     // add an action (button)
                     alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { action in
                         switch action.style
@@ -377,7 +385,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                             self.openMstAppStore();
                         }
                     }))
-                    
+
                     // show the alert
                     viewController.present(alert, animated: true, completion: nil)
                 }

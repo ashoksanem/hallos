@@ -35,6 +35,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "getLocationInformation",
                                          "getPrinterStatus",
                                          "getScannerStatus",
+                                         "getScannerInfo",
                                          "getSledBatteryLevel",
                                          "getSledStatus",
                                          "goToLandingPage",
@@ -124,9 +125,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var url = CommonUtils.getLandingPage();
+        let url = CommonUtils.getLandingPage();
+//        let url = URL(string: "http://11.120.166.30:10100/purchase")!;
 //        for debugging for testing
-//        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; CommonUtils.setLandingPage(value: url);
+//        var url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!;
         CommonUtils.setCurrentPage(value: url);
         loadWebView(url: url);
     }
@@ -210,6 +212,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
+            }
+        }
+        else if( message.name == "getScannerInfo" )
+        {
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.getScannerInfo() ) + " )");
             }
         }
         else if(message.name == "getSledBatteryLevel")

@@ -126,11 +126,16 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func viewDidLoad() {
         super.viewDidLoad()
         let url = CommonUtils.getLandingPage();
-//        let url = URL(string: "http://11.120.166.30:10100/purchase")!;
-//        for debugging for testing
-//        var url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!;
-        CommonUtils.setCurrentPage(value: url);
-        loadWebView(url: url);
+        if(!CommonUtils.isDefaultLandingPage(url))
+        {
+//            let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app
+//            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api
+            loadWebView(url: url);
+        }
+        else
+        {
+            CommonUtils.setCurrentPage(value: url);
+        }
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -497,7 +502,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     func loadPreviousWebPage()
     {
-        loadWebView(url: CommonUtils.getCurrentPage())
+        if let currentPage = CommonUtils.getCurrentPage()
+        {
+            loadWebView(url: currentPage);
+        }
     }
     
     //Function to authenticate user based on the associate number and associatePin

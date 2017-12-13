@@ -1,3 +1,2 @@
 target_branch=master
-pipeline_release=1.0
-
+pipeline_release=1.1

@@ -542,21 +542,38 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     }
     
     func evaluateJavaScript(javascriptMessage: String) {
-        ViewController.webView?.evaluateJavaScript(javascriptMessage) { result, error in
-            guard error == nil else {
-                ViewController.storedJS.append(javascriptMessage);
-                
-                DLog("evaluateJavaScript message: " + javascriptMessage);
-                
-                if( error != nil ) {
-                    let junk = error?.localizedDescription;
-                    if( junk != nil ) {
-                        
-                        DLog("evaluateJavaScript error: " + junk! );
+        func eval()
+        {
+            ViewController.webView?.evaluateJavaScript(javascriptMessage) { result, error in
+                guard error == nil else {
+                    ViewController.storedJS.append(javascriptMessage);
+                    
+                    DLog("evaluateJavaScript message: " + javascriptMessage);
+                    
+                    if( error != nil ) {
+                        let junk = error?.localizedDescription;
+                        if( junk != nil ) {
+                            
+                            DLog("evaluateJavaScript error: " + junk! );
+                        }
                     }
+                    return;
                 }
-                return;
             }
+        }
+        
+        
+        //iOS 11+, WKWebView.evaluateJavascript is required to run on the main thread, otherwise app crashes -> thanks, apple
+        if(!Thread.isMainThread)
+        {
+            DispatchQueue.main.async
+            {
+                eval();
+            }
+        }
+        else
+        {
+            eval();
         }
     }
     

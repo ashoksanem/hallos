@@ -161,7 +161,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
         CommonUtils.setInactivityStartTime();
-        CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
+        if !CommonUtils.isSSOPage(ViewController.webView?.url) {
+            CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
+        }
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -298,8 +300,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                     }
                     else if let viewController:ViewController = self.window!.rootViewController as? ViewController
                     {
-                        let currentUrl = ViewController.webView?.url?.absoluteString
-                        if (!(currentUrl?.hasSuffix("HAL-iOS.app/sso/index.html") ?? true))
+                        let currentUrl = ViewController.webView?.url
+                        if (!CommonUtils.isSSOPage(currentUrl))
                         {
                             CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
                             let url = Bundle.main.url(forResource: "sso/index", withExtension:"html")

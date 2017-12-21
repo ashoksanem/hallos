@@ -872,5 +872,14 @@ class CommonUtils
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: failedSSIDLaunchAttempts);
     }
-
+    
+    class func isSSOPage(_ value: URL?) -> Bool {
+        if let val = value {
+            if (val.isFileURL && val.absoluteString.range(of: "HAL-iOS.app/sso/index.html") != nil)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -17,7 +17,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     static var storedJS = [String]();
     var sledBatteryView: UITextView?;
     var printerData:NSDictionary = [:];
-    
+    var progressView: UIView?;
+    var activityIndicator: UIActivityIndicatorView?;
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
@@ -125,6 +126,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializeProgressView()
         let url = CommonUtils.getLandingPage();
         if(!CommonUtils.isDefaultLandingPage(url))
         {
@@ -682,27 +684,59 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             }
             else
             {
-                let printStatus = PrinterViewController.connectAndPrintReceipt(address: CommonUtils.getSavedPrinterMACAddress(),printerData: printerData);
+                self.progressView?.isHidden = false;
+                self.activityIndicator?.startAnimating();
+                DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
+                let printStatus = PrinterViewController.connectAndPrintReceipt(address: CommonUtils.getSavedPrinterMACAddress(),printerData: self.printerData);
                 if( !(printStatus=="success") )
-                {
-                    let alertController = UIAlertController(title: "", message:
-                    PrinterViewController.getPrinterErrorMessage(status: printStatus), preferredStyle: UIAlertControllerStyle.alert)
-                    let okAction = UIAlertAction(
-                        title: "Try Again",
-                        style: UIAlertActionStyle.cancel) { (action) in
-                        self.performSegue(withIdentifier: "showPrinter", sender: self);
+                    {
+                        self.activityIndicator?.stopAnimating();
+                        self.progressView?.isHidden = true;
+                        let alertController = UIAlertController(title: "", message:
+                            PrinterViewController.getPrinterErrorMessage(status: printStatus), preferredStyle: UIAlertControllerStyle.alert)
+                        let okAction = UIAlertAction(
+                            title: "Try Again",
+                            style: UIAlertActionStyle.cancel) { (action) in
+                                self.performSegue(withIdentifier: "showPrinter", sender: self);
+                        }
+                        let skipAction = UIAlertAction(
+                            title: "Skip Printing",
+                            style: UIAlertActionStyle.destructive) { (action) in
+                        }
+                        alertController.addAction(okAction);
+                        alertController.addAction(skipAction);
+                        self.present(alertController, animated: true, completion: nil)
                     }
-                    let skipAction = UIAlertAction(
-                        title: "Skip Printing",
-                        style: UIAlertActionStyle.destructive) { (action) in
+                    else
+                    {
+                        DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
+                            self.activityIndicator?.stopAnimating();
+                            self.progressView?.isHidden = true;
+                        }
                     }
-                    alertController.addAction(okAction);
-                    alertController.addAction(skipAction);
-                    self.present(alertController, animated: true, completion: nil)
                 }
             }
         }
     }
+    
+    func initializeProgressView()
+    {
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge);
+        activityIndicator?.center = self.view.center;
+        progressView = UIView(frame: self.view.frame);
+        progressView?.backgroundColor = UIColor.init(white: 0.333, alpha: 0.5);
+        let progressTextView = UITextView(frame: CGRect.init(x: 0, y: self.view.center.y+20, width: self.view.frame.width, height: self.view.frame.width/10))
+        progressTextView.backgroundColor = UIColor.clear;
+        progressTextView.textColor = UIColor.white;
+        progressTextView.textAlignment = NSTextAlignment.center;
+        progressTextView.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize);
+        progressTextView.text = "Printing..";
+        progressView?.addSubview(activityIndicator!);
+        progressView?.addSubview(progressTextView);
+        self.view.addSubview(self.progressView!);
+        progressView?.isHidden = true;
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let printerViewController = segue.destination as! PrinterViewController

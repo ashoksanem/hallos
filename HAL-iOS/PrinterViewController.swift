@@ -14,7 +14,8 @@ class PrinterViewController: UIViewController {
     var printerData = NSDictionary();
     var c: UITextView?;
     var sledBatteryView: UITextView?;
-
+    var activityIndicator:UIActivityIndicatorView?;
+    var progressView: UIView?;
     @IBAction func printButton(_ sender: UIButton) {
         //printResult = PrinterViewController.connectAndPrintReceipt(address: macAddress.text!, printerData: printerData);
         //dismiss(animated: true, completion: nil)
@@ -24,6 +25,7 @@ class PrinterViewController: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad();
+        initializeProgressView()
         updateBattery();
         
         if(CommonUtils.getPrinterMACAddress()=="")
@@ -58,7 +60,21 @@ class PrinterViewController: UIViewController {
             sledBatteryView?.text = "";
         }
     }
-    
+    func initializeProgressView()
+    {
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge);
+        activityIndicator?.center = self.view.center;
+        progressView = UIView(frame: self.view.frame);
+        progressView?.backgroundColor = UIColor.init(white: 0.333, alpha: 0.5);
+        let progressTextView = UITextView(frame: CGRect.init(x: 0, y: self.view.center.y+20, width: self.view.frame.width, height: self.view.frame.width/10))
+        progressTextView.backgroundColor = UIColor.clear;
+        progressTextView.textColor = UIColor.white;
+        progressTextView.textAlignment = NSTextAlignment.center;
+        progressTextView.font = UIFont.boldSystemFont(ofSize: UIFont.labelFontSize);
+        progressTextView.text = "Printing..";
+        progressView?.addSubview(activityIndicator!);
+        progressView?.addSubview(progressTextView);
+    }
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -74,6 +90,9 @@ class PrinterViewController: UIViewController {
     
     func displayPrinterAlert()
     {
+        self.view.addSubview(self.progressView!)
+        self.activityIndicator?.startAnimating();
+        
         let alertController = UIAlertController(title: "", message:
             "Save this printer for later?", preferredStyle: UIAlertControllerStyle.alert);
         let cancelAction = UIAlertAction(
@@ -99,6 +118,10 @@ class PrinterViewController: UIViewController {
         let printStatus = PrinterViewController.connectAndPrintReceipt(address:CommonUtils.getPrinterMACAddress(),printerData: self.printerData);
         if(!(printStatus == "success"))
         {
+            DispatchQueue.main.async {
+                self.activityIndicator?.stopAnimating();
+                self.progressView?.removeFromSuperview()
+            }
             let alertController = UIAlertController(title: "", message:
                 PrinterViewController.getPrinterErrorMessage(status: printStatus), preferredStyle: UIAlertControllerStyle.alert);
             let okAction = UIAlertAction(
@@ -116,6 +139,10 @@ class PrinterViewController: UIViewController {
         }
         else
         {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                self.activityIndicator?.stopAnimating();
+                self.progressView?.removeFromSuperview()
+            }
             self.dismiss(animated: true, completion: nil);
         }
     }

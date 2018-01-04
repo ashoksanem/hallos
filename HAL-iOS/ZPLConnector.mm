@@ -318,7 +318,7 @@ bool printStuffCPCL( std::string printData ,DTDevices* sled  )
             
             //Need to pause for 1 second so the printer can start printing
             //before sending it another receipt
-            sleep(1);
+            sleep(2);
             delete [] sendBuffer;
             size_left -= buff_size;
             receipt_pos += buff_size;

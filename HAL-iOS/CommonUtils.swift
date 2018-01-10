@@ -252,7 +252,7 @@ class CommonUtils
     
     class func setLandingPage(_ value: URL) -> Void {
         let defaults = UserDefaults.standard;
-        if (value.absoluteString == Bundle.main.url(forResource: "default", withExtension:"html")?.absoluteString || UIApplication.shared.canOpenURL(value) )
+        if ( isDefaultLandingPage(value) || isBlankPage(value) || UIApplication.shared.canOpenURL(value) )
         { //if the url is a valid web url or if we're attempting to load a webpage from the file system, this passes
             defaults.set(value, forKey: landingPage);
         }

@@ -252,16 +252,8 @@ class CommonUtils
     
     class func setLandingPage(_ value: URL) -> Void {
         let defaults = UserDefaults.standard;
-        if ( isDefaultLandingPage(value) || isBlankPage(value) || UIApplication.shared.canOpenURL(value) )
-        { //if the url is a valid web url or if we're attempting to load a webpage from the file system, this passes
-            defaults.set(value, forKey: landingPage);
-        }
-        else
-        {
-            defaults.set(CommonUtils.getDefaultLandingPage(), forKey: landingPage);
-            let errorMsg = "The application attempted to open a URL and failed. URL: " + value.absoluteString;
-            LoggingRequest.logError(name: LoggingRequest.metrics_error, value: errorMsg, type: "STRING", indexable: true);
-        }
+        
+        defaults.set(value, forKey: landingPage);
     }
     
     class func getLandingPage() -> URL

@@ -46,6 +46,7 @@ class CommonUtils
     static let ssoRedirectURL = "ssoRedirectURL";
     static let failedSSIDLaunchAttempts = "failedSSIDLaunchAttempts";
     static let lastTimeParmsWereRetrieved = "lastTimeParmsWereRetrieved";
+    static let isBYOD = "isBYOD";
     
     class func setUpUserDefaults() -> Void
     {
@@ -68,6 +69,7 @@ class CommonUtils
         defaults.setValue(0, forKey: inactivityStartTime);
         defaults.setValue(0, forKey: failedSSIDLaunchAttempts);
         defaults.setValue(0, forKey: lastTimeParmsWereRetrieved);
+        defaults.setValue(false, forKey: isBYOD);
         
         var uuid = "";
         
@@ -874,4 +876,17 @@ class CommonUtils
         }
         return false;
     }
+    
+    class func getisBYOD() -> Bool
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: "isBYOD");
+    }
+    
+    class func setisBYOD(value: Bool)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: "isBYOD")
+    }
+    
 }

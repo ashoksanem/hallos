@@ -302,6 +302,22 @@ class ConfigurationManager : NSObject {
                     CommonUtils.setCertificatePinningEnabled(value: val as! Bool);
                 }
             }
+            
+            if let val = answersSaved["GroupID"]
+            {
+                if let _val = val as? String  {
+                    if _val == "byoddev" {
+                        CommonUtils.setisBYOD(value: true);
+                        SharedContainer.setIsp(value: "fs572asisp01");
+                        DLog("Setting isp to: fs572asisp01");
+                    }
+                    else if _val == "byodprod" {
+                        CommonUtils.setisBYOD(value: true);
+                        SharedContainer.setIsp(value: "me572asisp01");
+                        DLog("Setting isp to: me572asisp01");
+                    }
+                }
+            }
         }
         
         CommonUtils.isPreProd() ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development  1675328291 = production

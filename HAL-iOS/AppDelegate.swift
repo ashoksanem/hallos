@@ -198,6 +198,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        
+        verifyOSVersion(UIDevice.current.systemVersion); //kills app if iOS is between 11 & 11.2.4
+        
         if( !checkSSID() )
         {
             if let viewController:ViewController = window!.rootViewController as? ViewController
@@ -224,15 +227,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             
                 // add an action (button)
                 alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { action in
-                    switch action.style
-                    {
-                        case .default:
-                            UIApplication.shared.openURL(URL(string:"App-Prefs:root=WIFI")!); //open settings app on WIFI screen
-                        case .cancel:
-                            exit(0);
-                        case .destructive:
-                            exit(0);
-                    }
+                    UIApplication.shared.openURL(URL(string:"App-Prefs:root=WIFI")!); //open settings app on WIFI screen
                 }));
             
                 // show the alert
@@ -377,20 +372,45 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 
                     // add an action (button)
                     alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { action in
-                        switch action.style
-                        {
-                        case .default:
-                            self.openMstAppStore();
-                        case .cancel:
-                            self.openMstAppStore();
-                        case .destructive:
-                            self.openMstAppStore();
-                        }
+                        self.openMstAppStore();
                     }))
 
                     // show the alert
                     viewController.present(alert, animated: true, completion: nil)
                 }
+            }
+        }
+    }
+    
+    func verifyOSVersion(_ v: String)
+    {
+        var version = v;
+        let versionArr = version.components(separatedBy: ".");
+
+        //verify we're comparing a version in the correct format
+        switch versionArr.count {
+        case 1:
+            version += ".0.0";
+        case 2:
+            version += ".0";
+        case 3:
+            _ = "";
+        default:
+            DLog("Failed to read iOS version. Apple what have you messed up this time??");
+            return;
+        }
+        
+        if(version >= "11.0.0" && version <= "11.2.4")
+        {
+            if let viewController:ViewController = window!.rootViewController as? ViewController
+            {
+                let message = "The version of iOS running on this device is not compatible with this app. Please go to settings and update the software.";
+                let alert = UIAlertController(title: "iOS Incompatible", message: message, preferredStyle: UIAlertControllerStyle.alert);
+                
+                alert.addAction(UIAlertAction(title: "Settings", style: .default, handler: { action in
+                    UIApplication.shared.openURL(URL(string:"App-Prefs:root")!); //can't go to "General" page in iOS 10+ SCREW YOU APPLE
+                }));
+                viewController.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -1008,15 +1028,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                         
                         // add an action (button)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-                            switch action.style
-                            {
-                            case .default:
-                                exit(0);
-                            case .cancel:
-                                exit(0);
-                            case .destructive:
-                                exit(0);
-                            }
+                            exit(0);
                         }));
                         
                         // show the alert

@@ -671,6 +671,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             printerData = data;
             let addPrinter = data["addPrinter"] as? Bool ?? false;
+            let skipPrinting = data["skipPrinting"] as? Bool ?? false;
             if(addPrinter)
             {
                 CommonUtils.setPrinterMACAddress(value: "")
@@ -699,12 +700,15 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                             style: UIAlertActionStyle.cancel) { (action) in
                                 self.performSegue(withIdentifier: "showPrinter", sender: self);
                         }
+                        alertController.addAction(okAction);
+                        if(skipPrinting)
+                        {
                         let skipAction = UIAlertAction(
                             title: "Skip Printing",
                             style: UIAlertActionStyle.destructive) { (action) in
                         }
-                        alertController.addAction(okAction);
                         alertController.addAction(skipAction);
+                        }
                         self.present(alertController, animated: true, completion: nil)
                     }
                     else

@@ -118,6 +118,7 @@ class PrinterViewController: UIViewController {
         let printStatus = PrinterViewController.connectAndPrintReceipt(address:CommonUtils.getPrinterMACAddress(),printerData: self.printerData);
         if(!(printStatus == "success"))
         {
+            let skipPrinting = self.printerData["skipPrinting"] as? Bool ?? false;
             DispatchQueue.main.async {
                 self.activityIndicator?.stopAnimating();
                 self.progressView?.removeFromSuperview()
@@ -128,13 +129,15 @@ class PrinterViewController: UIViewController {
                 title: "Try Again",
                 style: UIAlertActionStyle.cancel) { (action) in
             }
+            alertController.addAction(okAction);
+            if(skipPrinting)
+            {
             let skipAction = UIAlertAction(
                 title: "Skip Printing",
                 style: UIAlertActionStyle.destructive) { (action) in self.dismiss(animated: true, completion: nil)
                 }
-            
-            alertController.addAction(okAction);
             alertController.addAction(skipAction);
+            }
             self.present(alertController, animated: true, completion: nil);
         }
         else

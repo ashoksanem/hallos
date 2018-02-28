@@ -904,23 +904,31 @@ class CommonUtils
                     var dnsValue = dnsNameValue.description.components(separatedBy: ".")[0];
                     if(_value=="isp01")
                     {
-                        if(dnsValue.hasSuffix("asisp01") && (dnsValue.starts(with: "me")||dnsValue.starts(with: "bl")))
+                        if(dnsValue.hasSuffix("asisp01"))
                         {
+                            SharedContainer.setIsp(value: dnsValue);
+                            if(!isPreProd())
+                            {
                             let ssp = String(dnsValue.prefix(5))+"asssp01";
                             SharedContainer.setSsp(value: ssp);
-                            SharedContainer.setIsp(value: dnsValue);
+                            }
                             return dnsValue;
                         }
                     }
                     else if(_value=="ssp")
                     {
-                        if(dnsValue.hasSuffix("ssp0001") && (dnsValue.starts(with: "lpme")||dnsValue.starts(with: "lpbl")))
+                        if(dnsValue.hasSuffix("ssp0001"))
                         {
                             dnsValue = String(dnsValue.dropFirst(2));
                             let sspPrefix = String(dnsValue.prefix(5));
-                            SharedContainer.setSsp(value: sspPrefix+"asssp01");
-                            SharedContainer.setIsp(value: sspPrefix+"asisp01");
-                            return sspPrefix+"asssp01";
+                            let store = String(sspPrefix.prefix(3));
+                            let div = String(sspPrefix.suffix(2));
+                            SharedContainer.setSsp(value: div+store+"asssp01");
+                            if(!isPreProd())
+                            {
+                                SharedContainer.setIsp(value: div+store+"asisp01");
+                            }
+                            return div+store+"asssp01";
                         }
                     }
                 }

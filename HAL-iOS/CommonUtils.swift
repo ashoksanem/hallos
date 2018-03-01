@@ -558,7 +558,22 @@ class CommonUtils
     {
         let defaults = UserDefaults.standard;
 
-        if((defaults.string(forKey: divNum) == nil) || (defaults.string(forKey: storeNum) == nil) || (defaults.string(forKey: locnNum) == nil) )
+        if (CommonUtils.getisBYOD())
+        {
+            let locationInformation = [
+                "locationInformation":[
+                    "divInfo": ["num":"71"] as Any,
+                    "storeInfo": ["num":"572" as Any,
+                                  "zipCode": "23233",
+                                  "locn": "5271" as Any],
+                    "zipCode": "23233"
+                ] ]as [String : Any];
+            
+            let data = try! JSONSerialization.data(withJSONObject: locationInformation, options: [])
+            let string = String(data: data, encoding: String.Encoding.utf8)
+            return string!;
+        }
+        else if((defaults.string(forKey: divNum) == nil) || (defaults.string(forKey: storeNum) == nil) || (defaults.string(forKey: locnNum) == nil) )
         {
             return "";
         }

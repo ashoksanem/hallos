@@ -306,15 +306,10 @@ class ConfigurationManager : NSObject {
             if let val = answersSaved["GroupID"]
             {
                 if let _val = val as? String  {
-                    if _val == "byoddev" {
+                    if _val == "byoddev" || _val == "byodprod" {
                         CommonUtils.setisBYOD(value: true);
-                        SharedContainer.setIsp(value: "fs572asisp01");
-                        DLog("Setting isp to: fs572asisp01");
-                    }
-                    else if _val == "byodprod" {
-                        CommonUtils.setisBYOD(value: true);
-                        SharedContainer.setIsp(value: "me572asisp01");
-                        DLog("Setting isp to: me572asisp01");
+                        SharedContainer.setIsp(value: "isp01");
+                        DLog("Setting isp in BYOD mode to: isp01");
                     }
                 }
             }

@@ -15,9 +15,9 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         let timeSinceLastParms = CommonUtils.getLastTimeParmsWereRetrieved().timeIntervalSinceNow * -1;
         let thirtyMinutes = 1*30*60 as Double; //30 minutes
         
-        if(timeSinceLastParms < thirtyMinutes && ConfigurationManager.hasCriticalParms())
+        if((timeSinceLastParms < thirtyMinutes && ConfigurationManager.hasCriticalParms()) || CommonUtils.getisBYOD())
         {
-            onCompletion(""); //don't get parms if we already got them recently or if we're missing important ones
+            onCompletion(""); //don't get parms if we already got them recently or if we're missing important ones or when the app is in BYOD mode
         }
         else{
             let espVersion = "5";

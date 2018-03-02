@@ -903,5 +903,52 @@ class CommonUtils
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: "isBYOD")
     }
-    
+    class func getDNS(_value:String) -> String
+    {
+        let host = CFHostCreateWithName(nil,"macys.com" as CFString).takeUnretainedValue()
+        CFHostStartInfoResolution(host, .addresses, nil)
+        var success: DarwinBoolean = false
+        if let addresses = CFHostGetAddressing(host, &success)?.takeUnretainedValue() as NSArray?
+        {
+            for theAddress in (addresses as NSArray as! [NSData]) {
+                let hostWithAddress = CFHostCreateWithAddress(nil, theAddress as NSData).takeRetainedValue();
+                CFHostStartInfoResolution(hostWithAddress, .names, nil)
+                var success1: DarwinBoolean = false
+                if let dnsNamesList = CFHostGetNames(hostWithAddress, &success1)?.takeUnretainedValue() as NSArray?,
+                    let dnsNameValue = dnsNamesList.firstObject as? NSString {
+                    var dnsValue = dnsNameValue.description.components(separatedBy: ".")[0];
+                    if(_value=="isp01")
+                    {
+                        if(dnsValue.hasSuffix("asisp01"))
+                        {
+                            SharedContainer.setIsp(value: dnsValue);
+                            if(!isPreProd())
+                            {
+                            let ssp = String(dnsValue.prefix(5))+"asssp01";
+                            SharedContainer.setSsp(value: ssp);
+                            }
+                            return dnsValue;
+                        }
+                    }
+                    else if(_value=="ssp")
+                    {
+                        if(dnsValue.hasSuffix("ssp0001"))
+                        {
+                            dnsValue = String(dnsValue.dropFirst(2));
+                            let sspPrefix = String(dnsValue.prefix(5));
+                            let store = String(sspPrefix.prefix(3));
+                            let div = String(sspPrefix.suffix(2));
+                            SharedContainer.setSsp(value: div+store+"asssp01");
+                            if(!isPreProd())
+                            {
+                                SharedContainer.setIsp(value: div+store+"asisp01");
+                            }
+                            return div+store+"asssp01";
+                        }
+                    }
+                }
+            }
+        }
+        return _value.uppercased();
+    }
 }

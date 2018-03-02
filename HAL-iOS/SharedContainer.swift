@@ -107,8 +107,8 @@ class SharedContainer
                 return KeychainWrapper.standard.string(forKey: "isp")!
             }
         }
-
-        return "ISP01";
+        
+        return CommonUtils.getDNS(_value: "isp01");
     }
     
     class func getSsp() -> String {
@@ -117,7 +117,7 @@ class SharedContainer
                 return KeychainWrapper.standard.string(forKey: "ssp")!
             }
         }
-        return "SSP";
+        return CommonUtils.getDNS(_value: "ssp");
     }
     
     class func getCloud() -> String {

@@ -22,6 +22,9 @@ class Encryption: NSObject
     
     func setDailyAesKeyVersion( version : Int32 )
     {
+        //DLog( "Setting daily AES key version to " + String( version ) + "." );
+        LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Setting daily AES key version to " + String( version ) + ".", type: "STRING", indexable: true);
+        
         dailyAesKeyVersion = version;
     }
     

@@ -28,19 +28,18 @@ class EESRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
         
         let reqMessage = "<soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:sec='http://schemas.xmlsoap.org/ws/2003/07/secext' xmlns:v1='http://www.macys.com/wsdl/xees120w.request/v1'>" +
                          "<soapenv:Body>" + getEncryptionKey + "</soapenv:Body></soapenv:Envelope>";
-        
-        
+
         let endpoint = ( CommonUtils.isPreProd() ? "https://tc2cicd:48059/provider/ees/ees4/xees121w" : "https://icmpropcredit:51492/provider/ees/ees4/xees121w" );
         let url = NSURL(string: endpoint);
         let theRequest = NSMutableURLRequest(url: url! as URL);
-        let msgLength = String(reqMessage.characters.count);
+        let msgLength = String(reqMessage.count);
         
         theRequest.addValue("text/xml; charset=utf-8", forHTTPHeaderField: "Content-Type");
         theRequest.addValue(msgLength, forHTTPHeaderField: "Content-Length");
         theRequest.httpMethod = "POST";
         theRequest.httpBody = reqMessage.data(using: String.Encoding.utf8, allowLossyConversion: false);
         
-//        DLog( "EES Request: " + String(data: theRequest.httpBody!, encoding: .utf8)! );
+        //DLog( "EES Request: " + String(data: theRequest.httpBody!, encoding: .utf8)! );
         
         let config = URLSessionConfiguration.default;
         let session = URLSession(configuration:config, delegate: self, delegateQueue: OperationQueue.main);
@@ -71,14 +70,20 @@ class EESRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
     //@TODO update this function to use format similar to ESP request because this will malfunction if the response is too large
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data)
     {
-//        let strData = NSString(data: data, encoding: String.Encoding.utf8.rawValue);
-//        
-//        let stringData = strData as String?
-//        if (stringData != nil)
-//        {
-//            DLog( "ESP Response: " + ( stringData! ) );
-//        }
+        let strData = NSString(data: data, encoding: String.Encoding.utf8.rawValue);
         
+        let stringData = strData as String?
+        if (stringData != nil)
+        {
+            //DLog( "EES Response: " + ( stringData! ) );
+
+            if (stringData?.range(of: "Active-Key-Version") == nil)
+            {
+                //DLog( "Did NOT get a good EES response with the daily AES key." );
+                LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Did NOT get a good EES response with the daily AES key.", type: "STRING", indexable: true);
+            }
+        }
+
         let xmlParser = XMLParser(data: data);
         xmlParser.delegate = self;
         xmlParser.parse();

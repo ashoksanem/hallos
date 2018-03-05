@@ -121,8 +121,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
               ( ssid == "MST030C" ) ||
               ( ssid == "FDS030AZ" ) ||
               ( ssid == "LAB030A" ) ||
-        //        (ssid == "FDS010") ||
-              ( ssid == "FDS010" && CommonUtils.getisBYOD()) || // used for QE testing on a dev build. Works in Production in BYOD
+              //( ssid == "FDS010" ) ||  // uncomment for local development testing
+              ( ssid == "FDS010" && CommonUtils.getisBYOD() ) ||  // used for QE testing on a dev build. Works in Production in BYOD
               ( ssid == "MB030A" )
             {
                 return true;
@@ -496,13 +496,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the 
-                 
-                 
-                 
-                 
-                 
-                 
+                 * The persistent store is not accessible, due to permissions or data protection when the
                  device is locked.
                  * The device is out of space.
                  * The store could not be migrated to the current model version.
@@ -577,12 +571,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     {
         if( isLineaConnected() )
         {
-            //        DLog( @"Charging switched to %s with rc of %s\n", chargeFlag ? "true":"false", [sled setCharging:chargeFlag error:nil] ? "true":"false" );
+            //DLog( @"Charging switched to %s with rc of %s\n", chargeFlag ? "true":"false", [sled setCharging:chargeFlag error:nil] ? "true":"false" );
+
             do {
                 try sled?.setCharging( val );
             }
             catch {
-                
                 DLog("Failed to charge");
             }
         }
@@ -593,11 +587,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         if( isLineaConnected() )
         {
             //Set linea idle timeout of lightning port when app is running to 12 hours and disconnect timeout while app is in background to 12 hours.
-            do{
+            do {
                 try sled?.setAutoOffWhenIdle(43200, whenDisconnected: 43200)
             }
             catch {
-                
                 DLog("Failed to change idle timeout")
             }
         }
@@ -718,6 +711,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     //NOTE!!!! There can't be a key with duplicate value, this is PCI requirement!
     func loadKeyId(keyID: Int32, keyData:[UInt8], keyVersion:Int32, kekData:[UInt8]?) -> Bool
     {
+        //DLog( "Loading key version: " + String( keyVersion ) );
+        
         //format the key to load it, optionally encrypt with KEK
         let generatedKeyData = emsrGenerateKeyData(keyID: keyID, keyVersion: Int32(keyVersion), keyData: keyData, kekData: kekData);
         
@@ -812,12 +807,11 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func enableScanner()
     {
-        do{
+        do {
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.ENABLED.rawValue)
             CommonUtils.setScanEnabled(value: true);
         }
         catch {
-            
             DLog("Enable scanner error: " + String(describing:error));
         }
     }
@@ -825,13 +819,11 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func disableScanner()
     {
         CommonUtils.setScannerModeFromWeb(value: false);
-        do{
+        do {
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.DISABLED.rawValue)
             CommonUtils.setScanEnabled(value: false);
-   
         }
         catch {
-            
             DLog("Disable scanner error: " + String(describing:error));
         }
     }
@@ -840,14 +832,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     {
         if( isLineaConnected() )
         {
-            do{
+            do {
                 let battery = try (sled?.getBatteryInfo().capacity)! as Int32
                 return battery
             }
             catch {
-                
                 DLog("Get sled battery level error: " + String(describing:error));
-                
             }
         }
         return 0;
@@ -856,14 +846,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     {
         if( isLineaConnected() )
         {
-            do{
+            do {
                 let firmwareVersion = try (sled?.emsrGetDeviceInfo().firmwareVersionString)! as String;
                 return firmwareVersion;
             }
             catch {
-                
                 DLog("Get sled eMSR firmware version error: " + String(describing:error));
-                
             }
         }
         return "";
@@ -903,7 +891,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func enableMsr()
     {
         CommonUtils.setMSRModeFromWeb(value: true)
-        do{
+        do {
             try sled?.msEnable();
             try sled?.msSetCardDataMode(0);
             CommonUtils.setEnableMsr(value: true);
@@ -921,7 +909,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func disableMsr()
     {
         CommonUtils.setMSRModeFromWeb(value: false)
-        do{
+        do {
             try sled?.msDisable();
             CommonUtils.setEnableMsr(value: false);
             let val = "Timestamp : " + CommonUtils.getDateformatter().string(from: Date());
@@ -966,19 +954,21 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 repeat
                 {
                     // Brian note: I just realized we don't handle changing the KEK, which is probably fine. We also don't need to inject the KEK every single 
-                    // time if it hasn't changed. When that day comes that we do change the KEK we'll have to save the old KEK to encrypt the new KEK before 
+                    // time if it hasn't changed. When that day comes that we do change the KEK we'll have to save the old KEK to encrypt the new KEK before
                     // injecting it. Since we haven't done that in the last 8 years I'm not going to worry about it yet.
                     
-                    var kekVer:Int32 = 0
+                    var msrKekVer:Int32 = 0;
+                    var msrAesVer:Int32 = 0;
                     do
                     {
-                        try sled?.emsrGetKeyVersion(KEY_EH_AES256_LOADING, keyVersion: &kekVer);
+                        try sled?.emsrGetKeyVersion(KEY_EH_AES256_LOADING, keyVersion: &msrKekVer);
+                        try sled?.emsrGetKeyVersion(KEY_EH_AES256_ENCRYPTION1, keyVersion: &msrAesVer);
                         
-                        if( kekVer <= 0 )
+                        if( msrKekVer <= 0 )
                         {
                             if( loadKeyId(keyID: KEY_EH_AES256_LOADING, keyData: newKekData, keyVersion: getKekVersion(), kekData: nil) )
                             {
-                                try sled?.emsrGetKeyVersion(KEY_EH_AES256_LOADING, keyVersion: &kekVer);
+                                try sled?.emsrGetKeyVersion(KEY_EH_AES256_LOADING, keyVersion: &msrKekVer);
                             }
                         }
                     }
@@ -986,26 +976,49 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                     {
                         LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Unable to get MSR KEK key version.", type: "STRING", indexable: true);
                     }
-                    
-                    if( kekVer == getKekVersion() )
+
+                    //DLog("MSR KEK key version: " + String( msrKekVer ) );
+                    //DLog("MSR AES key version: " + String( msrAesVer ) );
+
+                    if( msrKekVer == getKekVersion() )
                     {
                         //We loaded the KEK, and there was much rejoicing
                         
+                        var key : [UInt8] = getDefaultAESKey();
+                        //use version 1 for default key because we can't use version 0
+                        var keyVersion : Int32 = 1;
+                        
+                        if( Encryption.shared.getDailyAesKeyVersion() > 0 && Encryption.shared.getDailyAesKey() != nil )
+                        {
+                            key = Encryption.shared.getDailyAesKey()!;
+                            keyVersion = Encryption.shared.getDailyAesKeyVersion();
+                        }
+
+                        //DLog("AES key version: " + String( keyVersion ) );
+
+                        //don't overwrite previous daily key with default key
+                        if( keyVersion == 1 && msrAesVer > 1 )
+                        {
+                            //DLog("AES key version loaded on MSR is " + String( msrAesVer ) + ", skipping overwriting with default key.");
+                            LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "AES key version loaded on MSR is " + String( msrAesVer ) + ", skipping overwriting with default key.", type: "STRING", indexable: true);
+                            break;
+                        }
+
+                        //DLog("Injected key version: " + String( CommonUtils.getInjectedKeyVersion() ) );
+                        //DLog("Daily AES key version: " + String( Encryption.shared.getDailyAesKeyVersion() ) );
+
                         if( CommonUtils.getInjectedKeyVersion() == 0 ||
                             CommonUtils.getInjectedKeyVersion() != Encryption.shared.getDailyAesKeyVersion() )  //set injected key version idiot
                         {
-                            var key : [UInt8] = getDefaultAESKey();
-                            //use version 1 for default key because we can't use version 0
-                            var keyVersion : Int32 = 1;
-                            
-                            if( Encryption.shared.getDailyAesKeyVersion() > 0  && Encryption.shared.getDailyAesKey() != nil )
+                            if( keyVersion == msrAesVer || loadKeyId(keyID: KEY_EH_AES256_ENCRYPTION1, keyData: key, keyVersion: keyVersion, kekData: newKekData ) )
                             {
-                                key = Encryption.shared.getDailyAesKey()!;
-                                keyVersion = Encryption.shared.getDailyAesKeyVersion();
-                            }
-                            
-                            if( loadKeyId(keyID: KEY_EH_AES256_ENCRYPTION1, keyData: key, keyVersion: keyVersion, kekData: newKekData ) )
-                            {
+                                if( keyVersion == msrAesVer )
+                                {
+                                    //DLog("AES key version loaded on MSR is already " + String( msrAesVer ) + ", skipping load.");
+                                    LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "AES key version loaded on MSR is already " + String( msrAesVer ) + ", skipping load.", type: "STRING", indexable: true);
+                                }
+
+                                //DLog("Setting injected key version to " + String( keyVersion ) );
                                 CommonUtils.setInjectedKeyVersion( value: keyVersion );
                                 break;
                             }

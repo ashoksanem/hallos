@@ -996,13 +996,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 
                         //DLog("AES key version: " + String( keyVersion ) );
 
-                        //don't overwrite previous daily key with default key
+                        //still overwrite with default key, in case switched stores
+                        /*//don't overwrite previous daily key with default key
                         if( keyVersion == 1 && msrAesVer > 1 )
                         {
                             //DLog("AES key version loaded on MSR is " + String( msrAesVer ) + ", skipping overwriting with default key.");
                             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "AES key version loaded on MSR is " + String( msrAesVer ) + ", skipping overwriting with default key.", type: "STRING", indexable: true);
                             break;
-                        }
+                        }*/
 
                         //DLog("Injected key version: " + String( CommonUtils.getInjectedKeyVersion() ) );
                         //DLog("Daily AES key version: " + String( Encryption.shared.getDailyAesKeyVersion() ) );
@@ -1010,13 +1011,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                         if( CommonUtils.getInjectedKeyVersion() == 0 ||
                             CommonUtils.getInjectedKeyVersion() != Encryption.shared.getDailyAesKeyVersion() )  //set injected key version idiot
                         {
-                            if( keyVersion == msrAesVer || loadKeyId(keyID: KEY_EH_AES256_ENCRYPTION1, keyData: key, keyVersion: keyVersion, kekData: newKekData ) )
+                            if( /*keyVersion == msrAesVer ||*/ loadKeyId(keyID: KEY_EH_AES256_ENCRYPTION1, keyData: key, keyVersion: keyVersion, kekData: newKekData ) )
                             {
-                                if( keyVersion == msrAesVer )
+                                //still load the key even if the version is the same, in case switched stores
+                                /*if( keyVersion == msrAesVer )
                                 {
                                     //DLog("AES key version loaded on MSR is already " + String( msrAesVer ) + ", skipping load.");
                                     LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "AES key version loaded on MSR is already " + String( msrAesVer ) + ", skipping load.", type: "STRING", indexable: true);
-                                }
+                                }*/
 
                                 //DLog("Setting injected key version to " + String( keyVersion ) );
                                 CommonUtils.setInjectedKeyVersion( value: keyVersion );

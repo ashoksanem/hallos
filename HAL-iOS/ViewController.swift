@@ -57,6 +57,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "getMsrStatus",
                                          "enableMsr",
                                          "disableMsr",
+                                         "getCardReaderStatus",
+                                         "enableCardReader",
+                                         "disableCardReader",
                                          "getConfigurationParams",
                                          "captureIncorrectLog",
                                          "isFixedRegister",
@@ -456,7 +459,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 }
             }
         }
-        else if(message.name == "enableMsr")
+        else if((message.name == "enableMsr") || (message.name ==  "enableCardReader"))
         {
             Sled.enableMsr();
             if let id = message.body as? String {
@@ -464,7 +467,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                     String( !CommonUtils.isMsrEnabled() ) + ", " + String( CommonUtils.isMsrEnabled() ) + " )");
             }
         }
-        else if(message.name == "disableMsr")
+        else if((message.name == "disableMsr") || (message.name ==  "disableCardReader"))
         {
             Sled.disableMsr();
             if let id = message.body as? String {
@@ -472,7 +475,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                     String( CommonUtils.isMsrEnabled() ) + ", " + String( CommonUtils.isMsrEnabled() ) + " )");
             }
         }
-        else if(message.name == "getMsrStatus")
+        else if((message.name == "getMsrStatus") || (message.name == "getCardReaderStatus"))
         {
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isMsrEnabled() ) + " )");
@@ -621,6 +624,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     {
         DLog("Received MSR data: " + msrData);
         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"msrCallback\", false, " + msrData + " )");
+        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"cardReaderCallback\", false, " + msrData + " )");
     }
     
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

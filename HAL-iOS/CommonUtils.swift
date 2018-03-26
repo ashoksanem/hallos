@@ -905,7 +905,7 @@ class CommonUtils
     }
     class func getDNS(_value:String) -> String
     {
-        let host = CFHostCreateWithName(nil,"macys.com" as CFString).takeUnretainedValue()
+        let host = CFHostCreateWithName(nil,_value as CFString).takeUnretainedValue()
         CFHostStartInfoResolution(host, .addresses, nil)
         var success: DarwinBoolean = false
         if let addresses = CFHostGetAddressing(host, &success)?.takeUnretainedValue() as NSArray?

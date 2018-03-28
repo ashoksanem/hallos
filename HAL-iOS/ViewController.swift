@@ -624,7 +624,14 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     {
         DLog("Received MSR data: " + msrData);
         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"msrCallback\", false, " + msrData + " )");
-        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"cardReaderCallback\", false, " + msrData + " )");
+        
+        let cardData = [
+            "type": "msr",
+            "data": msrData
+            ] as [String : Any]
+        let cardReaderJsonData = try! JSONSerialization.data(withJSONObject: cardData, options: [])
+        let finalCardReaderData = String(data: cardReaderJsonData, encoding: String.Encoding.utf8)
+        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"cardReaderCallback\", false, " + finalCardReaderData! + " )");
     }
     
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

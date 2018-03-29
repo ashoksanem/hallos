@@ -61,7 +61,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "captureIncorrectLog",
                                          "isFixedRegister",
                                          "queryMsgs",
-                                         "getCRUInfo"];
+                                         "getCRUInfo",
+                                         "promptForPin"];
         
         for message in messageHandlers
         {
@@ -489,6 +490,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+            }
+        }
+        else if(message.name == "promptForPin")
+        {
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, 'Unable to prompt for PIN' )");
             }
         }
     }

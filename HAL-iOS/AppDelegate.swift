@@ -41,7 +41,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                                                 selector: #selector(readConfigurationParams),
                                                 name: UserDefaults.didChangeNotification,
                                                 object: nil);
-        
+        if(!ConfigurationManager.existsInMDM("ssp"))
+        {
+            CommonUtils.getDNS(_value: "ssp");
+        }
+        if(!ConfigurationManager.existsInMDM("isp"))
+        {
+            CommonUtils.getDNS(_value: "isp01");
+        }
         NSSetUncaughtExceptionHandler { exception in
             DLog( "error details : " + exception.reason! );
             LoggingRequest.logData( name: LoggingRequest.metrics_app_crash, value: exception.reason!, type: "STRING", indexable: true );

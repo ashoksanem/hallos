@@ -1,2 +1,2 @@
-target_branch=master
-pipeline_release=
+target_branch=DEV
+pipeline_release=18.06

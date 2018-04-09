@@ -25,6 +25,7 @@ class LoggingRequest{
     static let metrics_msr_shutdown = "MsrShutDown";
     static let metrics_msr_connectionError = "MsrConnectionError";
     static let metrics_unAuthorizedCertificate = "UnauthorizedCertificateFound";
+    static let metrics_offlineLogin = "OfflineLogin"
     
     class func makeServerRequest(data: Data, onCompletion: @escaping (_ result: Bool)->Void) {
         let networkReqURL = "https://"+SharedContainer.getSsp()+ssoConnectionURL;

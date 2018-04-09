@@ -210,7 +210,7 @@ class CommonUtils
                 "jwt": getOfflineJwt(associatenumber: assocNbr)
             ] as [String : Any];
         
-        LoggingRequest.logData(name: LoggingRequest.metrics_warning, value: "Using offline associate info.", type: "STRING", indexable: true);
+        LoggingRequest.logData(name: LoggingRequest.metrics_offlineLogin, value: assocNbr, type: "STRING", indexable: true);
         
         Heap.track("AssociateAuthentication", withProperties:[AnyHashable("offlineAssociate"):"true",
                                                               AnyHashable("associateNumber"):assocNbr,

@@ -47,7 +47,7 @@ class CommonUtils
     static let failedSSIDLaunchAttempts = "failedSSIDLaunchAttempts";
     static let lastTimeParmsWereRetrieved = "lastTimeParmsWereRetrieved";
     static let isBYOD = "isBYOD";
-    
+    static let bgSplashTag = 100;
     class func setUpUserDefaults() -> Void
     {
         let defaults = UserDefaults.standard

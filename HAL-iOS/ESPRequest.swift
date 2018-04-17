@@ -49,6 +49,7 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
             //        DLog( "ESP Request: " + String(data: theRequest.httpBody!, encoding: .utf8)! );
             
             let config = URLSessionConfiguration.default;
+            config.requestCachePolicy = .reloadIgnoringCacheData;
             let session = URLSession(configuration:config, delegate: self, delegateQueue: OperationQueue.main);
             let task = session.dataTask(with: theRequest as URLRequest, completionHandler: {data, response, error -> Void in
                 if(error == nil) {

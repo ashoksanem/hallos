@@ -1012,8 +1012,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                             break;
                         }*/
 
-                        DLog("Injected key version: " + String( CommonUtils.getInjectedKeyVersion() ) );
-                        DLog("Daily AES key version: " + String( Encryption.shared.getDailyAesKeyVersion() ) );
+                        //DLog("Injected key version: " + String( CommonUtils.getInjectedKeyVersion() ) );
+                        //DLog("Daily AES key version: " + String( Encryption.shared.getDailyAesKeyVersion() ) );
 
                         if( CommonUtils.getInjectedKeyVersion() == 0 ||
                             CommonUtils.getInjectedKeyVersion() != Encryption.shared.getDailyAesKeyVersion() )  //set injected key version idiot

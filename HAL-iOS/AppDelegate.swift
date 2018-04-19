@@ -1012,8 +1012,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                             break;
                         }*/
 
-                        //DLog("Injected key version: " + String( CommonUtils.getInjectedKeyVersion() ) );
-                        //DLog("Daily AES key version: " + String( Encryption.shared.getDailyAesKeyVersion() ) );
+                        DLog("Injected key version: " + String( CommonUtils.getInjectedKeyVersion() ) );
+                        DLog("Daily AES key version: " + String( Encryption.shared.getDailyAesKeyVersion() ) );
 
                         if( CommonUtils.getInjectedKeyVersion() == 0 ||
                             CommonUtils.getInjectedKeyVersion() != Encryption.shared.getDailyAesKeyVersion() )  //set injected key version idiot
@@ -1031,6 +1031,16 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                                 CommonUtils.setInjectedKeyVersion( value: keyVersion );
                                 break;
                             }
+                        }
+                        else if( CommonUtils.getInjectedKeyVersion() == Encryption.shared.getDailyAesKeyVersion() )
+                        {
+                            // Ran in to a bug where if the daily key was injected, the app was pushed to the backgroud, then restarted, when the sled reconnected we tried to inject the daily key again but the daily key
+                            // was already injected, so we looped through our retries then killed the app. Putting this break here should stop that from happening, but will still allow us to switch devices between stores
+                            // even with the same daily key number because this logic is triggered off of what key did the current running instance of the application inject. Therefore if we switched between stores the
+                            // injected key version is cleared and the app will try to inject it again. This only works, I think, if the app is restarted (or reinstalled) when switching stores. If you change stores then just
+                            // repush the managed application configuration through AirWatch I think we'll still have this issue, but most people don't do that so this will cover almost all common use cases.
+                            
+                            break;
                         }
                     }
                     

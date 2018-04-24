@@ -12,6 +12,7 @@
 		48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */ = {isa = PBXBuildFile; fileRef = 48AD2A6A1FDEF32700C2F509 /* defaultBlank.html */; };
 		48BB01291F66CF470019E881 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 48BB01281F66CF470019E881 /* XMLReader.m */; };
 		60DD681E17AFC28325F14795 /* Pods_HAL_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4658339D45E6C5D2372B8C23 /* Pods_HAL_iOS.framework */; };
+		851C7F8B207C14BE00F4D5AF /* SplashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 851C7F8A207C14BE00F4D5AF /* SplashView.xib */; };
 		8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538E5651EF1809700F82E1D /* DataForwarder.swift */; };
 		853DEFB21F2260B600BEDE1D /* PrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */; };
 		858988BD1EAE208A00AF2024 /* DLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858988BC1EAE208A00AF2024 /* DLog.swift */; };
@@ -104,6 +105,7 @@
 		6989151A3C92DF8CFCF6EEF0 /* Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		773E4FA0ADDCA8BAB2127144 /* Pods_HAL_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85122EDC5C642EA6B46A0C1B /* Pods-HAL-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		851C7F8A207C14BE00F4D5AF /* SplashView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashView.xib; sourceTree = "<group>"; };
 		8538E5651EF1809700F82E1D /* DataForwarder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataForwarder.swift; sourceTree = "<group>"; };
 		853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrinterViewController.swift; sourceTree = "<group>"; };
 		858988BC1EAE208A00AF2024 /* DLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLog.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				BC534AB41DFF179200C65BAC /* ZebraBluetooth.swift */,
 				BC534AB51DFF179200C65BAC /* ZPLConnector.h */,
 				BC534AB61DFF179200C65BAC /* ZPLConnector.mm */,
+				851C7F8A207C14BE00F4D5AF /* SplashView.xib */,
 			);
 			path = "HAL-iOS";
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB8CA561F3A52AD008EA783 /* Settings.bundle in Resources */,
+				851C7F8B207C14BE00F4D5AF /* SplashView.xib in Resources */,
 				48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */,
 				BC25B5151F27B8BE0028E81F /* default.html in Resources */,
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,

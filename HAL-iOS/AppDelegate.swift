@@ -172,6 +172,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         if !CommonUtils.isSSOPage(ViewController.webView?.url) {
             CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
         }
+        URLCache.shared.removeAllCachedResponses();
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -180,7 +181,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 
         //CommonUtils.setIsSSOAuthenticated( value: false );
         //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);
-        
+        attachBackgroundSplash();
         if let app = application as? HALApplication
         {
             app.stopNetworkTimer();
@@ -199,10 +200,14 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         //The following lines are suggestions of IPC
         sled = DTDevices.sharedDevice() as? DTDevices;
         sled?.disconnect();
+        
+        URLCache.shared.removeAllCachedResponses();
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        let splashView = UIApplication.shared.keyWindow?.subviews.last?.viewWithTag(CommonUtils.bgSplashTag);
+        splashView?.removeFromSuperview();
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -475,6 +480,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
+        URLCache.shared.removeAllCachedResponses();
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         if #available(iOS 10.0, *) {
@@ -810,6 +816,13 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         free( hash );
         
         return r;
+    }
+    
+    func attachBackgroundSplash()
+    {
+        let splashView = Bundle.main.loadNibNamed("SplashView", owner: self, options: nil)?.first as! UIView;
+        splashView.tag = CommonUtils.bgSplashTag;
+         UIApplication.shared.keyWindow?.subviews.last?.addSubview(splashView);
     }
     
     func enableScanner()

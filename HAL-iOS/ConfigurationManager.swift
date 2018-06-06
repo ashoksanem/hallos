@@ -25,7 +25,7 @@ class ConfigurationManager : NSObject {
                 if(parm == "MST")
                 {
                     //as of now, all master store parms are required, so we will return false if they're missing or empty strings
-                    let masterStoreParms = parmsDictionary?["master_store_v5"] as? NSDictionary;
+                    let masterStoreParms = parmsDictionary?["master_store_data"] as? NSDictionary;
                     
                     func getMstParm(_ parmName: String) -> String
                     {
@@ -64,7 +64,7 @@ class ConfigurationManager : NSObject {
                 }
                 else if(parm == "L4P")
                 {
-                    if let lvl4 = ((parmsDictionary?["level_4_parms_list_v5"] as? NSDictionary)?["level_4_parms_list"] as? NSDictionary)?["level_4_parms"] as? [NSDictionary]
+                    if let lvl4 = ((parmsDictionary?["level_4_parms_data"] as? NSDictionary)?["level_4_parms_list"] as? NSDictionary)?["level_4_parms_elm"] as? [NSDictionary]
                     {
                         //closure func to abstract redundant code
                         func getL4Parm(_ parmDictionary: NSDictionary) -> String

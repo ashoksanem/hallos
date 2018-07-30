@@ -168,6 +168,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+        attachBackgroundSplash();
         CommonUtils.setInactivityStartTime();
         if !CommonUtils.isSSOPage(ViewController.webView?.url) {
             CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
@@ -181,7 +182,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 
         //CommonUtils.setIsSSOAuthenticated( value: false );
         //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);
-        attachBackgroundSplash();
         if let app = application as? HALApplication
         {
             app.stopNetworkTimer();
@@ -206,12 +206,11 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        let splashView = UIApplication.shared.keyWindow?.subviews.last?.viewWithTag(CommonUtils.bgSplashTag);
-        splashView?.removeFromSuperview();
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        
+        let splashView = UIApplication.shared.keyWindow?.subviews.last?.viewWithTag(CommonUtils.bgSplashTag);
+        splashView?.removeFromSuperview();
         verifyOSVersion(UIDevice.current.systemVersion); //kills app if iOS is between 11 & 11.2.4
         
         if( !checkSSID() )

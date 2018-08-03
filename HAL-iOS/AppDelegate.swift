@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
 
     var window: UIWindow?;
     var sled: DTDevices?;
+    let splashView = Bundle.main.loadNibNamed("SplashView", owner: self, options: nil)?.first as! UIView;
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -819,7 +820,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     
     func attachBackgroundSplash()
     {
-        let splashView = Bundle.main.loadNibNamed("SplashView", owner: self, options: nil)?.first as! UIView;
         splashView.tag = CommonUtils.bgSplashTag;
          UIApplication.shared.keyWindow?.subviews.last?.addSubview(splashView);
     }

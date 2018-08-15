@@ -135,7 +135,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         if(!CommonUtils.isDefaultLandingPage(url))
         {
 //            let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app
-//            var url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api
+//            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api
             loadWebView(url: url);
         }
         else

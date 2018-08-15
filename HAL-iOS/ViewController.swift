@@ -131,17 +131,17 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeProgressView()
-        let url = CommonUtils.getLandingPage();
-        if(!CommonUtils.isDefaultLandingPage(url))
-        {
-//            let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app
-//            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api
+        var url = CommonUtils.getLandingPage();
+//        if(!CommonUtils.isDefaultLandingPage(url))
+//        {
+//            url = URL(string: "http://www.google.com")!; //for debugging local web app
+	            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api
             loadWebView(url: url);
-        }
-        else
-        {
-            CommonUtils.setCurrentPage(value: url);
-        }
+//        }
+//        else
+//        {
+//            CommonUtils.setCurrentPage(value: url);
+//        }
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {

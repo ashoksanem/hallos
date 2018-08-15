@@ -129,7 +129,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
               ( ssid == "MST030C" ) ||
               ( ssid == "FDS030AZ" ) ||
               ( ssid == "LAB030A" ) ||
-//              ( ssid == "FDS010" ) ||  // uncomment for local development testing
+              ( ssid == "FDS010" ) ||  // uncomment for local development testing
               ( ssid == "FDS010" && CommonUtils.getisBYOD() ) ||  // used for QE testing on a dev build. Works in Production in BYOD
               ( ssid == "MB030A" )
             {

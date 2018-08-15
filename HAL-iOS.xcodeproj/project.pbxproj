@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3CE9CDD4177270193D3E01FC /* Pods_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 773E4FA0ADDCA8BAB2127144 /* Pods_HAL_iOSTests.framework */; };
 		4843DD781FA8ED7E00FBAAE6 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */; };
 		48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */ = {isa = PBXBuildFile; fileRef = 48AD2A6A1FDEF32700C2F509 /* defaultBlank.html */; };
 		48BB01291F66CF470019E881 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 48BB01281F66CF470019E881 /* XMLReader.m */; };
@@ -19,6 +18,12 @@
 		85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CCB4131F22649C0088BD5D /* sampleBarcode.png */; };
 		85DDE7081EEB171500700EFC /* Certificates in Resources */ = {isa = PBXBuildFile; fileRef = 85DDE7071EEB171500700EFC /* Certificates */; };
 		A91A7471A3B481F9F4225248 /* Pods_HAL_iOS_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */; };
+		BC03A54E21246D1F00D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
+		BC03A54F21246D3500D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
+		BC03A55021246F0F00D9CD4F /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2B8631F311B1900F3496D /* libcrypto.a */; };
+		BC03A55121246F2000D9CD4F /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2B8631F311B1900F3496D /* libcrypto.a */; };
+		BC03A55221246F9F00D9CD4F /* Encryption in Resources */ = {isa = PBXBuildFile; fileRef = BCD2B85D1F31094300F3496D /* Encryption */; };
+		BC03A55321246FA700D9CD4F /* Encryption in Resources */ = {isa = PBXBuildFile; fileRef = BCD2B85D1F31094300F3496D /* Encryption */; };
 		BC174CC81F02DDA4005FBA9A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */; };
 		BC174CCA1F02DDB0005FBA9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CC91F02DDB0005FBA9A /* Foundation.framework */; };
 		BC174CCC1F02DDC1005FBA9A /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BC174CCB1F02DDC1005FBA9A /* libicucore.tbd */; };
@@ -45,7 +50,6 @@
 		BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2B8641F311B1900F3496D /* libssl.a */; };
 		BCD6982B1DB7C34600F856CE /* icons in Resources */ = {isa = PBXBuildFile; fileRef = BCD6982A1DB7C34600F856CE /* icons */; };
 		BCE513561F1D0EA40060CAB8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE513551F1D0EA40060CAB8 /* Utils.swift */; };
-		BF5744C7AC954EC71EB3DB72 /* Pods_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */; };
 		CC14AF421DB56F93007208F7 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = CC14AF411DB56F93007208F7 /* sso */; };
 		CC21C0491E16A332006CD57B /* ESPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC21C0481E16A332006CD57B /* ESPRequest.swift */; };
 		CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585601D9AF71C00294506 /* AppDelegate.swift */; };
@@ -211,7 +215,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CE9CDD4177270193D3E01FC /* Pods_HAL_iOSTests.framework in Frameworks */,
+				BC03A55021246F0F00D9CD4F /* libcrypto.a in Frameworks */,
+				BC03A54E21246D1F00D9CD4F /* CrashReporter.framework in Frameworks */,
 				A91A7471A3B481F9F4225248 /* Pods_HAL_iOS_HAL_iOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,7 +225,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF5744C7AC954EC71EB3DB72 /* Pods_HAL_iOSUITests.framework in Frameworks */,
+				BC03A55121246F2000D9CD4F /* libcrypto.a in Frameworks */,
+				BC03A54F21246D3500D9CD4F /* CrashReporter.framework in Frameworks */,
 				ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -553,6 +559,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC03A55221246F9F00D9CD4F /* Encryption in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +567,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC03A55321246FA700D9CD4F /* Encryption in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,8 +871,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					"\"CryptoSwift\"",
-					"-framework",
 					"\"JWT\"",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -919,8 +925,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-framework",
-					"\"CryptoSwift\"",
 					"-framework",
 					"\"JWT\"",
 				);
@@ -1031,8 +1035,17 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS",
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers";
 				INFOPLIST_FILE = "HAL-iOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS/Encryption/openssl/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -1047,8 +1060,17 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS",
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers";
 				INFOPLIST_FILE = "HAL-iOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS/Encryption/openssl/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -1062,8 +1084,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS",
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers";
 				INFOPLIST_FILE = "HAL-iOSUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS/Encryption/openssl/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -1077,8 +1108,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS",
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers";
 				INFOPLIST_FILE = "HAL-iOSUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HAL-iOS/Encryption/openssl/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "sdf.HAL-iOSUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;

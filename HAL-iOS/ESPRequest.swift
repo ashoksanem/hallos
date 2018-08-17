@@ -20,7 +20,7 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
             onCompletion(""); //don't get parms if we already got them recently or if we're missing important ones or when the app is in BYOD mode
         }
         else{
-            let espVersion = "5";
+            let espVersion = "6";
             
             var parmsXML = "";
             for parm in parms
@@ -36,7 +36,7 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
             let soapMessageBody = "<soapenv:Body><sei:getRequestedParameters>" + soapClientMessage + "<requested_parameters><requested_parameter_list>" + parmsXML + "</requested_parameter_list></requested_parameters></sei:getRequestedParameters></soapenv:Body></soapenv:Envelope>";
             
             let soapMessage = soapMessageHeader + soapMessageBody;
-            let urlString = "https://" + SharedContainer.getIsp() + "/parm/v" + espVersion;
+            let urlString = "https://" + SharedContainer.getSsp() + "/parm/v" + espVersion;
             let url = NSURL(string: urlString);
             let theRequest = NSMutableURLRequest(url: url! as URL);
             let msgLength = String(soapMessage.count);

@@ -1,0 +1,96 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+update_fastlane
+
+REQUIRED_XCODE_VERSION = "9.4.1"
+keychain_password = ENV["KEYCHAIN_PASSWORD"]
+deployer_password = ENV["ARTIFACTORY_DEPLOYER_PASSWORD"]
+#artifactory_url = ENV["ARTIFACTORY_URL"]
+
+testflight_user = "max.kazin@macys.com"
+
+default_platform(:ios)
+
+platform :ios do
+
+  private_lane :verify_xcode_version do
+    xcversion(version: REQUIRED_XCODE_VERSION)
+    ensure_xcode_version(version: REQUIRED_XCODE_VERSION)
+  end
+
+  private_lane :hal_review do
+    verify_xcode_version
+    run_tests(
+      workspace: "HAL-iOS.xcworkspace",
+      scheme: "HAL-iOS",
+      configuration: "Debug",
+      buildlog_path: "./fastlane/logs",
+      derived_data_path: "./fastlane/derived",
+      output_directory: "./fastlane/output",
+      code_coverage: "true",
+      device: "iPhone X",
+      clean: "true"
+      )
+  end
+
+  private_lane :hal_deploy do
+    verify_xcode_version
+   if is_ci?
+     unlock_keychain(
+       path: "~/Library/Keychains/login.keychain-db",
+       password: keychain_password
+       )
+   end
+    build_ios_app(
+      workspace: "HAL-iOS.xcworkspace",
+      scheme: "HAL-iOS",
+      configuration: "Release",
+      build_path: "./fastlane/build",
+      buildlog_path: "./fastlane/logs",
+      derived_data_path: "./fastlane/derived",
+      output_directory: "./fastlane/output",
+      output_name: "hal.ipa",
+      silent: true,
+      clean: true,
+      include_bitcode: false,
+      skip_profile_detection: true,
+      export_team_id: "8AS67DFAXH",
+      export_method: "enterprise",
+      export_xcargs: "-allowProvisioningUpdates",
+      export_options: {
+        signingStyle: "manual",
+        provisioningProfiles: { 
+          "com.macys.mst.hal" => "HalProd 6-13-18"
+          }
+      }
+    )
+    artifactory(
+      username: "deployer",
+      password: deployer_password,
+      endpoint: "http://ci-artifacts.devops.fds.com/artifactory/",
+      file: "./fastlane/output/hal.ipa",
+      repo: "mobileapps",
+      repo_path: "/halIos/hal-#{last_git_commit[:abbreviated_commit_hash]}.ipa"
+  )
+  end
+
+# CI lanes start here
+  desc "Build HAL-iOS scheme and run unit tests"
+  lane :review do
+    hal_review
+    #run_swiftlint
+  end
+
+  desc "Build HAL-iOS scheme and upload IPA to Artifactory"
+  lane :deploy do
+    hal_deploy
+  end
+
+end

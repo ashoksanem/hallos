@@ -71,13 +71,14 @@ platform :ios do
           }
       }
     )
+    app_version = get_version_number(xcodeproj: "HAL-iOS.xcodeproj")
     artifactory(
       username: "deployer",
       password: deployer_password,
       endpoint: "http://ci-artifacts.devops.fds.com/artifactory/",
       file: "./fastlane/output/hal.ipa",
       repo: "mobileapps",
-      repo_path: "/halIos/hal-#{last_git_commit[:abbreviated_commit_hash]}.ipa"
+      repo_path: "/halIos/hal-#{app_version}-#{last_git_commit[:abbreviated_commit_hash]}.ipa"
   )
   end
 

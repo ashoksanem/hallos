@@ -13,6 +13,8 @@ REQUIRED_XCODE_VERSION = "9.4.1"
 keychain_password = ENV["KEYCHAIN_PASSWORD"]
 deployer_password = ENV["ARTIFACTORY_DEPLOYER_PASSWORD"]
 provisioningProfile = nil
+artifactory_distr = nil
+
 
 testflight_user = "max.kazin@macys.com"
 
@@ -78,7 +80,7 @@ platform :ios do
       endpoint: "http://ci-artifacts.devops.fds.com/artifactory/",
       file: "./fastlane/output/hal.ipa",
       repo: "mobileapps",
-      repo_path: "/halIos/hal-#{app_version}-#{last_git_commit[:abbreviated_commit_hash]}.ipa"
+      repo_path: "/halIos/#{artifactory_distr}/hal-#{app_version}-#{last_git_commit[:abbreviated_commit_hash]}.ipa"
   )
   end
 
@@ -89,20 +91,17 @@ platform :ios do
     #run_swiftlint
   end
 
-  desc "Build HAL-iOS scheme and upload IPA to Artifactory"
-  lane :deploy do
-    deployProd
-  end
-
   desc "Build HAL-iOS prod and upload IPA to Artifactory"
   lane :deployProd do
     provisioningProfile = "HalProd 6-13-18"
+    artifactory_distr = "distribution"
     hal_deploy
   end
 
   desc "Build HAL-iOS prod and upload IPA to Artifactory"
   lane :deployDev do
     provisioningProfile = "HalDev"
+    artifactory_distr = "development"
     hal_deploy
   end
 

@@ -12,7 +12,7 @@ update_fastlane
 REQUIRED_XCODE_VERSION = "9.4.1"
 keychain_password = ENV["KEYCHAIN_PASSWORD"]
 deployer_password = ENV["ARTIFACTORY_DEPLOYER_PASSWORD"]
-#artifactory_url = ENV["ARTIFACTORY_URL"]
+provisioningProfile = nil
 
 testflight_user = "max.kazin@macys.com"
 
@@ -66,8 +66,8 @@ platform :ios do
       export_xcargs: "-allowProvisioningUpdates",
       export_options: {
         signingStyle: "manual",
-        provisioningProfiles: { 
-          "com.macys.mst.hal" => "HalProd 6-13-18"
+        provisioningProfiles: {
+          "com.macys.mst.hal" => provisioningProfile
           }
       }
     )
@@ -91,6 +91,18 @@ platform :ios do
 
   desc "Build HAL-iOS scheme and upload IPA to Artifactory"
   lane :deploy do
+    deployProd
+  end
+
+  desc "Build HAL-iOS prod and upload IPA to Artifactory"
+  lane :deployProd do
+    provisioningProfile = "HalProd 6-13-18"
+    hal_deploy
+  end
+
+  desc "Build HAL-iOS prod and upload IPA to Artifactory"
+  lane :deployDev do
+    provisioningProfile = "HalDev"
     hal_deploy
   end
 

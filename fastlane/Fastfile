@@ -14,6 +14,8 @@ keychain_password = ENV["KEYCHAIN_PASSWORD"]
 deployer_password = ENV["ARTIFACTORY_DEPLOYER_PASSWORD"]
 provisioningProfile = nil
 artifactory_distr = nil
+export_method = nil
+app_configuration = nil
 
 
 testflight_user = "max.kazin@macys.com"
@@ -53,7 +55,7 @@ platform :ios do
     build_ios_app(
       workspace: "HAL-iOS.xcworkspace",
       scheme: "HAL-iOS",
-      configuration: "Release",
+      configuration: app_configuration,
       build_path: "./fastlane/build",
       buildlog_path: "./fastlane/logs",
       derived_data_path: "./fastlane/derived",
@@ -64,7 +66,7 @@ platform :ios do
       include_bitcode: false,
       skip_profile_detection: true,
       export_team_id: "8AS67DFAXH",
-      export_method: "enterprise",
+      export_method: export_method,
       export_xcargs: "-allowProvisioningUpdates",
       export_options: {
         signingStyle: "manual",
@@ -95,6 +97,8 @@ platform :ios do
   lane :deployProd do
     provisioningProfile = "HalProd 6-13-18"
     artifactory_distr = "distribution"
+    export_method = "enterprise"
+    app_configuration = "Release"
     hal_deploy
   end
 
@@ -102,6 +106,8 @@ platform :ios do
   lane :deployDev do
     provisioningProfile = "HalDev"
     artifactory_distr = "development"
+    app_configuration = "Debug"
+    export_method = "development"
     hal_deploy
   end
 

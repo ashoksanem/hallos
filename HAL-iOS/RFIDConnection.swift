@@ -28,7 +28,7 @@ class RFIDConnection: NSObject, RfidSDKDelegate
             ] as [String : Any]
         updateRfidData(data: data)
     }
-    
+    //
     func EventInventoryUserCountChange(userCount: Int) {
         let data = [
             "type": "inventoryUserCount",

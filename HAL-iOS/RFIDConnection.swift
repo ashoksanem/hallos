@@ -64,19 +64,19 @@ class RFIDConnection: NSObject, RfidSDKDelegate
         let invWorkerInstance = rfidClient?.getInventoryWorkerInstance();
         if(invWorkerInstance != nil)
         {
-            if(mode == CommonUtils.autoPlayMode )
+            if(mode == RfidUtils.autoPlayMode )
             {
                 var result = INVENTORY_RESULT.FAILURE;
                 result =  (invWorkerInstance?.startInventory())!;
                 if(result == INVENTORY_RESULT.SUCCESS)
                 {
-                    CommonUtils.setInventorySessionMode(mode: CommonUtils.autoPlayMode)
+                    RfidUtils.setInventorySessionMode(mode: RfidUtils.autoPlayMode)
                 }
                 return RfidUtils.TranslateResultToStringResult(result)
             }
-            else if(mode == CommonUtils.triggerMode )
+            else if(mode == RfidUtils.triggerMode )
             {
-                CommonUtils.setInventorySessionMode(mode: CommonUtils.triggerMode)
+                RfidUtils.setInventorySessionMode(mode: RfidUtils.triggerMode)
                 return RfidUtils.TranslateResultToStringResult(INVENTORY_RESULT.SUCCESS)
             }
             else
@@ -101,7 +101,7 @@ class RFIDConnection: NSObject, RfidSDKDelegate
             rfidClient?.EstablishComm(hostname: server, port: port, siteId: storeID)
             rfidClient?.setReaderSession(READER_SESSION.S2)
             var result = rfidClient?.getInventoryWorkerInstance()?.openInventorySession(withTableName: tableName)
-            CommonUtils.setInventorySessionMode(mode: CommonUtils.triggerMode)
+            RfidUtils.setInventorySessionMode(mode: RfidUtils.triggerMode)
             return RfidUtils.TranslateResultToStringResult(result ?? INVENTORY_RESULT.FAILURE)
         }
         else
@@ -111,7 +111,7 @@ class RFIDConnection: NSObject, RfidSDKDelegate
     }
     
     func EventTriggerNotify(pressed: Bool) {
-        if(CommonUtils.getInventorySessionMode() == CommonUtils.triggerMode)
+        if(RfidUtils.getInventorySessionMode() == RfidUtils.triggerMode)
         {
             if pressed {
                 let r = rfidClient?.getInventoryWorkerInstance()?.startInventory()

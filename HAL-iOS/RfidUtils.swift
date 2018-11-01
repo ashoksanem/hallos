@@ -11,6 +11,19 @@ import rfid_ios_fw
 
 class RfidUtils: NSObject {
     
+    static let triggerMode = "triggerMode";
+    static let autoPlayMode = "autoPlayMode";
+    
+    class func setInventorySessionMode(mode: String)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(mode, forKey: inventorySessionMode);
+    }
+    class func getInventorySessionMode() -> String
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.string(forKey: inventorySessionMode) ?? triggerMode;
+    }
     
     class func TranslateResultToStringResult(_ result:RFID_RESULT) -> String{
         switch result {

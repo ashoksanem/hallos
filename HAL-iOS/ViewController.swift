@@ -586,7 +586,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             }
         }
     }
-    
+    func updateRfidData(rfidData: String)
+    {
+        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"rfidCallback\", false, " + rfidData + " )");
+    }
     func loadWebView(url: URL)
     {
             let req = NSURLRequest(url: url);

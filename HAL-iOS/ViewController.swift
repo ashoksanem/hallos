@@ -19,6 +19,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     var printerData:NSDictionary = [:];
     var progressView: UIView?;
     var activityIndicator: UIActivityIndicatorView?;
+    var rfidConnector = RFIDConnection();
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
@@ -65,7 +66,14 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "isFixedRegister",
                                          "queryMsgs",
                                          "getCRUInfo",
-                                         "promptForPin"];
+                                         "promptForPin",
+                                         "enableRfid",
+                                         "disableRfid",
+                                         "startRfidSession",
+                                         "clearRfidSession",
+                                         "cancelRfidSession",
+                                         "closeRfidSession",
+                                         "changeRfidSessionMode"];
         
         for message in messageHandlers
         {
@@ -499,6 +507,82 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, 'Unable to prompt for PIN' )");
+            }
+        }
+        else if(message.name == "enableRfid")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    let result = rfidConnector.enableRFID();
+                    let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
+                    let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
+                    evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                }
+            }
+        }
+        else if(message.name == "disableRfid")
+        {
+            if let id = message.body as? String {
+                rfidConnector.disableRFID()
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+            }
+        }
+        else if(message.name == "changeRfidSessionMode")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        let result = rfidConnector.changeSessionMode(data: data)
+                        let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
+                        let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                    }
+                }
+            }
+        }
+        else if(message.name == "startRfidSession")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        if let type = data["type"] as? String {
+                            if(type == "inventory")
+                            {
+                                let result = rfidConnector.startInventorySession(data: data);
+                                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
+                                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
+                                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if(message.name == "clearRfidSession")
+        {
+            if let id = message.body as? String {
+                let result = rfidConnector.clearRfidSession()
+                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
+                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+            }
+        }
+        else if(message.name == "cancelRfidSession")
+        {
+            if let id = message.body as? String {
+                let result = rfidConnector.cancelRfidSession()
+                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
+                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+            }
+        }
+        else if(message.name == "closeRfidSession")
+        {
+            if let id = message.body as? String {
+                let result = rfidConnector.closeRfidSession()
+                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
+                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
             }
         }
     }

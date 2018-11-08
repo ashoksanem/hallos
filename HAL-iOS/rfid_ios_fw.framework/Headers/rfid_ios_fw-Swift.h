@@ -268,9 +268,9 @@ SWIFT_PROTOCOL("_TtP11rfid_ios_fw15RfidSDKDelegate_")
 - (void)EventFindProductDidLocateTagWithTag:(TagInfo * _Nonnull)tag proximityPercent:(NSInteger)proximityPercent;
 - (void)EventTriggerNotifyWithPressed:(BOOL)pressed;
 - (void)EventScannerBarcode:(NSString * _Nonnull)barcode barcodeType:(NSString * _Nonnull)barcodeType;
-- (void)EventInventorySessionDidOpenWithSessionId:(NSString * _Nonnull)withSessionId isSessionOwner:(BOOL)isSessionOwner;
-- (void)EventInventorySessionDidCommit;
-- (void)EventInventorySessionDidClose;
+- (void)EventInventorySessionDidOpen:(BOOL)isSuccess withSessionId:(NSString * _Nonnull)withSessionId isSessionOwner:(BOOL)isSessionOwner;
+- (void)EventInventorySessionDidCommit:(BOOL)isSuccess;
+- (void)EventInventorySessionDidClose:(BOOL)isSuccess;
 - (void)EventInventoryLocalTagCountDidChangeWithLocalTagCount:(NSInteger)localTagCount;
 - (void)EventInventoryTotalTagCountDidChangeWithTotalTagCount:(NSInteger)totalTagCount;
 - (void)EventInventoryUserCountChangeWithUserCount:(NSInteger)userCount;

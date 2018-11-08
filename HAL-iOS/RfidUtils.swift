@@ -13,6 +13,7 @@ class RfidUtils: NSObject {
     
     static let triggerMode = "triggerMode";
     static let autoPlayMode = "autoPlayMode";
+    static let inventorySessionMode = "inventorySessionMode";
     
     class func setInventorySessionMode(mode: String)
     {

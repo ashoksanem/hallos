@@ -139,11 +139,11 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeProgressView()
-        let url = CommonUtils.getLandingPage();
+        var url = CommonUtils.getLandingPage();
         if(!CommonUtils.isDefaultLandingPage(url))
         {
 //            let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app
-//            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api
+            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api
             loadWebView(url: url);
         }
         else
@@ -511,13 +511,19 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "enableRfid")
         {
-            if let _data = message.body as? NSDictionary {
-                if let id = _data["handle"] as? String {
-                    let result = rfidConnector.enableRFID();
-                    let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                    let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                    evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
-                }
+            if let id = message.body as? String {
+                
+                let result = rfidConnector.enableRFID();
+                
+                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
+                
+                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
+                
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                
+            
+                    
+                
             }
         }
         else if(message.name == "disableRfid")

@@ -98,7 +98,10 @@ class RFIDConnection: NSObject, RfidSDKDelegate
         let tableName = (data["tableName"] as? String) ?? "";
         if(server != "" && port != -1 && storeID != "" && tableName != "")
         {
-            rfidClient?.EstablishComm(hostname: server, port: port, siteId: storeID)
+             rfidClient?.EstablishComm(hostname: server, port: port, completion: { (true) in print("Connected") })
+            
+            
+           
             rfidClient?.setReaderSession(READER_SESSION.S2)
             var result = rfidClient?.getInventoryWorkerInstance()?.openInventorySession(withTableName: tableName)
             RfidUtils.setInventorySessionMode(mode: RfidUtils.triggerMode)

@@ -60,6 +60,9 @@
 	<array>
 		<string>com.datecs.linea.pro.msr</string>
 		<string>com.datecs.linea.pro.bar</string>
+		<string>com.zebra.scanner.SSI</string>
+		<string>com.symbol.rfd8X00_easytext</string>
+		<string>com.zebra.rfd8x00_easytext</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

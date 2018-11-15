@@ -27,6 +27,11 @@ class Assembly{
         availableFunctions.append("Scanner");
         availableFunctions.append("MSR");
         }
+        if(isRfidScannerAvailable())
+        {
+        availableFunctions.append("Scanner");
+        availableFunctions.append("RFIDScanner");
+        }
         if(isCameraAvailable()){
             availableFunctions.append("Camera");
         }
@@ -47,6 +52,9 @@ class Assembly{
     }
     class func isScannerAvailable() -> Bool {
         return Sled.isConnected();
+    }
+    class func isRfidScannerAvailable() -> Bool {
+        return RFIDConnection().rfidClient?.getReaderStatus()?.isConnected ?? false;
     }
     class func isCameraAvailable() -> Bool {
         return true;

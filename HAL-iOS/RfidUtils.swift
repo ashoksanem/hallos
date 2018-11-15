@@ -14,7 +14,8 @@ class RfidUtils: NSObject {
     static let triggerMode = "triggerMode";
     static let autoPlayMode = "autoPlayMode";
     static let inventorySessionMode = "inventorySessionMode";
-    
+    static let isRFIDEnabled = "isRFIDEnabled";
+    static let isRFIDConnected = "isRFIDConnected";
     class func setInventorySessionMode(mode: String)
     {
         let defaults = UserDefaults.standard;
@@ -24,6 +25,29 @@ class RfidUtils: NSObject {
     {
         let defaults = UserDefaults.standard;
         return defaults.string(forKey: inventorySessionMode) ?? triggerMode;
+    }
+    class func setRFIDScannerEnabled(enabled : Bool)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(enabled, forKey: isRFIDEnabled);
+    }
+    
+    class func isRFIDEScannerEnabled() -> Bool
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey:isRFIDEnabled) ?? false;
+    }
+    
+    class func setRFIDScannerConnected(enabled : Bool)
+    {
+        let defaults = UserDefaults.standard;
+        defaults.set(enabled, forKey: isRFIDConnected);
+    }
+    
+    class func isRFIDEScannerConnected() -> Bool
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey:isRFIDConnected) ?? false;
     }
     
     class func TranslateResultToStringResult(_ result:RFID_RESULT) -> String{

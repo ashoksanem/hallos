@@ -73,7 +73,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "clearRfidSession",
                                          "cancelRfidSession",
                                          "closeRfidSession",
-                                         "changeRfidSessionMode"];
+                                         "changeRfidSessionMode",
+                                         "findNextRFIDTag"];
         
         for message in messageHandlers
         {
@@ -255,6 +256,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             CommonUtils.setScannerModeFromWeb(value: true);
             Sled.enableScanner();
+            rfidConnector.enableScanner();
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
             }
@@ -262,6 +264,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "disableScanner")
         {
             Sled.disableScanner();
+            rfidConnector.disableScanner();
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
             }
@@ -520,10 +523,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
                 
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
-                
-            
-                    
-                
+                updateBattery()
             }
         }
         else if(message.name == "disableRfid")
@@ -552,13 +552,18 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 if let id = _data["handle"] as? String {
                     if let data = _data["data"] as? NSDictionary {
                         if let type = data["type"] as? String {
+                            var result = "";
                             if(type == "inventory")
                             {
-                                let result = rfidConnector.startInventorySession(data: data);
-                                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                               result = rfidConnector.startInventorySession(data: data);
                             }
+                            else if(type == "findProduct")
+                            {
+                                result = rfidConnector.openLocatingSession(data: data);
+                            }
+                            let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
+                            let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
+                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
                         }
                     }
                 }
@@ -586,6 +591,15 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             if let id = message.body as? String {
                 let result = rfidConnector.closeRfidSession()
+                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
+                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+            }
+        }
+        else if(message.name == "findNextRFIDTag")
+        {
+            if let id = message.body as? String {
+                let result = rfidConnector.findNextTag()
                 let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
                 let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
@@ -718,6 +732,13 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else {
             sledBatteryView?.text = "";
         }
+    }
+    
+    func enableRFIDScanner() {
+        rfidConnector.enableScanner()
+    }
+    func disableRFIDScanner() {
+        rfidConnector.disableScanner()
     }
     
     func updateMsrData(msrData: String)

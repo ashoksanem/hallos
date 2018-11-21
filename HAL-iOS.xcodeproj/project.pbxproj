@@ -19,8 +19,9 @@
 		85DDE7081EEB171500700EFC /* Certificates in Resources */ = {isa = PBXBuildFile; fileRef = 85DDE7071EEB171500700EFC /* Certificates */; };
 		85ECB24A218B7EFD001F2D44 /* RfidUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ECB247218B7EFD001F2D44 /* RfidUtils.swift */; };
 		85ECB24B218B7EFD001F2D44 /* RFIDConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ECB248218B7EFD001F2D44 /* RFIDConnection.swift */; };
-		9E0A19992190E9D400244D41 /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0A19982190E9D300244D41 /* rfid_ios_fw.framework */; };
-		9E0A199A2190E9D400244D41 /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0A19982190E9D300244D41 /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9EF4BAA921A3094200137166 /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EF4BAA821A3094200137166 /* rfid_ios_fw.framework */; };
+		9EF4BAAA21A3094200137166 /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9EF4BAA821A3094200137166 /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9EF4BAAC21A3119400137166 /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = 9EF4BAAB21A3119300137166 /* HALApi */; };
 		A91A7471A3B481F9F4225248 /* Pods_HAL_iOS_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */; };
 		BC03A54E21246D1F00D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
 		BC03A54F21246D3500D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
@@ -54,7 +55,6 @@
 		BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2B8641F311B1900F3496D /* libssl.a */; };
 		BCD6982B1DB7C34600F856CE /* icons in Resources */ = {isa = PBXBuildFile; fileRef = BCD6982A1DB7C34600F856CE /* icons */; };
 		BCE513561F1D0EA40060CAB8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE513551F1D0EA40060CAB8 /* Utils.swift */; };
-		CC14AF421DB56F93007208F7 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = CC14AF411DB56F93007208F7 /* sso */; };
 		CC21C0491E16A332006CD57B /* ESPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC21C0481E16A332006CD57B /* ESPRequest.swift */; };
 		CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585601D9AF71C00294506 /* AppDelegate.swift */; };
 		CC2585631D9AF71C00294506 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585621D9AF71C00294506 /* ViewController.swift */; };
@@ -75,13 +75,54 @@
 		CC6EEEAE1DBFE374003D895B /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */; };
 		CC837B561E08341B00A14ECB /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC837B541E08341B00A14ECB /* KeychainItemAccessibility.swift */; };
 		CC837B571E08341B00A14ECB /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC837B551E08341B00A14ECB /* KeychainWrapper.swift */; };
-		CC837B5D1E083B4B00A14ECB /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = CC837B5C1E083B4B00A14ECB /* HALApi */; };
 		CC8872EE1DDE3A930042F089 /* HALApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8872EC1DDE3A930042F089 /* HALApplication.swift */; };
 		CC8872EF1DDE3A930042F089 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8872ED1DDE3A930042F089 /* main.swift */; };
 		CCB404921D9D82C600A314FC /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB404911D9D82C600A314FC /* Assembly.swift */; };
 		CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */ = {isa = PBXBuildFile; fileRef = CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */; };
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
 		ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */; };
+		F98DD28B219E1D1300B0E57D /* Gruntfile.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD240219E1D1200B0E57D /* Gruntfile.js */; };
+		F98DD28C219E1D1300B0E57D /* jsconfig.json in Resources */ = {isa = PBXBuildFile; fileRef = F98DD241219E1D1200B0E57D /* jsconfig.json */; };
+		F98DD28D219E1D1300B0E57D /* .gitlab in Resources */ = {isa = PBXBuildFile; fileRef = F98DD242219E1D1200B0E57D /* .gitlab */; };
+		F98DD28E219E1D1300B0E57D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = F98DD243219E1D1200B0E57D /* index.html */; };
+		F98DD28F219E1D1300B0E57D /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = F98DD245219E1D1200B0E57D /* index.html */; };
+		F98DD290219E1D1300B0E57D /* server.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD246219E1D1200B0E57D /* server.js */; };
+		F98DD291219E1D1300B0E57D /* _routes.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD248219E1D1200B0E57D /* _routes.js */; };
+		F98DD292219E1D1300B0E57D /* configure.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD249219E1D1200B0E57D /* configure.js */; };
+		F98DD293219E1D1300B0E57D /* route.index.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD24A219E1D1200B0E57D /* route.index.js */; };
+		F98DD294219E1D1300B0E57D /* route.details.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD24B219E1D1200B0E57D /* route.details.js */; };
+		F98DD295219E1D1300B0E57D /* paths-config.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD24C219E1D1200B0E57D /* paths-config.js */; };
+		F98DD296219E1D1300B0E57D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F98DD24D219E1D1200B0E57D /* README.md */; };
+		F98DD297219E1D1300B0E57D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F98DD24E219E1D1200B0E57D /* .gitignore */; };
+		F98DD298219E1D1300B0E57D /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = F98DD24F219E1D1200B0E57D /* package.json */; };
+		F98DD299219E1D1300B0E57D /* copy_vanguardhelvetica.scss in Resources */ = {isa = PBXBuildFile; fileRef = F98DD251219E1D1200B0E57D /* copy_vanguardhelvetica.scss */; };
+		F98DD29A219E1D1300B0E57D /* main.scss in Resources */ = {isa = PBXBuildFile; fileRef = F98DD254219E1D1200B0E57D /* main.scss */; };
+		F98DD29B219E1D1300B0E57D /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD256219E1D1200B0E57D /* main.js */; };
+		F98DD29C219E1D1300B0E57D /* layout.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD258219E1D1200B0E57D /* layout.js */; };
+		F98DD29D219E1D1300B0E57D /* sso.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD25A219E1D1200B0E57D /* sso.js */; };
+		F98DD29E219E1D1300B0E57D /* _handlers.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD25C219E1D1200B0E57D /* _handlers.js */; };
+		F98DD29F219E1D1300B0E57D /* sso.hbs in Resources */ = {isa = PBXBuildFile; fileRef = F98DD25E219E1D1200B0E57D /* sso.hbs */; };
+		F98DD2A0219E1D1300B0E57D /* layout.hbs in Resources */ = {isa = PBXBuildFile; fileRef = F98DD25F219E1D1200B0E57D /* layout.hbs */; };
+		F98DD2A1219E1D1300B0E57D /* jquery.spin.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD260219E1D1200B0E57D /* jquery.spin.js */; };
+		F98DD2A2219E1D1300B0E57D /* main.css in Resources */ = {isa = PBXBuildFile; fileRef = F98DD261219E1D1200B0E57D /* main.css */; };
+		F98DD2A3219E1D1300B0E57D /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD262219E1D1200B0E57D /* main.js */; };
+		F98DD2A4219E1D1300B0E57D /* spin.min.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD263219E1D1200B0E57D /* spin.min.js */; };
+		F98DD2A5219E1D1300B0E57D /* copy_vanguardsettings.scss in Resources */ = {isa = PBXBuildFile; fileRef = F98DD264219E1D1200B0E57D /* copy_vanguardsettings.scss */; };
+		F98DD2A6219E1D1300B0E57D /* copy_vanguardmain.scss in Resources */ = {isa = PBXBuildFile; fileRef = F98DD265219E1D1200B0E57D /* copy_vanguardmain.scss */; };
+		F98DD2A7219E1D1300B0E57D /* 4c6503c9-859b-4d3b-a1d5-2d42e1222415.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F98DD267219E1D1200B0E57D /* 4c6503c9-859b-4d3b-a1d5-2d42e1222415.ttf */; };
+		F98DD2A8219E1D1300B0E57D /* 2e309b1b-08b8-477f-bc9e-7067cf0af0b3.svg in Resources */ = {isa = PBXBuildFile; fileRef = F98DD268219E1D1300B0E57D /* 2e309b1b-08b8-477f-bc9e-7067cf0af0b3.svg */; };
+		F98DD2A9219E1D1300B0E57D /* f751c8ae-1057-46d9-8d74-62592e002568.svg in Resources */ = {isa = PBXBuildFile; fileRef = F98DD269219E1D1300B0E57D /* f751c8ae-1057-46d9-8d74-62592e002568.svg */; };
+		F98DD2AA219E1D1300B0E57D /* 60be5c39-863e-40cb-9434-6ebafb62ab2b.woff in Resources */ = {isa = PBXBuildFile; fileRef = F98DD26A219E1D1300B0E57D /* 60be5c39-863e-40cb-9434-6ebafb62ab2b.woff */; };
+		F98DD2AB219E1D1300B0E57D /* 8fda1e47-19be-46c7-8d83-8d4fb35572f0.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F98DD26B219E1D1300B0E57D /* 8fda1e47-19be-46c7-8d83-8d4fb35572f0.ttf */; };
+		F98DD2AC219E1D1300B0E57D /* 50d35bbc-dfd4-48f1-af16-cf058f69421d.woff in Resources */ = {isa = PBXBuildFile; fileRef = F98DD26C219E1D1300B0E57D /* 50d35bbc-dfd4-48f1-af16-cf058f69421d.woff */; };
+		F98DD2AD219E1D1300B0E57D /* 278bef59-6be1-4800-b5ac-1f769ab47430.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F98DD26D219E1D1300B0E57D /* 278bef59-6be1-4800-b5ac-1f769ab47430.ttf */; };
+		F98DD2AE219E1D1300B0E57D /* 5a13f7d1-b615-418e-bc3a-525001b9a671.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = F98DD26E219E1D1300B0E57D /* 5a13f7d1-b615-418e-bc3a-525001b9a671.woff2 */; };
+		F98DD2AF219E1D1300B0E57D /* 3600b37f-2bf1-45f3-be3a-03365f16d9cb.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = F98DD26F219E1D1300B0E57D /* 3600b37f-2bf1-45f3-be3a-03365f16d9cb.woff2 */; };
+		F98DD2B0219E1D1300B0E57D /* 14ff6081-326d-4dae-b778-d7afa66166fc.woff in Resources */ = {isa = PBXBuildFile; fileRef = F98DD270219E1D1300B0E57D /* 14ff6081-326d-4dae-b778-d7afa66166fc.woff */; };
+		F98DD2B1219E1D1300B0E57D /* 530dee22-e3c1-4e9f-bf62-c31d510d9656.woff in Resources */ = {isa = PBXBuildFile; fileRef = F98DD271219E1D1300B0E57D /* 530dee22-e3c1-4e9f-bf62-c31d510d9656.woff */; };
+		F98DD2B2219E1D1300B0E57D /* 688ab72b-4deb-4e15-a088-89166978d469.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F98DD272219E1D1300B0E57D /* 688ab72b-4deb-4e15-a088-89166978d469.ttf */; };
+		F98DD2B3219E1D1300B0E57D /* sonar_coverage_grunt.js in Resources */ = {isa = PBXBuildFile; fileRef = F98DD273219E1D1300B0E57D /* sonar_coverage_grunt.js */; };
+		F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DD2C4219F133100B0E57D /* RFIDEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,7 +149,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9E0A199A2190E9D400244D41 /* rfid_ios_fw.framework in Embed Frameworks */,
+				9EF4BAAA21A3094200137166 /* rfid_ios_fw.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,7 +176,8 @@
 		85DDE7071EEB171500700EFC /* Certificates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Certificates; sourceTree = "<group>"; };
 		85ECB247218B7EFD001F2D44 /* RfidUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RfidUtils.swift; sourceTree = "<group>"; };
 		85ECB248218B7EFD001F2D44 /* RFIDConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDConnection.swift; sourceTree = "<group>"; };
-		9E0A19982190E9D300244D41 /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = rfid_ios_fw.framework; path = "HAL-iOS/rfid_ios_fw.framework"; sourceTree = "<group>"; };
+		9EF4BAA821A3094200137166 /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = rfid_ios_fw.framework; path = "HAL-iOS/rfid_ios_fw.framework"; sourceTree = "<group>"; };
+		9EF4BAAB21A3119300137166 /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
 		A76AC9536786AC17D6303564 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC174CC91F02DDB0005FBA9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -169,7 +211,6 @@
 		BCD6982A1DB7C34600F856CE /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = "Project Files/icons"; sourceTree = "<group>"; };
 		BCE513551F1D0EA40060CAB8 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = sled/Utils.swift; sourceTree = "<group>"; };
 		C4F2375C69566D65ACF5BA47 /* Pods-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSTests/Pods-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CC14AF411DB56F93007208F7 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
 		CC21C0481E16A332006CD57B /* ESPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ESPRequest.swift; sourceTree = "<group>"; };
 		CC25855D1D9AF71C00294506 /* HAL-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HAL-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2585601D9AF71C00294506 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -197,7 +238,6 @@
 		CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		CC837B541E08341B00A14ECB /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		CC837B551E08341B00A14ECB /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
-		CC837B5C1E083B4B00A14ECB /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
 		CC8872EC1DDE3A930042F089 /* HALApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HALApplication.swift; sourceTree = "<group>"; };
 		CC8872ED1DDE3A930042F089 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CCB404911D9D82C600A314FC /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
@@ -208,6 +248,48 @@
 		DBC30386354F22573AAEE8BF /* Pods-HAL-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		F01A0AD9C8E731F41202C930 /* Pods-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSUITests/Pods-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F98DD240219E1D1200B0E57D /* Gruntfile.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Gruntfile.js; sourceTree = "<group>"; };
+		F98DD241219E1D1200B0E57D /* jsconfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = jsconfig.json; sourceTree = "<group>"; };
+		F98DD242219E1D1200B0E57D /* .gitlab */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitlab; sourceTree = "<group>"; };
+		F98DD243219E1D1200B0E57D /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		F98DD245219E1D1200B0E57D /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		F98DD246219E1D1200B0E57D /* server.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = server.js; sourceTree = "<group>"; };
+		F98DD248219E1D1200B0E57D /* _routes.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = _routes.js; sourceTree = "<group>"; };
+		F98DD249219E1D1200B0E57D /* configure.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = configure.js; sourceTree = "<group>"; };
+		F98DD24A219E1D1200B0E57D /* route.index.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = route.index.js; sourceTree = "<group>"; };
+		F98DD24B219E1D1200B0E57D /* route.details.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = route.details.js; sourceTree = "<group>"; };
+		F98DD24C219E1D1200B0E57D /* paths-config.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "paths-config.js"; sourceTree = "<group>"; };
+		F98DD24D219E1D1200B0E57D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F98DD24E219E1D1200B0E57D /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		F98DD24F219E1D1200B0E57D /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
+		F98DD251219E1D1200B0E57D /* copy_vanguardhelvetica.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = copy_vanguardhelvetica.scss; sourceTree = "<group>"; };
+		F98DD254219E1D1200B0E57D /* main.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.scss; sourceTree = "<group>"; };
+		F98DD256219E1D1200B0E57D /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		F98DD258219E1D1200B0E57D /* layout.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = layout.js; sourceTree = "<group>"; };
+		F98DD25A219E1D1200B0E57D /* sso.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sso.js; sourceTree = "<group>"; };
+		F98DD25C219E1D1200B0E57D /* _handlers.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = _handlers.js; sourceTree = "<group>"; };
+		F98DD25E219E1D1200B0E57D /* sso.hbs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sso.hbs; sourceTree = "<group>"; };
+		F98DD25F219E1D1200B0E57D /* layout.hbs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = layout.hbs; sourceTree = "<group>"; };
+		F98DD260219E1D1200B0E57D /* jquery.spin.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.spin.js; sourceTree = "<group>"; };
+		F98DD261219E1D1200B0E57D /* main.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = main.css; sourceTree = "<group>"; };
+		F98DD262219E1D1200B0E57D /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		F98DD263219E1D1200B0E57D /* spin.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = spin.min.js; sourceTree = "<group>"; };
+		F98DD264219E1D1200B0E57D /* copy_vanguardsettings.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = copy_vanguardsettings.scss; sourceTree = "<group>"; };
+		F98DD265219E1D1200B0E57D /* copy_vanguardmain.scss */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = copy_vanguardmain.scss; sourceTree = "<group>"; };
+		F98DD267219E1D1200B0E57D /* 4c6503c9-859b-4d3b-a1d5-2d42e1222415.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "4c6503c9-859b-4d3b-a1d5-2d42e1222415.ttf"; sourceTree = "<group>"; };
+		F98DD268219E1D1300B0E57D /* 2e309b1b-08b8-477f-bc9e-7067cf0af0b3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "2e309b1b-08b8-477f-bc9e-7067cf0af0b3.svg"; sourceTree = "<group>"; };
+		F98DD269219E1D1300B0E57D /* f751c8ae-1057-46d9-8d74-62592e002568.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "f751c8ae-1057-46d9-8d74-62592e002568.svg"; sourceTree = "<group>"; };
+		F98DD26A219E1D1300B0E57D /* 60be5c39-863e-40cb-9434-6ebafb62ab2b.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "60be5c39-863e-40cb-9434-6ebafb62ab2b.woff"; sourceTree = "<group>"; };
+		F98DD26B219E1D1300B0E57D /* 8fda1e47-19be-46c7-8d83-8d4fb35572f0.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "8fda1e47-19be-46c7-8d83-8d4fb35572f0.ttf"; sourceTree = "<group>"; };
+		F98DD26C219E1D1300B0E57D /* 50d35bbc-dfd4-48f1-af16-cf058f69421d.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "50d35bbc-dfd4-48f1-af16-cf058f69421d.woff"; sourceTree = "<group>"; };
+		F98DD26D219E1D1300B0E57D /* 278bef59-6be1-4800-b5ac-1f769ab47430.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "278bef59-6be1-4800-b5ac-1f769ab47430.ttf"; sourceTree = "<group>"; };
+		F98DD26E219E1D1300B0E57D /* 5a13f7d1-b615-418e-bc3a-525001b9a671.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "5a13f7d1-b615-418e-bc3a-525001b9a671.woff2"; sourceTree = "<group>"; };
+		F98DD26F219E1D1300B0E57D /* 3600b37f-2bf1-45f3-be3a-03365f16d9cb.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "3600b37f-2bf1-45f3-be3a-03365f16d9cb.woff2"; sourceTree = "<group>"; };
+		F98DD270219E1D1300B0E57D /* 14ff6081-326d-4dae-b778-d7afa66166fc.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "14ff6081-326d-4dae-b778-d7afa66166fc.woff"; sourceTree = "<group>"; };
+		F98DD271219E1D1300B0E57D /* 530dee22-e3c1-4e9f-bf62-c31d510d9656.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "530dee22-e3c1-4e9f-bf62-c31d510d9656.woff"; sourceTree = "<group>"; };
+		F98DD272219E1D1300B0E57D /* 688ab72b-4deb-4e15-a088-89166978d469.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "688ab72b-4deb-4e15-a088-89166978d469.ttf"; sourceTree = "<group>"; };
+		F98DD273219E1D1300B0E57D /* sonar_coverage_grunt.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sonar_coverage_grunt.js; sourceTree = "<group>"; };
+		F98DD2C4219F133100B0E57D /* RFIDEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDEngine.swift; sourceTree = "<group>"; };
 		FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -218,7 +300,7 @@
 			files = (
 				BCD2B8651F311B1900F3496D /* libcrypto.a in Frameworks */,
 				BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */,
-				9E0A19992190E9D400244D41 /* rfid_ios_fw.framework in Frameworks */,
+				9EF4BAA921A3094200137166 /* rfid_ios_fw.framework in Frameworks */,
 				BC174CD21F02DDDB005FBA9A /* UIKit.framework in Frameworks */,
 				BC174CD01F02DDD2005FBA9A /* SystemConfiguration.framework in Frameworks */,
 				BC174CCE1F02DDCA005FBA9A /* Security.framework in Frameworks */,
@@ -295,8 +377,8 @@
 		BCD698231DB7B91400F856CE /* Git Projects */ = {
 			isa = PBXGroup;
 			children = (
-				CC837B5C1E083B4B00A14ECB /* HALApi */,
-				CC14AF411DB56F93007208F7 /* sso */,
+				9EF4BAAB21A3119300137166 /* HALApi */,
+				F98DD23F219E1D1200B0E57D /* sso */,
 			);
 			name = "Git Projects";
 			sourceTree = "<group>";
@@ -319,7 +401,7 @@
 		CC2585541D9AF71B00294506 = {
 			isa = PBXGroup;
 			children = (
-				9E0A19982190E9D300244D41 /* rfid_ios_fw.framework */,
+				9EF4BAA821A3094200137166 /* rfid_ios_fw.framework */,
 				CC25855F1D9AF71C00294506 /* HAL-iOS */,
 				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
@@ -349,6 +431,7 @@
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
 				4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */,
 				85ECB248218B7EFD001F2D44 /* RFIDConnection.swift */,
+				F98DD2C4219F133100B0E57D /* RFIDEngine.swift */,
 				85ECB247218B7EFD001F2D44 /* RfidUtils.swift */,
 				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				BC25B5141F27B8BE0028E81F /* default.html */,
@@ -433,6 +516,142 @@
 				F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F98DD23F219E1D1200B0E57D /* sso */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD240219E1D1200B0E57D /* Gruntfile.js */,
+				F98DD241219E1D1200B0E57D /* jsconfig.json */,
+				F98DD242219E1D1200B0E57D /* .gitlab */,
+				F98DD243219E1D1200B0E57D /* index.html */,
+				F98DD244219E1D1200B0E57D /* server */,
+				F98DD24C219E1D1200B0E57D /* paths-config.js */,
+				F98DD24D219E1D1200B0E57D /* README.md */,
+				F98DD24E219E1D1200B0E57D /* .gitignore */,
+				F98DD24F219E1D1200B0E57D /* package.json */,
+				F98DD250219E1D1200B0E57D /* client */,
+				F98DD273219E1D1300B0E57D /* sonar_coverage_grunt.js */,
+			);
+			path = sso;
+			sourceTree = "<group>";
+		};
+		F98DD244219E1D1200B0E57D /* server */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD245219E1D1200B0E57D /* index.html */,
+				F98DD246219E1D1200B0E57D /* server.js */,
+				F98DD247219E1D1200B0E57D /* routes */,
+			);
+			path = server;
+			sourceTree = "<group>";
+		};
+		F98DD247219E1D1200B0E57D /* routes */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD248219E1D1200B0E57D /* _routes.js */,
+				F98DD249219E1D1200B0E57D /* configure.js */,
+				F98DD24A219E1D1200B0E57D /* route.index.js */,
+				F98DD24B219E1D1200B0E57D /* route.details.js */,
+			);
+			path = routes;
+			sourceTree = "<group>";
+		};
+		F98DD250219E1D1200B0E57D /* client */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD251219E1D1200B0E57D /* copy_vanguardhelvetica.scss */,
+				F98DD252219E1D1200B0E57D /* app */,
+				F98DD260219E1D1200B0E57D /* jquery.spin.js */,
+				F98DD261219E1D1200B0E57D /* main.css */,
+				F98DD262219E1D1200B0E57D /* main.js */,
+				F98DD263219E1D1200B0E57D /* spin.min.js */,
+				F98DD264219E1D1200B0E57D /* copy_vanguardsettings.scss */,
+				F98DD265219E1D1200B0E57D /* copy_vanguardmain.scss */,
+				F98DD266219E1D1200B0E57D /* fonts */,
+			);
+			path = client;
+			sourceTree = "<group>";
+		};
+		F98DD252219E1D1200B0E57D /* app */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD253219E1D1200B0E57D /* css */,
+				F98DD255219E1D1200B0E57D /* js */,
+				F98DD25D219E1D1200B0E57D /* templates */,
+			);
+			path = app;
+			sourceTree = "<group>";
+		};
+		F98DD253219E1D1200B0E57D /* css */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD254219E1D1200B0E57D /* main.scss */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
+		F98DD255219E1D1200B0E57D /* js */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD256219E1D1200B0E57D /* main.js */,
+				F98DD257219E1D1200B0E57D /* views */,
+				F98DD259219E1D1200B0E57D /* pages */,
+				F98DD25B219E1D1200B0E57D /* router */,
+			);
+			path = js;
+			sourceTree = "<group>";
+		};
+		F98DD257219E1D1200B0E57D /* views */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD258219E1D1200B0E57D /* layout.js */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		F98DD259219E1D1200B0E57D /* pages */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD25A219E1D1200B0E57D /* sso.js */,
+			);
+			path = pages;
+			sourceTree = "<group>";
+		};
+		F98DD25B219E1D1200B0E57D /* router */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD25C219E1D1200B0E57D /* _handlers.js */,
+			);
+			path = router;
+			sourceTree = "<group>";
+		};
+		F98DD25D219E1D1200B0E57D /* templates */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD25E219E1D1200B0E57D /* sso.hbs */,
+				F98DD25F219E1D1200B0E57D /* layout.hbs */,
+			);
+			path = templates;
+			sourceTree = "<group>";
+		};
+		F98DD266219E1D1200B0E57D /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F98DD267219E1D1200B0E57D /* 4c6503c9-859b-4d3b-a1d5-2d42e1222415.ttf */,
+				F98DD268219E1D1300B0E57D /* 2e309b1b-08b8-477f-bc9e-7067cf0af0b3.svg */,
+				F98DD269219E1D1300B0E57D /* f751c8ae-1057-46d9-8d74-62592e002568.svg */,
+				F98DD26A219E1D1300B0E57D /* 60be5c39-863e-40cb-9434-6ebafb62ab2b.woff */,
+				F98DD26B219E1D1300B0E57D /* 8fda1e47-19be-46c7-8d83-8d4fb35572f0.ttf */,
+				F98DD26C219E1D1300B0E57D /* 50d35bbc-dfd4-48f1-af16-cf058f69421d.woff */,
+				F98DD26D219E1D1300B0E57D /* 278bef59-6be1-4800-b5ac-1f769ab47430.ttf */,
+				F98DD26E219E1D1300B0E57D /* 5a13f7d1-b615-418e-bc3a-525001b9a671.woff2 */,
+				F98DD26F219E1D1300B0E57D /* 3600b37f-2bf1-45f3-be3a-03365f16d9cb.woff2 */,
+				F98DD270219E1D1300B0E57D /* 14ff6081-326d-4dae-b778-d7afa66166fc.woff */,
+				F98DD271219E1D1300B0E57D /* 530dee22-e3c1-4e9f-bf62-c31d510d9656.woff */,
+				F98DD272219E1D1300B0E57D /* 688ab72b-4deb-4e15-a088-89166978d469.ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -561,22 +780,62 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F98DD2A2219E1D1300B0E57D /* main.css in Resources */,
+				F98DD28E219E1D1300B0E57D /* index.html in Resources */,
+				F98DD294219E1D1300B0E57D /* route.details.js in Resources */,
+				F98DD2AD219E1D1300B0E57D /* 278bef59-6be1-4800-b5ac-1f769ab47430.ttf in Resources */,
+				F98DD28F219E1D1300B0E57D /* index.html in Resources */,
 				BCB8CA561F3A52AD008EA783 /* Settings.bundle in Resources */,
 				851C7F8B207C14BE00F4D5AF /* SplashView.xib in Resources */,
+				F98DD2AA219E1D1300B0E57D /* 60be5c39-863e-40cb-9434-6ebafb62ab2b.woff in Resources */,
+				F98DD295219E1D1300B0E57D /* paths-config.js in Resources */,
+				F98DD29A219E1D1300B0E57D /* main.scss in Resources */,
+				F98DD2A8219E1D1300B0E57D /* 2e309b1b-08b8-477f-bc9e-7067cf0af0b3.svg in Resources */,
 				48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */,
+				F98DD29C219E1D1300B0E57D /* layout.js in Resources */,
+				F98DD2A1219E1D1300B0E57D /* jquery.spin.js in Resources */,
 				BC25B5151F27B8BE0028E81F /* default.html in Resources */,
+				F98DD2AB219E1D1300B0E57D /* 8fda1e47-19be-46c7-8d83-8d4fb35572f0.ttf in Resources */,
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
+				F98DD2B2219E1D1300B0E57D /* 688ab72b-4deb-4e15-a088-89166978d469.ttf in Resources */,
+				F98DD2AC219E1D1300B0E57D /* 50d35bbc-dfd4-48f1-af16-cf058f69421d.woff in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
+				F98DD297219E1D1300B0E57D /* .gitignore in Resources */,
+				F98DD29E219E1D1300B0E57D /* _handlers.js in Resources */,
+				F98DD28C219E1D1300B0E57D /* jsconfig.json in Resources */,
+				F98DD29D219E1D1300B0E57D /* sso.js in Resources */,
+				F98DD299219E1D1300B0E57D /* copy_vanguardhelvetica.scss in Resources */,
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
+				F98DD28D219E1D1300B0E57D /* .gitlab in Resources */,
+				F98DD296219E1D1300B0E57D /* README.md in Resources */,
+				F98DD29B219E1D1300B0E57D /* main.js in Resources */,
+				F98DD2A5219E1D1300B0E57D /* copy_vanguardsettings.scss in Resources */,
+				F98DD298219E1D1300B0E57D /* package.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
+				F98DD2A9219E1D1300B0E57D /* f751c8ae-1057-46d9-8d74-62592e002568.svg in Resources */,
+				F98DD292219E1D1300B0E57D /* configure.js in Resources */,
+				9EF4BAAC21A3119400137166 /* HALApi in Resources */,
+				F98DD2A4219E1D1300B0E57D /* spin.min.js in Resources */,
+				F98DD290219E1D1300B0E57D /* server.js in Resources */,
 				BCD2B85E1F31094300F3496D /* Encryption in Resources */,
-				CC14AF421DB56F93007208F7 /* sso in Resources */,
+				F98DD2B3219E1D1300B0E57D /* sonar_coverage_grunt.js in Resources */,
+				F98DD2AF219E1D1300B0E57D /* 3600b37f-2bf1-45f3-be3a-03365f16d9cb.woff2 in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
-				CC837B5D1E083B4B00A14ECB /* HALApi in Resources */,
+				F98DD293219E1D1300B0E57D /* route.index.js in Resources */,
+				F98DD2B1219E1D1300B0E57D /* 530dee22-e3c1-4e9f-bf62-c31d510d9656.woff in Resources */,
+				F98DD2A0219E1D1300B0E57D /* layout.hbs in Resources */,
+				F98DD2B0219E1D1300B0E57D /* 14ff6081-326d-4dae-b778-d7afa66166fc.woff in Resources */,
+				F98DD29F219E1D1300B0E57D /* sso.hbs in Resources */,
 				85DDE7081EEB171500700EFC /* Certificates in Resources */,
 				BC22EE621E203A8300C3F597 /* LOCN.json in Resources */,
+				F98DD2AE219E1D1300B0E57D /* 5a13f7d1-b615-418e-bc3a-525001b9a671.woff2 in Resources */,
+				F98DD28B219E1D1300B0E57D /* Gruntfile.js in Resources */,
+				F98DD2A6219E1D1300B0E57D /* copy_vanguardmain.scss in Resources */,
+				F98DD2A7219E1D1300B0E57D /* 4c6503c9-859b-4d3b-a1d5-2d42e1222415.ttf in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
+				F98DD2A3219E1D1300B0E57D /* main.js in Resources */,
+				F98DD291219E1D1300B0E57D /* _routes.js in Resources */,
 				CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -798,6 +1057,7 @@
 				BC534ABC1E018BD800C65BAC /* LogAnalyticsRequest.swift in Sources */,
 				CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */,
 				CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */,
+				F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */,
 				BC534ABA1DFF17E200C65BAC /* LoggingRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

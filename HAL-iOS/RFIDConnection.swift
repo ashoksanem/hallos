@@ -301,6 +301,7 @@ class RFIDConnection: NSObject, RfidSDKDelegate
     func EventScannerBarcode(_ barcode: String, barcodeType: String) {
         updateBarcodeData(barcode: barcode)
     }
+    
     func EventFindProductDidLocateTag(tag: TagInfo, proximityPercent: Int) {
         if isLocating{
             let data = [

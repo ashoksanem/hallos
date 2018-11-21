@@ -230,7 +230,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		uiKBqAK1/yqG90n9gu6exdXwyB8=
+		Ff+rsf5twnlNvfe3T8/rmRt/+dE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -238,11 +238,11 @@
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		K4KS1L1Tv+r/uGI8BIJJEZ8o+6c=
+		LNjT2TA3i8Z9iuFastgjxKn9DRw=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		kScIf8wqyRX4N2I1gsWV5t/vqmw=
+		Y1whRow5TCd+Y1Klj60pP15O4bw=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -878,22 +878,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			K4KS1L1Tv+r/uGI8BIJJEZ8o+6c=
+			LNjT2TA3i8Z9iuFastgjxKn9DRw=
 			</data>
 			<key>hash2</key>
 			<data>
-			2T/Mox1NeSnBirdWobs/D9qDsXZOySNpFIVzwclC2n4=
+			hqoav4YabMHJySP+JcvCjjpyMFvzZpiQFDcIQ3vRras=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			kScIf8wqyRX4N2I1gsWV5t/vqmw=
+			Y1whRow5TCd+Y1Klj60pP15O4bw=
 			</data>
 			<key>hash2</key>
 			<data>
-			h169B/IPsNDJWyj08ZVmJaQS0hdG+qWg0Y+40YA9MBQ=
+			Z4kBWt4CHW37U8wT7RKliexY54SKPtMaRIXCS/Z7PtM=
 			</data>
 		</dict>
 	</dict>

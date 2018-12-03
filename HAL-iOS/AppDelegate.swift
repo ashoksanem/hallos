@@ -658,7 +658,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             }
         }
         else if let viewController:ViewController = window!.rootViewController as? ViewController        {
-            viewController.updateBarcodeData(barcode: barcode)
+            //viewController.updateBarcodeData(barcode: barcode)
         }
 
     }

@@ -53,14 +53,14 @@ class RFIDConnection: NSObject, RfidSDKDelegate
         print("pranitha "+rfidData)
         if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
         {
-            viewController.updateRfidData(rfidData:rfidData);
+            viewController.sendRfidResponse(rfidData:rfidData);
         }
     }
     func updateBarcodeData(barcode: String)
     {
         if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
         {
-            viewController.updateBarcodeData(barcode: barcode)
+            viewController.sendRfidResponse(rfidData: barcode)
         }
     }
     

@@ -22,7 +22,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     var rfidEngine = RFIDEngine();
     override func loadView() {
         super.loadView()
-        
         let contentController = WKUserContentController();
         let messageHandlers: [String] = ["checkScanner",
                                          "clearData",
@@ -156,8 +155,11 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         var url = CommonUtils.getLandingPage();
         if(!CommonUtils.isDefaultLandingPage(url))
         {
-            //            let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app
+            //let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app
+            //let url = URL(string: "http://a4731573:3000/")!
+//            loadWebView(url: url);
             url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api
+            //let url = URL(string: "a/3000")!;
             loadWebView(url: url);
         }
         else
@@ -596,6 +598,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
             }
         }
+            
         else if(message.name == "closeInventorySession")
         {
             if let id = message.body as? String {
@@ -611,10 +614,16 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             if let _data = message.body as? NSDictionary {
                 if let id = _data["handle"] as? String {
                     if let data = _data["data"] as? NSDictionary {
-                        let result = rfidEngine.establishComm(data: data)
-                        let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                        let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                        
+                        let server = (data["rfidServer"] as? String) ?? "";
+                        let port = (data["port"] as? Int) ?? -1;
+                        if(server != "" && port != -1 )
+                        {
+                            rfidEngine.establishComm(data: data)
+                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                        }
+
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
                     }
                 }
             }
@@ -721,10 +730,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         
     }
     
-    func sendRfidResponse(rfidData: String){
-        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"rfidGeneralCallBack\", false, " + rfidData + " )");
-    }
-    func updateRfidData(rfidData: String)
+//    func sendRfidResponse(rfidData: String){
+//        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"rfidGeneralCallBack\", false, " + rfidData + " )");
+//    }
+    func sendRfidResponse(rfidData: String)
     {
         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"rfidCallback\", false, " + rfidData + " )");
     }
@@ -821,16 +830,16 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     //        evaluateJavaScript(javascriptMessage: "updateDeviceBattery(\(Sled.getDeviceBatteryLevel()));");
     //    }
     
-    func updateBarcodeData(barcode: String)
-    {
-        
-        DLog("Received scanner data: " + barcode);
-        //
-        //        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
-        //        evaluateJavaScript(javascriptMessage: callback);
-        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"scanCallback\", false, \"" + barcode + "\" )");
-    }
-    
+//    func updateBarcodeData(barcode: String)
+//    {
+//
+//        DLog("Received scanner data: " + barcode);
+//        //
+//        //        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
+//        //        evaluateJavaScript(javascriptMessage: callback);
+//        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"scanCallback\", false, \"" + barcode + "\" )");
+//    }
+//
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }

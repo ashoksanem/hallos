@@ -16,33 +16,17 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     var isBarcodeEnable = false;
 
     
-    func updateRfidData(data: [String : Any])
+    func sendRfidResponse(data: [String : Any])
     {
-        let jsonData = try! JSONSerialization.data(withJSONObject: data, options: [])
-        let  rfidData = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
-        if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
-        {
-            viewController.updateRfidData(rfidData:rfidData);
-        }
-    }
-    
-    func updateBarcodeData(barcode: String)
-    {
-        if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
-        {
-            viewController.updateBarcodeData(barcode: barcode)
-        }
-    }
-    
-    func sendDataBack(data: [String : Any]){
         let jsonData = try! JSONSerialization.data(withJSONObject: data, options: [])
         let  rfidData = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
         if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
         {
             viewController.sendRfidResponse(rfidData:rfidData);
         }
-        
     }
+    
+
     
     
     func enableRFID() -> String
@@ -61,16 +45,14 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     
-    func establishComm(data:NSDictionary) -> String{
+    func establishComm(data:NSDictionary){
         let server = (data["rfidServer"] as? String) ?? "";
         let port = (data["port"] as? Int) ?? -1;
-        if(server != "" && port != -1 )
-        {
+
+     
             rfidClient.EstablishComm(hostname: server, port: port, completion: {response -> Void in
                 print(response)
             })
-        }
-        return "INVALID_INPUT";
     }
 
     
@@ -208,7 +190,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             "type": "EventTriggerNotify",
             "pressed": pressed
             ] as [String : Any]
-        sendDataBack(data: data)
+        sendRfidResponse(data: data)
     }
     
     
@@ -220,7 +202,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             "sessionID": withSessionId,
             "sessionOwner": isSessionOwner
             ] as [String : Any]
-        updateRfidData(data: data)
+        sendRfidResponse(data: data)
     }
     
     func EventInventoryDidReadTag(_ epc: String)
@@ -229,7 +211,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             "type": "EventInventoryDidReadTag",
             "epc": epc
             ] as [String : Any]
-        updateRfidData(data: data)
+        sendRfidResponse(data: data)
     }
 
     func EventInventorySessionDidCommit(_ isSuccess: Bool) {
@@ -237,7 +219,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             "type": "EventInventorySessionDidCommit",
             "status": isSuccess
             ] as [String : Any]
-        updateRfidData(data: data)
+        sendRfidResponse(data: data)
     }
  
     func EventInventorySessionDidClose(_ isSuccess: Bool) {
@@ -245,11 +227,16 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             "type": "EventInventorySessionDidClose",
             "status": isSuccess
             ] as [String : Any]
-        updateRfidData(data: data)
+        sendRfidResponse(data: data)
     }
     
     func EventScannerBarcode(_ barcode: String, barcodeType: String) {
-            updateBarcodeData(barcode: barcode)
+        let data = [
+            "type": "EventScannerBarcode",
+            "barcode": barcode,
+            "barcodeType" : barcodeType
+            ] as [String : Any]
+            sendRfidResponse(data: data)
     }
 
     func EventFindProductDidLocateTag(tag: TagInfo, proximityPercent: Int) {
@@ -259,30 +246,33 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             "epc": tag.epc,
             "proximity": proximityPercent
             ] as [String : Any]
-        updateRfidData(data: data)
+        sendRfidResponse(data: data)
     }
+    
+    
     
     func EventUserDidAuthenticate(_ isSuccess: Bool) {
         let data = [
             "type": "EventUserDidAuthenticate",
             "status": isSuccess
             ] as [String : Any]
-        updateRfidData(data: data)
+        sendRfidResponse(data: data)
     }
     
+
     func EventInventoryLocalTagCountDidChange(localTagCount: Int) {
         let data = [
             "type": "EventInventoryLocalTagCountDidChange",
             "localTagCount": localTagCount
             ] as [String : Any]
-        updateRfidData(data: data)
+        sendRfidResponse(data: data)
     }
     func EventInventoryTotalTagCountDidChange(totalTagCount: Int) {
         let data = [
             "type": "EventInventoryTotalTagCountDidChange",
             "totalTagCount": totalTagCount
             ] as [String : Any]
-        updateRfidData(data: data)
+        sendRfidResponse(data: data)
     }
 
     func EventInventoryUserCountChange(userCount: Int) {
@@ -290,7 +280,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             "type": "EventInventoryUserCountChange",
             "userCount": userCount
             ] as [String : Any]
-        updateRfidData(data: data)
+        sendRfidResponse(data: data)
     }
 
 }

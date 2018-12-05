@@ -619,11 +619,16 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                         let port = (data["port"] as? Int) ?? -1;
                         if(server != "" && port != -1 )
                         {
-                            rfidEngine.establishComm(data: data)
-                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+                            // rfidEngine.establishComm(data: data, completion: <#((Bool) -> Void)?#>)
+                            
+                            rfidEngine.establishComm(data: data) { (status) in
+                                
+                                self.evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String(status) + " )");
+                            }
                         }
-
-                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                        else{
+                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                        }
                     }
                 }
             }

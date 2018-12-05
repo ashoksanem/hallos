@@ -45,16 +45,26 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     
-    func establishComm(data:NSDictionary){
+//    func establishComm(data:NSDictionary){
+//        let server = (data["rfidServer"] as? String) ?? "";
+//        let port = (data["port"] as? Int) ?? -1;
+//
+//     
+//            rfidClient.EstablishComm(hostname: server, port: port, completion: {response -> Void in
+//                print(response)
+//            })
+//    }
+
+    
+    func establishComm(data:NSDictionary, completion: ((Bool) -> Void)? ){
         let server = (data["rfidServer"] as? String) ?? "";
         let port = (data["port"] as? Int) ?? -1;
-
-     
-            rfidClient.EstablishComm(hostname: server, port: port, completion: {response -> Void in
-                print(response)
-            })
+        
+        rfidClient.EstablishComm(hostname: server, port: port, completion: {response -> Void in
+            print(response)
+            completion!( response);
+        })
     }
-
     
     
     //MARK: UTILITIES

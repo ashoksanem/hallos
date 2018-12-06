@@ -668,7 +668,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "stopScanningBarcode")
         {
             if let id = message.body as? String {
-                let result = rfidEngine.startScanningBarcode()
+                let result = rfidEngine.stopScanningBarcode()
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
         }

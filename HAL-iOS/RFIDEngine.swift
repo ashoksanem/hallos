@@ -44,16 +44,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         rfidClient.removeDelegate(self)
     }
     
-    
-//    func establishComm(data:NSDictionary){
-//        let server = (data["rfidServer"] as? String) ?? "";
-//        let port = (data["port"] as? Int) ?? -1;
-//
-//     
-//            rfidClient.EstablishComm(hostname: server, port: port, completion: {response -> Void in
-//                print(response)
-//            })
-//    }
+
 
     
     func establishComm(data:NSDictionary, completion: ((Bool) -> Void)? ){

@@ -155,11 +155,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         var url = CommonUtils.getLandingPage();
         if(!CommonUtils.isDefaultLandingPage(url))
         {
-            //let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app
+            //let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app.
             //let url = URL(string: "http://a4731573:3000/")!
-//            loadWebView(url: url);
-            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api
             //let url = URL(string: "a/3000")!;
+            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
             loadWebView(url: url);
         }
         else
@@ -167,9 +166,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             CommonUtils.setCurrentPage(value: url);
         }
     }
-    
-    
-    
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         
@@ -274,7 +270,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             CommonUtils.setScannerModeFromWeb(value: true);
             Sled.enableScanner();
-    //        rfidConnector.enableScanner();
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
             }
@@ -282,7 +277,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "disableScanner")
         {
             Sled.disableScanner();
-      //      rfidConnector.disableScanner();
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String( CommonUtils.isScanEnabled() ) + " )");
             }
@@ -534,16 +528,15 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             if let id = message.body as? String {
                 let result = rfidEngine.enableRFID();
-                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
                 updateBattery()
             }
         }
         else if(message.name == "disableRfid")
         {
             if let id = message.body as? String {
-                rfidEngine.disableRFID()
+                let result = rfidEngine.disableRFID()
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
         }
@@ -563,66 +556,53 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "startInventory")
         {
             if let id = message.body as? String {
-                    let result = rfidEngine.startInventory()
-                    let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                    let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                    evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                let result = rfidEngine.startInventory()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
                 }
-            
         }
         else if(message.name == "stopInventory")
         {
               if let id = message.body as? String {
-                    let result = rfidEngine.stopInventory()
-                    let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                    let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                    evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
-                
+                 let result = rfidEngine.stopInventory()
+                 let boolStr = result.lowercased() == "success" ? "true": "false"
+                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         else if(message.name == "clearInventorySession")
         {
             if let id = message.body as? String {
-                let result = rfidEngine.clearInventorySession()
-                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+               let result = rfidEngine.clearInventorySession()
+               let boolStr = result.lowercased() == "success" ? "true": "false"
+               evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         else if(message.name == "saveInventorySession")
         {
             if let id = message.body as? String {
                 let result = rfidEngine.saveInventorySession()
-                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
-            
         else if(message.name == "closeInventorySession")
         {
             if let id = message.body as? String {
                 let result = rfidEngine.closeInventorySession()
-                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         else if(message.name == "establishComm")
         {
-            //if let id = message.body as? NSDictionary {
             if let _data = message.body as? NSDictionary {
                 if let id = _data["handle"] as? String {
                     if let data = _data["data"] as? NSDictionary {
-                        
                         let server = (data["rfidServer"] as? String) ?? "";
                         let port = (data["port"] as? Int) ?? -1;
                         if(server != "" && port != -1 )
                         {
-                            // rfidEngine.establishComm(data: data, completion: <#((Bool) -> Void)?#>)
-                            
                             rfidEngine.establishComm(data: data) { (status) in
-                                
                                 self.evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String(status) + " )");
                             }
                         }
@@ -632,7 +612,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                     }
                 }
             }
-            
         }
         else if(message.name == "openTagLocatingSession")
         {
@@ -651,49 +630,45 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             if let id = message.body as? String {
                 let result = rfidEngine.closeTagLocatingSession()
-                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         else if(message.name == "startTagLocating")
         {
             if let id = message.body as? String {
                 let result = rfidEngine.startTagLocating()
-                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         else if(message.name == "stopTagLocating")
         {
             if let id = message.body as? String {
                 let result = rfidEngine.stopTagLocating()
-                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         else if(message.name == "findNextRFIDTag")
         {
             if let id = message.body as? String {
                 let result = rfidEngine.findNextTag()
-                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         else if(message.name == "startScanningBarcode")
         {
             if let id = message.body as? String {
-                rfidEngine.startScanningBarcode()
+                let result = rfidEngine.startScanningBarcode()
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
         }
         else if(message.name == "stopScanningBarcode")
         {
             if let id = message.body as? String {
-                rfidEngine.startScanningBarcode()
+                let result = rfidEngine.startScanningBarcode()
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
         }
@@ -701,9 +676,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             if let id = message.body as? String {
                 let result = rfidEngine.getRfidDeviceStatus()
-                let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         else if(message.name == "setRfidPowerLevel")
@@ -734,10 +708,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         
     }
-    
-//    func sendRfidResponse(rfidData: String){
-//        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"rfidGeneralCallBack\", false, " + rfidData + " )");
-//    }
     func sendRfidResponse(rfidData: String)
     {
         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"rfidCallback\", false, " + rfidData + " )");
@@ -746,11 +716,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     {
         let req = NSURLRequest(url: url);
         let req2 = req as URLRequest;
-        
         ViewController.webView!.navigationDelegate = self;
         ViewController.webView!.load(req2);
     }
-    
     func loadPreviousWebPage()
     {
         if let currentPage = CommonUtils.getCurrentPage()
@@ -835,16 +803,15 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     //        evaluateJavaScript(javascriptMessage: "updateDeviceBattery(\(Sled.getDeviceBatteryLevel()));");
     //    }
     
-//    func updateBarcodeData(barcode: String)
-//    {
-//
-//        DLog("Received scanner data: " + barcode);
-//        //
-//        //        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
-//        //        evaluateJavaScript(javascriptMessage: callback);
-//        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"scanCallback\", false, \"" + barcode + "\" )");
-//    }
-//
+    func updateBarcodeData(barcode: String)
+    {
+        DLog("Received scanner data: " + barcode);
+        //
+        //        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
+        //        evaluateJavaScript(javascriptMessage: callback);
+        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"scanCallback\", false, \"" + barcode + "\" )");
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }

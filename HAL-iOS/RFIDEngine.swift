@@ -14,7 +14,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
 {
     var rfidClient = RfidSDK.shared()
     var isBarcodeEnable = false;
-
+    
     
     func sendRfidResponse(data: [String : Any])
     {
@@ -26,9 +26,6 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         }
     }
     
-
-    
-    
     func enableRFID() -> String
     {
         var result = rfidClient.establishConnection()
@@ -36,16 +33,12 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             rfidClient.addDelegate(self)
         }
         return RfidUtils.TranslateResultToStringResult(result);
-        
     }
     
     func disableRFID()
     {
         rfidClient.removeDelegate(self)
     }
-    
-
-
     
     func establishComm(data:NSDictionary, completion: ((Bool) -> Void)? ){
         let server = (data["rfidServer"] as? String) ?? "";
@@ -73,8 +66,8 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         var result = RFID_RESULT.FAILURE
         if let vol = (data["rfidVolume"] as? String){
             switch vol {
-                case "mute":
-                    result = rfidClient.setReaderVolume(.MUTE);
+            case "mute":
+                result = rfidClient.setReaderVolume(.MUTE);
             case "low":
                 result = rfidClient.setReaderVolume(.LOW);
             case "medium":
@@ -85,7 +78,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
                 return RfidUtils.TranslateResultToStringResult(RFID_RESULT.INVALID_PARAMS)
             }
         }
-           return RfidUtils.TranslateResultToStringResult(result)
+        return RfidUtils.TranslateResultToStringResult(result)
         
     }
     
@@ -94,11 +87,26 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         if let result = rfidClient.getReaderStatus(){
             data = result;
         }
-        let jsonData = try! JSONSerialization.data(withJSONObject: data, options: [])
+            let rfidDeviceStatus = [
+            "batteryLevel": data.batteryLevel,
+            "deviceId": data.deviceId,
+            "isConnected": data.isConnected,
+            "readerRfidPower": data.readerRfidPower,
+            "readerSession": data.readerSession,
+            "volume": data.volume
+            ] as [String : Any]
+        
+        let jsonData = try! JSONSerialization.data(withJSONObject: rfidDeviceStatus, options: [])
         let rfidData = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
         return rfidData;
     }
     
+    func isRfidScannerAvailable() -> Bool {
+        return rfidClient.getReaderStatus()?.isConnected ?? false;
+    }
+    func getBatteryLevel() -> String {
+        return String(rfidClient.getReaderStatus()?.batteryLevel ?? 0 );
+    }
     
     //MARK: FIND PRODUCT WORKFLOW
     
@@ -125,7 +133,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
     }
     
-
+    
     //MARK:  BARCODE SCANNER WORKFLOW
     func startScanningBarcode(){
         //enable barcode reader if disable, then start scanning for barcode
@@ -137,12 +145,9 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         // stop scanning for barcode and disable barcode reader
         rfidClient.stopScanningBarcode();
         rfidClient.enableBarcodeReader(enable: false)
-
     }
-
     
     //MARK: INVENTORY WORKFLOW
-    
     func openInventorySession(data:NSDictionary) -> String{
         let tableName = (data["tableName"] as? String) ?? "";
         if(tableName != "")
@@ -155,7 +160,6 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             return "INVALID_INPUT";
         }
     }
-
     
     func clearInventorySession() -> String{
         let result = rfidClient.inventoryWorker?.clearTags();
@@ -163,7 +167,6 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     func saveInventorySession() -> String{
-
         var result = rfidClient.inventoryWorker?.commitInventorySession()
         return RfidUtils.TranslateResultToStringResult(result ?? INVENTORY_RESULT.FAILURE)
     }
@@ -180,11 +183,10 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     
     func closeInventorySession() -> String {
         let result = rfidClient.inventoryWorker?.closeInventorySession()
-         return RfidUtils.TranslateResultToStringResult(result ?? INVENTORY_RESULT.FAILURE)
+        return RfidUtils.TranslateResultToStringResult(result ?? INVENTORY_RESULT.FAILURE)
     }
     
     //MARK: PROTOCOL FUNCTIONS
-    
     
     func EventTriggerNotify(pressed: Bool) {
         let data = [
@@ -193,8 +195,6 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             ] as [String : Any]
         sendRfidResponse(data: data)
     }
-    
-    
     
     func EventInventorySessionDidOpen(_ isSuccess: Bool, withSessionId: String, isSessionOwner: Bool) {
         let data = [
@@ -206,15 +206,14 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         sendRfidResponse(data: data)
     }
     
-    func EventInventoryDidReadTag(_ epc: String)
-    {
+    func EventInventoryDidReadTag(_ epc: String){
         let data = [
             "type": "EventInventoryDidReadTag",
             "epc": epc
             ] as [String : Any]
         sendRfidResponse(data: data)
     }
-
+    
     func EventInventorySessionDidCommit(_ isSuccess: Bool) {
         let data = [
             "type": "EventInventorySessionDidCommit",
@@ -222,7 +221,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             ] as [String : Any]
         sendRfidResponse(data: data)
     }
- 
+    
     func EventInventorySessionDidClose(_ isSuccess: Bool) {
         let data = [
             "type": "EventInventorySessionDidClose",
@@ -237,9 +236,9 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             "barcode": barcode,
             "barcodeType" : barcodeType
             ] as [String : Any]
-            sendRfidResponse(data: data)
+        sendRfidResponse(data: data)
     }
-
+    
     func EventFindProductDidLocateTag(tag: TagInfo, proximityPercent: Int) {
         let data = [
             "type": "EventFindProductDidLocateTag",
@@ -250,8 +249,6 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         sendRfidResponse(data: data)
     }
     
-    
-    
     func EventUserDidAuthenticate(_ isSuccess: Bool) {
         let data = [
             "type": "EventUserDidAuthenticate",
@@ -260,7 +257,6 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         sendRfidResponse(data: data)
     }
     
-
     func EventInventoryLocalTagCountDidChange(localTagCount: Int) {
         let data = [
             "type": "EventInventoryLocalTagCountDidChange",
@@ -268,6 +264,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             ] as [String : Any]
         sendRfidResponse(data: data)
     }
+    
     func EventInventoryTotalTagCountDidChange(totalTagCount: Int) {
         let data = [
             "type": "EventInventoryTotalTagCountDidChange",
@@ -275,7 +272,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             ] as [String : Any]
         sendRfidResponse(data: data)
     }
-
+    
     func EventInventoryUserCountChange(userCount: Int) {
         let data = [
             "type": "EventInventoryUserCountChange",
@@ -283,5 +280,5 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             ] as [String : Any]
         sendRfidResponse(data: data)
     }
-
+    
 }

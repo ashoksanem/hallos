@@ -54,7 +54,7 @@ class Assembly{
         return Sled.isConnected();
     }
     class func isRfidScannerAvailable() -> Bool {
-        return RFIDConnection().rfidClient?.getReaderStatus()?.isConnected ?? false;
+        return RFIDEngine().isRfidScannerAvailable() ;
     }
     class func isCameraAvailable() -> Bool {
         return true;

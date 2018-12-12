@@ -20,7 +20,7 @@ class Sled
     class func getSledBatteryLevel() -> String {
         if(Assembly.isRfidScannerAvailable())
         {
-            return RFIDConnection().getBatteryLevel();
+            return RFIDEngine().getBatteryLevel();
         }
         else if let delegate = UIApplication.shared.delegate as? AppDelegate {
             let val = String( delegate.getSledBatteryLevel() );

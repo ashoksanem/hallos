@@ -546,9 +546,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 if let id = _data["handle"] as? String {
                     if let data = _data["data"] as? NSDictionary {
                         let result = rfidEngine.openInventorySession(data: data)
-                        let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                        let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
                     }
                 }
             }
@@ -619,9 +618,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 if let id = _data["handle"] as? String {
                     if let data = _data["data"] as? NSDictionary {
                         let result = rfidEngine.openTagLocatingSession(data: data);
-                        let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                        let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
                     }
                 }
             }
@@ -675,9 +673,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "getRfidDeviceStatus")
         {
             if let id = message.body as? String {
-                let result = rfidEngine.getRfidDeviceStatus()
-                let boolStr = result.lowercased() == "success" ? "true": "false"
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+               evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + rfidEngine.getRfidDeviceStatus() + " )");
             }
         }
         else if(message.name == "setRfidPowerLevel")
@@ -686,9 +682,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 if let id = _data["handle"] as? String {
                     if let data = _data["data"] as? NSDictionary {
                         let result = rfidEngine.setRfidPowerLevel(data: data);
-                        let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                        let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
                     }
                 }
             }
@@ -699,9 +694,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 if let id = _data["handle"] as? String {
                     if let data = _data["data"] as? NSDictionary {
                         let result = rfidEngine.setVolumeLevel(data: data)
-                        let halJsonData = try! JSONSerialization.data(withJSONObject: (["result": result] as [String : Any]), options: [])
-                        let  halJsonString = String(data: halJsonData, encoding: String.Encoding.utf8)
-                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + halJsonString! + " )");
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
                     }
                 }
             }

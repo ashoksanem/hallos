@@ -152,13 +152,13 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeProgressView()
-        var url = CommonUtils.getLandingPage();
+        let url = CommonUtils.getLandingPage();
         if(!CommonUtils.isDefaultLandingPage(url))
         {
             //let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app.
             //let url = URL(string: "http://a4731573:3000/")!
             //let url = URL(string: "a/3000")!;
-            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
+            let url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
             loadWebView(url: url);
         }
         else
@@ -825,13 +825,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else {
             sledBatteryView?.text = "";
         }
-    }
-    
-    func enableRFIDScanner() {
-      //  rfidConnector.enableScanner()
-    }
-    func disableRFIDScanner() {
-       // rfidConnector.disableScanner()
     }
     
     func updateMsrData(msrData: String)

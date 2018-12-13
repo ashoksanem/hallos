@@ -831,7 +831,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             CommonUtils.setScanEnabled(value: true);
         }
         catch {
-            enableRFIDScanner()
             DLog("Enable scanner error: " + String(describing:error));
            
         }
@@ -845,7 +844,6 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             CommonUtils.setScanEnabled(value: false);
         }
         catch {
-            //RFIDConnection().disableScanner()
             DLog("Disable scanner error: " + String(describing:error));
         }
     }
@@ -894,18 +892,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             viewController.updateBattery();
         }
     }
-    func enableRFIDScanner() {
-        if let viewController:ViewController = window!.rootViewController as? ViewController
-        {
-            viewController.enableRFIDScanner();
-        }
-    }
-    func disableRFIDScanner() {
-        if let viewController:ViewController = window!.rootViewController as? ViewController
-        {
-            viewController.disableRFIDScanner();
-        }
-    }
+  
     func autoLogout() {
         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout due to inactivity.", type: "STRING", indexable: true);
         Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"inactivity",

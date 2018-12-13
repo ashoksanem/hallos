@@ -92,8 +92,9 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             "deviceId": data.deviceId,
             "isConnected": data.isConnected,
             "readerRfidPower": data.readerRfidPower,
-            "readerSession": data.readerSession,
-            "volume": data.volume
+            "readerSession": data.readerSession.hashValue,
+            "volume": data.volume,
+            "readerMode": data.readerMode.hashValue
             ] as [String : Any]
         
         let jsonData = try! JSONSerialization.data(withJSONObject: rfidDeviceStatus, options: [])

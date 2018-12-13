@@ -158,7 +158,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             //let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app.
             //let url = URL(string: "http://a4731573:3000/")!
             //let url = URL(string: "a/3000")!;
-            let url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
+            //let url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
             loadWebView(url: url);
         }
         else

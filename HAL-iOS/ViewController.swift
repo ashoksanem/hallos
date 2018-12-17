@@ -549,6 +549,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                         let boolStr = result.lowercased() == "success" ? "true": "false"
                         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
                     }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                    }
                 }
             }
         }
@@ -608,6 +612,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                         else{
                             evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
                         }
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
                     }
                 }
             }
@@ -685,6 +693,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                         let boolStr = result.lowercased() == "success" ? "true": "false"
                         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
                     }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                    }
                 }
             }
         }
@@ -696,6 +708,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                         let result = rfidEngine.setVolumeLevel(data: data)
                         let boolStr = result.lowercased() == "success" ? "true": "false"
                         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
                     }
                 }
             }

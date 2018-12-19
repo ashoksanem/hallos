@@ -97,8 +97,8 @@
 		F9A42B6D21C959E30039D43C /* package-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5B21C959E30039D43C /* package-lock.json */; };
 		F9A42B6E21C959E30039D43C /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5C21C959E30039D43C /* package.json */; };
 		F9A42B6F21C959E30039D43C /* sonar_coverage_grunt.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5D21C959E30039D43C /* sonar_coverage_grunt.js */; };
-		F9A42B7121C9824F0039D43C /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42B7021C9824F0039D43C /* rfid_ios_fw.framework */; };
-		F9A42B7221C9824F0039D43C /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42B7021C9824F0039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
+		F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,7 +125,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F9A42B7221C9824F0039D43C /* rfid_ios_fw.framework in Embed Frameworks */,
+				F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,7 +241,7 @@
 		F9A42B5B21C959E30039D43C /* package-lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
 		F9A42B5C21C959E30039D43C /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
 		F9A42B5D21C959E30039D43C /* sonar_coverage_grunt.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sonar_coverage_grunt.js; sourceTree = "<group>"; };
-		F9A42B7021C9824F0039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = rfid_ios_fw.framework; path = "HAL-iOS/frameworks/rfid_ios_fw.framework"; sourceTree = "<group>"; };
+		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = rfid_ios_fw.framework; sourceTree = "<group>"; };
 		FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -252,7 +252,7 @@
 			files = (
 				BCD2B8651F311B1900F3496D /* libcrypto.a in Frameworks */,
 				BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */,
-				F9A42B7121C9824F0039D43C /* rfid_ios_fw.framework in Frameworks */,
+				F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */,
 				BC174CD21F02DDDB005FBA9A /* UIKit.framework in Frameworks */,
 				BC174CD01F02DDD2005FBA9A /* SystemConfiguration.framework in Frameworks */,
 				BC174CCE1F02DDCA005FBA9A /* Security.framework in Frameworks */,
@@ -353,7 +353,7 @@
 		CC2585541D9AF71B00294506 = {
 			isa = PBXGroup;
 			children = (
-				F9A42B7021C9824F0039D43C /* rfid_ios_fw.framework */,
+				F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */,
 				CC25855F1D9AF71C00294506 /* HAL-iOS */,
 				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
@@ -1114,6 +1114,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HAL-iOS",
 					"$(PROJECT_DIR)/HAL-iOS/frameworks",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers",
@@ -1161,6 +1162,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/HAL-iOS",
 					"$(PROJECT_DIR)/HAL-iOS/frameworks",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers",

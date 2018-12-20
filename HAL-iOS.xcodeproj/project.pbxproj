@@ -17,6 +17,7 @@
 		858988BD1EAE208A00AF2024 /* DLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858988BC1EAE208A00AF2024 /* DLog.swift */; };
 		85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CCB4131F22649C0088BD5D /* sampleBarcode.png */; };
 		85DDE7081EEB171500700EFC /* Certificates in Resources */ = {isa = PBXBuildFile; fileRef = 85DDE7071EEB171500700EFC /* Certificates */; };
+		85ECB24A218B7EFD001F2D44 /* RfidUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ECB247218B7EFD001F2D44 /* RfidUtils.swift */; };
 		A91A7471A3B481F9F4225248 /* Pods_HAL_iOS_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */; };
 		BC03A54E21246D1F00D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
 		BC03A54F21246D3500D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
@@ -50,7 +51,6 @@
 		BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCD2B8641F311B1900F3496D /* libssl.a */; };
 		BCD6982B1DB7C34600F856CE /* icons in Resources */ = {isa = PBXBuildFile; fileRef = BCD6982A1DB7C34600F856CE /* icons */; };
 		BCE513561F1D0EA40060CAB8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE513551F1D0EA40060CAB8 /* Utils.swift */; };
-		CC14AF421DB56F93007208F7 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = CC14AF411DB56F93007208F7 /* sso */; };
 		CC21C0491E16A332006CD57B /* ESPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC21C0481E16A332006CD57B /* ESPRequest.swift */; };
 		CC2585611D9AF71C00294506 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585601D9AF71C00294506 /* AppDelegate.swift */; };
 		CC2585631D9AF71C00294506 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2585621D9AF71C00294506 /* ViewController.swift */; };
@@ -71,13 +71,15 @@
 		CC6EEEAE1DBFE374003D895B /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */; };
 		CC837B561E08341B00A14ECB /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC837B541E08341B00A14ECB /* KeychainItemAccessibility.swift */; };
 		CC837B571E08341B00A14ECB /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC837B551E08341B00A14ECB /* KeychainWrapper.swift */; };
-		CC837B5D1E083B4B00A14ECB /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = CC837B5C1E083B4B00A14ECB /* HALApi */; };
 		CC8872EE1DDE3A930042F089 /* HALApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8872EC1DDE3A930042F089 /* HALApplication.swift */; };
 		CC8872EF1DDE3A930042F089 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8872ED1DDE3A930042F089 /* main.swift */; };
 		CCB404921D9D82C600A314FC /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB404911D9D82C600A314FC /* Assembly.swift */; };
 		CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */ = {isa = PBXBuildFile; fileRef = CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */; };
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
 		ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */; };
+		F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DD2C4219F133100B0E57D /* RFIDEngine.swift */; };
+		F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
+		F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9EC1AC30218B8E4A008BE05E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		297B3FE047E2A5FB3A6B68A4 /* Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		391A86DF28C49D0A99093243 /* Pods-HAL-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSTests/Pods-HAL-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +131,7 @@
 		858988BC1EAE208A00AF2024 /* DLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLog.swift; sourceTree = "<group>"; };
 		85CCB4131F22649C0088BD5D /* sampleBarcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sampleBarcode.png; path = "Project Files/sampleBarcode.png"; sourceTree = "<group>"; };
 		85DDE7071EEB171500700EFC /* Certificates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Certificates; sourceTree = "<group>"; };
+		85ECB247218B7EFD001F2D44 /* RfidUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RfidUtils.swift; sourceTree = "<group>"; };
 		A76AC9536786AC17D6303564 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC174CC91F02DDB0005FBA9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -148,7 +165,6 @@
 		BCD6982A1DB7C34600F856CE /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = "Project Files/icons"; sourceTree = "<group>"; };
 		BCE513551F1D0EA40060CAB8 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = sled/Utils.swift; sourceTree = "<group>"; };
 		C4F2375C69566D65ACF5BA47 /* Pods-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSTests/Pods-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CC14AF411DB56F93007208F7 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
 		CC21C0481E16A332006CD57B /* ESPRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ESPRequest.swift; sourceTree = "<group>"; };
 		CC25855D1D9AF71C00294506 /* HAL-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HAL-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2585601D9AF71C00294506 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,7 +192,6 @@
 		CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		CC837B541E08341B00A14ECB /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		CC837B551E08341B00A14ECB /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
-		CC837B5C1E083B4B00A14ECB /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
 		CC8872EC1DDE3A930042F089 /* HALApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HALApplication.swift; sourceTree = "<group>"; };
 		CC8872ED1DDE3A930042F089 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		CCB404911D9D82C600A314FC /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
@@ -187,6 +202,8 @@
 		DBC30386354F22573AAEE8BF /* Pods-HAL-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		F01A0AD9C8E731F41202C930 /* Pods-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSUITests/Pods-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F98DD2C4219F133100B0E57D /* RFIDEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDEngine.swift; sourceTree = "<group>"; };
+		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = rfid_ios_fw.framework; sourceTree = "<group>"; };
 		FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -197,6 +214,7 @@
 			files = (
 				BCD2B8651F311B1900F3496D /* libcrypto.a in Frameworks */,
 				BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */,
+				F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */,
 				BC174CD21F02DDDB005FBA9A /* UIKit.framework in Frameworks */,
 				BC174CD01F02DDD2005FBA9A /* SystemConfiguration.framework in Frameworks */,
 				BC174CCE1F02DDCA005FBA9A /* Security.framework in Frameworks */,
@@ -273,8 +291,6 @@
 		BCD698231DB7B91400F856CE /* Git Projects */ = {
 			isa = PBXGroup;
 			children = (
-				CC837B5C1E083B4B00A14ECB /* HALApi */,
-				CC14AF411DB56F93007208F7 /* sso */,
 			);
 			name = "Git Projects";
 			sourceTree = "<group>";
@@ -297,6 +313,7 @@
 		CC2585541D9AF71B00294506 = {
 			isa = PBXGroup;
 			children = (
+				F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */,
 				CC25855F1D9AF71C00294506 /* HAL-iOS */,
 				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
@@ -325,6 +342,8 @@
 				85DDE7071EEB171500700EFC /* Certificates */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
 				4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */,
+				F98DD2C4219F133100B0E57D /* RFIDEngine.swift */,
+				85ECB247218B7EFD001F2D44 /* RfidUtils.swift */,
 				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				BC25B5141F27B8BE0028E81F /* default.html */,
 				48AD2A6A1FDEF32700C2F509 /* defaultBlank.html */,
@@ -423,6 +442,7 @@
 				CC25855B1D9AF71C00294506 /* Resources */,
 				2ECF74AC60F146BB4403F3F2 /* [CP] Embed Pods Frameworks */,
 				DDB9727A42E151C80F075BAF /* [CP] Copy Pods Resources */,
+				9EC1AC30218B8E4A008BE05E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -544,10 +564,8 @@
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
 				BCD2B85E1F31094300F3496D /* Encryption in Resources */,
-				CC14AF421DB56F93007208F7 /* sso in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
-				CC837B5D1E083B4B00A14ECB /* HALApi in Resources */,
 				85DDE7081EEB171500700EFC /* Certificates in Resources */,
 				BC22EE621E203A8300C3F597 /* LOCN.json in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
@@ -740,6 +758,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85ECB24A218B7EFD001F2D44 /* RfidUtils.swift in Sources */,
 				CC2585631D9AF71C00294506 /* ViewController.swift in Sources */,
 				CCB404921D9D82C600A314FC /* Assembly.swift in Sources */,
 				CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */,
@@ -770,6 +789,7 @@
 				BC534ABC1E018BD800C65BAC /* LogAnalyticsRequest.swift in Sources */,
 				CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */,
 				CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */,
+				F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */,
 				BC534ABA1DFF17E200C65BAC /* LoggingRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -952,6 +972,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HAL-iOS",
+					"$(PROJECT_DIR)/HAL-iOS/frameworks",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers",
@@ -998,6 +1020,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HAL-iOS",
+					"$(PROJECT_DIR)/HAL-iOS/frameworks",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/HAL-iOS/CrashReporter.framework/Headers",

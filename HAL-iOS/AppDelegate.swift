@@ -129,7 +129,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
               ( ssid == "MST030C" ) ||
               ( ssid == "FDS030AZ" ) ||
               ( ssid == "LAB030A" ) ||
-//              ( ssid == "FDS010" ) ||  // uncomment for local development testing
+              //( ssid == "FDS010" ) ||  // uncomment for local development testing
               ( ssid == "FDS010" && CommonUtils.getisBYOD() ) ||  // used for QE testing on a dev build. Works in Production in BYOD
               ( ssid == "MB030A" )
             {
@@ -832,6 +832,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
         catch {
             DLog("Enable scanner error: " + String(describing:error));
+           
         }
     }
     
@@ -861,6 +862,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
         return 0;
     }
+   
     func getSledEmsrFirmwareVersion() -> String
     {
         if( isLineaConnected() )
@@ -890,7 +892,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             viewController.updateBattery();
         }
     }
-    
+  
     func autoLogout() {
         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout due to inactivity.", type: "STRING", indexable: true);
         Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"inactivity",

@@ -19,6 +19,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     var printerData:NSDictionary = [:];
     var progressView: UIView?;
     var activityIndicator: UIActivityIndicatorView?;
+    var rfidEngine = RFIDEngine();
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
@@ -65,7 +66,27 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "isFixedRegister",
                                          "queryMsgs",
                                          "getCRUInfo",
-                                         "promptForPin"];
+                                         "promptForPin",
+                                         "enableRfid",
+                                         "disableRfid",
+                                         "openInventorySession",
+                                         "startInventory",
+                                         "stopInventory",
+                                         "clearInventorySession",
+                                         "saveInventorySession",
+                                         "closeInventorySession",
+                                         "establishComm",
+                                         "openTagLocatingSession",
+                                         "closeTagLocatingSession",
+                                         "startTagLocating",
+                                         "stopTagLocating",
+                                         "findNextRFIDTag",
+                                         "startScanningBarcode",
+                                         "stopScanningBarcode",
+                                         "getRfidDeviceStatus",
+                                         "setRfidPowerLevel",
+                                         "setRfidVolumeLevel"
+        ];
         
         for message in messageHandlers
         {
@@ -89,7 +110,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             configuration: config
         );
         
-//        ViewController.webView?.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil); observer for the change of the progress of a GET request
+        //        ViewController.webView?.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil); observer for the change of the progress of a GET request
         
         sledBatteryView = UITextView(frame: CGRect(x: ((self.view.bounds.width/2) - 100), y: -4, width: 80, height: 20));
         sledBatteryView?.textAlignment = NSTextAlignment.center;
@@ -104,27 +125,27 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         guard let change = change else { return; };
         
         switch keyPath {
-            case "loading": // new:1 or 0
-                if let val = change[.newKey] as? Bool
+        case "loading": // new:1 or 0
+            if let val = change[.newKey] as? Bool
+            {
+                if( val )
                 {
-                    if( val )
-                    {
-                        
-                        DLog("Starting webview loading.")
-                        CommonUtils.setWebviewLoading(value: true);
-                    } else
-                    {
-                        
-                        DLog("Stopping webview loading.")
-                        CommonUtils.setWebviewLoading(value: false);
-                    }
+                    
+                    DLog("Starting webview loading.")
+                    CommonUtils.setWebviewLoading(value: true);
+                } else
+                {
+                    
+                    DLog("Stopping webview loading.")
+                    CommonUtils.setWebviewLoading(value: false);
                 }
-//            case "estimatedProgress": // to have ui implemented with a future story, see UIProgressView @ https://developer.apple.com/documentation/uikit/uiprogressview
-//                if let val = change[.newKey] as? Double
-//                {
-//                    DLog("progress " + String(val)); outputs a double from 0.0 to 1.0 indicating how far along the get request to a web page is
-//                }
-            default:break;
+            }
+            //            case "estimatedProgress": // to have ui implemented with a future story, see UIProgressView @ https://developer.apple.com/documentation/uikit/uiprogressview
+            //                if let val = change[.newKey] as? Double
+            //                {
+            //                    DLog("progress " + String(val)); outputs a double from 0.0 to 1.0 indicating how far along the get request to a web page is
+        //                }
+        default:break;
         }
     }
     
@@ -134,8 +155,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         let url = CommonUtils.getLandingPage();
         if(!CommonUtils.isDefaultLandingPage(url))
         {
-//            let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app
-//            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api
+            //let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app.
+            //let url = URL(string: "http://a4731573:3000/")!
+            //let url = URL(string: "a/3000")!;
+            //let url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
             loadWebView(url: url);
         }
         else
@@ -170,7 +193,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             {
                 let associateNumber = messageBody["associateNumber"] as? String;
                 let associatePin = messageBody["associatePin"] as? String;
-
+                
                 if( associateNumber != nil && associatePin != nil ) {
                     authenticateUser(associateNumber: associateNumber!, associatePin: associatePin!);
                 }
@@ -262,7 +285,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             if let data = message.body as? NSDictionary {
                 if let id = data["handle"] as? String {
-            
+                    
                     if let messageBody:NSDictionary = message.body as? NSDictionary
                     {
                         let mutDict: NSMutableDictionary = messageBody.mutableCopy() as! NSMutableDictionary;
@@ -292,7 +315,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             if let data = message.body as? NSDictionary {
                 if let id = data["handle"] as? String {
                     if let key = data["key"] as? String {
-            
+                        
                         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + SharedContainer.restoreData(key: key) + " )");
                     }
                 }
@@ -303,7 +326,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             if let data = message.body as? NSDictionary {
                 if let id = data["handle"] as? String {
                     if let key = data["key"] as? String {
-            
+                        
                         SharedContainer.removeData(key: key)
                         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
                     }
@@ -315,7 +338,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             if let data = message.body as? NSDictionary {
                 if let id = data["handle"] as? String {
                     if let address = data["data"] as? String {
-            
+                        
                         if(ZebraBluetooth.connectToDevice(address: address))
                         {
                             //showAlert(title: "Connected to printer", message: "success")
@@ -382,7 +405,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 if let id = _data["handle"] as? String {
                     if let data = _data["data"] as? String {
                         let stringData = String( describing: data );
-            
+                        
                         LogAnalyticsRequest.logData( data:stringData );
                         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
                     }
@@ -399,10 +422,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                         "ssp": SharedContainer.getSsp(),
                         "cloud": SharedContainer.getCloud()
                     ] ]as [String : Any]
-            
+                
                 let dataData = try! JSONSerialization.data(withJSONObject: data, options: [])
                 let dataString = String(data: dataData, encoding: String.Encoding.utf8)
-            
+                
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + dataString! + " )");
             }
         }
@@ -501,17 +524,211 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, 'Unable to prompt for PIN' )");
             }
         }
+        else if(message.name == "enableRfid")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.enableRFID();
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                updateBattery()
+            }
+        }
+        else if(message.name == "disableRfid")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.disableRFID()
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+            }
+        }
+        else if(message.name == "openInventorySession")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        let result = rfidEngine.openInventorySession(data: data)
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                    }
+                }
+            }
+        }
+        else if(message.name == "startInventory")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.startInventory()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                }
+        }
+        else if(message.name == "stopInventory")
+        {
+              if let id = message.body as? String {
+                 let result = rfidEngine.stopInventory()
+                 let boolStr = result.lowercased() == "success" ? "true": "false"
+                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+            }
+        }
+        else if(message.name == "clearInventorySession")
+        {
+            if let id = message.body as? String {
+               let result = rfidEngine.clearInventorySession()
+               let boolStr = result.lowercased() == "success" ? "true": "false"
+               evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+            }
+        }
+        else if(message.name == "saveInventorySession")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.saveInventorySession()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+            }
+        }
+        else if(message.name == "closeInventorySession")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.closeInventorySession()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+            }
+        }
+        else if(message.name == "establishComm")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        let server = (data["rfidServer"] as? String) ?? "";
+                        let port = (data["port"] as? Int) ?? -1;
+                        if(server != "" && port != -1 )
+                        {
+                            rfidEngine.establishComm(data: data) { (status) in
+                                self.evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + String(status) + " )");
+                            }
+                        }
+                        else{
+                            evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                        }
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                    }
+                }
+            }
+        }
+        else if(message.name == "openTagLocatingSession")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        let result = rfidEngine.openTagLocatingSession(data: data);
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                    }
+                }
+            }
+        }
+        else if(message.name == "closeTagLocatingSession")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.closeTagLocatingSession()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+            }
+        }
+        else if(message.name == "startTagLocating")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.startTagLocating()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+            }
+        }
+        else if(message.name == "stopTagLocating")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.stopTagLocating()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+            }
+        }
+        else if(message.name == "findNextRFIDTag")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.findNextTag()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+            }
+        }
+        else if(message.name == "startScanningBarcode")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.startScanningBarcode()
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+            }
+        }
+        else if(message.name == "stopScanningBarcode")
+        {
+            if let id = message.body as? String {
+                let result = rfidEngine.stopScanningBarcode()
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+            }
+        }
+        else if(message.name == "getRfidDeviceStatus")
+        {
+            if let id = message.body as? String {
+               evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + rfidEngine.getRfidDeviceStatus() + " )");
+            }
+        }
+        else if(message.name == "setRfidPowerLevel")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        let result = rfidEngine.setRfidPowerLevel(data: data);
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                    }
+                }
+            }
+        }
+        else if(message.name == "setRfidVolumeLevel")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        let result = rfidEngine.setVolumeLevel(data: data)
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                    }
+                }
+            }
+        }
+        
     }
-    
+    func sendRfidResponse(rfidData: String)
+    {
+        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"rfidCallback\", false, " + rfidData + " )");
+    }
     func loadWebView(url: URL)
     {
-            let req = NSURLRequest(url: url);
-            let req2 = req as URLRequest;
-            
-            ViewController.webView!.navigationDelegate = self;
-            ViewController.webView!.load(req2);
+        let req = NSURLRequest(url: url);
+        let req2 = req as URLRequest;
+        ViewController.webView!.navigationDelegate = self;
+        ViewController.webView!.load(req2);
     }
-    
     func loadPreviousWebPage()
     {
         if let currentPage = CommonUtils.getCurrentPage()
@@ -579,8 +796,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         if(!Thread.isMainThread)
         {
             DispatchQueue.main.async
-            {
-                eval();
+                {
+                    eval();
             }
         }
         else
@@ -598,14 +815,13 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     func updateBarcodeData(barcode: String)
     {
-        
         DLog("Received scanner data: " + barcode);
         //
         //        let callback = CommonUtils.getScannerScanCallback() + "(\"" + barcode + "\");";
         //        evaluateJavaScript(javascriptMessage: callback);
         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"scanCallback\", false, \"" + barcode + "\" )");
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }
@@ -656,7 +872,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                         if let rootCaData: NSData = NSData(contentsOfFile: cert ) {
                             let cfData = CFDataCreate(kCFAllocatorDefault, rootCaData.bytes.assumingMemoryBound(to: UInt8.self), rootCaData.length)
                             let rootCert = SecCertificateCreateWithData(kCFAllocatorDefault, cfData!)
-                            let certs: [CFTypeRef] = [rootCert as CFTypeRef] 
+                            let certs: [CFTypeRef] = [rootCert as CFTypeRef]
                             let certArrayRef : CFArray = CFBridgingRetain(certs as NSArray) as! CFArray
                             SecTrustSetAnchorCertificates(serverTrust!, certArrayRef)
                             SecTrustSetAnchorCertificatesOnly(serverTrust!, true)
@@ -694,7 +910,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             {
                 CommonUtils.setPrinterMACAddress(value: "")
                 CommonUtils.setSavedPrinterMACAddress(value: "")
-            }   
+            }
             
             Sled.enableScanner();
             if((CommonUtils.getSavedPrinterMACAddress()==""))
@@ -706,8 +922,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 self.progressView?.isHidden = false;
                 self.activityIndicator?.startAnimating();
                 DispatchQueue.main.asyncAfter(deadline: .now()+1.0) {
-                let printStatus = PrinterViewController.connectAndPrintReceipt(address: CommonUtils.getSavedPrinterMACAddress(),printerData: self.printerData);
-                if( !(printStatus=="success") )
+                    let printStatus = PrinterViewController.connectAndPrintReceipt(address: CommonUtils.getSavedPrinterMACAddress(),printerData: self.printerData);
+                    if( !(printStatus=="success") )
                     {
                         self.activityIndicator?.stopAnimating();
                         self.progressView?.isHidden = true;
@@ -721,11 +937,11 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                         alertController.addAction(okAction);
                         if(skipPrinting)
                         {
-                        let skipAction = UIAlertAction(
-                            title: "Skip Printing",
-                            style: UIAlertActionStyle.destructive) { (action) in
-                        }
-                        alertController.addAction(skipAction);
+                            let skipAction = UIAlertAction(
+                                title: "Skip Printing",
+                                style: UIAlertActionStyle.destructive) { (action) in
+                            }
+                            alertController.addAction(skipAction);
                         }
                         self.present(alertController, animated: true, completion: nil)
                     }
@@ -764,5 +980,5 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         let printerViewController = segue.destination as! PrinterViewController
         printerViewController.printerData = printerData;
     }
-
+    
 }

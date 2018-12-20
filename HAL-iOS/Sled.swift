@@ -9,17 +9,20 @@ import Foundation
 class Sled
 {
     class func isConnected() -> Bool
-        
-        
     {
+        var scannerConnected = Assembly.isRfidScannerAvailable()
         if let delegate = UIApplication.shared.delegate as? AppDelegate {
-            return delegate.isLineaConnected()
+            return (delegate.isLineaConnected() || scannerConnected)
         }
-        return false
+        return scannerConnected
     }
     
     class func getSledBatteryLevel() -> String {
-        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+        if(Assembly.isRfidScannerAvailable())
+        {
+            return RFIDEngine().getBatteryLevel();
+        }
+        else if let delegate = UIApplication.shared.delegate as? AppDelegate {
             let val = String( delegate.getSledBatteryLevel() );
             return val;
         }

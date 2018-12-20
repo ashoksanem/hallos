@@ -18,7 +18,6 @@
 		85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CCB4131F22649C0088BD5D /* sampleBarcode.png */; };
 		85DDE7081EEB171500700EFC /* Certificates in Resources */ = {isa = PBXBuildFile; fileRef = 85DDE7071EEB171500700EFC /* Certificates */; };
 		85ECB24A218B7EFD001F2D44 /* RfidUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ECB247218B7EFD001F2D44 /* RfidUtils.swift */; };
-		9EAD9F2B21C948A300B8CEE8 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = 9EAD9F2A21C948A300B8CEE8 /* sso */; };
 		A91A7471A3B481F9F4225248 /* Pods_HAL_iOS_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */; };
 		BC03A54E21246D1F00D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
 		BC03A54F21246D3500D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
@@ -79,24 +78,6 @@
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
 		ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */; };
 		F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DD2C4219F133100B0E57D /* RFIDEngine.swift */; };
-		F9A42B5E21C959E30039D43C /* Gruntfile.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B4521C959E30039D43C /* Gruntfile.js */; };
-		F9A42B5F21C959E30039D43C /* .gitlab in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B4621C959E30039D43C /* .gitlab */; };
-		F9A42B6021C959E30039D43C /* test.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B4721C959E30039D43C /* test.js */; };
-		F9A42B6121C959E30039D43C /* HAL.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B4821C959E30039D43C /* HAL.js */; };
-		F9A42B6221C959E30039D43C /* jasmine.json in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B4C21C959E30039D43C /* jasmine.json */; };
-		F9A42B6321C959E30039D43C /* karma.conf.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B4F21C959E30039D43C /* karma.conf.js */; };
-		F9A42B6421C959E30039D43C /* testSpec.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5021C959E30039D43C /* testSpec.js */; };
-		F9A42B6521C959E30039D43C /* index.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5221C959E30039D43C /* index.js */; };
-		F9A42B6621C959E30039D43C /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5321C959E30039D43C /* package.json */; };
-		F9A42B6721C959E30039D43C /* _routes.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5521C959E30039D43C /* _routes.js */; };
-		F9A42B6821C959E30039D43C /* paths-config.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5621C959E30039D43C /* paths-config.js */; };
-		F9A42B6921C959E30039D43C /* Printer Markup Language.docx in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5721C959E30039D43C /* Printer Markup Language.docx */; };
-		F9A42B6A21C959E30039D43C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5821C959E30039D43C /* README.md */; };
-		F9A42B6B21C959E30039D43C /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5921C959E30039D43C /* test.html */; };
-		F9A42B6C21C959E30039D43C /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5A21C959E30039D43C /* .gitignore */; };
-		F9A42B6D21C959E30039D43C /* package-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5B21C959E30039D43C /* package-lock.json */; };
-		F9A42B6E21C959E30039D43C /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5C21C959E30039D43C /* package.json */; };
-		F9A42B6F21C959E30039D43C /* sonar_coverage_grunt.js in Resources */ = {isa = PBXBuildFile; fileRef = F9A42B5D21C959E30039D43C /* sonar_coverage_grunt.js */; };
 		F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
 		F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -151,7 +132,6 @@
 		85CCB4131F22649C0088BD5D /* sampleBarcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sampleBarcode.png; path = "Project Files/sampleBarcode.png"; sourceTree = "<group>"; };
 		85DDE7071EEB171500700EFC /* Certificates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Certificates; sourceTree = "<group>"; };
 		85ECB247218B7EFD001F2D44 /* RfidUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RfidUtils.swift; sourceTree = "<group>"; };
-		9EAD9F2A21C948A300B8CEE8 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
 		A76AC9536786AC17D6303564 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC174CC91F02DDB0005FBA9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -223,24 +203,6 @@
 		F01A0AD9C8E731F41202C930 /* Pods-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSUITests/Pods-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F98DD2C4219F133100B0E57D /* RFIDEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDEngine.swift; sourceTree = "<group>"; };
-		F9A42B4521C959E30039D43C /* Gruntfile.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Gruntfile.js; sourceTree = "<group>"; };
-		F9A42B4621C959E30039D43C /* .gitlab */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitlab; sourceTree = "<group>"; };
-		F9A42B4721C959E30039D43C /* test.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = test.js; sourceTree = "<group>"; };
-		F9A42B4821C959E30039D43C /* HAL.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = HAL.js; sourceTree = "<group>"; };
-		F9A42B4C21C959E30039D43C /* jasmine.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = jasmine.json; sourceTree = "<group>"; };
-		F9A42B4F21C959E30039D43C /* karma.conf.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = karma.conf.js; sourceTree = "<group>"; };
-		F9A42B5021C959E30039D43C /* testSpec.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = testSpec.js; sourceTree = "<group>"; };
-		F9A42B5221C959E30039D43C /* index.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = index.js; sourceTree = "<group>"; };
-		F9A42B5321C959E30039D43C /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
-		F9A42B5521C959E30039D43C /* _routes.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = _routes.js; sourceTree = "<group>"; };
-		F9A42B5621C959E30039D43C /* paths-config.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "paths-config.js"; sourceTree = "<group>"; };
-		F9A42B5721C959E30039D43C /* Printer Markup Language.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Printer Markup Language.docx"; sourceTree = "<group>"; };
-		F9A42B5821C959E30039D43C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		F9A42B5921C959E30039D43C /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
-		F9A42B5A21C959E30039D43C /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		F9A42B5B21C959E30039D43C /* package-lock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
-		F9A42B5C21C959E30039D43C /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
-		F9A42B5D21C959E30039D43C /* sonar_coverage_grunt.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = sonar_coverage_grunt.js; sourceTree = "<group>"; };
 		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = rfid_ios_fw.framework; sourceTree = "<group>"; };
 		FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -329,8 +291,6 @@
 		BCD698231DB7B91400F856CE /* Git Projects */ = {
 			isa = PBXGroup;
 			children = (
-				F9A42B4421C959E30039D43C /* HALApi */,
-				9EAD9F2A21C948A300B8CEE8 /* sso */,
 			);
 			name = "Git Projects";
 			sourceTree = "<group>";
@@ -469,88 +429,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F9A42B4421C959E30039D43C /* HALApi */ = {
-			isa = PBXGroup;
-			children = (
-				F9A42B4521C959E30039D43C /* Gruntfile.js */,
-				F9A42B4621C959E30039D43C /* .gitlab */,
-				F9A42B4721C959E30039D43C /* test.js */,
-				F9A42B4821C959E30039D43C /* HAL.js */,
-				F9A42B4921C959E30039D43C /* spec */,
-				F9A42B5121C959E30039D43C /* server */,
-				F9A42B5621C959E30039D43C /* paths-config.js */,
-				F9A42B5721C959E30039D43C /* Printer Markup Language.docx */,
-				F9A42B5821C959E30039D43C /* README.md */,
-				F9A42B5921C959E30039D43C /* test.html */,
-				F9A42B5A21C959E30039D43C /* .gitignore */,
-				F9A42B5B21C959E30039D43C /* package-lock.json */,
-				F9A42B5C21C959E30039D43C /* package.json */,
-				F9A42B5D21C959E30039D43C /* sonar_coverage_grunt.js */,
-			);
-			name = HALApi;
-			path = "Git Projects/HALApi";
-			sourceTree = "<group>";
-		};
-		F9A42B4921C959E30039D43C /* spec */ = {
-			isa = PBXGroup;
-			children = (
-				F9A42B4A21C959E30039D43C /* server */,
-				F9A42B4D21C959E30039D43C /* client */,
-			);
-			path = spec;
-			sourceTree = "<group>";
-		};
-		F9A42B4A21C959E30039D43C /* server */ = {
-			isa = PBXGroup;
-			children = (
-				F9A42B4B21C959E30039D43C /* support */,
-			);
-			path = server;
-			sourceTree = "<group>";
-		};
-		F9A42B4B21C959E30039D43C /* support */ = {
-			isa = PBXGroup;
-			children = (
-				F9A42B4C21C959E30039D43C /* jasmine.json */,
-			);
-			path = support;
-			sourceTree = "<group>";
-		};
-		F9A42B4D21C959E30039D43C /* client */ = {
-			isa = PBXGroup;
-			children = (
-				F9A42B4E21C959E30039D43C /* support */,
-				F9A42B5021C959E30039D43C /* testSpec.js */,
-			);
-			path = client;
-			sourceTree = "<group>";
-		};
-		F9A42B4E21C959E30039D43C /* support */ = {
-			isa = PBXGroup;
-			children = (
-				F9A42B4F21C959E30039D43C /* karma.conf.js */,
-			);
-			path = support;
-			sourceTree = "<group>";
-		};
-		F9A42B5121C959E30039D43C /* server */ = {
-			isa = PBXGroup;
-			children = (
-				F9A42B5221C959E30039D43C /* index.js */,
-				F9A42B5321C959E30039D43C /* package.json */,
-				F9A42B5421C959E30039D43C /* routes */,
-			);
-			path = server;
-			sourceTree = "<group>";
-		};
-		F9A42B5421C959E30039D43C /* routes */ = {
-			isa = PBXGroup;
-			children = (
-				F9A42B5521C959E30039D43C /* _routes.js */,
-			);
-			path = routes;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -680,34 +558,15 @@
 				BCB8CA561F3A52AD008EA783 /* Settings.bundle in Resources */,
 				851C7F8B207C14BE00F4D5AF /* SplashView.xib in Resources */,
 				48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */,
-				F9A42B6521C959E30039D43C /* index.js in Resources */,
 				BC25B5151F27B8BE0028E81F /* default.html in Resources */,
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
-				F9A42B6721C959E30039D43C /* _routes.js in Resources */,
-				F9A42B5E21C959E30039D43C /* Gruntfile.js in Resources */,
-				F9A42B6B21C959E30039D43C /* test.html in Resources */,
-				F9A42B6F21C959E30039D43C /* sonar_coverage_grunt.js in Resources */,
-				F9A42B6921C959E30039D43C /* Printer Markup Language.docx in Resources */,
-				F9A42B5F21C959E30039D43C /* .gitlab in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
-				F9A42B6C21C959E30039D43C /* .gitignore in Resources */,
-				F9A42B6321C959E30039D43C /* karma.conf.js in Resources */,
-				F9A42B6E21C959E30039D43C /* package.json in Resources */,
-				F9A42B6821C959E30039D43C /* paths-config.js in Resources */,
-				F9A42B6A21C959E30039D43C /* README.md in Resources */,
-				F9A42B6421C959E30039D43C /* testSpec.js in Resources */,
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
-				F9A42B6021C959E30039D43C /* test.js in Resources */,
-				F9A42B6121C959E30039D43C /* HAL.js in Resources */,
-				F9A42B6621C959E30039D43C /* package.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
-				F9A42B6221C959E30039D43C /* jasmine.json in Resources */,
 				BCD2B85E1F31094300F3496D /* Encryption in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				85DDE7081EEB171500700EFC /* Certificates in Resources */,
-				F9A42B6D21C959E30039D43C /* package-lock.json in Resources */,
-				9EAD9F2B21C948A300B8CEE8 /* sso in Resources */,
 				BC22EE621E203A8300C3F597 /* LOCN.json in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
 				CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */,

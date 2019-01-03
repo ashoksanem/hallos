@@ -951,4 +951,18 @@ class CommonUtils
         }
         return _value.uppercased();
     }
+    class func getDeviceInfo()->String{
+        let deviceInfo = [
+            "name":UIDevice.current.name,
+            "model":UIDevice.current.model,
+            "systemVersion": UIDevice.current.systemVersion,
+            "batteryLevel": UIDevice.current.batteryLevel * (100),
+            "systemName": UIDevice.current.systemName
+            ] as [String : Any];
+        
+        let data = try! JSONSerialization.data(withJSONObject: deviceInfo, options: [])
+        let string = String(data: data, encoding: String.Encoding.utf8)
+        return string!;
+        
+    }
 }

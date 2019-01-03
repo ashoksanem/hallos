@@ -50,9 +50,23 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         })
     }
     
-    
     //MARK: UTILITIES
-    //0-100
+    //session value : 0,1,2 or 3
+    func setRfidReaderSession( data: NSDictionary) -> String {
+        var result = RFID_RESULT.FAILURE
+        if let session = (data["session"] as? Int){
+            switch( session){
+            case 0: result = rfidClient.setReaderSession(.S0)
+            case 1: result = rfidClient.setReaderSession(.S1)
+            case 2: result = rfidClient.setReaderSession(.S2)
+            case 3: result = rfidClient.setReaderSession(.S3)
+            default: break;
+            }
+        }
+        return RfidUtils.TranslateResultToStringResult(result)
+    }
+
+    //rfidPower value: 0-100
     func setRfidPowerLevel( data: NSDictionary) -> String{
         var result = RFID_RESULT.FAILURE
         if let power = (data["rfidPower"] as? Int){

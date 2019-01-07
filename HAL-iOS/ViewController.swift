@@ -32,7 +32,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "enableScanner",
                                          "getDeviceBatteryLevel",
                                          "getDeviceId",
-                                         "getDeviceInfo",
                                          "getHalInfo",
                                          "getIsAuthenticated",
                                          "getLocationInformation",
@@ -236,12 +235,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         {
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.getDeviceId() + " )");
-            }
-        }
-        else if(message.name == "getDeviceInfo" )
-        {
-            if let id = message.body as? String {
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + CommonUtils.getDeviceInfo() + " )");
             }
         }
         else if(message.name == "getSledStatus")

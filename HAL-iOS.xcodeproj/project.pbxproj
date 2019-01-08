@@ -341,7 +341,6 @@
 		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F993E13121E40C9E00485FE5 /* RFID */,
 				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
@@ -374,9 +373,11 @@
 				CC8872ED1DDE3A930042F089 /* main.swift */,
 				853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
+				F993E13121E40C9E00485FE5 /* RFID */,
 				CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */,
 				BCB0EBA41DDE665600E6A3F7 /* sled */,
 				CC50DB251DCA21AF00A46576 /* Sled.swift */,
+				851C7F8A207C14BE00F4D5AF /* SplashView.xib */,
 				CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */,
 				CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */,
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
@@ -387,7 +388,6 @@
 				BC534AB41DFF179200C65BAC /* ZebraBluetooth.swift */,
 				BC534AB51DFF179200C65BAC /* ZPLConnector.h */,
 				BC534AB61DFF179200C65BAC /* ZPLConnector.mm */,
-				851C7F8A207C14BE00F4D5AF /* SplashView.xib */,
 			);
 			path = "HAL-iOS";
 			sourceTree = "<group>";

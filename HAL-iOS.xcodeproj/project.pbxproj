@@ -77,9 +77,9 @@
 		CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */ = {isa = PBXBuildFile; fileRef = CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */; };
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
 		ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */; };
-		F94D6A0921DD4B4B00CF36C6 /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = F94D6A0721DD4B4A00CF36C6 /* HALApi */; };
-		F94D6A0A21DD4B4B00CF36C6 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = F94D6A0821DD4B4A00CF36C6 /* sso */; };
 		F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DD2C4219F133100B0E57D /* RFIDEngine.swift */; };
+		F993E15221E40F7300485FE5 /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = F993E15021E40F7300485FE5 /* HALApi */; };
+		F993E15321E40F7300485FE5 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = F993E15121E40F7300485FE5 /* sso */; };
 		F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
 		F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -204,69 +204,10 @@
 		DBC30386354F22573AAEE8BF /* Pods-HAL-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		F01A0AD9C8E731F41202C930 /* Pods-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSUITests/Pods-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F94D6A0721DD4B4A00CF36C6 /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "HAL-iOS/Git Projects/HALApi"; sourceTree = "<group>"; };
-		F94D6A0821DD4B4A00CF36C6 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "HAL-iOS/Git Projects/sso"; sourceTree = "<group>"; };
-		F94D6A4121DD4B5600CF36C6 /* Gruntfile.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Gruntfile.js; sourceTree = "<group>"; };
-		F94D6A4221DD4B5600CF36C6 /* .gitlab */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitlab; sourceTree = "<group>"; };
-		F94D6A4321DD4B5600CF36C6 /* test.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = test.js; sourceTree = "<group>"; };
-		F94D6A4421DD4B5600CF36C6 /* HAL.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = HAL.js; sourceTree = "<group>"; };
-		F94D6A4821DD4B5600CF36C6 /* jasmine.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = jasmine.json; sourceTree = "<group>"; };
-		F94D6A4B21DD4B5600CF36C6 /* karma.conf.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = karma.conf.js; sourceTree = "<group>"; };
-		F94D6A4C21DD4B5600CF36C6 /* testSpec.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = testSpec.js; sourceTree = "<group>"; };
-		F94D6A4E21DD4B5600CF36C6 /* index.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = index.js; sourceTree = "<group>"; };
-		F94D6A4F21DD4B5600CF36C6 /* package.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
-		F94D6A5121DD4B5600CF36C6 /* _routes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = _routes.js; sourceTree = "<group>"; };
-		F94D6A5221DD4B5600CF36C6 /* paths-config.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "paths-config.js"; sourceTree = "<group>"; };
-		F94D6A5321DD4B5600CF36C6 /* Printer Markup Language.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Printer Markup Language.docx"; sourceTree = "<group>"; };
-		F94D6A5421DD4B5600CF36C6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		F94D6A5521DD4B5600CF36C6 /* test.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
-		F94D6A5621DD4B5600CF36C6 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		F94D6A5721DD4B5600CF36C6 /* package-lock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "package-lock.json"; sourceTree = "<group>"; };
-		F94D6A5821DD4B5600CF36C6 /* package.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
-		F94D6A5921DD4B5600CF36C6 /* sonar_coverage_grunt.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = sonar_coverage_grunt.js; sourceTree = "<group>"; };
-		F94D6AC521DE615F00CF36C6 /* Gruntfile.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Gruntfile.js; sourceTree = "<group>"; };
-		F94D6AC621DE615F00CF36C6 /* jsconfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = jsconfig.json; sourceTree = "<group>"; };
-		F94D6AC721DE615F00CF36C6 /* .gitlab */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitlab; sourceTree = "<group>"; };
-		F94D6AC821DE615F00CF36C6 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		F94D6ACA21DE615F00CF36C6 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		F94D6ACB21DE615F00CF36C6 /* server.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = server.js; sourceTree = "<group>"; };
-		F94D6ACD21DE615F00CF36C6 /* _routes.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = _routes.js; sourceTree = "<group>"; };
-		F94D6ACE21DE615F00CF36C6 /* configure.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = configure.js; sourceTree = "<group>"; };
-		F94D6ACF21DE615F00CF36C6 /* route.index.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = route.index.js; sourceTree = "<group>"; };
-		F94D6AD021DE615F00CF36C6 /* route.details.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = route.details.js; sourceTree = "<group>"; };
-		F94D6AD121DE615F00CF36C6 /* paths-config.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "paths-config.js"; sourceTree = "<group>"; };
-		F94D6AD221DE615F00CF36C6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		F94D6AD321DE615F00CF36C6 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		F94D6AD421DE615F00CF36C6 /* package.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
-		F94D6AD621DE615F00CF36C6 /* copy_vanguardhelvetica.scss */ = {isa = PBXFileReference; lastKnownFileType = text; path = copy_vanguardhelvetica.scss; sourceTree = "<group>"; };
-		F94D6AD921DE615F00CF36C6 /* main.scss */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.scss; sourceTree = "<group>"; };
-		F94D6ADB21DE615F00CF36C6 /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
-		F94D6ADD21DE615F00CF36C6 /* layout.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = layout.js; sourceTree = "<group>"; };
-		F94D6ADF21DE615F00CF36C6 /* sso.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = sso.js; sourceTree = "<group>"; };
-		F94D6AE121DE615F00CF36C6 /* _handlers.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = _handlers.js; sourceTree = "<group>"; };
-		F94D6AE321DE615F00CF36C6 /* sso.hbs */ = {isa = PBXFileReference; lastKnownFileType = text; path = sso.hbs; sourceTree = "<group>"; };
-		F94D6AE421DE615F00CF36C6 /* layout.hbs */ = {isa = PBXFileReference; lastKnownFileType = text; path = layout.hbs; sourceTree = "<group>"; };
-		F94D6AE521DE615F00CF36C6 /* jquery.spin.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = jquery.spin.js; sourceTree = "<group>"; };
-		F94D6AE621DE615F00CF36C6 /* main.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = main.css; sourceTree = "<group>"; };
-		F94D6AE721DE615F00CF36C6 /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
-		F94D6AE821DE615F00CF36C6 /* spin.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = spin.min.js; sourceTree = "<group>"; };
-		F94D6AE921DE615F00CF36C6 /* copy_vanguardsettings.scss */ = {isa = PBXFileReference; lastKnownFileType = text; path = copy_vanguardsettings.scss; sourceTree = "<group>"; };
-		F94D6AEA21DE615F00CF36C6 /* copy_vanguardmain.scss */ = {isa = PBXFileReference; lastKnownFileType = text; path = copy_vanguardmain.scss; sourceTree = "<group>"; };
-		F94D6AEC21DE615F00CF36C6 /* 4c6503c9-859b-4d3b-a1d5-2d42e1222415.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "4c6503c9-859b-4d3b-a1d5-2d42e1222415.ttf"; sourceTree = "<group>"; };
-		F94D6AED21DE615F00CF36C6 /* 2e309b1b-08b8-477f-bc9e-7067cf0af0b3.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "2e309b1b-08b8-477f-bc9e-7067cf0af0b3.svg"; sourceTree = "<group>"; };
-		F94D6AEE21DE615F00CF36C6 /* f751c8ae-1057-46d9-8d74-62592e002568.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "f751c8ae-1057-46d9-8d74-62592e002568.svg"; sourceTree = "<group>"; };
-		F94D6AEF21DE615F00CF36C6 /* 60be5c39-863e-40cb-9434-6ebafb62ab2b.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "60be5c39-863e-40cb-9434-6ebafb62ab2b.woff"; sourceTree = "<group>"; };
-		F94D6AF021DE615F00CF36C6 /* 8fda1e47-19be-46c7-8d83-8d4fb35572f0.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "8fda1e47-19be-46c7-8d83-8d4fb35572f0.ttf"; sourceTree = "<group>"; };
-		F94D6AF121DE615F00CF36C6 /* 50d35bbc-dfd4-48f1-af16-cf058f69421d.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "50d35bbc-dfd4-48f1-af16-cf058f69421d.woff"; sourceTree = "<group>"; };
-		F94D6AF221DE615F00CF36C6 /* 278bef59-6be1-4800-b5ac-1f769ab47430.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "278bef59-6be1-4800-b5ac-1f769ab47430.ttf"; sourceTree = "<group>"; };
-		F94D6AF321DE615F00CF36C6 /* 5a13f7d1-b615-418e-bc3a-525001b9a671.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "5a13f7d1-b615-418e-bc3a-525001b9a671.woff2"; sourceTree = "<group>"; };
-		F94D6AF421DE615F00CF36C6 /* 3600b37f-2bf1-45f3-be3a-03365f16d9cb.woff2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "3600b37f-2bf1-45f3-be3a-03365f16d9cb.woff2"; sourceTree = "<group>"; };
-		F94D6AF521DE615F00CF36C6 /* 14ff6081-326d-4dae-b778-d7afa66166fc.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "14ff6081-326d-4dae-b778-d7afa66166fc.woff"; sourceTree = "<group>"; };
-		F94D6AF621DE615F00CF36C6 /* 530dee22-e3c1-4e9f-bf62-c31d510d9656.woff */ = {isa = PBXFileReference; lastKnownFileType = file; path = "530dee22-e3c1-4e9f-bf62-c31d510d9656.woff"; sourceTree = "<group>"; };
-		F94D6AF721DE615F00CF36C6 /* 688ab72b-4deb-4e15-a088-89166978d469.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "688ab72b-4deb-4e15-a088-89166978d469.ttf"; sourceTree = "<group>"; };
-		F94D6AF821DE615F00CF36C6 /* sonar_coverage_grunt.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = sonar_coverage_grunt.js; sourceTree = "<group>"; };
 		F98DD2C4219F133100B0E57D /* RFIDEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDEngine.swift; sourceTree = "<group>"; };
-		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = rfid_ios_fw.framework; sourceTree = "<group>"; };
+		F993E15021E40F7300485FE5 /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
+		F993E15121E40F7300485FE5 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
+		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = rfid_ios_fw.framework; path = "HAL-iOS/rfid_ios_fw.framework"; sourceTree = "<group>"; };
 		FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -354,8 +295,8 @@
 		BCD698231DB7B91400F856CE /* Git Projects */ = {
 			isa = PBXGroup;
 			children = (
-				F94D6AC421DE615F00CF36C6 /* sso */,
-				F94D6A4021DD4B5600CF36C6 /* HALApi */,
+				F993E15021E40F7300485FE5 /* HALApi */,
+				F993E15121E40F7300485FE5 /* sso */,
 			);
 			name = "Git Projects";
 			sourceTree = "<group>";
@@ -378,9 +319,6 @@
 		CC2585541D9AF71B00294506 = {
 			isa = PBXGroup;
 			children = (
-				F94D6A0721DD4B4A00CF36C6 /* HALApi */,
-				F94D6A0821DD4B4A00CF36C6 /* sso */,
-				F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */,
 				CC25855F1D9AF71C00294506 /* HAL-iOS */,
 				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
@@ -403,14 +341,13 @@
 		CC25855F1D9AF71C00294506 /* HAL-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				F993E13121E40C9E00485FE5 /* RFID */,
 				CC2585601D9AF71C00294506 /* AppDelegate.swift */,
 				CCB404911D9D82C600A314FC /* Assembly.swift */,
 				CC41EF251DB54D6B0059C7C5 /* AssociateInfo.swift */,
 				85DDE7071EEB171500700EFC /* Certificates */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
 				4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */,
-				F98DD2C4219F133100B0E57D /* RFIDEngine.swift */,
-				85ECB247218B7EFD001F2D44 /* RfidUtils.swift */,
 				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				BC25B5141F27B8BE0028E81F /* default.html */,
 				48AD2A6A1FDEF32700C2F509 /* defaultBlank.html */,
@@ -476,6 +413,7 @@
 		CC6EEEAC1DBFE374003D895B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */,
 				BCD2B8631F311B1900F3496D /* libcrypto.a */,
 				BCD2B8641F311B1900F3496D /* libssl.a */,
 				BC174CD11F02DDDB005FBA9A /* UIKit.framework */,
@@ -496,223 +434,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F94D6A4021DD4B5600CF36C6 /* HALApi */ = {
+		F993E13121E40C9E00485FE5 /* RFID */ = {
 			isa = PBXGroup;
 			children = (
-				F94D6A4121DD4B5600CF36C6 /* Gruntfile.js */,
-				F94D6A4221DD4B5600CF36C6 /* .gitlab */,
-				F94D6A4321DD4B5600CF36C6 /* test.js */,
-				F94D6A4421DD4B5600CF36C6 /* HAL.js */,
-				F94D6A4521DD4B5600CF36C6 /* spec */,
-				F94D6A4D21DD4B5600CF36C6 /* server */,
-				F94D6A5221DD4B5600CF36C6 /* paths-config.js */,
-				F94D6A5321DD4B5600CF36C6 /* Printer Markup Language.docx */,
-				F94D6A5421DD4B5600CF36C6 /* README.md */,
-				F94D6A5521DD4B5600CF36C6 /* test.html */,
-				F94D6A5621DD4B5600CF36C6 /* .gitignore */,
-				F94D6A5721DD4B5600CF36C6 /* package-lock.json */,
-				F94D6A5821DD4B5600CF36C6 /* package.json */,
-				F94D6A5921DD4B5600CF36C6 /* sonar_coverage_grunt.js */,
+				85ECB247218B7EFD001F2D44 /* RfidUtils.swift */,
+				F98DD2C4219F133100B0E57D /* RFIDEngine.swift */,
 			);
-			name = HALApi;
-			path = "Git Projects/HALApi";
-			sourceTree = "<group>";
-		};
-		F94D6A4521DD4B5600CF36C6 /* spec */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6A4621DD4B5600CF36C6 /* server */,
-				F94D6A4921DD4B5600CF36C6 /* client */,
-			);
-			path = spec;
-			sourceTree = "<group>";
-		};
-		F94D6A4621DD4B5600CF36C6 /* server */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6A4721DD4B5600CF36C6 /* support */,
-			);
-			path = server;
-			sourceTree = "<group>";
-		};
-		F94D6A4721DD4B5600CF36C6 /* support */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6A4821DD4B5600CF36C6 /* jasmine.json */,
-			);
-			path = support;
-			sourceTree = "<group>";
-		};
-		F94D6A4921DD4B5600CF36C6 /* client */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6A4A21DD4B5600CF36C6 /* support */,
-				F94D6A4C21DD4B5600CF36C6 /* testSpec.js */,
-			);
-			path = client;
-			sourceTree = "<group>";
-		};
-		F94D6A4A21DD4B5600CF36C6 /* support */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6A4B21DD4B5600CF36C6 /* karma.conf.js */,
-			);
-			path = support;
-			sourceTree = "<group>";
-		};
-		F94D6A4D21DD4B5600CF36C6 /* server */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6A4E21DD4B5600CF36C6 /* index.js */,
-				F94D6A4F21DD4B5600CF36C6 /* package.json */,
-				F94D6A5021DD4B5600CF36C6 /* routes */,
-			);
-			path = server;
-			sourceTree = "<group>";
-		};
-		F94D6A5021DD4B5600CF36C6 /* routes */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6A5121DD4B5600CF36C6 /* _routes.js */,
-			);
-			path = routes;
-			sourceTree = "<group>";
-		};
-		F94D6AC421DE615F00CF36C6 /* sso */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6AC521DE615F00CF36C6 /* Gruntfile.js */,
-				F94D6AC621DE615F00CF36C6 /* jsconfig.json */,
-				F94D6AC721DE615F00CF36C6 /* .gitlab */,
-				F94D6AC821DE615F00CF36C6 /* index.html */,
-				F94D6AC921DE615F00CF36C6 /* server */,
-				F94D6AD121DE615F00CF36C6 /* paths-config.js */,
-				F94D6AD221DE615F00CF36C6 /* README.md */,
-				F94D6AD321DE615F00CF36C6 /* .gitignore */,
-				F94D6AD421DE615F00CF36C6 /* package.json */,
-				F94D6AD521DE615F00CF36C6 /* client */,
-				F94D6AF821DE615F00CF36C6 /* sonar_coverage_grunt.js */,
-			);
-			name = sso;
-			path = "Git Projects/sso";
-			sourceTree = "<group>";
-		};
-		F94D6AC921DE615F00CF36C6 /* server */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6ACA21DE615F00CF36C6 /* index.html */,
-				F94D6ACB21DE615F00CF36C6 /* server.js */,
-				F94D6ACC21DE615F00CF36C6 /* routes */,
-			);
-			path = server;
-			sourceTree = "<group>";
-		};
-		F94D6ACC21DE615F00CF36C6 /* routes */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6ACD21DE615F00CF36C6 /* _routes.js */,
-				F94D6ACE21DE615F00CF36C6 /* configure.js */,
-				F94D6ACF21DE615F00CF36C6 /* route.index.js */,
-				F94D6AD021DE615F00CF36C6 /* route.details.js */,
-			);
-			path = routes;
-			sourceTree = "<group>";
-		};
-		F94D6AD521DE615F00CF36C6 /* client */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6AD621DE615F00CF36C6 /* copy_vanguardhelvetica.scss */,
-				F94D6AD721DE615F00CF36C6 /* app */,
-				F94D6AE521DE615F00CF36C6 /* jquery.spin.js */,
-				F94D6AE621DE615F00CF36C6 /* main.css */,
-				F94D6AE721DE615F00CF36C6 /* main.js */,
-				F94D6AE821DE615F00CF36C6 /* spin.min.js */,
-				F94D6AE921DE615F00CF36C6 /* copy_vanguardsettings.scss */,
-				F94D6AEA21DE615F00CF36C6 /* copy_vanguardmain.scss */,
-				F94D6AEB21DE615F00CF36C6 /* fonts */,
-			);
-			path = client;
-			sourceTree = "<group>";
-		};
-		F94D6AD721DE615F00CF36C6 /* app */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6AD821DE615F00CF36C6 /* css */,
-				F94D6ADA21DE615F00CF36C6 /* js */,
-				F94D6AE221DE615F00CF36C6 /* templates */,
-			);
-			path = app;
-			sourceTree = "<group>";
-		};
-		F94D6AD821DE615F00CF36C6 /* css */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6AD921DE615F00CF36C6 /* main.scss */,
-			);
-			path = css;
-			sourceTree = "<group>";
-		};
-		F94D6ADA21DE615F00CF36C6 /* js */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6ADB21DE615F00CF36C6 /* main.js */,
-				F94D6ADC21DE615F00CF36C6 /* views */,
-				F94D6ADE21DE615F00CF36C6 /* pages */,
-				F94D6AE021DE615F00CF36C6 /* router */,
-			);
-			path = js;
-			sourceTree = "<group>";
-		};
-		F94D6ADC21DE615F00CF36C6 /* views */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6ADD21DE615F00CF36C6 /* layout.js */,
-			);
-			path = views;
-			sourceTree = "<group>";
-		};
-		F94D6ADE21DE615F00CF36C6 /* pages */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6ADF21DE615F00CF36C6 /* sso.js */,
-			);
-			path = pages;
-			sourceTree = "<group>";
-		};
-		F94D6AE021DE615F00CF36C6 /* router */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6AE121DE615F00CF36C6 /* _handlers.js */,
-			);
-			path = router;
-			sourceTree = "<group>";
-		};
-		F94D6AE221DE615F00CF36C6 /* templates */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6AE321DE615F00CF36C6 /* sso.hbs */,
-				F94D6AE421DE615F00CF36C6 /* layout.hbs */,
-			);
-			path = templates;
-			sourceTree = "<group>";
-		};
-		F94D6AEB21DE615F00CF36C6 /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				F94D6AEC21DE615F00CF36C6 /* 4c6503c9-859b-4d3b-a1d5-2d42e1222415.ttf */,
-				F94D6AED21DE615F00CF36C6 /* 2e309b1b-08b8-477f-bc9e-7067cf0af0b3.svg */,
-				F94D6AEE21DE615F00CF36C6 /* f751c8ae-1057-46d9-8d74-62592e002568.svg */,
-				F94D6AEF21DE615F00CF36C6 /* 60be5c39-863e-40cb-9434-6ebafb62ab2b.woff */,
-				F94D6AF021DE615F00CF36C6 /* 8fda1e47-19be-46c7-8d83-8d4fb35572f0.ttf */,
-				F94D6AF121DE615F00CF36C6 /* 50d35bbc-dfd4-48f1-af16-cf058f69421d.woff */,
-				F94D6AF221DE615F00CF36C6 /* 278bef59-6be1-4800-b5ac-1f769ab47430.ttf */,
-				F94D6AF321DE615F00CF36C6 /* 5a13f7d1-b615-418e-bc3a-525001b9a671.woff2 */,
-				F94D6AF421DE615F00CF36C6 /* 3600b37f-2bf1-45f3-be3a-03365f16d9cb.woff2 */,
-				F94D6AF521DE615F00CF36C6 /* 14ff6081-326d-4dae-b778-d7afa66166fc.woff */,
-				F94D6AF621DE615F00CF36C6 /* 530dee22-e3c1-4e9f-bf62-c31d510d9656.woff */,
-				F94D6AF721DE615F00CF36C6 /* 688ab72b-4deb-4e15-a088-89166978d469.ttf */,
-			);
-			path = fonts;
+			name = RFID;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -841,13 +569,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F94D6A0921DD4B4B00CF36C6 /* HALApi in Resources */,
-				F94D6A0A21DD4B4B00CF36C6 /* sso in Resources */,
 				BCB8CA561F3A52AD008EA783 /* Settings.bundle in Resources */,
 				851C7F8B207C14BE00F4D5AF /* SplashView.xib in Resources */,
 				48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */,
 				BC25B5151F27B8BE0028E81F /* default.html in Resources */,
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
+				F993E15221E40F7300485FE5 /* HALApi in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
@@ -855,6 +582,7 @@
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				85DDE7081EEB171500700EFC /* Certificates in Resources */,
+				F993E15321E40F7300485FE5 /* sso in Resources */,
 				BC22EE621E203A8300C3F597 /* LOCN.json in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
 				CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */,

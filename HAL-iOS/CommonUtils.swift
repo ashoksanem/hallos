@@ -48,6 +48,11 @@ class CommonUtils
     static let lastTimeParmsWereRetrieved = "lastTimeParmsWereRetrieved";
     static let isBYOD = "isBYOD";
     static let bgSplashTag = 100;
+    static let rfidInvInProgress = "rfidInvInProgress";
+    static let rfidFPInProgress = "rfidFPInProgress"
+    static let rfidBCInProgress = "rfidBCInProgress"
+    
+    
     class func setUpUserDefaults() -> Void
     {
         let defaults = UserDefaults.standard
@@ -70,6 +75,11 @@ class CommonUtils
         defaults.setValue(0, forKey: failedSSIDLaunchAttempts);
         defaults.setValue(0, forKey: lastTimeParmsWereRetrieved);
         defaults.setValue(false, forKey: isBYOD);
+        defaults.setValue(false, forKey: rfidBCInProgress);
+        defaults.setValue(false, forKey: rfidInvInProgress);
+        defaults.setValue(false, forKey: rfidFPInProgress);
+        
+        
         
         var uuid = "";
         
@@ -168,6 +178,37 @@ class CommonUtils
         let defaults = UserDefaults.standard;
         defaults.set(value, forKey: injectedKeyVersion);
     }
+    
+    class func setRFIDInvInProgress(value: Bool){
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: rfidInvInProgress);
+    }
+    class func setRFIDFPInProgress(value: Bool){
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: rfidFPInProgress);
+    }
+    class func setRFIDBCInProgress(value: Bool){
+        let defaults = UserDefaults.standard;
+        defaults.set(value, forKey: rfidBCInProgress);
+    }
+    
+    class func getRFIDInvInProgress() -> Bool
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: rfidInvInProgress)
+    }
+    class func getRFIDFPInProgress() -> Bool
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: rfidFPInProgress)
+    }
+    class func getRFIDBCInProgress() -> Bool
+    {
+        let defaults = UserDefaults.standard;
+        return defaults.bool(forKey: rfidBCInProgress)
+    }
+    
+    
     
     class func getInjectedKeyVersion() -> Int32
     {

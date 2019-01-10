@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     var window: UIWindow?;
     var sled: DTDevices?;
     let splashView = Bundle.main.loadNibNamed("SplashView", owner: self, options: nil)?.first as! UIView;
+    var rfidEngine = RFIDEngine();
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -175,6 +176,16 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             CommonUtils.setCurrentPage(value: (ViewController.webView?.url)!);
         }
         URLCache.shared.removeAllCachedResponses();
+        
+        //store current state & disable any active rfid actions
+        CommonUtils.setRFIDInvInProgress(value: rfidEngine.isINVScanInProgress )
+        CommonUtils.setRFIDFPInProgress(value: rfidEngine.isFPScanInProgress)
+        CommonUtils.setRFIDBCInProgress(value: rfidEngine.isBCScanInProgress)
+        if rfidEngine.isINVScanInProgress { rfidEngine.stopInventory()}
+        if rfidEngine.isFPScanInProgress { rfidEngine.stopTagLocating()}
+        if rfidEngine.isBCScanInProgress { rfidEngine.stopScanningBarcode()}
+        
+        
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -351,6 +362,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             }
         }
         
+        //enable any active rfid actions if needed
+        if CommonUtils.getRFIDInvInProgress(){ rfidEngine.startInventory()}
+        if CommonUtils.getRFIDFPInProgress(){ rfidEngine.startTagLocating()}
+        if CommonUtils.getRFIDBCInProgress(){ rfidEngine.startScanningBarcode()}
     }
     
     func verifyAppVersion(version: String)

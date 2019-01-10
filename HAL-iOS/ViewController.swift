@@ -19,7 +19,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     var printerData:NSDictionary = [:];
     var progressView: UIView?;
     var activityIndicator: UIActivityIndicatorView?;
-    var rfidEngine = RFIDEngine();
+    var rfidEngine = (UIApplication.shared.delegate as! AppDelegate).rfidEngine;
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();

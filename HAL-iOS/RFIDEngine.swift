@@ -13,8 +13,9 @@ import rfid_ios_fw
 class RFIDEngine: NSObject, RfidSDKDelegate
 {
     var rfidClient = RfidSDK.shared()
-    var isBarcodeEnable = false;
-    
+    var isBCScanInProgress = false;
+    var isINVScanInProgress = false;
+    var isFPScanInProgress = false;
     
     func sendRfidResponse(data: [String : Any])
     {
@@ -50,9 +51,23 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         })
     }
     
-    
     //MARK: UTILITIES
-    //0-100
+    //session value : 0,1,2 or 3
+    func setRfidReaderSession( data: NSDictionary) -> String {
+        var result = RFID_RESULT.FAILURE
+        if let session = (data["session"] as? Int){
+            switch( session){
+            case 0: result = rfidClient.setReaderSession(.S0)
+            case 1: result = rfidClient.setReaderSession(.S1)
+            case 2: result = rfidClient.setReaderSession(.S2)
+            case 3: result = rfidClient.setReaderSession(.S3)
+            default: break;
+            }
+        }
+        return RfidUtils.TranslateResultToStringResult(result)
+    }
+
+    //rfidPower value: 0-100
     func setRfidPowerLevel( data: NSDictionary) -> String{
         var result = RFID_RESULT.FAILURE
         if let power = (data["rfidPower"] as? Int){
@@ -117,18 +132,32 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         let result = rfidClient.findProductWorker?.openFindProductSession(upcList)
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
     }
+    
     func startTagLocating() -> String{
-        let result = rfidClient.findProductWorker?.startFindProduct()
-        return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
+        if let result = rfidClient.findProductWorker?.startFindProduct(){
+            if result == .SUCCESS {
+                isFPScanInProgress = true;
+            }
+            return RfidUtils.TranslateResultToStringResult(result)
+        }
+        return RfidUtils.TranslateResultToStringResult(FIND_PRODUCT_RESULT.FAILURE)
     }
+    
     func findNextTag()-> String{
         let result = rfidClient.findProductWorker?.findNextTag()
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
     }
+    
     func stopTagLocating() -> String{
-        let result = rfidClient.findProductWorker?.stopFindProduct()
-        return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
+        if let result = rfidClient.findProductWorker?.stopFindProduct(){
+            if result == .SUCCESS {
+                isFPScanInProgress = false;
+            }
+            return RfidUtils.TranslateResultToStringResult(result)
+        }
+        return RfidUtils.TranslateResultToStringResult(FIND_PRODUCT_RESULT.FAILURE)
     }
+    
     func closeTagLocatingSession()-> String{
         let result = rfidClient.findProductWorker?.closeFindProductSession()
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
@@ -139,13 +168,18 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     func startScanningBarcode(){
         //enable barcode reader if disable, then start scanning for barcode
         let result =  rfidClient.enableBarcodeReader(enable: true)
-        if result == .SUCCESS {rfidClient.startScanningBarcode()}
+        if result == .SUCCESS {
+            if rfidClient.startScanningBarcode() == .SUCCESS{
+                isBCScanInProgress = true;
+            }
+        }
     }
     
     func stopScanningBarcode(){
         // stop scanning for barcode and disable barcode reader
         rfidClient.stopScanningBarcode();
         rfidClient.enableBarcodeReader(enable: false)
+        isBCScanInProgress = false;
     }
     
     //MARK: INVENTORY WORKFLOW
@@ -173,13 +207,23 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     func startInventory() -> String{
-        var result = rfidClient.inventoryWorker?.startInventory()
-        return RfidUtils.TranslateResultToStringResult(result ?? INVENTORY_RESULT.FAILURE)
+        if let result = rfidClient.inventoryWorker?.startInventory(){
+            if result == .SUCCESS {
+                isINVScanInProgress = true;
+            }
+            return RfidUtils.TranslateResultToStringResult(result)
+        }
+        return RfidUtils.TranslateResultToStringResult(INVENTORY_RESULT.FAILURE)
     }
     
     func stopInventory() -> String {
-        var result = rfidClient.inventoryWorker?.stopInventory()
-        return RfidUtils.TranslateResultToStringResult(result ?? INVENTORY_RESULT.FAILURE)
+        if let result = rfidClient.inventoryWorker?.stopInventory(){
+            if result == .SUCCESS {
+                isINVScanInProgress = false;
+            }
+            return RfidUtils.TranslateResultToStringResult(result)
+        }
+        return RfidUtils.TranslateResultToStringResult(INVENTORY_RESULT.FAILURE)
     }
     
     func closeInventorySession() -> String {

@@ -43,6 +43,9 @@ class Assembly{
             "amIinHal": "true",
             "halType": self.halType(),
             "halVersion": self.halVersion(),
+            "deviceName":UIDevice.current.name,
+            "deviceModel":UIDevice.current.model,
+            "deviceOSVersion": UIDevice.current.systemVersion,
             "availableFunctions":self.halFunctions()
         ] as [String : Any]
         let halJsonData = try! JSONSerialization.data(withJSONObject: halJson, options: [])

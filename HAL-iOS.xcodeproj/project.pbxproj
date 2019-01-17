@@ -78,6 +78,8 @@
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
 		ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */; };
 		F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DD2C4219F133100B0E57D /* RFIDEngine.swift */; };
+		F993E15221E40F7300485FE5 /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = F993E15021E40F7300485FE5 /* HALApi */; };
+		F993E15321E40F7300485FE5 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = F993E15121E40F7300485FE5 /* sso */; };
 		F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
 		F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -203,7 +205,9 @@
 		F01A0AD9C8E731F41202C930 /* Pods-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSUITests/Pods-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F98DD2C4219F133100B0E57D /* RFIDEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDEngine.swift; sourceTree = "<group>"; };
-		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = rfid_ios_fw.framework; sourceTree = "<group>"; };
+		F993E15021E40F7300485FE5 /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
+		F993E15121E40F7300485FE5 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
+		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = rfid_ios_fw.framework; path = "HAL-iOS/rfid_ios_fw.framework"; sourceTree = "<group>"; };
 		FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -291,6 +295,8 @@
 		BCD698231DB7B91400F856CE /* Git Projects */ = {
 			isa = PBXGroup;
 			children = (
+				F993E15021E40F7300485FE5 /* HALApi */,
+				F993E15121E40F7300485FE5 /* sso */,
 			);
 			name = "Git Projects";
 			sourceTree = "<group>";
@@ -313,7 +319,6 @@
 		CC2585541D9AF71B00294506 = {
 			isa = PBXGroup;
 			children = (
-				F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */,
 				CC25855F1D9AF71C00294506 /* HAL-iOS */,
 				CC2585771D9AF71C00294506 /* HAL-iOSTests */,
 				CC2585821D9AF71C00294506 /* HAL-iOSUITests */,
@@ -342,8 +347,6 @@
 				85DDE7071EEB171500700EFC /* Certificates */,
 				CC41EF261DB54D6B0059C7C5 /* CommonUtils.swift */,
 				4843DD771FA8ED7E00FBAAE6 /* ConfigurationManager.swift */,
-				F98DD2C4219F133100B0E57D /* RFIDEngine.swift */,
-				85ECB247218B7EFD001F2D44 /* RfidUtils.swift */,
 				8538E5651EF1809700F82E1D /* DataForwarder.swift */,
 				BC25B5141F27B8BE0028E81F /* default.html */,
 				48AD2A6A1FDEF32700C2F509 /* defaultBlank.html */,
@@ -370,9 +373,11 @@
 				CC8872ED1DDE3A930042F089 /* main.swift */,
 				853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */,
 				BCD698241DB7B92E00F856CE /* Project Files */,
+				F993E13121E40C9E00485FE5 /* RFID */,
 				CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */,
 				BCB0EBA41DDE665600E6A3F7 /* sled */,
 				CC50DB251DCA21AF00A46576 /* Sled.swift */,
+				851C7F8A207C14BE00F4D5AF /* SplashView.xib */,
 				CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */,
 				CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */,
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
@@ -383,7 +388,6 @@
 				BC534AB41DFF179200C65BAC /* ZebraBluetooth.swift */,
 				BC534AB51DFF179200C65BAC /* ZPLConnector.h */,
 				BC534AB61DFF179200C65BAC /* ZPLConnector.mm */,
-				851C7F8A207C14BE00F4D5AF /* SplashView.xib */,
 			);
 			path = "HAL-iOS";
 			sourceTree = "<group>";
@@ -409,6 +413,7 @@
 		CC6EEEAC1DBFE374003D895B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */,
 				BCD2B8631F311B1900F3496D /* libcrypto.a */,
 				BCD2B8641F311B1900F3496D /* libssl.a */,
 				BC174CD11F02DDDB005FBA9A /* UIKit.framework */,
@@ -427,6 +432,15 @@
 				F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F993E13121E40C9E00485FE5 /* RFID */ = {
+			isa = PBXGroup;
+			children = (
+				85ECB247218B7EFD001F2D44 /* RfidUtils.swift */,
+				F98DD2C4219F133100B0E57D /* RFIDEngine.swift */,
+			);
+			name = RFID;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -560,6 +574,7 @@
 				48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */,
 				BC25B5151F27B8BE0028E81F /* default.html in Resources */,
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
+				F993E15221E40F7300485FE5 /* HALApi in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
@@ -567,6 +582,7 @@
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				85DDE7081EEB171500700EFC /* Certificates in Resources */,
+				F993E15321E40F7300485FE5 /* sso in Resources */,
 				BC22EE621E203A8300C3F597 /* LOCN.json in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
 				CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */,

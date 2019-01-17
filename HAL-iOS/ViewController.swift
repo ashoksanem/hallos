@@ -19,7 +19,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     var printerData:NSDictionary = [:];
     var progressView: UIView?;
     var activityIndicator: UIActivityIndicatorView?;
-    var rfidEngine = RFIDEngine();
+    var rfidEngine = (UIApplication.shared.delegate as! AppDelegate).rfidEngine;
     override func loadView() {
         super.loadView()
         let contentController = WKUserContentController();
@@ -85,7 +85,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "stopScanningBarcode",
                                          "getRfidDeviceStatus",
                                          "setRfidPowerLevel",
-                                         "setRfidVolumeLevel"
+                                         "setRfidVolumeLevel",
+                                         "setRfidReaderSession"
         ];
         
         for message in messageHandlers
@@ -152,12 +153,12 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeProgressView()
-        let url = CommonUtils.getLandingPage();
+        var url = CommonUtils.getLandingPage();
         if(!CommonUtils.isDefaultLandingPage(url))
         {
             //let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app.
-            //let url = URL(string: "http://a4731573:3000/")!
-            //let url = URL(string: "a/3000")!;
+            //url = URL(string: "http://a4731572:3000/")!
+
             //let url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
             loadWebView(url: url);
         }
@@ -690,6 +691,22 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 if let id = _data["handle"] as? String {
                     if let data = _data["data"] as? NSDictionary {
                         let result = rfidEngine.setRfidPowerLevel(data: data);
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                    }
+                }
+            }
+        }
+        else if(message.name == "setRfidReaderSession")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        let result = rfidEngine.setRfidReaderSession(data: data);
                         let boolStr = result.lowercased() == "success" ? "true": "false"
                         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
                     }

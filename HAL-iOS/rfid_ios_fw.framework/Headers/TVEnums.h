@@ -4,8 +4,15 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface TVEnums : NSObject
+
+typedef NS_ENUM(NSUInteger, TVLogLevel) {
+  TVLogLevelError   = 0,
+  TVLogLevelWarning = 1,
+  TVLogLevelInfo    = 2,
+  TVLogLevelDebug   = 3,
+  TVLogLevelVerbose = 4,
+};
 
 typedef NS_ENUM(NSUInteger, TVReaderMode) {
     TVReaderModeLocate,

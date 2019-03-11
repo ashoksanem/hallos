@@ -13,9 +13,11 @@ import rfid_ios_fw
 class RFIDEngine: NSObject, RfidSDKDelegate
 {
     var rfidClient = RfidSDK.shared()
+    var isBCScannerEnable = false;
     var isBCScanInProgress = false;
     var isINVScanInProgress = false;
     var isFPScanInProgress = false;
+    
     
     func sendRfidResponse(data: [String : Any])
     {
@@ -163,24 +165,24 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
     }
     
+    func enableBarcodeReader(enable:Bool ) -> String{
+        let result =  rfidClient.enableBarcodeReader(enable: true)
+        isBCScannerEnable = result == .SUCCESS ? enable : false
+        return RfidUtils.TranslateResultToStringResult(result)
+    }
     
     //MARK:  BARCODE SCANNER WORKFLOW
     func startScanningBarcode(){
-        //enable barcode reader if disable, then start scanning for barcode
-        let result =  rfidClient.enableBarcodeReader(enable: true)
-        if result == .SUCCESS {
-            if rfidClient.startScanningBarcode() == .SUCCESS{
-                isBCScanInProgress = true;
-            }
-        }
+        let result = rfidClient.startScanningBarcode()
+        isBCScanInProgress = result == .SUCCESS ? true : false
     }
     
     func stopScanningBarcode(){
         // stop scanning for barcode and disable barcode reader
-        rfidClient.stopScanningBarcode();
-        rfidClient.enableBarcodeReader(enable: false)
+        let result = rfidClient.stopScanningBarcode();
         isBCScanInProgress = false;
     }
+    
     
     //MARK: INVENTORY WORKFLOW
     func openInventorySession(data:NSDictionary) -> String{
@@ -234,6 +236,12 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     //MARK: PROTOCOL FUNCTIONS
     
     func EventTriggerNotify(pressed: Bool) {
+        //automatically wire trigger to barcode scanner if it is enable
+        if isBCScannerEnable {
+            if pressed { startScanningBarcode()}
+            else {stopScanningBarcode()}
+        }
+        
         let data = [
             "type": "EventTriggerNotify",
             "pressed": pressed
@@ -276,6 +284,11 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     func EventScannerBarcode(_ barcode: String, barcodeType: String) {
+        if let delegate = UIApplication.shared.delegate as? AppDelegate
+        {
+            delegate.updateBarcodeData(barcode: barcode)
+        }
+        
         let data = [
             "type": "EventScannerBarcode",
             "barcode": barcode,

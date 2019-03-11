@@ -80,7 +80,8 @@
 
 - (TVLocateResult)openLocateSessionWithUPCs:(NSMutableArray *)upcs
                         usingProductLibrary:(TVProductLibraryType)productLibrary
-                                 withHeader:(NSString *)header;
+                                 withHeader:(NSString *)header
+                         isUPCRemovedFromLocateList:(BOOL) isUPCRemoved;
 
 - (TVLocateResult)startLocating;
 

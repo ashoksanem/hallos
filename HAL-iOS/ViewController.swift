@@ -81,8 +81,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "startTagLocating",
                                          "stopTagLocating",
                                          "findNextRFIDTag",
-                                         "startScanningBarcode",
-                                         "stopScanningBarcode",
                                          "getRfidDeviceStatus",
                                          "setRfidPowerLevel",
                                          "setRfidVolumeLevel",
@@ -663,20 +661,6 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 let result = rfidEngine.findNextTag()
                 let boolStr = result.lowercased() == "success" ? "true": "false"
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
-            }
-        }
-        else if(message.name == "startScanningBarcode")
-        {
-            if let id = message.body as? String {
-                let result = rfidEngine.startScanningBarcode()
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
-            }
-        }
-        else if(message.name == "stopScanningBarcode")
-        {
-            if let id = message.body as? String {
-                let result = rfidEngine.stopScanningBarcode()
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
         }
         else if(message.name == "getRfidDeviceStatus")

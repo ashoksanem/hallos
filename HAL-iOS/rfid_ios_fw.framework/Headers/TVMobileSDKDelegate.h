@@ -4,6 +4,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TVEnums.h"
+#import "TVLogger.h"
 
 @class ReaderStatus;
 

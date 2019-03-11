@@ -842,8 +842,16 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func enableScanner()
     {
         do {
+            var isOn = false;
+            if RFIDEngine().isRfidScannerAvailable(){
+                isOn = rfidEngine.enableBarcodeReader(enable: true) == "SUCCESS" ? true : false
+            }
+            else{
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.ENABLED.rawValue)
-            CommonUtils.setScanEnabled(value: true);
+                isOn = true;
+            }
+            
+            CommonUtils.setScanEnabled(value: isOn);
         }
         catch {
             DLog("Enable scanner error: " + String(describing:error));
@@ -855,8 +863,15 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     {
         CommonUtils.setScannerModeFromWeb(value: false);
         do {
+            var isOn = false;
+            if RFIDEngine().isRfidScannerAvailable(){
+                isOn = rfidEngine.enableBarcodeReader(enable: false) == "SUCCESS" ? false : true
+            }
+            else{
             try sled?.barcodeSetScanButtonMode(BUTTON_STATES.DISABLED.rawValue)
-            CommonUtils.setScanEnabled(value: false);
+                isOn = false;
+            }
+            CommonUtils.setScanEnabled(value: isOn);
         }
         catch {
             DLog("Disable scanner error: " + String(describing:error));

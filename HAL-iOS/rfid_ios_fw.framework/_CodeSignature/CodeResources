@@ -190,15 +190,19 @@
 		</data>
 		<key>Headers/TVEnums.h</key>
 		<data>
-		1QeFuD5CoGpruSxGUaQJJRTguaY=
+		YLVB+jg6UEeJwZdyjaQGWdIZkwU=
+		</data>
+		<key>Headers/TVLogger.h</key>
+		<data>
+		G/h/7JoeyQE4a8vwVu8ZX17yeXc=
 		</data>
 		<key>Headers/TVMobileSDK.h</key>
 		<data>
-		GqmKsDSgymGJuKvAClTWwAo0z/Q=
+		G8aE7F6gAZkUICpN2nC6waHGYIo=
 		</data>
 		<key>Headers/TVMobileSDKDelegate.h</key>
 		<data>
-		hA4gyflNCSPHNHYaP5X9DSsvmMI=
+		ViLfL981lGIT1tzwaBNS6qvBub0=
 		</data>
 		<key>Headers/crypt.h</key>
 		<data>
@@ -214,7 +218,7 @@
 		</data>
 		<key>Headers/rfid_ios_fw.h</key>
 		<data>
-		KcbElgMf3l3rXunpaPlZO2W4iDE=
+		mG6HTHY9XinAYTF61DzhoDJ7DVg=
 		</data>
 		<key>Headers/unzip.h</key>
 		<data>
@@ -242,7 +246,7 @@
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm.swiftmodule</key>
 		<data>
-		UMHTGxmX3ZgA5CtfdvrLEZoiSo8=
+		j/Qt6MEgmMxFwn1g5E4ycPlxVOw=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftdoc</key>
 		<data>
@@ -250,7 +254,7 @@
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		aw38U865ClGn1LjSH9JSoRkg0ls=
+		/G9BhcW4fgZngl0Yvp/kjMGd3yo=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -765,33 +769,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			1QeFuD5CoGpruSxGUaQJJRTguaY=
+			YLVB+jg6UEeJwZdyjaQGWdIZkwU=
 			</data>
 			<key>hash2</key>
 			<data>
-			JoMPaiIVR587WvPIZSWsxM5sEW0+TQNY6Xg+Np5mOs8=
+			bLsYqM08k8NHNU4wALnlotWeKdcSQz6j0vc2O/wg8DM=
+			</data>
+		</dict>
+		<key>Headers/TVLogger.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			G/h/7JoeyQE4a8vwVu8ZX17yeXc=
+			</data>
+			<key>hash2</key>
+			<data>
+			EVBXy9ho0NjSF8DIE6LRdwhFkiBaaPRHdqbddzRcXFM=
 			</data>
 		</dict>
 		<key>Headers/TVMobileSDK.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			GqmKsDSgymGJuKvAClTWwAo0z/Q=
+			G8aE7F6gAZkUICpN2nC6waHGYIo=
 			</data>
 			<key>hash2</key>
 			<data>
-			fEKaDIhjWwkcgu5O/t3nw382rtIVuU1DjVNsyxWYHWM=
+			8MpJXi7nTWs+V+S3J8HpGq1ZvtxsEw7goA92ghBXib0=
 			</data>
 		</dict>
 		<key>Headers/TVMobileSDKDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			hA4gyflNCSPHNHYaP5X9DSsvmMI=
+			ViLfL981lGIT1tzwaBNS6qvBub0=
 			</data>
 			<key>hash2</key>
 			<data>
-			BmUryuOhrjOm4Idr97jZMYEqPJZWqTmLJtqjwO2eaYQ=
+			pdaFjdnhGfUBKw1lrnJ9MHypSPyGtqfIozCW9i9hboI=
 			</data>
 		</dict>
 		<key>Headers/crypt.h</key>
@@ -831,11 +846,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			KcbElgMf3l3rXunpaPlZO2W4iDE=
+			mG6HTHY9XinAYTF61DzhoDJ7DVg=
 			</data>
 			<key>hash2</key>
 			<data>
-			ikV/MDP0Io034ofUDkeOSqlQH8O4j9gP87U7qH0XYTk=
+			Uj7Dk9sHz4jvxn/6ob1vy4a1rBWz9+xWEhGl5EqzRjI=
 			</data>
 		</dict>
 		<key>Headers/unzip.h</key>
@@ -897,11 +912,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UMHTGxmX3ZgA5CtfdvrLEZoiSo8=
+			j/Qt6MEgmMxFwn1g5E4ycPlxVOw=
 			</data>
 			<key>hash2</key>
 			<data>
-			g9ecVdEcFDH0HeEMx+6NQrIznEQbZbaiIrVt/SfKFqo=
+			7LR53BbSG9+RlMlKBYB+RvQ5UJuWCPVipcggDCQqn44=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftdoc</key>
@@ -919,11 +934,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aw38U865ClGn1LjSH9JSoRkg0ls=
+			/G9BhcW4fgZngl0Yvp/kjMGd3yo=
 			</data>
 			<key>hash2</key>
 			<data>
-			FnFTfQPtWSIG2htGxy+P++5EkwZV+8NVKtuw7aYGKts=
+			JV3a3jXifD5F5CIRERjhc8HQSX4NCm7fnTa0K4tu6UQ=
 			</data>
 		</dict>
 	</dict>

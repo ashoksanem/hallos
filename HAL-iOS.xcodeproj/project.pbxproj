@@ -77,8 +77,8 @@
 		CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */ = {isa = PBXBuildFile; fileRef = CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */; };
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
 		ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */; };
+		F9456D3922319F640038112F /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = F9456D3822319F640038112F /* HALApi */; };
 		F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DD2C4219F133100B0E57D /* RFIDEngine.swift */; };
-		F993E15221E40F7300485FE5 /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = F993E15021E40F7300485FE5 /* HALApi */; };
 		F993E15321E40F7300485FE5 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = F993E15121E40F7300485FE5 /* sso */; };
 		F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
 		F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -204,8 +204,8 @@
 		DBC30386354F22573AAEE8BF /* Pods-HAL-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		F01A0AD9C8E731F41202C930 /* Pods-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSUITests/Pods-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9456D3822319F640038112F /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
 		F98DD2C4219F133100B0E57D /* RFIDEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDEngine.swift; sourceTree = "<group>"; };
-		F993E15021E40F7300485FE5 /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
 		F993E15121E40F7300485FE5 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
 		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = rfid_ios_fw.framework; path = "HAL-iOS/rfid_ios_fw.framework"; sourceTree = "<group>"; };
 		FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -295,7 +295,7 @@
 		BCD698231DB7B91400F856CE /* Git Projects */ = {
 			isa = PBXGroup;
 			children = (
-				F993E15021E40F7300485FE5 /* HALApi */,
+				F9456D3822319F640038112F /* HALApi */,
 				F993E15121E40F7300485FE5 /* sso */,
 			);
 			name = "Git Projects";
@@ -574,8 +574,8 @@
 				48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */,
 				BC25B5151F27B8BE0028E81F /* default.html in Resources */,
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
-				F993E15221E40F7300485FE5 /* HALApi in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
+				F9456D3922319F640038112F /* HALApi in Resources */,
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
 				BCD2B85E1F31094300F3496D /* Encryption in Resources */,

@@ -74,4 +74,5 @@ FOUNDATION_EXPORT const unsigned char rfid_ios_fwVersionString[];
 #import "ReaderStatus.h"
 #import "TVMobileSDKDelegate.h"
 #import "TVMobileSDK.h"
+#import "TVLogger.h"
 

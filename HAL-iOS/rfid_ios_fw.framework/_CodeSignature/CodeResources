@@ -234,7 +234,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		7ezAVtsKCX2+kVhQuMcMchMpAGg=
+		LeBPWULj9N7Wif3t34ckaMWe0kY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -242,19 +242,19 @@
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm.swiftdoc</key>
 		<data>
-		CrGltAwO33lMBEFVx3Sz5Zxs0m0=
+		hG5c3eD2mKl8Z5m2go5XAP863fM=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm.swiftmodule</key>
 		<data>
-		j/Qt6MEgmMxFwn1g5E4ycPlxVOw=
+		jE7UX2HyT6KsgzOoXBANhv0pZ+8=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		lMzrdQqbD+B3FX3uCl17koUXvm4=
+		LNjT2TA3i8Z9iuFastgjxKn9DRw=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		/G9BhcW4fgZngl0Yvp/kjMGd3yo=
+		adOehgG6U4bgv2C6Ibxwx62hpVg=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -901,44 +901,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			CrGltAwO33lMBEFVx3Sz5Zxs0m0=
+			hG5c3eD2mKl8Z5m2go5XAP863fM=
 			</data>
 			<key>hash2</key>
 			<data>
-			styLMuTVw2gjA6cYJJeAXtJ2qImiCDfQwNtXzpfJx8k=
+			k76w6QUZ6dYX7Xg2xw0GaiULwQoaMy/zoJRjfsctgrM=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			j/Qt6MEgmMxFwn1g5E4ycPlxVOw=
+			jE7UX2HyT6KsgzOoXBANhv0pZ+8=
 			</data>
 			<key>hash2</key>
 			<data>
-			7LR53BbSG9+RlMlKBYB+RvQ5UJuWCPVipcggDCQqn44=
+			ECEEG7btRxiRTPKQU8LxDsL9Gz6QOZwkcFR1J5hWSeI=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			lMzrdQqbD+B3FX3uCl17koUXvm4=
+			LNjT2TA3i8Z9iuFastgjxKn9DRw=
 			</data>
 			<key>hash2</key>
 			<data>
-			T9TxqzLwSjp32m639w/57Xm2cjt9DN3ChCVNF0pKXn8=
+			hqoav4YabMHJySP+JcvCjjpyMFvzZpiQFDcIQ3vRras=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/G9BhcW4fgZngl0Yvp/kjMGd3yo=
+			adOehgG6U4bgv2C6Ibxwx62hpVg=
 			</data>
 			<key>hash2</key>
 			<data>
-			JV3a3jXifD5F5CIRERjhc8HQSX4NCm7fnTa0K4tu6UQ=
+			ZJBoaHZmtufYn4Bz/OI+D4Utdpuli9bHASF3WMJpmqg=
 			</data>
 		</dict>
 	</dict>

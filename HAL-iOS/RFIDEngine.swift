@@ -17,6 +17,10 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     var isBCScanInProgress = false;
     var isINVScanInProgress = false;
     var isFPScanInProgress = false;
+    var isSledSoundMute = false;
+    let defaults = UserDefaults.standard
+    let CONST_SLED_VOLUME = "SledVolume"
+    
     
     
     func sendRfidResponse(data: [String : Any])
@@ -68,7 +72,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         }
         return RfidUtils.TranslateResultToStringResult(result)
     }
-
+    
     //rfidPower value: 0-100
     func setRfidPowerLevel( data: NSDictionary) -> String{
         var result = RFID_RESULT.FAILURE
@@ -104,7 +108,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         if let result = rfidClient.getReaderStatus(){
             data = result;
         }
-            let rfidDeviceStatus = [
+        let rfidDeviceStatus = [
             "batteryLevel": data.batteryLevel,
             "deviceId": data.deviceId,
             "isConnected": data.isConnected,
@@ -126,13 +130,52 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         return String(rfidClient.getReaderStatus()?.batteryLevel ?? 0 );
     }
     
+    //MARK: FIND PRODUCT SOUND HANDLER
+    //special handling case for FP sounds since Tyco SDK FP
+    //issue: sled is beeping around rfid tags even though none of the tag is belong to the list
+    //solution: mute the sound and unmute when FP locked on something
+    
+    internal func mute(){
+        //mute sled volume
+        if(!isSledSoundMute){
+            if let oldVol = rfidClient.getReaderStatus()?.volume{
+                defaults.set(oldVol, forKey: CONST_SLED_VOLUME)
+                defaults.synchronize()
+                
+                if (rfidClient.setReaderVolume(.MUTE) == .SUCCESS){
+                    isSledSoundMute = true;
+                }
+            }
+        }
+    }
+    //restore sled volume
+    internal func unmute() {
+        if(isSledSoundMute){
+            if let vol = VOLUME_LEVEL.init(rawValue: defaults.integer(forKey: CONST_SLED_VOLUME)){
+                print("unmute -> \(vol.rawValue)")
+                if(rfidClient.setReaderVolume(vol) == .SUCCESS){
+                    isSledSoundMute = false;
+                    defaults.synchronize()
+                }
+            }
+        }
+    }
+    
     //MARK: FIND PRODUCT WORKFLOW
     
     //TO BE FILL IN
     func openTagLocatingSession(data: NSDictionary)-> String{
         let upcList = (data["upcList"] as? [String]) ?? [];
         let result = rfidClient.findProductWorker?.openFindProductSession(upcList)
+        
+        //handle FP sounds. this can be removed when eliminating Tyco SDK
+        RfidSoundManager.init()
+        RfidSoundManager.isEnable = true;
+        mute()
+        //end
+        
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
+        
     }
     
     func startTagLocating() -> String{
@@ -147,6 +190,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     
     func findNextTag()-> String{
         let result = rfidClient.findProductWorker?.findNextTag()
+        RfidSoundManager.StopAllSounds()
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
     }
     
@@ -154,6 +198,8 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         if let result = rfidClient.findProductWorker?.stopFindProduct(){
             if result == .SUCCESS {
                 isFPScanInProgress = false;
+                
+                RfidSoundManager.StopAllSounds()
             }
             return RfidUtils.TranslateResultToStringResult(result)
         }
@@ -162,6 +208,12 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     
     func closeTagLocatingSession()-> String{
         let result = rfidClient.findProductWorker?.closeFindProductSession()
+        RfidSoundManager.StopAllSounds()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.unmute()
+        }
+        
+        
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
     }
     
@@ -298,6 +350,14 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     func EventFindProductDidLocateTag(tag: TagInfo, proximityPercent: Int) {
+        
+        //handle FP sounds. this can be removed when eliminating Tyco SDK
+        let _ = isFPScanInProgress ?  RfidSoundManager.playSound(ProximityValue: proximityPercent) : RfidSoundManager.StopAllSounds()
+        
+        
+        //end
+        
+        
         let data = [
             "type": "EventFindProductDidLocateTag",
             "upc": tag.upc,
@@ -338,5 +398,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             ] as [String : Any]
         sendRfidResponse(data: data)
     }
+    
+    
     
 }

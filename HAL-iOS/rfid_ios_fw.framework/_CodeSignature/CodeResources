@@ -234,7 +234,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		LeBPWULj9N7Wif3t34ckaMWe0kY=
+		1SLNG7fd1XP7UKVdTMglKVfAUTs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -242,19 +242,19 @@
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm.swiftdoc</key>
 		<data>
-		hG5c3eD2mKl8Z5m2go5XAP863fM=
+		CrGltAwO33lMBEFVx3Sz5Zxs0m0=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm.swiftmodule</key>
 		<data>
-		jE7UX2HyT6KsgzOoXBANhv0pZ+8=
+		8tTTvFVG6X0KUXyrKRhOPRogY0Y=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		LNjT2TA3i8Z9iuFastgjxKn9DRw=
+		lMzrdQqbD+B3FX3uCl17koUXvm4=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		adOehgG6U4bgv2C6Ibxwx62hpVg=
+		rIf6pHWbuHFOlTtu7baHb9g3H60=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -901,44 +901,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hG5c3eD2mKl8Z5m2go5XAP863fM=
+			CrGltAwO33lMBEFVx3Sz5Zxs0m0=
 			</data>
 			<key>hash2</key>
 			<data>
-			k76w6QUZ6dYX7Xg2xw0GaiULwQoaMy/zoJRjfsctgrM=
+			styLMuTVw2gjA6cYJJeAXtJ2qImiCDfQwNtXzpfJx8k=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			jE7UX2HyT6KsgzOoXBANhv0pZ+8=
+			8tTTvFVG6X0KUXyrKRhOPRogY0Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			ECEEG7btRxiRTPKQU8LxDsL9Gz6QOZwkcFR1J5hWSeI=
+			N3X2Jp2ZYX1EBcFedsu6t74HPM2JdwqYAIjOdhbr+v0=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			LNjT2TA3i8Z9iuFastgjxKn9DRw=
+			lMzrdQqbD+B3FX3uCl17koUXvm4=
 			</data>
 			<key>hash2</key>
 			<data>
-			hqoav4YabMHJySP+JcvCjjpyMFvzZpiQFDcIQ3vRras=
+			T9TxqzLwSjp32m639w/57Xm2cjt9DN3ChCVNF0pKXn8=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			adOehgG6U4bgv2C6Ibxwx62hpVg=
+			rIf6pHWbuHFOlTtu7baHb9g3H60=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZJBoaHZmtufYn4Bz/OI+D4Utdpuli9bHASF3WMJpmqg=
+			s1ZdTDXfB29xHVZ+ZO5hLVlBbTQZ0c1iC2IpaA59qe8=
 			</data>
 		</dict>
 	</dict>

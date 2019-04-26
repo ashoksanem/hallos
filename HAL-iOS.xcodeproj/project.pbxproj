@@ -82,12 +82,12 @@
 		F993E15321E40F7300485FE5 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = F993E15121E40F7300485FE5 /* sso */; };
 		F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
 		F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F9D0B45222550680005AE3C2 /* 1-Ping-Medium.wav in Resources */ = {isa = PBXBuildFile; fileRef = F9D0B44D2255067F005AE3C2 /* 1-Ping-Medium.wav */; };
-		F9D0B45322550680005AE3C2 /* 1-Ping-Insane.wav in Resources */ = {isa = PBXBuildFile; fileRef = F9D0B44E2255067F005AE3C2 /* 1-Ping-Insane.wav */; };
-		F9D0B45422550680005AE3C2 /* 1-Ping-VerySlow.wav in Resources */ = {isa = PBXBuildFile; fileRef = F9D0B44F22550680005AE3C2 /* 1-Ping-VerySlow.wav */; };
-		F9D0B45522550680005AE3C2 /* 1-Ping-Slow.wav in Resources */ = {isa = PBXBuildFile; fileRef = F9D0B45022550680005AE3C2 /* 1-Ping-Slow.wav */; };
-		F9D0B45622550680005AE3C2 /* 1-Ping-Fast.wav in Resources */ = {isa = PBXBuildFile; fileRef = F9D0B45122550680005AE3C2 /* 1-Ping-Fast.wav */; };
 		F9D0B4582255069E005AE3C2 /* RfidSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D0B4572255069E005AE3C2 /* RfidSoundManager.swift */; };
+		F9F7124322736AC8004157ED /* ping_2_rep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F9F7123E22736AC7004157ED /* ping_2_rep.mp3 */; };
+		F9F7124422736AC8004157ED /* ping_3_rep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F9F7123F22736AC7004157ED /* ping_3_rep.mp3 */; };
+		F9F7124522736AC8004157ED /* ping_4_rep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F9F7124022736AC8004157ED /* ping_4_rep.mp3 */; };
+		F9F7124622736AC8004157ED /* ping_0_rep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F9F7124122736AC8004157ED /* ping_0_rep.mp3 */; };
+		F9F7124722736AC8004157ED /* ping_1_rep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F9F7124222736AC8004157ED /* ping_1_rep.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -214,12 +214,12 @@
 		F98DD2C4219F133100B0E57D /* RFIDEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDEngine.swift; sourceTree = "<group>"; };
 		F993E15121E40F7300485FE5 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
 		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = rfid_ios_fw.framework; path = "HAL-iOS/rfid_ios_fw.framework"; sourceTree = "<group>"; };
-		F9D0B44D2255067F005AE3C2 /* 1-Ping-Medium.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "1-Ping-Medium.wav"; sourceTree = "<group>"; };
-		F9D0B44E2255067F005AE3C2 /* 1-Ping-Insane.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "1-Ping-Insane.wav"; sourceTree = "<group>"; };
-		F9D0B44F22550680005AE3C2 /* 1-Ping-VerySlow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "1-Ping-VerySlow.wav"; sourceTree = "<group>"; };
-		F9D0B45022550680005AE3C2 /* 1-Ping-Slow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "1-Ping-Slow.wav"; sourceTree = "<group>"; };
-		F9D0B45122550680005AE3C2 /* 1-Ping-Fast.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "1-Ping-Fast.wav"; sourceTree = "<group>"; };
 		F9D0B4572255069E005AE3C2 /* RfidSoundManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RfidSoundManager.swift; sourceTree = "<group>"; };
+		F9F7123E22736AC7004157ED /* ping_2_rep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ping_2_rep.mp3; sourceTree = "<group>"; };
+		F9F7123F22736AC7004157ED /* ping_3_rep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ping_3_rep.mp3; sourceTree = "<group>"; };
+		F9F7124022736AC8004157ED /* ping_4_rep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ping_4_rep.mp3; sourceTree = "<group>"; };
+		F9F7124122736AC8004157ED /* ping_0_rep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ping_0_rep.mp3; sourceTree = "<group>"; };
+		F9F7124222736AC8004157ED /* ping_1_rep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ping_1_rep.mp3; sourceTree = "<group>"; };
 		FADBEC0663237D232A1CCDF5 /* Pods_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -450,11 +450,11 @@
 		F93020A42254FC6A00A6F100 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				F9D0B45122550680005AE3C2 /* 1-Ping-Fast.wav */,
-				F9D0B44E2255067F005AE3C2 /* 1-Ping-Insane.wav */,
-				F9D0B44D2255067F005AE3C2 /* 1-Ping-Medium.wav */,
-				F9D0B45022550680005AE3C2 /* 1-Ping-Slow.wav */,
-				F9D0B44F22550680005AE3C2 /* 1-Ping-VerySlow.wav */,
+				F9F7124122736AC8004157ED /* ping_0_rep.mp3 */,
+				F9F7124222736AC8004157ED /* ping_1_rep.mp3 */,
+				F9F7123E22736AC7004157ED /* ping_2_rep.mp3 */,
+				F9F7123F22736AC7004157ED /* ping_3_rep.mp3 */,
+				F9F7124022736AC8004157ED /* ping_4_rep.mp3 */,
 			);
 			name = Sounds;
 			sourceTree = "<group>";
@@ -597,26 +597,26 @@
 			files = (
 				BCB8CA561F3A52AD008EA783 /* Settings.bundle in Resources */,
 				851C7F8B207C14BE00F4D5AF /* SplashView.xib in Resources */,
-				F9D0B45622550680005AE3C2 /* 1-Ping-Fast.wav in Resources */,
+				F9F7124422736AC8004157ED /* ping_3_rep.mp3 in Resources */,
+				F9F7124322736AC8004157ED /* ping_2_rep.mp3 in Resources */,
 				48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */,
+				F9F7124722736AC8004157ED /* ping_1_rep.mp3 in Resources */,
 				BC25B5151F27B8BE0028E81F /* default.html in Resources */,
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
 				F9456D3922319F640038112F /* HALApi in Resources */,
-				F9D0B45322550680005AE3C2 /* 1-Ping-Insane.wav in Resources */,
 				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
 				BCD2B85E1F31094300F3496D /* Encryption in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
+				F9F7124522736AC8004157ED /* ping_4_rep.mp3 in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				85DDE7081EEB171500700EFC /* Certificates in Resources */,
-				F9D0B45522550680005AE3C2 /* 1-Ping-Slow.wav in Resources */,
 				F993E15321E40F7300485FE5 /* sso in Resources */,
-				F9D0B45422550680005AE3C2 /* 1-Ping-VerySlow.wav in Resources */,
 				BC22EE621E203A8300C3F597 /* LOCN.json in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
+				F9F7124622736AC8004157ED /* ping_0_rep.mp3 in Resources */,
 				CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */,
-				F9D0B45222550680005AE3C2 /* 1-Ping-Medium.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

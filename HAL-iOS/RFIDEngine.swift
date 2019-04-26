@@ -209,11 +209,9 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     func closeTagLocatingSession()-> String{
         let result = rfidClient.findProductWorker?.closeFindProductSession()
         RfidSoundManager.StopAllSounds()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.unmute()
-        }
+        self.unmute()
         
-        
+    
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
     }
     
@@ -353,7 +351,6 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         
         //handle FP sounds. this can be removed when eliminating Tyco SDK
         let _ = isFPScanInProgress ?  RfidSoundManager.playSound(ProximityValue: proximityPercent) : RfidSoundManager.StopAllSounds()
-        
         
         //end
         

@@ -36,7 +36,7 @@ class RfidSoundManager: NSObject {
     static var RightOnTopPlayer: AVAudioPlayer!
     
     //Define Soundtracks library
-    static let sounds = SoundLibary(OutOfRangeFile: "", BarelyInRangeFile: "1-Ping-VerySlow", FarFile: "1-Ping-Slow", NearFile: "1-Ping-Medium", VeryNearFile: "1-Ping-Fast", RightOnTopFile: "1-Ping-Insane")
+    static let sounds = SoundLibary(OutOfRangeFile: "", BarelyInRangeFile: "ping_0_rep", FarFile: "ping_1_rep", NearFile: "ping_2_rep", VeryNearFile: "ping_3_rep", RightOnTopFile: "ping_4_rep")
     
     static var isEnable = false
     
@@ -77,22 +77,30 @@ class RfidSoundManager: NSObject {
         
         do{
             
-            let path = Bundle.main.path(forResource: RfidSoundManager.sounds.BarelyInRangeFile!, ofType: "wav")!
+            let path = Bundle.main.path(forResource: RfidSoundManager.sounds.BarelyInRangeFile!, ofType: "mp3")!
             let url = URL(fileURLWithPath: path)
             RfidSoundManager.BarelyInRangePlayer = try AVAudioPlayer(contentsOf: url)
             RfidSoundManager.BarelyInRangePlayer.numberOfLoops = -1;
+            RfidSoundManager.BarelyInRangePlayer.prepareToPlay()
             
-            RfidSoundManager.FarPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.FarFile!, ofType: "wav")!))
+            RfidSoundManager.FarPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.FarFile!, ofType: "mp3")!))
             RfidSoundManager.FarPlayer.numberOfLoops = -1;
+            RfidSoundManager.FarPlayer.prepareToPlay()
             
-            RfidSoundManager.NearPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.NearFile!, ofType: "wav")!))
+            RfidSoundManager.NearPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.NearFile!, ofType: "mp3")!))
             RfidSoundManager.NearPlayer.numberOfLoops = -1;
+            RfidSoundManager.NearPlayer.prepareToPlay()
             
-            RfidSoundManager.VeryNearPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.VeryNearFile!, ofType: "wav")!))
+            RfidSoundManager.VeryNearPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.VeryNearFile!, ofType: "mp3")!))
             RfidSoundManager.VeryNearPlayer.numberOfLoops = -1;
+            RfidSoundManager.VeryNearPlayer.prepareToPlay()
             
-            RfidSoundManager.RightOnTopPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.RightOnTopFile!, ofType: "wav")!))
+            RfidSoundManager.RightOnTopPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.RightOnTopFile!, ofType: "mp3")!))
             RfidSoundManager.RightOnTopPlayer.numberOfLoops = -1;
+            RfidSoundManager.RightOnTopPlayer.prepareToPlay()
+            
+        
+            
         }
         catch {
             print("ERROR: Could'nt load sound file")
@@ -118,6 +126,41 @@ class RfidSoundManager: NSObject {
     /*
      Returns bucket type based on proximity percentage
      */
+//    private class func GetBucketType(p_rssi:Int ) -> bucketType{
+//
+//        if(isProximityChanged){
+//            OutOfRange = RangeDefinition[bucketType.OutOfRange]
+//            BarelyInRange = RangeDefinition[bucketType.BarelyInRange]
+//            Far = RangeDefinition[bucketType.Far]
+//            Near = RangeDefinition[bucketType.Near]
+//            VeryNear = RangeDefinition[bucketType.VeryNear]
+//            RightOnTop = RangeDefinition[bucketType.RightOnTop]
+//            isProximityChanged = false
+//        }
+//        if(OutOfRange?.0)! <= p_rssi && p_rssi <= (OutOfRange?.1)!{
+//            return bucketType.OutOfRange
+//        }
+//        else if(BarelyInRange?.0)! <= p_rssi && p_rssi <= (BarelyInRange?.1)!{
+//            return bucketType.BarelyInRange
+//        }
+//        else if(Far?.0)! <= p_rssi && p_rssi <= (Far?.1)!{
+//            return bucketType.Far
+//        }
+//        else if(Near?.0)! <= p_rssi && p_rssi <= (Near?.1)!{
+//            return bucketType.Near
+//        }
+//        else if(VeryNear?.0)! <= p_rssi && p_rssi <= (VeryNear?.1)!{
+//            return bucketType.VeryNear
+//        }
+//        else if(RightOnTop?.0)! <= p_rssi && p_rssi <= (RightOnTop?.1)!{
+//            return bucketType.RightOnTop
+//        }
+//
+//        return bucketType.OutOfRange
+//
+//    }
+//
+
     private class func GetBucketType(p_rssi:Int ) -> bucketType{
         
         if(isProximityChanged){
@@ -129,28 +172,28 @@ class RfidSoundManager: NSObject {
             RightOnTop = RangeDefinition[bucketType.RightOnTop]
             isProximityChanged = false
         }
-        if(OutOfRange?.0)! <= p_rssi && p_rssi <= (OutOfRange?.1)!{
-            return bucketType.OutOfRange
+        
+        if(RightOnTop?.0)! <= p_rssi{
+             return bucketType.RightOnTop
         }
-        else if(BarelyInRange?.0)! <= p_rssi && p_rssi <= (BarelyInRange?.1)!{
-            return bucketType.BarelyInRange
-        }
-        else if(Far?.0)! <= p_rssi && p_rssi <= (Far?.1)!{
-            return bucketType.Far
-        }
-        else if(Near?.0)! <= p_rssi && p_rssi <= (Near?.1)!{
-            return bucketType.Near
-        }
-        else if(VeryNear?.0)! <= p_rssi && p_rssi <= (VeryNear?.1)!{
+        else if(VeryNear?.0)! <= p_rssi{
             return bucketType.VeryNear
         }
-        else if(RightOnTop?.0)! <= p_rssi && p_rssi <= (RightOnTop?.1)!{
-            return bucketType.RightOnTop
+        else if(Near?.0)! <= p_rssi{
+            return bucketType.Near
         }
-        
-        return bucketType.OutOfRange
+        else if(Far?.0)! <= p_rssi{
+            return bucketType.Far
+        }
+        else if(BarelyInRange?.0)! <= p_rssi{
+            return bucketType.BarelyInRange
+        }
+        else { return bucketType.OutOfRange
+        }
+
         
     }
+    
     
     class func playSound(ProximityValue: Int){
         if(isEnable){
@@ -210,24 +253,7 @@ class RfidSoundManager: NSObject {
     
     
     
-    //    class func playSound(soundName: String)
-    //    {
-    //        if(isEnable){
-    //            do {
-    //                //soundName without extension
-    //                let path = Bundle.main.path(forResource: soundName, ofType: "wav")!
-    //                let url = URL(fileURLWithPath: path)
-    //
-    //                iPlayer = try AVAudioPlayer(contentsOf: url)
-    //                iPlayer.numberOfLoops = -1;
-    //                iPlayer.play()
-    //                isPlaying = true
-    //            } catch {
-    //                print("ERROR: Could'nt load \(soundName) file")
-    //            }
-    //        }
-    //    }
-    
+
     
     class func StopAllSounds(){
         if(isEnable){

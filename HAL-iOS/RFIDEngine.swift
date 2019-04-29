@@ -19,8 +19,8 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     var isFPScanInProgress = false;
     var isSledSoundMute = false;
     let defaults = UserDefaults.standard
-    let CONST_SLED_VOLUME = "SledVolume"
-    
+    let CONST_SLED_VOLUME = "SVolume"
+    let CONST_SLED_SESSION = "SSession"
     
     
     func sendRfidResponse(data: [String : Any])
@@ -64,12 +64,17 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         if let session = (data["session"] as? Int){
             switch( session){
             case 0: result = rfidClient.setReaderSession(.S0)
+                    defaults.set(READER_SESSION.S0.rawValue, forKey: CONST_SLED_SESSION)
             case 1: result = rfidClient.setReaderSession(.S1)
+                    defaults.set(READER_SESSION.S1.rawValue, forKey: CONST_SLED_SESSION)
             case 2: result = rfidClient.setReaderSession(.S2)
+                    defaults.set(READER_SESSION.S2.rawValue, forKey: CONST_SLED_SESSION)
             case 3: result = rfidClient.setReaderSession(.S3)
+                    defaults.set(READER_SESSION.S3.rawValue, forKey: CONST_SLED_SESSION)
             default: break;
             }
         }
+        defaults.synchronize()
         return RfidUtils.TranslateResultToStringResult(result)
     }
     
@@ -89,16 +94,22 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             switch vol {
             case "mute":
                 result = rfidClient.setReaderVolume(.MUTE);
+                defaults.set(VOLUME_LEVEL.MUTE.rawValue, forKey: CONST_SLED_VOLUME)
+
             case "low":
                 result = rfidClient.setReaderVolume(.LOW);
+                defaults.set(VOLUME_LEVEL.LOW.rawValue, forKey: CONST_SLED_VOLUME)
             case "medium":
                 result = rfidClient.setReaderVolume(.MEDIUM);
+                defaults.set(VOLUME_LEVEL.MEDIUM.rawValue, forKey: CONST_SLED_VOLUME)
             case "high":
                 result = rfidClient.setReaderVolume(.HIGH);
+                defaults.set(VOLUME_LEVEL.HIGH.rawValue, forKey: CONST_SLED_VOLUME)
             default:
                 return RfidUtils.TranslateResultToStringResult(RFID_RESULT.INVALID_PARAMS)
             }
         }
+        defaults.synchronize()
         return RfidUtils.TranslateResultToStringResult(result)
         
     }
@@ -354,14 +365,18 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         
         //end
         
+        DispatchQueue.global(qos: .background).async {
+            
+            let data = [
+                "type": "EventFindProductDidLocateTag",
+                "upc": tag.upc,
+                "epc": tag.epc,
+                "proximity": proximityPercent
+                ] as [String : Any]
+            self.sendRfidResponse(data: data)
         
-        let data = [
-            "type": "EventFindProductDidLocateTag",
-            "upc": tag.upc,
-            "epc": tag.epc,
-            "proximity": proximityPercent
-            ] as [String : Any]
-        sendRfidResponse(data: data)
+        }
+
     }
     
     func EventUserDidAuthenticate(_ isSuccess: Bool) {

@@ -123,43 +123,7 @@ class RfidSoundManager: NSObject {
         return self.RangeDefinition
         
     }
-    /*
-     Returns bucket type based on proximity percentage
-     */
-//    private class func GetBucketType(p_rssi:Int ) -> bucketType{
-//
-//        if(isProximityChanged){
-//            OutOfRange = RangeDefinition[bucketType.OutOfRange]
-//            BarelyInRange = RangeDefinition[bucketType.BarelyInRange]
-//            Far = RangeDefinition[bucketType.Far]
-//            Near = RangeDefinition[bucketType.Near]
-//            VeryNear = RangeDefinition[bucketType.VeryNear]
-//            RightOnTop = RangeDefinition[bucketType.RightOnTop]
-//            isProximityChanged = false
-//        }
-//        if(OutOfRange?.0)! <= p_rssi && p_rssi <= (OutOfRange?.1)!{
-//            return bucketType.OutOfRange
-//        }
-//        else if(BarelyInRange?.0)! <= p_rssi && p_rssi <= (BarelyInRange?.1)!{
-//            return bucketType.BarelyInRange
-//        }
-//        else if(Far?.0)! <= p_rssi && p_rssi <= (Far?.1)!{
-//            return bucketType.Far
-//        }
-//        else if(Near?.0)! <= p_rssi && p_rssi <= (Near?.1)!{
-//            return bucketType.Near
-//        }
-//        else if(VeryNear?.0)! <= p_rssi && p_rssi <= (VeryNear?.1)!{
-//            return bucketType.VeryNear
-//        }
-//        else if(RightOnTop?.0)! <= p_rssi && p_rssi <= (RightOnTop?.1)!{
-//            return bucketType.RightOnTop
-//        }
-//
-//        return bucketType.OutOfRange
-//
-//    }
-//
+
 
     private class func GetBucketType(p_rssi:Int ) -> bucketType{
         
@@ -251,9 +215,6 @@ class RfidSoundManager: NSObject {
         
     }
     
-    
-    
-
     
     class func StopAllSounds(){
         if(isEnable){

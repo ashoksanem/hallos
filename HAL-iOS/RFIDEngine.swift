@@ -22,15 +22,49 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     let CONST_SLED_VOLUME = "SVolume"
     let CONST_SLED_SESSION = "SSession"
     
+    var isProximityChanged = true;
+    var oldBucket:bucketType = bucketType.None
+    var newBucket:bucketType = bucketType.None
+    var inclFPRangeBucket = false;
+    var returnOnBucketChange = false;// if set true, return callback when there is change in range bucket. this help reduces # of callback
+    
+    var OutOfRange:(Int,Int)!
+    var BarelyInRange: (Int,Int)!
+    var Far : (Int,Int)!
+    var Near: (Int,Int)!
+    var VeryNear : (Int,Int)!
+    var RightOnTop : (Int,Int)!
+    
+    
+    
+    enum bucketType:Int {
+        case None = 0
+        case OutOfRange = 1
+        case BarelyInRange = 2
+        case Far = 3
+        case Near = 4
+        case VeryNear = 5
+        case RightOnTop = 6
+    }
+    
+    private var RangeDefinition:[bucketType: (Int,Int)] = [
+        bucketType.OutOfRange:(0, 0),
+        bucketType.BarelyInRange:(1,10),
+        bucketType.Far :(11,29),
+        bucketType.Near : (30,54),
+        bucketType.VeryNear:(55,62),
+        bucketType.RightOnTop:(63,100)]
+    
+    
     
     func sendRfidResponse(data: [String : Any])
     {
-        let jsonData = try! JSONSerialization.data(withJSONObject: data, options: [])
-        let  rfidData = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
-        if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
-        {
-            viewController.sendRfidResponse(rfidData:rfidData);
-        }
+            let jsonData = try! JSONSerialization.data(withJSONObject: data, options: [])
+            let  rfidData = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
+            if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
+            {
+                viewController.sendRfidResponse(rfidData:rfidData);
+            }
     }
     
     func enableRFID() -> String
@@ -40,6 +74,14 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             rfidClient.addDelegate(self)
         }
         return RfidUtils.TranslateResultToStringResult(result);
+    }
+    
+    //After
+    private func saveConfigLocally(){
+        
+        
+        
+        
     }
     
     func disableRFID()
@@ -177,6 +219,10 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     //TO BE FILL IN
     func openTagLocatingSession(data: NSDictionary)-> String{
         let upcList = (data["upcList"] as? [String]) ?? [];
+        
+        inclFPRangeBucket = (data["inclFPRangeBucket"] as? Bool) ?? false;
+        returnOnBucketChange = (data["onBucketChange"] as? Bool) ?? false;
+
         let result = rfidClient.findProductWorker?.openFindProductSession(upcList)
         
         //handle FP sounds. this can be removed when eliminating Tyco SDK
@@ -294,6 +340,41 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         return RfidUtils.TranslateResultToStringResult(result ?? INVENTORY_RESULT.FAILURE)
     }
     
+    
+    
+    private func GetBucketType(p_rssi:Int ) -> bucketType{
+        
+        if(isProximityChanged){
+            OutOfRange = RangeDefinition[bucketType.OutOfRange]
+            BarelyInRange = RangeDefinition[bucketType.BarelyInRange]
+            Far = RangeDefinition[bucketType.Far]
+            Near = RangeDefinition[bucketType.Near]
+            VeryNear = RangeDefinition[bucketType.VeryNear]
+            RightOnTop = RangeDefinition[bucketType.RightOnTop]
+            isProximityChanged = false
+        }
+        
+        if(RightOnTop?.0)! <= p_rssi{
+            return bucketType.RightOnTop
+        }
+        else if(VeryNear?.0)! <= p_rssi{
+            return bucketType.VeryNear
+        }
+        else if(Near?.0)! <= p_rssi{
+            return bucketType.Near
+        }
+        else if(Far?.0)! <= p_rssi{
+            return bucketType.Far
+        }
+        else if(BarelyInRange?.0)! <= p_rssi{
+            return bucketType.BarelyInRange
+        }
+        else { return bucketType.OutOfRange
+        }
+        
+        
+    }
+    
     //MARK: PROTOCOL FUNCTIONS
     
     func EventTriggerNotify(pressed: Bool) {
@@ -363,19 +444,34 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         //handle FP sounds. this can be removed when eliminating Tyco SDK
         let _ = isFPScanInProgress ?  RfidSoundManager.playSound(ProximityValue: proximityPercent) : RfidSoundManager.StopAllSounds()
         
-        //end
+        var data = [
+            "type": "EventFindProductDidLocateTag",
+            "upc": tag.upc,
+            "epc": tag.epc,
+            "proximity": proximityPercent
+   
+            ] as [String : Any]
         
-        DispatchQueue.global(qos: .background).async {
+        if (inclFPRangeBucket){
+            newBucket = GetBucketType(p_rssi: proximityPercent);
+            data["rangeBucket"] = "\(newBucket)"
             
-            let data = [
-                "type": "EventFindProductDidLocateTag",
-                "upc": tag.upc,
-                "epc": tag.epc,
-                "proximity": proximityPercent
-                ] as [String : Any]
-            self.sendRfidResponse(data: data)
-        
+            if returnOnBucketChange {
+                if oldBucket.hashValue != newBucket.hashValue {
+                    oldBucket = newBucket;
+                    self.sendRfidResponse(data: data)
+                }
+                    
+            }
+            else{
+                self.sendRfidResponse(data: data)
+            }
         }
+        else{
+            self.sendRfidResponse(data: data)
+        }
+        
+        
 
     }
     

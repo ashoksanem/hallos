@@ -95,7 +95,7 @@ platform :ios do
 
   desc "Build HAL-iOS prod and upload IPA to Artifactory"
   lane :deployProd do
-    provisioningProfile = "MST Distribution Profile 4-8-19"
+    provisioningProfile = "MT Distribution Profile 4-8-19"
     artifactory_distr = "distribution"
     export_method = "enterprise"
     app_configuration = "Release"

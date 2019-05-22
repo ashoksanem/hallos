@@ -1,4 +1,4 @@
-# Hardware Abstraction Layer (HAL) for iOS
+# Hardware Abstraction Layer (HAL) for iOS 
 
 - CI Pipeline @ https://mobile-ci.devops.fds.com/jenkins/view/halIos/
 - Artifactory @ http://ci-artifacts.devops.fds.com/artifactory/webapp/#/artifacts/browse/tree/General/mobileapps/halIos

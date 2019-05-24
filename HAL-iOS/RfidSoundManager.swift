@@ -39,39 +39,10 @@ class RfidSoundManager: NSObject {
     static let sounds = SoundLibary(OutOfRangeFile: "", BarelyInRangeFile: "ping_0_rep", FarFile: "ping_1_rep", NearFile: "ping_2_rep", VeryNearFile: "ping_3_rep", RightOnTopFile: "ping_4_rep")
     
     static var isEnable = false
-    
+
     static var isPlaying = false
-    static var isProximityChanged = true;
     static var currentBucket:bucketType = bucketType.OutOfRange
-    
-    static var OutOfRange:(Int,Int)!
-    static var BarelyInRange: (Int,Int)!
-    static var Far : (Int,Int)!
-    static var Near: (Int,Int)!
-    static var VeryNear : (Int,Int)!
-    static var RightOnTop : (Int,Int)!
-    
-    
-    
-    enum bucketType {
-        case None
-        case OutOfRange
-        case BarelyInRange
-        case Far
-        case Near
-        case VeryNear
-        case RightOnTop
-    }
-    
-    static private var RangeDefinition:[bucketType: (Int,Int)] = [
-        bucketType.OutOfRange:(0, 0),
-        bucketType.BarelyInRange:(1,9),
-        bucketType.Far :(10,27),
-        bucketType.Near : (28,48),
-        bucketType.VeryNear:(49,79),
-        bucketType.RightOnTop:(80,100)]
-    
-    
+
     override init(){
         super.init()
         
@@ -111,110 +82,61 @@ class RfidSoundManager: NSObject {
     }
     
     
+    class func playSound(bucket: bucketType){
+            if(isEnable){
     
-    class func setProximitySetting(ProximityDef:[bucketType: (Int,Int)]){
-        
-        self.RangeDefinition = ProximityDef
-        isProximityChanged = true;
-    }
+                switch(bucket){
+                case .OutOfRange:
+                    if(!(isPlaying && currentBucket == bucketType.OutOfRange)){
+                        StopAllSounds()
+                        isPlaying = true
+                        currentBucket = bucketType.OutOfRange
+                    }
+                case .BarelyInRange:
+                    if(!(isPlaying && currentBucket == bucketType.BarelyInRange)){
+                        StopAllSounds()
+                        BarelyInRangePlayer.play()
+                        isPlaying = true
+                        currentBucket = bucketType.BarelyInRange
+                    }
+                case .Far:
+                    if(!(isPlaying && currentBucket == bucketType.Far)){
+                        StopAllSounds()
+                        FarPlayer.play()
+                        isPlaying = true
+                        currentBucket = bucketType.Far
+                    }
+                case .Near:
+                    if(!(isPlaying && currentBucket == bucketType.Near)){
+                        StopAllSounds()
+                        NearPlayer.play()
+                        isPlaying = true
+                        currentBucket = bucketType.Near
+                    }
     
-    class func getProximitySetting() -> [RfidSoundManager.bucketType: (Int,Int)]{
-        
-        return self.RangeDefinition
-        
-    }
-
-
-    private class func GetBucketType(p_rssi:Int ) -> bucketType{
-        
-        if(isProximityChanged){
-            OutOfRange = RangeDefinition[bucketType.OutOfRange]
-            BarelyInRange = RangeDefinition[bucketType.BarelyInRange]
-            Far = RangeDefinition[bucketType.Far]
-            Near = RangeDefinition[bucketType.Near]
-            VeryNear = RangeDefinition[bucketType.VeryNear]
-            RightOnTop = RangeDefinition[bucketType.RightOnTop]
-            isProximityChanged = false
-        }
-        
-        if(RightOnTop?.0)! <= p_rssi{
-             return bucketType.RightOnTop
-        }
-        else if(VeryNear?.0)! <= p_rssi{
-            return bucketType.VeryNear
-        }
-        else if(Near?.0)! <= p_rssi{
-            return bucketType.Near
-        }
-        else if(Far?.0)! <= p_rssi{
-            return bucketType.Far
-        }
-        else if(BarelyInRange?.0)! <= p_rssi{
-            return bucketType.BarelyInRange
-        }
-        else { return bucketType.OutOfRange
-        }
-
-        
-    }
+                case .VeryNear:
+                    if(!(isPlaying && currentBucket == bucketType.VeryNear)){
+                        StopAllSounds()
+                        VeryNearPlayer.play()
+                        isPlaying = true
+                        currentBucket = bucketType.VeryNear
+                    }
+                case .RightOnTop:
+                    if(!(isPlaying && currentBucket == bucketType.RightOnTop)){
+                        StopAllSounds()
+                        RightOnTopPlayer.play()
+                        isPlaying = true
+                        currentBucket = bucketType.RightOnTop
+                    }
     
+                default:
+                    StopAllSounds()
     
-    class func playSound(ProximityValue: Int){
-        if(isEnable){
-            
-            switch(GetBucketType(p_rssi: ProximityValue)){
-            case .OutOfRange:
-                if(!(isPlaying && currentBucket == bucketType.OutOfRange)){
-                    StopAllSounds()
-                    isPlaying = true
-                    currentBucket = bucketType.OutOfRange
                 }
-            case .BarelyInRange:
-                if(!(isPlaying && currentBucket == bucketType.BarelyInRange)){
-                    StopAllSounds()
-                    BarelyInRangePlayer.play()
-                    isPlaying = true
-                    currentBucket = bucketType.BarelyInRange
-                }
-            case .Far:
-                if(!(isPlaying && currentBucket == bucketType.Far)){
-                    StopAllSounds()
-                    FarPlayer.play()
-                    isPlaying = true
-                    currentBucket = bucketType.Far
-                }
-            case .Near:
-                if(!(isPlaying && currentBucket == bucketType.Near)){
-                    StopAllSounds()
-                    NearPlayer.play()
-                    isPlaying = true
-                    currentBucket = bucketType.Near
-                }
-                
-            case .VeryNear:
-                if(!(isPlaying && currentBucket == bucketType.VeryNear)){
-                    StopAllSounds()
-                    VeryNearPlayer.play()
-                    isPlaying = true
-                    currentBucket = bucketType.VeryNear
-                }
-            case .RightOnTop:
-                if(!(isPlaying && currentBucket == bucketType.RightOnTop)){
-                    StopAllSounds()
-                    RightOnTopPlayer.play()
-                    isPlaying = true
-                    currentBucket = bucketType.RightOnTop
-                }
-                
-            default:
-                StopAllSounds()
-                
-                
             }
-        }
-        
-    }
     
+        }
+
     
     class func StopAllSounds(){
         if(isEnable){

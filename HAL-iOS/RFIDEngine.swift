@@ -10,6 +10,7 @@ import Foundation
 
 import rfid_ios_fw
 
+
 class RFIDEngine: NSObject, RfidSDKDelegate
 {
     var rfidClient = RfidSDK.shared()
@@ -19,8 +20,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     var isFPScanInProgress = false;
     var isSledSoundMute = false;
     let defaults = UserDefaults.standard
-    let CONST_SLED_VOLUME = "SVolume"
-    let CONST_SLED_SESSION = "SSession"
+
     
     var isProximityChanged = true;
     var oldBucket:bucketType = bucketType.None
@@ -34,18 +34,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     var Near: (Int,Int)!
     var VeryNear : (Int,Int)!
     var RightOnTop : (Int,Int)!
-    
-    
-    
-    enum bucketType:Int {
-        case None = 0
-        case OutOfRange = 1
-        case BarelyInRange = 2
-        case Far = 3
-        case Near = 4
-        case VeryNear = 5
-        case RightOnTop = 6
-    }
+    var count = 0;
     
     private var RangeDefinition:[bucketType: (Int,Int)] = [
         bucketType.OutOfRange:(0, 0),
@@ -56,15 +45,16 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         bucketType.RightOnTop:(63,100)]
     
     
-    
     func sendRfidResponse(data: [String : Any])
     {
+        DispatchQueue.main.async{
             let jsonData = try! JSONSerialization.data(withJSONObject: data, options: [])
             let  rfidData = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
             if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
             {
                 viewController.sendRfidResponse(rfidData:rfidData);
             }
+        }
     }
     
     func enableRFID() -> String
@@ -76,13 +66,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         return RfidUtils.TranslateResultToStringResult(result);
     }
     
-    //After
-    private func saveConfigLocally(){
-        
-        
-        
-        
-    }
+
     
     func disableRFID()
     {
@@ -220,9 +204,8 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     func openTagLocatingSession(data: NSDictionary)-> String{
         let upcList = (data["upcList"] as? [String]) ?? [];
         
-        inclFPRangeBucket = (data["inclFPRangeBucket"] as? Bool) ?? false;
         returnOnBucketChange = (data["onBucketChange"] as? Bool) ?? false;
-
+        print("openTagLocatingSession  size= \(upcList.count)")
         let result = rfidClient.findProductWorker?.openFindProductSession(upcList)
         
         //handle FP sounds. this can be removed when eliminating Tyco SDK
@@ -440,39 +423,33 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     func EventFindProductDidLocateTag(tag: TagInfo, proximityPercent: Int) {
-        
+        newBucket = GetBucketType(p_rssi: proximityPercent);
         //handle FP sounds. this can be removed when eliminating Tyco SDK
-        let _ = isFPScanInProgress ?  RfidSoundManager.playSound(ProximityValue: proximityPercent) : RfidSoundManager.StopAllSounds()
-        
+        let _ = isFPScanInProgress ?  RfidSoundManager.playSound(bucket: newBucket) : RfidSoundManager.StopAllSounds()
+        var date = Date()
+
         var data = [
             "type": "EventFindProductDidLocateTag",
             "upc": tag.upc,
             "epc": tag.epc,
-            "proximity": proximityPercent
-   
+            "proximity": proximityPercent,
+            "rangeBucket": "\(newBucket)",
             ] as [String : Any]
         
-        if (inclFPRangeBucket){
-            newBucket = GetBucketType(p_rssi: proximityPercent);
-            data["rangeBucket"] = "\(newBucket)"
-            
             if returnOnBucketChange {
                 if oldBucket.hashValue != newBucket.hashValue {
                     oldBucket = newBucket;
+    
+                    print("upc: \(tag.upc) Proximity: \(proximityPercent) bucket: \(data["rangeBucket"])")
                     self.sendRfidResponse(data: data)
                 }
                     
             }
             else{
+                print("Proximity: \(proximityPercent)")
                 self.sendRfidResponse(data: data)
             }
-        }
-        else{
-            self.sendRfidResponse(data: data)
-        }
-        
-        
-
+ 
     }
     
     func EventUserDidAuthenticate(_ isSuccess: Bool) {

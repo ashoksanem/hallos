@@ -9,6 +9,8 @@
 import Foundation
 import rfid_ios_fw
 
+
+
 class RfidUtils: NSObject {
     
     class func TranslateResultToStringResult(_ result:RFID_RESULT) -> String{
@@ -85,6 +87,9 @@ class RfidUtils: NSObject {
             return "FAILURE"
         }
     }
+    
+    
+    
     
 }
 

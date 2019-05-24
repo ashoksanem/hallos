@@ -917,10 +917,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     }
     
     func updateBattery() {
-        if let viewController:ViewController = window!.rootViewController as? ViewController
-        {
-            viewController.updateBattery();
-        }
+//        if let viewController:ViewController = window!.rootViewController as? ViewController
+//        {
+//            viewController.updateBattery();
+//        }
     }
   
     func autoLogout() {

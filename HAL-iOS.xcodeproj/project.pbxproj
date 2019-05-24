@@ -78,6 +78,7 @@
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
 		ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */; };
 		F9456D3922319F640038112F /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = F9456D3822319F640038112F /* HALApi */; };
+		F969074022821BFD0054FF21 /* RfidConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F969073F22821BFD0054FF21 /* RfidConstants.swift */; };
 		F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DD2C4219F133100B0E57D /* RFIDEngine.swift */; };
 		F993E15321E40F7300485FE5 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = F993E15121E40F7300485FE5 /* sso */; };
 		F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
@@ -211,6 +212,7 @@
 		F01A0AD9C8E731F41202C930 /* Pods-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSUITests/Pods-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9456D3822319F640038112F /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
+		F969073F22821BFD0054FF21 /* RfidConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RfidConstants.swift; sourceTree = "<group>"; };
 		F98DD2C4219F133100B0E57D /* RFIDEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDEngine.swift; sourceTree = "<group>"; };
 		F993E15121E40F7300485FE5 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
 		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = rfid_ios_fw.framework; path = "HAL-iOS/rfid_ios_fw.framework"; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				F9D0B4572255069E005AE3C2 /* RfidSoundManager.swift */,
 				85ECB247218B7EFD001F2D44 /* RfidUtils.swift */,
 				F98DD2C4219F133100B0E57D /* RFIDEngine.swift */,
+				F969073F22821BFD0054FF21 /* RfidConstants.swift */,
 			);
 			name = RFID;
 			sourceTree = "<group>";
@@ -811,6 +814,7 @@
 				CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */,
 				BCD2B8601F310C2700F3496D /* Encryption.swift in Sources */,
 				CC837B571E08341B00A14ECB /* KeychainWrapper.swift in Sources */,
+				F969074022821BFD0054FF21 /* RfidConstants.swift in Sources */,
 				BC96551A1F334FF1008D811F /* EESRequest.swift in Sources */,
 				8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */,
 				853DEFB21F2260B600BEDE1D /* PrinterViewController.swift in Sources */,

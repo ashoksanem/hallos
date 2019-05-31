@@ -10,6 +10,7 @@ import Foundation
 
 import rfid_ios_fw
 
+
 class RFIDEngine: NSObject, RfidSDKDelegate
 {
     var rfidClient = RfidSDK.shared()
@@ -19,17 +20,40 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     var isFPScanInProgress = false;
     var isSledSoundMute = false;
     let defaults = UserDefaults.standard
-    let CONST_SLED_VOLUME = "SledVolume"
+
     
+    var isProximityChanged = true;
+    var oldBucket:bucketType = bucketType.None
+    var newBucket:bucketType = bucketType.None
+    var inclFPRangeBucket = false;
+    var returnOnBucketChange = false;// if set true, return callback when there is change in range bucket. this help reduces # of callback
+    
+    var OutOfRange:(Int,Int)!
+    var BarelyInRange: (Int,Int)!
+    var Far : (Int,Int)!
+    var Near: (Int,Int)!
+    var VeryNear : (Int,Int)!
+    var RightOnTop : (Int,Int)!
+    var count = 0;
+    
+    private var RangeDefinition:[bucketType: (Int,Int)] = [
+        bucketType.OutOfRange:(0, 0),
+        bucketType.BarelyInRange:(1,10),
+        bucketType.Far :(11,29),
+        bucketType.Near : (30,54),
+        bucketType.VeryNear:(55,62),
+        bucketType.RightOnTop:(63,100)]
     
     
     func sendRfidResponse(data: [String : Any])
     {
-        let jsonData = try! JSONSerialization.data(withJSONObject: data, options: [])
-        let  rfidData = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
-        if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
-        {
-            viewController.sendRfidResponse(rfidData:rfidData);
+        DispatchQueue.main.async{
+            let jsonData = try! JSONSerialization.data(withJSONObject: data, options: [])
+            let  rfidData = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
+            if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
+            {
+                viewController.sendRfidResponse(rfidData:rfidData);
+            }
         }
     }
     
@@ -41,6 +65,8 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         }
         return RfidUtils.TranslateResultToStringResult(result);
     }
+    
+
     
     func disableRFID()
     {
@@ -64,12 +90,17 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         if let session = (data["session"] as? Int){
             switch( session){
             case 0: result = rfidClient.setReaderSession(.S0)
+                    defaults.set(READER_SESSION.S0.rawValue, forKey: CONST_SLED_SESSION)
             case 1: result = rfidClient.setReaderSession(.S1)
+                    defaults.set(READER_SESSION.S1.rawValue, forKey: CONST_SLED_SESSION)
             case 2: result = rfidClient.setReaderSession(.S2)
+                    defaults.set(READER_SESSION.S2.rawValue, forKey: CONST_SLED_SESSION)
             case 3: result = rfidClient.setReaderSession(.S3)
+                    defaults.set(READER_SESSION.S3.rawValue, forKey: CONST_SLED_SESSION)
             default: break;
             }
         }
+        defaults.synchronize()
         return RfidUtils.TranslateResultToStringResult(result)
     }
     
@@ -89,16 +120,22 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             switch vol {
             case "mute":
                 result = rfidClient.setReaderVolume(.MUTE);
+                defaults.set(VOLUME_LEVEL.MUTE.rawValue, forKey: CONST_SLED_VOLUME)
+
             case "low":
                 result = rfidClient.setReaderVolume(.LOW);
+                defaults.set(VOLUME_LEVEL.LOW.rawValue, forKey: CONST_SLED_VOLUME)
             case "medium":
                 result = rfidClient.setReaderVolume(.MEDIUM);
+                defaults.set(VOLUME_LEVEL.MEDIUM.rawValue, forKey: CONST_SLED_VOLUME)
             case "high":
                 result = rfidClient.setReaderVolume(.HIGH);
+                defaults.set(VOLUME_LEVEL.HIGH.rawValue, forKey: CONST_SLED_VOLUME)
             default:
                 return RfidUtils.TranslateResultToStringResult(RFID_RESULT.INVALID_PARAMS)
             }
         }
+        defaults.synchronize()
         return RfidUtils.TranslateResultToStringResult(result)
         
     }
@@ -166,6 +203,9 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     //TO BE FILL IN
     func openTagLocatingSession(data: NSDictionary)-> String{
         let upcList = (data["upcList"] as? [String]) ?? [];
+        
+        returnOnBucketChange = (data["onBucketChange"] as? Bool) ?? false;
+        print("openTagLocatingSession  size= \(upcList.count)")
         let result = rfidClient.findProductWorker?.openFindProductSession(upcList)
         
         //handle FP sounds. this can be removed when eliminating Tyco SDK
@@ -209,11 +249,9 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     func closeTagLocatingSession()-> String{
         let result = rfidClient.findProductWorker?.closeFindProductSession()
         RfidSoundManager.StopAllSounds()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.unmute()
-        }
+        self.unmute()
         
-        
+    
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
     }
     
@@ -285,6 +323,41 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         return RfidUtils.TranslateResultToStringResult(result ?? INVENTORY_RESULT.FAILURE)
     }
     
+    
+    
+    private func GetBucketType(p_rssi:Int ) -> bucketType{
+        
+        if(isProximityChanged){
+            OutOfRange = RangeDefinition[bucketType.OutOfRange]
+            BarelyInRange = RangeDefinition[bucketType.BarelyInRange]
+            Far = RangeDefinition[bucketType.Far]
+            Near = RangeDefinition[bucketType.Near]
+            VeryNear = RangeDefinition[bucketType.VeryNear]
+            RightOnTop = RangeDefinition[bucketType.RightOnTop]
+            isProximityChanged = false
+        }
+        
+        if(RightOnTop?.0)! <= p_rssi{
+            return bucketType.RightOnTop
+        }
+        else if(VeryNear?.0)! <= p_rssi{
+            return bucketType.VeryNear
+        }
+        else if(Near?.0)! <= p_rssi{
+            return bucketType.Near
+        }
+        else if(Far?.0)! <= p_rssi{
+            return bucketType.Far
+        }
+        else if(BarelyInRange?.0)! <= p_rssi{
+            return bucketType.BarelyInRange
+        }
+        else { return bucketType.OutOfRange
+        }
+        
+        
+    }
+    
     //MARK: PROTOCOL FUNCTIONS
     
     func EventTriggerNotify(pressed: Bool) {
@@ -350,21 +423,33 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     func EventFindProductDidLocateTag(tag: TagInfo, proximityPercent: Int) {
-        
+        newBucket = GetBucketType(p_rssi: proximityPercent);
         //handle FP sounds. this can be removed when eliminating Tyco SDK
-        let _ = isFPScanInProgress ?  RfidSoundManager.playSound(ProximityValue: proximityPercent) : RfidSoundManager.StopAllSounds()
-        
-        
-        //end
-        
-        
-        let data = [
+        let _ = isFPScanInProgress ?  RfidSoundManager.playSound(bucket: newBucket) : RfidSoundManager.StopAllSounds()
+        var date = Date()
+
+        var data = [
             "type": "EventFindProductDidLocateTag",
             "upc": tag.upc,
             "epc": tag.epc,
-            "proximity": proximityPercent
+            "proximity": proximityPercent,
+            "rangeBucket": "\(newBucket)",
             ] as [String : Any]
-        sendRfidResponse(data: data)
+        
+            if returnOnBucketChange {
+                if oldBucket.hashValue != newBucket.hashValue {
+                    oldBucket = newBucket;
+    
+                    print("upc: \(tag.upc) Proximity: \(proximityPercent) bucket: \(data["rangeBucket"])")
+                    self.sendRfidResponse(data: data)
+                }
+                    
+            }
+            else{
+                print("Proximity: \(proximityPercent)")
+                self.sendRfidResponse(data: data)
+            }
+ 
     }
     
     func EventUserDidAuthenticate(_ isSuccess: Bool) {

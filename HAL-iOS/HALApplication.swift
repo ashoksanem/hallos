@@ -89,12 +89,12 @@ class HALApplication: UIApplication {
     }
     
     func startChargingTimer(){
-        chargingTimer = Timer.scheduledTimer(timeInterval: TimeInterval(30), target: self, selector: #selector(self.enableCharging), userInfo: nil, repeats: true);
+//        chargingTimer = Timer.scheduledTimer(timeInterval: TimeInterval(30), target: self, selector: #selector(self.enableCharging), userInfo: nil, repeats: true);
 
     }
     
     func stopChargingTimer(){
-        chargingTimer.invalidate();
+//        chargingTimer.invalidate();
     }
     
     func update() {

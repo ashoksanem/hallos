@@ -36,63 +36,42 @@ class RfidSoundManager: NSObject {
     static var RightOnTopPlayer: AVAudioPlayer!
     
     //Define Soundtracks library
-    static let sounds = SoundLibary(OutOfRangeFile: "", BarelyInRangeFile: "1-Ping-VerySlow", FarFile: "1-Ping-Slow", NearFile: "1-Ping-Medium", VeryNearFile: "1-Ping-Fast", RightOnTopFile: "1-Ping-Insane")
+    static let sounds = SoundLibary(OutOfRangeFile: "", BarelyInRangeFile: "ping_0_rep", FarFile: "ping_1_rep", NearFile: "ping_2_rep", VeryNearFile: "ping_3_rep", RightOnTopFile: "ping_4_rep")
     
     static var isEnable = false
-    
+
     static var isPlaying = false
-    static var isProximityChanged = true;
     static var currentBucket:bucketType = bucketType.OutOfRange
-    
-    static var OutOfRange:(Int,Int)!
-    static var BarelyInRange: (Int,Int)!
-    static var Far : (Int,Int)!
-    static var Near: (Int,Int)!
-    static var VeryNear : (Int,Int)!
-    static var RightOnTop : (Int,Int)!
-    
-    
-    
-    enum bucketType {
-        case None
-        case OutOfRange
-        case BarelyInRange
-        case Far
-        case Near
-        case VeryNear
-        case RightOnTop
-    }
-    
-    static private var RangeDefinition:[bucketType: (Int,Int)] = [
-        bucketType.OutOfRange:(0, 0),
-        bucketType.BarelyInRange:(1,9),
-        bucketType.Far :(10,27),
-        bucketType.Near : (28,48),
-        bucketType.VeryNear:(49,79),
-        bucketType.RightOnTop:(80,100)]
-    
-    
+
     override init(){
         super.init()
         
         do{
             
-            let path = Bundle.main.path(forResource: RfidSoundManager.sounds.BarelyInRangeFile!, ofType: "wav")!
+            let path = Bundle.main.path(forResource: RfidSoundManager.sounds.BarelyInRangeFile!, ofType: "mp3")!
             let url = URL(fileURLWithPath: path)
             RfidSoundManager.BarelyInRangePlayer = try AVAudioPlayer(contentsOf: url)
             RfidSoundManager.BarelyInRangePlayer.numberOfLoops = -1;
+            RfidSoundManager.BarelyInRangePlayer.prepareToPlay()
             
-            RfidSoundManager.FarPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.FarFile!, ofType: "wav")!))
+            RfidSoundManager.FarPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.FarFile!, ofType: "mp3")!))
             RfidSoundManager.FarPlayer.numberOfLoops = -1;
+            RfidSoundManager.FarPlayer.prepareToPlay()
             
-            RfidSoundManager.NearPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.NearFile!, ofType: "wav")!))
+            RfidSoundManager.NearPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.NearFile!, ofType: "mp3")!))
             RfidSoundManager.NearPlayer.numberOfLoops = -1;
+            RfidSoundManager.NearPlayer.prepareToPlay()
             
-            RfidSoundManager.VeryNearPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.VeryNearFile!, ofType: "wav")!))
+            RfidSoundManager.VeryNearPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.VeryNearFile!, ofType: "mp3")!))
             RfidSoundManager.VeryNearPlayer.numberOfLoops = -1;
+            RfidSoundManager.VeryNearPlayer.prepareToPlay()
             
-            RfidSoundManager.RightOnTopPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.RightOnTopFile!, ofType: "wav")!))
+            RfidSoundManager.RightOnTopPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.RightOnTopFile!, ofType: "mp3")!))
             RfidSoundManager.RightOnTopPlayer.numberOfLoops = -1;
+            RfidSoundManager.RightOnTopPlayer.prepareToPlay()
+            
+        
+            
         }
         catch {
             print("ERROR: Could'nt load sound file")
@@ -103,131 +82,61 @@ class RfidSoundManager: NSObject {
     }
     
     
+    class func playSound(bucket: bucketType){
+            if(isEnable){
     
-    class func setProximitySetting(ProximityDef:[bucketType: (Int,Int)]){
-        
-        self.RangeDefinition = ProximityDef
-        isProximityChanged = true;
-    }
+                switch(bucket){
+                case .OutOfRange:
+                    if(!(isPlaying && currentBucket == bucketType.OutOfRange)){
+                        StopAllSounds()
+                        isPlaying = true
+                        currentBucket = bucketType.OutOfRange
+                    }
+                case .BarelyInRange:
+                    if(!(isPlaying && currentBucket == bucketType.BarelyInRange)){
+                        StopAllSounds()
+                        BarelyInRangePlayer.play()
+                        isPlaying = true
+                        currentBucket = bucketType.BarelyInRange
+                    }
+                case .Far:
+                    if(!(isPlaying && currentBucket == bucketType.Far)){
+                        StopAllSounds()
+                        FarPlayer.play()
+                        isPlaying = true
+                        currentBucket = bucketType.Far
+                    }
+                case .Near:
+                    if(!(isPlaying && currentBucket == bucketType.Near)){
+                        StopAllSounds()
+                        NearPlayer.play()
+                        isPlaying = true
+                        currentBucket = bucketType.Near
+                    }
     
-    class func getProximitySetting() -> [RfidSoundManager.bucketType: (Int,Int)]{
-        
-        return self.RangeDefinition
-        
-    }
-    /*
-     Returns bucket type based on proximity percentage
-     */
-    private class func GetBucketType(p_rssi:Int ) -> bucketType{
-        
-        if(isProximityChanged){
-            OutOfRange = RangeDefinition[bucketType.OutOfRange]
-            BarelyInRange = RangeDefinition[bucketType.BarelyInRange]
-            Far = RangeDefinition[bucketType.Far]
-            Near = RangeDefinition[bucketType.Near]
-            VeryNear = RangeDefinition[bucketType.VeryNear]
-            RightOnTop = RangeDefinition[bucketType.RightOnTop]
-            isProximityChanged = false
-        }
-        if(OutOfRange?.0)! <= p_rssi && p_rssi <= (OutOfRange?.1)!{
-            return bucketType.OutOfRange
-        }
-        else if(BarelyInRange?.0)! <= p_rssi && p_rssi <= (BarelyInRange?.1)!{
-            return bucketType.BarelyInRange
-        }
-        else if(Far?.0)! <= p_rssi && p_rssi <= (Far?.1)!{
-            return bucketType.Far
-        }
-        else if(Near?.0)! <= p_rssi && p_rssi <= (Near?.1)!{
-            return bucketType.Near
-        }
-        else if(VeryNear?.0)! <= p_rssi && p_rssi <= (VeryNear?.1)!{
-            return bucketType.VeryNear
-        }
-        else if(RightOnTop?.0)! <= p_rssi && p_rssi <= (RightOnTop?.1)!{
-            return bucketType.RightOnTop
-        }
-        
-        return bucketType.OutOfRange
-        
-    }
+                case .VeryNear:
+                    if(!(isPlaying && currentBucket == bucketType.VeryNear)){
+                        StopAllSounds()
+                        VeryNearPlayer.play()
+                        isPlaying = true
+                        currentBucket = bucketType.VeryNear
+                    }
+                case .RightOnTop:
+                    if(!(isPlaying && currentBucket == bucketType.RightOnTop)){
+                        StopAllSounds()
+                        RightOnTopPlayer.play()
+                        isPlaying = true
+                        currentBucket = bucketType.RightOnTop
+                    }
     
-    class func playSound(ProximityValue: Int){
-        if(isEnable){
-            
-            switch(GetBucketType(p_rssi: ProximityValue)){
-            case .OutOfRange:
-                if(!(isPlaying && currentBucket == bucketType.OutOfRange)){
+                default:
                     StopAllSounds()
-                    isPlaying = true
-                    currentBucket = bucketType.OutOfRange
+    
                 }
-            case .BarelyInRange:
-                if(!(isPlaying && currentBucket == bucketType.BarelyInRange)){
-                    StopAllSounds()
-                    BarelyInRangePlayer.play()
-                    isPlaying = true
-                    currentBucket = bucketType.BarelyInRange
-                }
-            case .Far:
-                if(!(isPlaying && currentBucket == bucketType.Far)){
-                    StopAllSounds()
-                    FarPlayer.play()
-                    isPlaying = true
-                    currentBucket = bucketType.Far
-                }
-            case .Near:
-                if(!(isPlaying && currentBucket == bucketType.Near)){
-                    StopAllSounds()
-                    NearPlayer.play()
-                    isPlaying = true
-                    currentBucket = bucketType.Near
-                }
-                
-            case .VeryNear:
-                if(!(isPlaying && currentBucket == bucketType.VeryNear)){
-                    StopAllSounds()
-                    VeryNearPlayer.play()
-                    isPlaying = true
-                    currentBucket = bucketType.VeryNear
-                }
-            case .RightOnTop:
-                if(!(isPlaying && currentBucket == bucketType.RightOnTop)){
-                    StopAllSounds()
-                    RightOnTopPlayer.play()
-                    isPlaying = true
-                    currentBucket = bucketType.RightOnTop
-                }
-                
-            default:
-                StopAllSounds()
-                
-                
             }
+    
         }
-        
-    }
-    
-    
-    
-    //    class func playSound(soundName: String)
-    //    {
-    //        if(isEnable){
-    //            do {
-    //                //soundName without extension
-    //                let path = Bundle.main.path(forResource: soundName, ofType: "wav")!
-    //                let url = URL(fileURLWithPath: path)
-    //
-    //                iPlayer = try AVAudioPlayer(contentsOf: url)
-    //                iPlayer.numberOfLoops = -1;
-    //                iPlayer.play()
-    //                isPlaying = true
-    //            } catch {
-    //                print("ERROR: Could'nt load \(soundName) file")
-    //            }
-    //        }
-    //    }
-    
+
     
     class func StopAllSounds(){
         if(isEnable){

@@ -47,13 +47,11 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     
     func sendRfidResponse(data: [String : Any])
     {
-        DispatchQueue.main.async{
-            let jsonData = try! JSONSerialization.data(withJSONObject: data, options: [])
-            let  rfidData = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
-            if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
-            {
-                viewController.sendRfidResponse(rfidData:rfidData);
-            }
+        let jsonData = try! JSONSerialization.data(withJSONObject: data, options: [])
+        let  rfidData = String(data: jsonData, encoding: String.Encoding.utf8) ?? ""
+        if let viewController:ViewController = UIApplication.shared.keyWindow?.rootViewController as? ViewController
+        {
+            viewController.sendRfidResponse(rfidData:rfidData);
         }
     }
     

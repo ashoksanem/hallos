@@ -66,7 +66,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "isFixedRegister",
                                          "queryMsgs",
                                          "getCRUInfo",
-                                         "promptForPin",
+                                         "displayForm",
+                                         "authRequest",
+                                         "getCardInquiry",
                                          "enableRfid",
                                          "disableRfid",
                                          "openInventorySession",
@@ -514,13 +516,25 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "getCRUInfo")
         {
             if let id = message.body as? String {
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, 'CRU not supported in iOS' )");
             }
         }
-        else if(message.name == "promptForPin")
+        else if(message.name == "displayForm")
         {
             if let id = message.body as? String {
-                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, 'Unable to prompt for PIN' )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, 'CRU not supported in iOS' )");
+            }
+        }
+        else if(message.name == "authRequest")
+        {
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, 'CRU not supported in iOS' )");
+            }
+        }
+        else if(message.name == "getCardInquiry")
+        {
+            if let id = message.body as? String {
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, 'CRU not supported in iOS' )");
             }
         }
         else if(message.name == "enableRfid")

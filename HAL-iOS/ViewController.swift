@@ -67,7 +67,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "queryMsgs",
                                          "getCRUInfo",
                                          "displayForm",
-                                         "authRequest",
+                                         "request",
                                          "getCardInquiry",
                                          "enableRfid",
                                          "disableRfid",
@@ -525,7 +525,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, 'CRU not supported in iOS' )");
             }
         }
-        else if(message.name == "authRequest")
+        else if(message.name == "request")
         {
             if let id = message.body as? String {
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, 'CRU not supported in iOS' )");

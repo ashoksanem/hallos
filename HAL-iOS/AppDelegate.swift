@@ -12,7 +12,7 @@ import SystemConfiguration.CaptiveNetwork
 
 //@UIApplicationMain
 class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
-
+    
     var window: UIWindow?;
     var sled: DTDevices?;
     let splashView = Bundle.main.loadNibNamed("SplashView", owner: self, options: nil)?.first as! UIView;
@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
         
         //_ = [][0]; force an app crash to test the crash reporter/crash logger
-
+        
         return true;
     }
     
@@ -118,21 +118,21 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         {
             return true;
         }
-
+        
         let ssids = currentSSIDs();
         
         for ssid in ssids {
             if( ssid == "FDS030A" ) ||
-              ( ssid == "FDS030B" ) ||
-              ( ssid == "FDS030C" ) ||
-              ( ssid == "MST030B" ) ||
-              ( ssid == "MST030A" ) ||
-              ( ssid == "MST030C" ) ||
-              ( ssid == "FDS030AZ" ) ||
-              ( ssid == "LAB030A" ) ||
-              ( ssid == "FDS010" ) ||  // starting to allow Hal on FDS010 for RFID. Need to remove all PCI aspects but don't know who is going to do that.
-              ( ssid == "FDS010" && CommonUtils.getisBYOD() ) ||  // used for QE testing on a dev build. Works in Production in BYOD
-              ( ssid == "MB030A" )
+                ( ssid == "FDS030B" ) ||
+                ( ssid == "FDS030C" ) ||
+                ( ssid == "MST030B" ) ||
+                ( ssid == "MST030A" ) ||
+                ( ssid == "MST030C" ) ||
+                ( ssid == "FDS030AZ" ) ||
+                ( ssid == "LAB030A" ) ||
+                ( ssid == "FDS010" ) ||  // starting to allow Hal on FDS010 for RFID. Need to remove all PCI aspects but don't know who is going to do that.
+                ( ssid == "FDS010" && CommonUtils.getisBYOD() ) ||  // used for QE testing on a dev build. Works in Production in BYOD
+                ( ssid == "MB030A" )
             {
                 return true;
             }
@@ -151,7 +151,11 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func readConfigurationParams() {
         ConfigurationManager.readMDMValues();
     }
-
+    
+    func disableAppIdle(_ flag : Bool){
+        UIApplication.shared.isIdleTimerDisabled = flag;
+    }
+    
     func currentSSIDs() -> [String] {
         guard let interfaceNames = CNCopySupportedInterfaces() as? [String] else {
             return []
@@ -187,11 +191,11 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         
         
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-
+        
         //CommonUtils.setIsSSOAuthenticated( value: false );
         //LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout by applicationDidEnterBackground.", type: "STRING", indexable: true);
         if let app = application as? HALApplication
@@ -215,12 +219,13 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         
         URLCache.shared.removeAllCachedResponses();
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
+        var isLoginRequired = false;
         let splashView = UIApplication.shared.keyWindow?.subviews.last?.viewWithTag(CommonUtils.bgSplashTag);
         splashView?.removeFromSuperview();
         verifyOSVersion(UIDevice.current.systemVersion); //kills app if iOS is between 11 & 11.2.4
@@ -245,15 +250,15 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 {
                     jail = "This application cannot run on this network. Remove this device from the selling floor immediately and open a ticket.";
                 }
-            
+                
                 // create the alert
                 let alertController = UIAlertController(title: "Network Error", message: jail, preferredStyle: UIAlertControllerStyle.alert);
-            
+                
                 // add an action (button)
                 alertController.addAction(UIAlertAction(title: "Settings", style: .default, handler: { action in
                     UIApplication.shared.openURL(URL(string:"App-Prefs:root=WIFI")!); //open settings app on WIFI screen
                 }));
-            
+                
                 // show the alert
                 viewController.present(alertController, animated: true, completion: nil);
             }
@@ -319,6 +324,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                     }
                     else if let viewController:ViewController = self.window!.rootViewController as? ViewController
                     {
+                        isLoginRequired=true;
+                        
                         let currentUrl = ViewController.webView?.url
                         if (!CommonUtils.isSSOPage(currentUrl))
                         {
@@ -362,17 +369,19 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             }
         }
         
-        //enable any active rfid actions if needed
-        if CommonUtils.getRFIDInvInProgress(){ rfidEngine.startInventory()}
-        if CommonUtils.getRFIDFPInProgress(){ rfidEngine.startTagLocating()}
-        if CommonUtils.getRFIDBCInProgress(){ rfidEngine.startScanningBarcode()}
+        if(!isLoginRequired){
+            //enable any active rfid actions if needed
+            if CommonUtils.getRFIDInvInProgress(){ rfidEngine.startInventory()}
+            if CommonUtils.getRFIDFPInProgress(){ rfidEngine.startTagLocating()}
+            if CommonUtils.getRFIDBCInProgress(){ rfidEngine.startScanningBarcode()}
+        }
     }
     
     func verifyAppVersion(version: String)
     {
         let currentStringList = Assembly.halVersion().components(separatedBy: ".");
         let appStringList = version.components(separatedBy: ".");
-
+        
         if( appStringList.count == 3 )
         {
             let currentMajor = atoi( currentStringList[0] );
@@ -381,10 +390,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             let appMajor = atoi( appStringList[0] );
             let appMinor = atoi( appStringList[1] );
             let appBuild = atoi( appStringList[2] );
-
+            
             if(( currentMajor > appMajor ) ||
-               ( currentMajor == appMajor && currentMinor > appMinor ) ||
-               ( currentMajor == appMajor && currentMinor == appMinor && currentBuild >= appBuild ) )
+                ( currentMajor == appMajor && currentMinor > appMinor ) ||
+                ( currentMajor == appMajor && currentMinor == appMinor && currentBuild >= appBuild ) )
             {
                 DLog("I'm newer? NICE.\n");
             }
@@ -394,15 +403,15 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 {
                     let message = "The application is out of date. Tap Update to install the latest version.";
                     DLog(message);
-
+                    
                     // create the alert
                     let alert = UIAlertController(title: "Update Required", message: message, preferredStyle: UIAlertControllerStyle.alert)
-
+                    
                     // add an action (button)
                     alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { action in
                         self.openMstAppStore();
                     }))
-
+                    
                     // show the alert
                     viewController.present(alert, animated: true, completion: nil)
                 }
@@ -414,7 +423,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     {
         var version = v;
         let versionArr = version.components(separatedBy: ".");
-
+        
         //verify we're comparing a version in the correct format
         switch versionArr.count {
         case 1:
@@ -446,7 +455,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func openMstAppStore()
     {
         let url = URL(string: "MacysAppStore://")!;
-    
+        
         if #available(iOS 10.0, *)
         {
             UIApplication.shared.open(url, options: [:], completionHandler: nil);
@@ -488,8 +497,8 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             }
         };
         //lvl4 isn't yet needed for the simulator but I'll leave this here just in case
-//        might need to add LP4 to the above array
-    
+        //        might need to add LP4 to the above array
+        
         CommonUtils.isPreProd() ? Heap.setAppId("282132961") : Heap.setAppId("1675328291");   //282132961 = development  1675328291 = production
         //Heap.enableVisualizer();  // let's keep this here for future research but don't want it turned on now.
     }
@@ -504,9 +513,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             // Fallback on earlier versions
         }
     }
-
+    
     // MARK: - Core Data stack
-
+    
     @available(iOS 10.0, *)
     lazy var persistentContainer: NSPersistentContainer = {
         /*
@@ -514,13 +523,13 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
          creates and returns a container, having loaded the store for the
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
-        */
+         */
         let container = NSPersistentContainer(name: "HAL_iOS");
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
+                
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -535,9 +544,9 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         })
         return container;
     }()
-
+    
     // MARK: - Core Data Saving support
-
+    
     @available(iOS 10.0, *)
     func saveContext () {
         let context = persistentContainer.viewContext;
@@ -576,7 +585,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     {
         return ( sled?.connstate == 2 );
     }
-
+    
     func isLineaCharging() -> Bool
     {
         if( isLineaConnected() )
@@ -600,7 +609,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         if( isLineaConnected() )
         {
             //DLog( @"Charging switched to %s with rc of %s\n", chargeFlag ? "true":"false", [sled setCharging:chargeFlag error:nil] ? "true":"false" );
-
+            
             do {
                 try sled?.setCharging( val );
             }
@@ -656,12 +665,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func updateBarcodeData(barcode: String)
     {
         /*if(CommonUtils.isScanEnabled())
-        {
-            if let viewController:ViewController = window!.rootViewController as? ViewController
-            {
-                viewController.updateBarcodeData(barcode: barcode);
-            }
-        }*/
+         {
+         if let viewController:ViewController = window!.rootViewController as? ViewController
+         {
+         viewController.updateBarcodeData(barcode: barcode);
+         }
+         }*/
         
         if let printerViewController:PrinterViewController = window!.rootViewController?.presentedViewController as? PrinterViewController
         {
@@ -675,7 +684,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         else if let viewController:ViewController = window!.rootViewController as? ViewController        {
             viewController.updateBarcodeData(barcode: barcode)
         }
-
+        
     }
     
     func connectionState(_ state: Int32) {
@@ -694,7 +703,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             
             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: val, type: "STRING", indexable: true);
             LoggingRequest.logData(name: LoggingRequest.metrics_info, value: eMSRversion, type: "STRING", indexable: true);
-
+            
             LoggingRequest.logData(name: "Sled_Firmware_Version", value: (sled?.firmwareRevision)!, type: "STRING", indexable: true);
             LoggingRequest.logData(name: "eMSR_Version", value: getSledEmsrFirmwareVersion(), type: "STRING", indexable: true);
             
@@ -727,7 +736,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             {
                 disableMsr();
             }
-
+            
             //disableMsr();
         }
         else {
@@ -767,17 +776,17 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
      */
     func emsrGenerateKeyData(keyID: Int32, keyVersion: Int32, keyData: [UInt8], kekData: [UInt8]?) -> [UInt8]
     {
-//        //pull it out in hex
-//        let string = NSMutableString(capacity: keyData.count * 2);
-//        var byteArray = keyData.map { $0 as! UInt8 };
-//        for i in 0 ..< keyData.count {
-//            string.appendFormat("%02X", byteArray[i]);
-//        }
-//        NSLog("keyId %d  keyVersion %d: %@", keyID, keyVersion, string);
+        //        //pull it out in hex
+        //        let string = NSMutableString(capacity: keyData.count * 2);
+        //        var byteArray = keyData.map { $0 as! UInt8 };
+        //        for i in 0 ..< keyData.count {
+        //            string.appendFormat("%02X", byteArray[i]);
+        //        }
+        //        NSLog("keyId %d  keyVersion %d: %@", keyID, keyVersion, string);
         
         var data: [UInt8] = [];
         var junk : Int32 = keyVersion;
-        let versionBytes = NSData(bytes: &junk, length: MemoryLayout.size(ofValue: junk) ).getBytes();        
+        let versionBytes = NSData(bytes: &junk, length: MemoryLayout.size(ofValue: junk) ).getBytes();
         
         data.append(0x2b);
         //key to encrypt with, either KEY_AES256_LOADING or 0xff to use plain text
@@ -812,12 +821,12 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             data = hashed;
         }
         
-//        let string2 = NSMutableString(capacity: data.count * 2);
-//        for i in 0 ..< data.count {
-//            string2.appendFormat("%02X", data[i]);
-//        }
-//        NSLog("data: %@", string2);
-
+        //        let string2 = NSMutableString(capacity: data.count * 2);
+        //        for i in 0 ..< data.count {
+        //            string2.appendFormat("%02X", data[i]);
+        //        }
+        //        NSLog("data: %@", string2);
+        
         return data;
     }
     
@@ -836,7 +845,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
     func attachBackgroundSplash()
     {
         splashView.tag = CommonUtils.bgSplashTag;
-         UIApplication.shared.keyWindow?.subviews.last?.addSubview(splashView);
+        UIApplication.shared.keyWindow?.subviews.last?.addSubview(splashView);
     }
     
     func enableScanner()
@@ -847,7 +856,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 isOn = rfidEngine.enableBarcodeReader(enable: true) == "SUCCESS" ? true : false
             }
             else{
-            try sled?.barcodeSetScanButtonMode(BUTTON_STATES.ENABLED.rawValue)
+                try sled?.barcodeSetScanButtonMode(BUTTON_STATES.ENABLED.rawValue)
                 isOn = true;
             }
             
@@ -855,7 +864,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
         catch {
             DLog("Enable scanner error: " + String(describing:error));
-           
+            
         }
     }
     
@@ -868,7 +877,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 isOn = rfidEngine.enableBarcodeReader(enable: false) == "SUCCESS" ? false : true
             }
             else{
-            try sled?.barcodeSetScanButtonMode(BUTTON_STATES.DISABLED.rawValue)
+                try sled?.barcodeSetScanButtonMode(BUTTON_STATES.DISABLED.rawValue)
                 isOn = false;
             }
             CommonUtils.setScanEnabled(value: isOn);
@@ -892,7 +901,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         }
         return 0;
     }
-   
+    
     func getSledEmsrFirmwareVersion() -> String
     {
         if( isLineaConnected() )
@@ -922,7 +931,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             viewController.updateBattery();
         }
     }
-  
+    
     func autoLogout() {
         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "Associate logout due to inactivity.", type: "STRING", indexable: true);
         Heap.track("AssociateLogout", withProperties:[AnyHashable("reason"):"inactivity",
@@ -932,7 +941,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                                                       AnyHashable("storeNum"):CommonUtils.getStoreNum()]);
         
         CommonUtils.setIsSSOAuthenticated( value: false );
-        
+        rfidEngine.handleAppTimeOut();
         if let viewController:ViewController = window!.rootViewController as? ViewController
         {
             viewController.loadWebView(url: CommonUtils.getLandingPage() );
@@ -1001,10 +1010,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             {
                 var retries = 4;
                 let newKekData = [UInt8](getKek().utf8);
-
+                
                 repeat
                 {
-                    // Brian note: I just realized we don't handle changing the KEK, which is probably fine. We also don't need to inject the KEK every single 
+                    // Brian note: I just realized we don't handle changing the KEK, which is probably fine. We also don't need to inject the KEK every single
                     // time if it hasn't changed. When that day comes that we do change the KEK we'll have to save the old KEK to encrypt the new KEK before
                     // injecting it. Since we haven't done that in the last 8 years I'm not going to worry about it yet.
                     
@@ -1027,10 +1036,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                     {
                         LoggingRequest.logData(name: LoggingRequest.metrics_error, value: "Unable to get MSR KEK key version.", type: "STRING", indexable: true);
                     }
-
+                    
                     //DLog("MSR KEK key version: " + String( msrKekVer ) );
                     //DLog("MSR AES key version: " + String( msrAesVer ) );
-
+                    
                     if( msrKekVer == getKekVersion() )
                     {
                         //We loaded the KEK, and there was much rejoicing
@@ -1044,21 +1053,21 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                             key = Encryption.shared.getDailyAesKey()!;
                             keyVersion = Encryption.shared.getDailyAesKeyVersion();
                         }
-
+                        
                         //DLog("AES key version: " + String( keyVersion ) );
-
+                        
                         //still overwrite with default key, in case switched stores
                         /*//don't overwrite previous daily key with default key
-                        if( keyVersion == 1 && msrAesVer > 1 )
-                        {
-                            //DLog("AES key version loaded on MSR is " + String( msrAesVer ) + ", skipping overwriting with default key.");
-                            LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "AES key version loaded on MSR is " + String( msrAesVer ) + ", skipping overwriting with default key.", type: "STRING", indexable: true);
-                            break;
-                        }*/
-
+                         if( keyVersion == 1 && msrAesVer > 1 )
+                         {
+                         //DLog("AES key version loaded on MSR is " + String( msrAesVer ) + ", skipping overwriting with default key.");
+                         LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "AES key version loaded on MSR is " + String( msrAesVer ) + ", skipping overwriting with default key.", type: "STRING", indexable: true);
+                         break;
+                         }*/
+                        
                         //DLog("Injected key version: " + String( CommonUtils.getInjectedKeyVersion() ) );
                         //DLog("Daily AES key version: " + String( Encryption.shared.getDailyAesKeyVersion() ) );
-
+                        
                         if( CommonUtils.getInjectedKeyVersion() == 0 ||
                             CommonUtils.getInjectedKeyVersion() != Encryption.shared.getDailyAesKeyVersion() )  //set injected key version idiot
                         {
@@ -1066,11 +1075,11 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                             {
                                 //still load the key even if the version is the same, in case switched stores
                                 /*if( keyVersion == msrAesVer )
-                                {
-                                    //DLog("AES key version loaded on MSR is already " + String( msrAesVer ) + ", skipping load.");
-                                    LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "AES key version loaded on MSR is already " + String( msrAesVer ) + ", skipping load.", type: "STRING", indexable: true);
-                                }*/
-
+                                 {
+                                 //DLog("AES key version loaded on MSR is already " + String( msrAesVer ) + ", skipping load.");
+                                 LoggingRequest.logData(name: LoggingRequest.metrics_info, value: "AES key version loaded on MSR is already " + String( msrAesVer ) + ", skipping load.", type: "STRING", indexable: true);
+                                 }*/
+                                
                                 //DLog("Setting injected key version to " + String( keyVersion ) );
                                 CommonUtils.setInjectedKeyVersion( value: keyVersion );
                                 break;
@@ -1115,13 +1124,13 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
             }
         }
     }
-
+    
     func magneticCardEncryptedData(_ encryption: Int32, tracks: Int32, data: Data!, track1masked: String!, track2masked: String!, track3: String!, source: Int32) {
         let cardData = data ?? Data.init();
         
-//        let decrypted = AESDecryptWithKey(data: data as NSData, key: getDefaultAESKey().getNSData() as NSData );
-//        let decryptedBytes = decrypted?.getBytes();
-//        let encryptedBytes = data.getBytes();
+        //        let decrypted = AESDecryptWithKey(data: data as NSData, key: getDefaultAESKey().getNSData() as NSData );
+        //        let decryptedBytes = decrypted?.getBytes();
+        //        let encryptedBytes = data.getBytes();
         
         var keyVersion : Int32? = (-1);
         do {

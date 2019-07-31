@@ -34,15 +34,16 @@ class RfidSoundManager: NSObject {
     static var NearPlayer: AVAudioPlayer!
     static var VeryNearPlayer: AVAudioPlayer!
     static var RightOnTopPlayer: AVAudioPlayer!
-    
+    static var beepPlayer: AVAudioPlayer!
+    static var scanBeepPlayer: AVAudioPlayer!
     //Define Soundtracks library
-    static let sounds = SoundLibary(OutOfRangeFile: "", BarelyInRangeFile: "ping_0_rep", FarFile: "ping_1_rep", NearFile: "ping_2_rep", VeryNearFile: "ping_3_rep", RightOnTopFile: "ping_4_rep")
+    static let sounds = SoundLibary(OutOfRangeFile: "", BarelyInRangeFile: "ping_0_rep", FarFile: "ping_1_rep", NearFile: "ping_2_rep", VeryNearFile: "ping_3_rep", RightOnTopFile: "ping_4_rep", BeepFile:"ding",ScanBeepFile:"beepin")
     
     static var isEnable = false
-
+    
     static var isPlaying = false
     static var currentBucket:bucketType = bucketType.OutOfRange
-
+    
     override init(){
         super.init()
         
@@ -70,7 +71,12 @@ class RfidSoundManager: NSObject {
             RfidSoundManager.RightOnTopPlayer.numberOfLoops = -1;
             RfidSoundManager.RightOnTopPlayer.prepareToPlay()
             
-        
+            RfidSoundManager.beepPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.BeepFile!, ofType: "wav")!))
+            RfidSoundManager.beepPlayer.prepareToPlay()
+            
+            RfidSoundManager.scanBeepPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: Bundle.main.path(forResource: RfidSoundManager.sounds.ScanBeepFile!, ofType: "mp3")!))
+            RfidSoundManager.scanBeepPlayer.prepareToPlay()
+            
             
         }
         catch {
@@ -81,62 +87,70 @@ class RfidSoundManager: NSObject {
         
     }
     
+    class func playBeepSound(){
+        beepPlayer.play();
+    }
+    
+    class func playScanBeepSound(){
+        scanBeepPlayer.play();
+    }
+    
     
     class func playSound(bucket: bucketType){
-            if(isEnable){
-    
-                switch(bucket){
-                case .OutOfRange:
-                    if(!(isPlaying && currentBucket == bucketType.OutOfRange)){
-                        StopAllSounds()
-                        isPlaying = true
-                        currentBucket = bucketType.OutOfRange
-                    }
-                case .BarelyInRange:
-                    if(!(isPlaying && currentBucket == bucketType.BarelyInRange)){
-                        StopAllSounds()
-                        BarelyInRangePlayer.play()
-                        isPlaying = true
-                        currentBucket = bucketType.BarelyInRange
-                    }
-                case .Far:
-                    if(!(isPlaying && currentBucket == bucketType.Far)){
-                        StopAllSounds()
-                        FarPlayer.play()
-                        isPlaying = true
-                        currentBucket = bucketType.Far
-                    }
-                case .Near:
-                    if(!(isPlaying && currentBucket == bucketType.Near)){
-                        StopAllSounds()
-                        NearPlayer.play()
-                        isPlaying = true
-                        currentBucket = bucketType.Near
-                    }
-    
-                case .VeryNear:
-                    if(!(isPlaying && currentBucket == bucketType.VeryNear)){
-                        StopAllSounds()
-                        VeryNearPlayer.play()
-                        isPlaying = true
-                        currentBucket = bucketType.VeryNear
-                    }
-                case .RightOnTop:
-                    if(!(isPlaying && currentBucket == bucketType.RightOnTop)){
-                        StopAllSounds()
-                        RightOnTopPlayer.play()
-                        isPlaying = true
-                        currentBucket = bucketType.RightOnTop
-                    }
-    
-                default:
+        if(isEnable){
+            
+            switch(bucket){
+            case .OutOfRange:
+                if(!(isPlaying && currentBucket == bucketType.OutOfRange)){
                     StopAllSounds()
-    
+                    isPlaying = true
+                    currentBucket = bucketType.OutOfRange
                 }
+            case .BarelyInRange:
+                if(!(isPlaying && currentBucket == bucketType.BarelyInRange)){
+                    StopAllSounds()
+                    BarelyInRangePlayer.play()
+                    isPlaying = true
+                    currentBucket = bucketType.BarelyInRange
+                }
+            case .Far:
+                if(!(isPlaying && currentBucket == bucketType.Far)){
+                    StopAllSounds()
+                    FarPlayer.play()
+                    isPlaying = true
+                    currentBucket = bucketType.Far
+                }
+            case .Near:
+                if(!(isPlaying && currentBucket == bucketType.Near)){
+                    StopAllSounds()
+                    NearPlayer.play()
+                    isPlaying = true
+                    currentBucket = bucketType.Near
+                }
+                
+            case .VeryNear:
+                if(!(isPlaying && currentBucket == bucketType.VeryNear)){
+                    StopAllSounds()
+                    VeryNearPlayer.play()
+                    isPlaying = true
+                    currentBucket = bucketType.VeryNear
+                }
+            case .RightOnTop:
+                if(!(isPlaying && currentBucket == bucketType.RightOnTop)){
+                    StopAllSounds()
+                    RightOnTopPlayer.play()
+                    isPlaying = true
+                    currentBucket = bucketType.RightOnTop
+                }
+                
+            default:
+                StopAllSounds()
+                
             }
-    
         }
-
+        
+    }
+    
     
     class func StopAllSounds(){
         if(isEnable){
@@ -148,6 +162,8 @@ class RfidSoundManager: NSObject {
                 NearPlayer.stop()
                 VeryNearPlayer.stop()
                 RightOnTopPlayer.stop()
+                beepPlayer.stop()
+                scanBeepPlayer.stop()
                 currentBucket = bucketType.None
                 isPlaying = false
             }
@@ -156,6 +172,9 @@ class RfidSoundManager: NSObject {
             }
         }
     }
+    
+    
+    
     
     
     //You have to create your own queue or if you need the Default queue
@@ -175,14 +194,18 @@ class SoundLibary:NSObject{
     var NearFile:String?
     var VeryNearFile:String?
     var RightOnTopFile:String?
+    var BeepFile:String?
+    var ScanBeepFile:String?
     
-    init(OutOfRangeFile:String, BarelyInRangeFile:String, FarFile:String, NearFile:String, VeryNearFile:String, RightOnTopFile:String){
+    init(OutOfRangeFile:String, BarelyInRangeFile:String, FarFile:String, NearFile:String, VeryNearFile:String, RightOnTopFile:String, BeepFile:String, ScanBeepFile:String){
         self.OutOfRangeFile = OutOfRangeFile
         self.BarelyInRangeFile = BarelyInRangeFile
         self.FarFile = FarFile
         self.NearFile = NearFile
         self.VeryNearFile = VeryNearFile
         self.RightOnTopFile = RightOnTopFile
+        self.BeepFile = BeepFile
+        self.ScanBeepFile = ScanBeepFile;
     }
     
     override init(){

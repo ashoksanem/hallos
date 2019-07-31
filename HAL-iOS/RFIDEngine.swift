@@ -20,7 +20,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     var isFPScanInProgress = false;
     var isSledSoundMute = false;
     let defaults = UserDefaults.standard
-
+    
     
     var isProximityChanged = true;
     var oldBucket:bucketType = bucketType.None
@@ -35,6 +35,10 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     var VeryNear : (Int,Int)!
     var RightOnTop : (Int,Int)!
     var count = 0;
+    
+    var oldTagCount = 0;
+    var firstTimeUpdate = true;
+    
     
     private var RangeDefinition:[bucketType: (Int,Int)] = [
         bucketType.OutOfRange:(0, 0),
@@ -55,20 +59,33 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         }
     }
     
+    func handleAppTimeOut(){
+        stopInventory()
+        stopTagLocating()
+        
+    }
+    
+    
     func enableRFID() -> String
     {
         var result = rfidClient.establishConnection()
         if result == .SUCCESS{
             rfidClient.addDelegate(self)
+            
+            //TODO: remove this when using zebraSDK
+            RfidSoundManager.init()
+            RfidSoundManager.isEnable = true;
+            
         }
         return RfidUtils.TranslateResultToStringResult(result);
     }
     
-
+    
     
     func disableRFID()
     {
         rfidClient.removeDelegate(self)
+        rfidClient.closeConnection()
     }
     
     func establishComm(data:NSDictionary, completion: ((Bool) -> Void)? ){
@@ -88,13 +105,13 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         if let session = (data["session"] as? Int){
             switch( session){
             case 0: result = rfidClient.setReaderSession(.S0)
-                    defaults.set(READER_SESSION.S0.rawValue, forKey: CONST_SLED_SESSION)
+            defaults.set(READER_SESSION.S0.rawValue, forKey: CONST_SLED_SESSION)
             case 1: result = rfidClient.setReaderSession(.S1)
-                    defaults.set(READER_SESSION.S1.rawValue, forKey: CONST_SLED_SESSION)
+            defaults.set(READER_SESSION.S1.rawValue, forKey: CONST_SLED_SESSION)
             case 2: result = rfidClient.setReaderSession(.S2)
-                    defaults.set(READER_SESSION.S2.rawValue, forKey: CONST_SLED_SESSION)
+            defaults.set(READER_SESSION.S2.rawValue, forKey: CONST_SLED_SESSION)
             case 3: result = rfidClient.setReaderSession(.S3)
-                    defaults.set(READER_SESSION.S3.rawValue, forKey: CONST_SLED_SESSION)
+            defaults.set(READER_SESSION.S3.rawValue, forKey: CONST_SLED_SESSION)
             default: break;
             }
         }
@@ -119,7 +136,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             case "mute":
                 result = rfidClient.setReaderVolume(.MUTE);
                 defaults.set(VOLUME_LEVEL.MUTE.rawValue, forKey: CONST_SLED_VOLUME)
-
+                
             case "low":
                 result = rfidClient.setReaderVolume(.LOW);
                 defaults.set(VOLUME_LEVEL.LOW.rawValue, forKey: CONST_SLED_VOLUME)
@@ -207,8 +224,6 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         let result = rfidClient.findProductWorker?.openFindProductSession(upcList)
         
         //handle FP sounds. this can be removed when eliminating Tyco SDK
-        RfidSoundManager.init()
-        RfidSoundManager.isEnable = true;
         mute()
         //end
         
@@ -220,6 +235,10 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         if let result = rfidClient.findProductWorker?.startFindProduct(){
             if result == .SUCCESS {
                 isFPScanInProgress = true;
+                if let delegate = UIApplication.shared.delegate as? AppDelegate
+                {
+                    delegate.disableAppIdle(true)
+                }
             }
             return RfidUtils.TranslateResultToStringResult(result)
         }
@@ -238,6 +257,10 @@ class RFIDEngine: NSObject, RfidSDKDelegate
                 isFPScanInProgress = false;
                 
                 RfidSoundManager.StopAllSounds()
+                if let delegate = UIApplication.shared.delegate as? AppDelegate
+                {
+                    delegate.disableAppIdle(false)
+                }
             }
             return RfidUtils.TranslateResultToStringResult(result)
         }
@@ -249,7 +272,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         RfidSoundManager.StopAllSounds()
         self.unmute()
         
-    
+        
         return RfidUtils.TranslateResultToStringResult(result ?? FIND_PRODUCT_RESULT.FAILURE)
     }
     
@@ -275,9 +298,17 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     //MARK: INVENTORY WORKFLOW
     func openInventorySession(data:NSDictionary) -> String{
         let tableName = (data["tableName"] as? String) ?? "";
+        oldTagCount = 0 ;
         if(tableName != "")
         {
             var result = rfidClient.inventoryWorker?.openInventorySession(withTableName: tableName)
+            
+            if result == INVENTORY_RESULT.SUCCESS{
+                mute()
+                
+                firstTimeUpdate = true;
+            }
+            
             return RfidUtils.TranslateResultToStringResult(result ?? INVENTORY_RESULT.FAILURE)
         }
         else
@@ -300,6 +331,10 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         if let result = rfidClient.inventoryWorker?.startInventory(){
             if result == .SUCCESS {
                 isINVScanInProgress = true;
+                if let delegate = UIApplication.shared.delegate as? AppDelegate
+                {
+                    delegate.disableAppIdle(true)
+                }
             }
             return RfidUtils.TranslateResultToStringResult(result)
         }
@@ -310,6 +345,10 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         if let result = rfidClient.inventoryWorker?.stopInventory(){
             if result == .SUCCESS {
                 isINVScanInProgress = false;
+                if let delegate = UIApplication.shared.delegate as? AppDelegate
+                {
+                    delegate.disableAppIdle(false)
+                }
             }
             return RfidUtils.TranslateResultToStringResult(result)
         }
@@ -317,11 +356,20 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     func closeInventorySession() -> String {
+        unmute()
         let result = rfidClient.inventoryWorker?.closeInventorySession()
         return RfidUtils.TranslateResultToStringResult(result ?? INVENTORY_RESULT.FAILURE)
     }
     
     
+    func playBeepSound(){
+        RfidSoundManager.playBeepSound();
+        
+    }
+    func playScanBeepSound(){
+        RfidSoundManager.playScanBeepSound();
+        
+    }
     
     private func GetBucketType(p_rssi:Int ) -> bucketType{
         
@@ -373,6 +421,11 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     func EventInventorySessionDidOpen(_ isSuccess: Bool, withSessionId: String, isSessionOwner: Bool) {
+        //reset old tag count for sound purpose
+        if isSuccess {
+            oldTagCount = 0;
+        }
+        
         let data = [
             "type": "EventInventorySessionDidOpen",
             "status": isSuccess,
@@ -421,11 +474,12 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     func EventFindProductDidLocateTag(tag: TagInfo, proximityPercent: Int) {
+        
         newBucket = GetBucketType(p_rssi: proximityPercent);
         //handle FP sounds. this can be removed when eliminating Tyco SDK
         let _ = isFPScanInProgress ?  RfidSoundManager.playSound(bucket: newBucket) : RfidSoundManager.StopAllSounds()
         var date = Date()
-
+        
         var data = [
             "type": "EventFindProductDidLocateTag",
             "upc": tag.upc,
@@ -434,20 +488,24 @@ class RFIDEngine: NSObject, RfidSDKDelegate
             "rangeBucket": "\(newBucket)",
             ] as [String : Any]
         
-            if returnOnBucketChange {
-                if oldBucket.hashValue != newBucket.hashValue {
-                    oldBucket = newBucket;
-    
+        if returnOnBucketChange {
+            if oldBucket.hashValue != newBucket.hashValue {
+                oldBucket = newBucket;
+                DispatchQueue.global(qos: .background).async {
+                    
                     print("upc: \(tag.upc) Proximity: \(proximityPercent) bucket: \(data["rangeBucket"])")
                     self.sendRfidResponse(data: data)
                 }
-                    
             }
-            else{
+            
+        }
+        else{
+            DispatchQueue.global(qos: .background).async {
                 print("Proximity: \(proximityPercent)")
                 self.sendRfidResponse(data: data)
             }
- 
+        }
+        
     }
     
     func EventUserDidAuthenticate(_ isSuccess: Bool) {
@@ -459,6 +517,14 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     }
     
     func EventInventoryLocalTagCountDidChange(localTagCount: Int) {
+        
+        //play scan beep
+        if oldTagCount != localTagCount && !firstTimeUpdate{
+            RfidSoundManager.playScanBeepSound()
+        }
+        oldTagCount = localTagCount;
+        firstTimeUpdate = false;
+        
         let data = [
             "type": "EventInventoryLocalTagCountDidChange",
             "localTagCount": localTagCount

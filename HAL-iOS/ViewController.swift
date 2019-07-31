@@ -86,7 +86,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "getRfidDeviceStatus",
                                          "setRfidPowerLevel",
                                          "setRfidVolumeLevel",
-                                         "setRfidReaderSession"
+                                         "setRfidReaderSession",
+                                         "playBeepSound",
+                                         "playScanBeepSound"
         ];
         
         for message in messageHandlers
@@ -157,8 +159,8 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         if(!CommonUtils.isDefaultLandingPage(url))
         {
             //let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app.
-          //  url = URL(string: "http://a4820735:3000/")!
-
+            //  url = URL(string: "http://a4820735:3000/")!
+            
             //url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
             loadWebView(url: url);
         }
@@ -575,22 +577,22 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 let result = rfidEngine.startInventory()
                 let boolStr = result.lowercased() == "success" ? "true": "false"
                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
-                }
+            }
         }
         else if(message.name == "stopInventory")
         {
-              if let id = message.body as? String {
-                 let result = rfidEngine.stopInventory()
-                 let boolStr = result.lowercased() == "success" ? "true": "false"
-                 evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+            if let id = message.body as? String {
+                let result = rfidEngine.stopInventory()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         else if(message.name == "clearInventorySession")
         {
             if let id = message.body as? String {
-               let result = rfidEngine.clearInventorySession()
-               let boolStr = result.lowercased() == "success" ? "true": "false"
-               evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                let result = rfidEngine.clearInventorySession()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         else if(message.name == "saveInventorySession")
@@ -631,6 +633,20 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
                     }
                 }
+            }
+        }
+        else if(message.name == "playBeepSound")
+        {
+            if let id = message.body as? String {
+                rfidEngine.playBeepSound();
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
+            }
+        }
+        else if(message.name == "playScanBeepSound")
+        {
+            if let id = message.body as? String {
+                rfidEngine.playScanBeepSound();
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, true )");
             }
         }
         else if(message.name == "openTagLocatingSession")
@@ -680,7 +696,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         else if(message.name == "getRfidDeviceStatus")
         {
             if let id = message.body as? String {
-               evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + rfidEngine.getRfidDeviceStatus() + " )");
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, " + rfidEngine.getRfidDeviceStatus() + " )");
             }
         }
         else if(message.name == "setRfidPowerLevel")
@@ -836,7 +852,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         //        evaluateJavaScript(javascriptMessage: callback);
         evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"scanCallback\", false, \"" + barcode + "\" )");
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }
@@ -851,7 +867,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
     
     func updateBattery() {
         if(Sled.isConnected()) {
-            sledBatteryView?.text = Sled.getSledBatteryLevel()+"%🔋";
+            sledBatteryView?.text = Sled.getSledBatteryLevel()+"%�";
         }
         else {
             sledBatteryView?.text = "";

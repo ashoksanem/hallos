@@ -65,7 +65,6 @@
 		CC41EF301DB54D6B0059C7C5 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF271DB54D6B0059C7C5 /* Error.swift */; };
 		CC41EF321DB54D6B0059C7C5 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */; };
 		CC41EF341DB54D6B0059C7C5 /* SSORequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */; };
-		CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */ = {isa = PBXBuildFile; fileRef = CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */; };
 		CC41EF381DB54E070059C7C5 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */; };
 		CC50DB261DCA21AF00A46576 /* Sled.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC50DB251DCA21AF00A46576 /* Sled.swift */; };
 		CC6EEEAE1DBFE374003D895B /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6EEEAD1DBFE374003D895B /* ExternalAccessory.framework */; };
@@ -77,6 +76,8 @@
 		CCDDD15F1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json in Resources */ = {isa = PBXBuildFile; fileRef = CCDDD15E1E1D828A00B2B6F1 /* logAnalyticsIncorrectData.json */; };
 		CCF7E0AB1DD395D1007C4010 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF7E0AA1DD395D1007C4010 /* SharedContainer.swift */; };
 		ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */; };
+		F933D21622F0C9B100FECBBE /* ding.wav in Resources */ = {isa = PBXBuildFile; fileRef = F933D21522F0C9B100FECBBE /* ding.wav */; };
+		F933D21822F0C9BC00FECBBE /* beepin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F933D21722F0C9BC00FECBBE /* beepin.mp3 */; };
 		F9456D3922319F640038112F /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = F9456D3822319F640038112F /* HALApi */; };
 		F969074022821BFD0054FF21 /* RfidConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F969073F22821BFD0054FF21 /* RfidConstants.swift */; };
 		F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DD2C4219F133100B0E57D /* RFIDEngine.swift */; };
@@ -211,6 +212,8 @@
 		DBC30386354F22573AAEE8BF /* Pods-HAL-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		F01A0AD9C8E731F41202C930 /* Pods-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOSUITests/Pods-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F933D21522F0C9B100FECBBE /* ding.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ding.wav; sourceTree = "<group>"; };
+		F933D21722F0C9BC00FECBBE /* beepin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beepin.mp3; sourceTree = "<group>"; };
 		F9456D3822319F640038112F /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
 		F969073F22821BFD0054FF21 /* RfidConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RfidConstants.swift; sourceTree = "<group>"; };
 		F98DD2C4219F133100B0E57D /* RFIDEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDEngine.swift; sourceTree = "<group>"; };
@@ -452,6 +455,8 @@
 		F93020A42254FC6A00A6F100 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				F933D21722F0C9BC00FECBBE /* beepin.mp3 */,
+				F933D21522F0C9B100FECBBE /* ding.wav */,
 				F9F7124122736AC8004157ED /* ping_0_rep.mp3 */,
 				F9F7124222736AC8004157ED /* ping_1_rep.mp3 */,
 				F9F7123E22736AC7004157ED /* ping_2_rep.mp3 */,
@@ -607,12 +612,13 @@
 				BC25B5151F27B8BE0028E81F /* default.html in Resources */,
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
+				F933D21822F0C9BC00FECBBE /* beepin.mp3 in Resources */,
 				F9456D3922319F640038112F /* HALApi in Resources */,
-				CC41EF361DB54D6B0059C7C5 /* ssosuccess.json in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
 				BCD2B85E1F31094300F3496D /* Encryption in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
 				F9F7124522736AC8004157ED /* ping_4_rep.mp3 in Resources */,
+				F933D21622F0C9B100FECBBE /* ding.wav in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				85DDE7081EEB171500700EFC /* Certificates in Resources */,
 				F993E15321E40F7300485FE5 /* sso in Resources */,

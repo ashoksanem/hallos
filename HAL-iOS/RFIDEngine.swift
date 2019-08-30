@@ -11,7 +11,7 @@ import Foundation
 import rfid_ios_fw
 
 
-class RFIDEngine: NSObject, RfidSDKDelegate
+class RFIDEngine: NSObject, RfidSDKDelegate, WriteTagDelegate
 {
     var rfidClient = RfidSDK.shared()
     var isBCScannerEnable = false;
@@ -71,7 +71,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         var result = rfidClient.establishConnection()
         if result == .SUCCESS{
             rfidClient.addDelegate(self)
-            
+            rfidClient.writeTagWorker?.addDelegate(self)
             //TODO: remove this when using zebraSDK
             RfidSoundManager.init()
             RfidSoundManager.isEnable = true;
@@ -85,6 +85,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate
     func disableRFID()
     {
         rfidClient.removeDelegate(self)
+	rfidClient.writeTagWorker?.removeDelegate(self)
         rfidClient.closeConnection()
     }
     
@@ -370,6 +371,39 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         RfidSoundManager.playScanBeepSound();
         
     }
+    //********************WriteTag fucnations *******************//
+    //OpenWriteTagSession
+    
+    func openWriteTagSession(data:NSDictionary) -> String{
+        let timeOut = data["timeOut"] as? Int
+        let withRetry = data["withRetry"]as? Int
+        let storeGuid = (data["storeGuid"] as? String) ?? "";
+        let forwaredZoneGuid = (data["forwardZoneGuid"] as? String) ?? "";
+        let writeZoneGuid = (data["writeZoneGuid"] as? String) ?? "";
+        let userId = (data["userId"] as? String) ?? "";
+        let host = (data["host"] as? String) ?? "";
+        let port = (data["port"] as? Int)
+        
+        let result = rfidClient.writeTagWorker?.openWriteTagSession(timeOut:timeOut!, withRetry: withRetry!,userId: userId ,storeGuid: storeGuid, forwardZoneGuid: forwaredZoneGuid, writeZoneGuid: writeZoneGuid, host: host , port : port!)
+        return RfidUtils.TranslateResultToStringResult(result!)
+    }
+    
+    //start WriteTag
+    func startWriteTag(data:NSDictionary){
+        let upcBarcode = (data["upcBarcode"] as? String) ?? "";
+        let epcBarcode = (data["epcBarcode"] as? String) ?? "";
+        
+        if (upcBarcode != "" && epcBarcode != ""){
+            let result = rfidClient.writeTagWorker?.startWriteTag(upcBarcode: upcBarcode, epcBarcode: epcBarcode)
+            //return RfidUtils.
+        }
+    }
+    
+    //start closeWriteTag
+    func closeWriteTagSession() -> String{
+        let result = rfidClient.writeTagWorker?.closeWriteSession()
+        return RfidUtils.TranslateResultToStringResult(result!)
+    }
     
     private func GetBucketType(p_rssi:Int ) -> bucketType{
         
@@ -548,6 +582,17 @@ class RFIDEngine: NSObject, RfidSDKDelegate
         sendRfidResponse(data: data)
     }
     
+    
+        //writeTagProtocoal
+    
+    func EventWriteTagDidWrite(data: [String : Any]) {
+        let data = [
+            "type": "EventWriteTagDidWrite",
+            "status": data["status"],
+            "newEpc": data["newEpc"]
+            ] as [String : Any]
+        sendRfidResponse(data: data)
+    }
     
     
 }

@@ -214,7 +214,7 @@
 		</data>
 		<key>Headers/rfid_ios_fw-Swift.h</key>
 		<data>
-		0CvfAsXw7nQCxF1WYWbJ4neNCHI=
+		Dek99a4dm+VSogoTz8Fl6g2FNUg=
 		</data>
 		<key>Headers/rfid_ios_fw.h</key>
 		<data>
@@ -234,7 +234,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		1SLNG7fd1XP7UKVdTMglKVfAUTs=
+		XjU+zTCJ9Tyx3gSYzSOaLlPBkyw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -242,19 +242,19 @@
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm.swiftdoc</key>
 		<data>
-		CrGltAwO33lMBEFVx3Sz5Zxs0m0=
+		9DJHD7FbdqeCssPN8OunlnEDxog=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm.swiftmodule</key>
 		<data>
-		8tTTvFVG6X0KUXyrKRhOPRogY0Y=
+		BmyXuLuOl0XYCqws+gDjz9T8F3k=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		lMzrdQqbD+B3FX3uCl17koUXvm4=
+		FDmewqcj0P0NAhgi/7M/RNjZG6M=
 		</data>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		rIf6pHWbuHFOlTtu7baHb9g3H60=
+		wpdKZ5aDEKa6UVAGzKFPqAeBuxA=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -835,11 +835,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0CvfAsXw7nQCxF1WYWbJ4neNCHI=
+			Dek99a4dm+VSogoTz8Fl6g2FNUg=
 			</data>
 			<key>hash2</key>
 			<data>
-			XrUwOKu3Ybqbg9zRBJWWi/eDyGZRYvL+FpWTSDe5Puw=
+			RF79pdScgVFtg79RKuj7DtFPE4xy+ZFdbjo9ANljVIA=
 			</data>
 		</dict>
 		<key>Headers/rfid_ios_fw.h</key>
@@ -901,44 +901,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			CrGltAwO33lMBEFVx3Sz5Zxs0m0=
+			9DJHD7FbdqeCssPN8OunlnEDxog=
 			</data>
 			<key>hash2</key>
 			<data>
-			styLMuTVw2gjA6cYJJeAXtJ2qImiCDfQwNtXzpfJx8k=
+			eoO3zvwt0aD9/pFVaJuPqFSvs8m5jlzpY8U6YYL7OCw=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			8tTTvFVG6X0KUXyrKRhOPRogY0Y=
+			BmyXuLuOl0XYCqws+gDjz9T8F3k=
 			</data>
 			<key>hash2</key>
 			<data>
-			N3X2Jp2ZYX1EBcFedsu6t74HPM2JdwqYAIjOdhbr+v0=
+			4pfC3T0xJNRew3w6XTPVSMzezl1ZkO5f6ksQq+5j/ms=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			lMzrdQqbD+B3FX3uCl17koUXvm4=
+			FDmewqcj0P0NAhgi/7M/RNjZG6M=
 			</data>
 			<key>hash2</key>
 			<data>
-			T9TxqzLwSjp32m639w/57Xm2cjt9DN3ChCVNF0pKXn8=
+			Tj0vcrRw0SuAflMTYS38oPw/RuIWOcCAdMSOlGj2RC8=
 			</data>
 		</dict>
 		<key>Modules/rfid_ios_fw.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			rIf6pHWbuHFOlTtu7baHb9g3H60=
+			wpdKZ5aDEKa6UVAGzKFPqAeBuxA=
 			</data>
 			<key>hash2</key>
 			<data>
-			s1ZdTDXfB29xHVZ+ZO5hLVlBbTQZ0c1iC2IpaA59qe8=
+			hutuzPkHROMzpf1rjenR6mRchETtLyDXDWff6reBodo=
 			</data>
 		</dict>
 	</dict>

@@ -88,7 +88,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                                          "setRfidVolumeLevel",
                                          "setRfidReaderSession",
                                          "playBeepSound",
-                                         "playScanBeepSound"
+                                         "playScanBeepSound",
+                                         "openWriteTagSession",
+                                         "startWriteTag",
+                                         "closeWriteTagSession"
         ];
         
         for message in messageHandlers
@@ -159,9 +162,9 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         if(!CommonUtils.isDefaultLandingPage(url))
         {
             //let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app.
-            //  url = URL(string: "http://a4820735:3000/")!
-            
-           // url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
+            // url = URL(string: "http://a4820735:3000/")!
+              // url = URL(string: "http://a4731569:30300")!
+        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
             loadWebView(url: url);
         }
         else
@@ -747,6 +750,54 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
                 }
             }
         }
+        else if(message.name == "openWriteTagSession")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        let result = rfidEngine.openWriteTagSession(data: data)
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                    }
+                }
+            }
+        }
+        else if(message.name == "startWriteTag")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        let result = rfidEngine.startWriteTag(data: data)
+                        //let boolStr = result. == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false )");
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                    }
+                }
+            }
+        }
+        else if(message.name == "closeWriteTagSession")
+        {
+            if let _data = message.body as? NSDictionary {
+                if let id = _data["handle"] as? String {
+                    if let data = _data["data"] as? NSDictionary {
+                        let result = rfidEngine.closeWriteTagSession()
+                        let boolStr = result.lowercased() == "success" ? "true": "false"
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
+                    }
+                    else
+                    {
+                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
+                    }
+                }
+            }
+        }
         
     }
     func sendRfidResponse(rfidData: String)
@@ -857,7 +908,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         super.didReceiveMemoryWarning();
     }
     
-    func orientationChanged() {
+    @objc func orientationChanged() {
         if (UIApplication.shared.isStatusBarHidden) {
             ViewController.webView?.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height);
         } else {

@@ -183,6 +183,10 @@ class RFIDEngine: NSObject, RfidSDKDelegate, WriteTagDelegate
         return String(rfidClient.getReaderStatus()?.batteryLevel ?? 0 );
     }
     
+    
+    
+    
+    
     //MARK: FIND PRODUCT SOUND HANDLER
     //special handling case for FP sounds since Tyco SDK FP
     //issue: sled is beeping around rfid tags even though none of the tag is belong to the list
@@ -393,9 +397,13 @@ class RFIDEngine: NSObject, RfidSDKDelegate, WriteTagDelegate
         let upcBarcode = (data["upcBarcode"] as? String) ?? "";
         let epcBarcode = (data["epcBarcode"] as? String) ?? "";
         
+        
+        if let delegate = UIApplication.shared.delegate as? AppDelegate
+        {
         if (upcBarcode != "" && epcBarcode != ""){
             let result = rfidClient.writeTagWorker?.startWriteTag(upcBarcode: upcBarcode, epcBarcode: epcBarcode)
-            //return RfidUtils.
+                delegate.disableAppIdle(true)
+            }
         }
     }
     
@@ -404,6 +412,7 @@ class RFIDEngine: NSObject, RfidSDKDelegate, WriteTagDelegate
         let result = rfidClient.writeTagWorker?.closeWriteSession()
         return RfidUtils.TranslateResultToStringResult(result!)
     }
+    
     
     private func GetBucketType(p_rssi:Int ) -> bucketType{
         

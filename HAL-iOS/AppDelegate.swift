@@ -148,7 +148,7 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
         return false;
     }
     
-    func readConfigurationParams() {
+  @objc func readConfigurationParams() {
         ConfigurationManager.readMDMValues();
     }
     

@@ -20,8 +20,8 @@
 		85ECB24A218B7EFD001F2D44 /* RfidUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ECB247218B7EFD001F2D44 /* RfidUtils.swift */; };
 		9E59B9A6232032CD00C50805 /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
 		9E59B9A7232032CD00C50805 /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9E70B204231F4F1E00EE4AD3 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = 9E70B203231F4F1E00EE4AD3 /* sso */; };
-		9E70B208231F4FF300EE4AD3 /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = 9E70B207231F4FF300EE4AD3 /* HALApi */; };
+		9EEEEDB42326C60F00116416 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = 9EEEEDB32326C60F00116416 /* sso */; };
+		9EEEEDB82326D5C700116416 /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = 9EEEEDB72326D5C700116416 /* HALApi */; };
 		A91A7471A3B481F9F4225248 /* Pods_HAL_iOS_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */; };
 		BC03A54E21246D1F00D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
 		BC03A54F21246D3500D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
@@ -142,8 +142,8 @@
 		85CCB4131F22649C0088BD5D /* sampleBarcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sampleBarcode.png; path = "Project Files/sampleBarcode.png"; sourceTree = "<group>"; };
 		85DDE7071EEB171500700EFC /* Certificates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Certificates; sourceTree = "<group>"; };
 		85ECB247218B7EFD001F2D44 /* RfidUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RfidUtils.swift; sourceTree = "<group>"; };
-		9E70B203231F4F1E00EE4AD3 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
-		9E70B207231F4FF300EE4AD3 /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HALApi; sourceTree = "<group>"; };
+		9EEEEDB32326C60F00116416 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
+		9EEEEDB72326D5C700116416 /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
 		A76AC9536786AC17D6303564 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC174CC91F02DDB0005FBA9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -311,8 +311,8 @@
 		BCD698231DB7B91400F856CE /* Git Projects */ = {
 			isa = PBXGroup;
 			children = (
-				9E70B207231F4FF300EE4AD3 /* HALApi */,
-				9E70B203231F4F1E00EE4AD3 /* sso */,
+				9EEEEDB72326D5C700116416 /* HALApi */,
+				9EEEEDB32326C60F00116416 /* sso */,
 			);
 			name = "Git Projects";
 			sourceTree = "<group>";
@@ -599,9 +599,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB8CA561F3A52AD008EA783 /* Settings.bundle in Resources */,
-				9E70B204231F4F1E00EE4AD3 /* sso in Resources */,
+				9EEEEDB42326C60F00116416 /* sso in Resources */,
 				851C7F8B207C14BE00F4D5AF /* SplashView.xib in Resources */,
-				9E70B208231F4FF300EE4AD3 /* HALApi in Resources */,
+				9EEEEDB82326D5C700116416 /* HALApi in Resources */,
 				F9F7124422736AC8004157ED /* ping_3_rep.mp3 in Resources */,
 				F9F7124322736AC8004157ED /* ping_2_rep.mp3 in Resources */,
 				48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */,

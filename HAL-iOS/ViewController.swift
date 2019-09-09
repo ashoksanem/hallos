@@ -164,7 +164,7 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
             //let url = URL(string: "http://11.120.166.30:10100/purchase")!; //for debugging local web app.
             // url = URL(string: "http://a4820735:3000/")!
               // url = URL(string: "http://a4731569:30300")!
-        url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
+            url = Bundle.main.url(forResource: "HALApi/test", withExtension:"html")!; //for debugging hal api.
             loadWebView(url: url);
         }
         else
@@ -784,18 +784,10 @@ class ViewController: UIViewController, DTDeviceDelegate, WKScriptMessageHandler
         }
         else if(message.name == "closeWriteTagSession")
         {
-            if let _data = message.body as? NSDictionary {
-                if let id = _data["handle"] as? String {
-                    if let data = _data["data"] as? NSDictionary {
-                        let result = rfidEngine.closeWriteTagSession()
-                        let boolStr = result.lowercased() == "success" ? "true": "false"
-                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
-                    }
-                    else
-                    {
-                        evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, false )");
-                    }
-                }
+            if let id = message.body as? String {
+                let result = rfidEngine.closeWriteTagSession()
+                let boolStr = result.lowercased() == "success" ? "true": "false"
+                evaluateJavaScript(javascriptMessage: "window.onMessageReceive(\"" + id + "\", false, "+boolStr+" )");
             }
         }
         

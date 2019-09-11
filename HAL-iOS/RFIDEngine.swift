@@ -389,6 +389,12 @@ class RFIDEngine: NSObject, RfidSDKDelegate, WriteTagDelegate
         let port = (data["port"] as? Int)
         
         let result = rfidClient.writeTagWorker?.openWriteTagSession(timeOut:timeOut!, withRetry: withRetry!,userId: userId ,storeGuid: storeGuid, forwardZoneGuid: forwaredZoneGuid, writeZoneGuid: writeZoneGuid, host: host , port : port!)
+        if result == .SUCCESS {
+            if let delegate = UIApplication.shared.delegate as? AppDelegate
+            {
+                delegate.disableAppIdle(true)
+            }
+        }
         return RfidUtils.TranslateResultToStringResult(result!)
     }
     
@@ -397,19 +403,20 @@ class RFIDEngine: NSObject, RfidSDKDelegate, WriteTagDelegate
         let upcBarcode = (data["upcBarcode"] as? String) ?? "";
         let epcBarcode = (data["epcBarcode"] as? String) ?? "";
         
-        
-        if let delegate = UIApplication.shared.delegate as? AppDelegate
-        {
         if (upcBarcode != "" && epcBarcode != ""){
             let result = rfidClient.writeTagWorker?.startWriteTag(upcBarcode: upcBarcode, epcBarcode: epcBarcode)
-                delegate.disableAppIdle(true)
-            }
         }
     }
     
     //start closeWriteTag
     func closeWriteTagSession() -> String{
         let result = rfidClient.writeTagWorker?.closeWriteSession()
+        if result == .SUCCESS {
+            if let delegate = UIApplication.shared.delegate as? AppDelegate
+            {
+                delegate.disableAppIdle(false)
+            }
+        }
         return RfidUtils.TranslateResultToStringResult(result!)
     }
     

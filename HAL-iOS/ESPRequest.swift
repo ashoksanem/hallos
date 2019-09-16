@@ -13,6 +13,7 @@ class ESPRequest: NSObject, URLSessionDelegate,URLSessionDataDelegate,URLSession
     func getParms( _ parms:Array<String>, onCompletion: @escaping (_ result: String) -> Void )
     {
         let timeSinceLastParms = CommonUtils.getLastTimeParmsWereRetrieved().timeIntervalSinceNow * -1;
+        
         let thirtyMinutes = 1*30*60 as Double; //30 minutes
         
         if((timeSinceLastParms < thirtyMinutes && ConfigurationManager.hasCriticalParms()) || CommonUtils.getisBYOD())

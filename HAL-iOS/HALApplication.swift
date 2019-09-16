@@ -97,7 +97,7 @@ class HALApplication: UIApplication {
         chargingTimer.invalidate();
     }
     
-    func update() {
+    @objc func update() {
         
         DLog("autologout");
         let delegate = UIApplication.shared.delegate as? AppDelegate;
@@ -106,7 +106,7 @@ class HALApplication: UIApplication {
         //CommonUtils.setIsSSOAuthenticated( value: false );
     }
     
-    func checkNetworkConnectivity() {
+    @objc func checkNetworkConnectivity() {
         
         DLog("Check network");
         if(!isInternetAvailable()){
@@ -114,7 +114,7 @@ class HALApplication: UIApplication {
         }
     }
     
-    func logStoredData() {
+    @objc func logStoredData() {
         
         DLog("Send stored logs to server");
         LogAnalyticsRequest.logStoredData();
@@ -122,14 +122,14 @@ class HALApplication: UIApplication {
         DataForwarder.forwardStoredData()
     }
     
-    func updateBattery() {
+    @objc func updateBattery() {
         
         DLog("Update Sled battery");
         let delegate = UIApplication.shared.delegate as? AppDelegate;
         delegate?.updateBattery();
     }
     
-    func enableCharging() {
+    @objc func enableCharging() {
         if(Sled.isConnected()) {
             
             DLog("Enable charging from sled");
@@ -160,7 +160,7 @@ class HALApplication: UIApplication {
         return (isReachable && !needsConnection);
     }
     
-    func sendStoredJS() {
+    @objc func sendStoredJS() {
        
         if( ViewController.storedJS.count > 0 )
         {

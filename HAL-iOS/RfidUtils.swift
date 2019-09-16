@@ -88,6 +88,23 @@ class RfidUtils: NSObject {
         }
     }
     
+  
+    class func TranslateResultToStringResult(_ result: WRITETAG_RESULT) -> String {
+        switch result {
+        case .SUCCESS:
+            return "SUCCESS"
+        case .FAILURE:
+            return "FAILURE"
+        case .NO_OPEN_SESSION:
+            return "NO_OPEN_SESSION"
+        case .TAG_NOT_FOUND:
+            return "TAG_NOT_FOUND"
+        case .INVALID_TAG_LENGTH:
+            return "INVALID_TAG_LENGHT"
+        default:
+            return "FAILURE"
+        }
+    }
     
     
     

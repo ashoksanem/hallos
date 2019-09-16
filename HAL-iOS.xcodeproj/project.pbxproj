@@ -18,6 +18,10 @@
 		85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 85CCB4131F22649C0088BD5D /* sampleBarcode.png */; };
 		85DDE7081EEB171500700EFC /* Certificates in Resources */ = {isa = PBXBuildFile; fileRef = 85DDE7071EEB171500700EFC /* Certificates */; };
 		85ECB24A218B7EFD001F2D44 /* RfidUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85ECB247218B7EFD001F2D44 /* RfidUtils.swift */; };
+		9E59B9A6232032CD00C50805 /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
+		9E59B9A7232032CD00C50805 /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9EEEEDB42326C60F00116416 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = 9EEEEDB32326C60F00116416 /* sso */; };
+		9EEEEDB82326D5C700116416 /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = 9EEEEDB72326D5C700116416 /* HALApi */; };
 		A91A7471A3B481F9F4225248 /* Pods_HAL_iOS_HAL_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */; };
 		BC03A54E21246D1F00D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
 		BC03A54F21246D3500D9CD4F /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC484D9A1E854B820057610A /* CrashReporter.framework */; };
@@ -78,12 +82,8 @@
 		ECD8545528B9C2E46D53DAE7 /* Pods_HAL_iOS_HAL_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */; };
 		F933D21622F0C9B100FECBBE /* ding.wav in Resources */ = {isa = PBXBuildFile; fileRef = F933D21522F0C9B100FECBBE /* ding.wav */; };
 		F933D21822F0C9BC00FECBBE /* beepin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F933D21722F0C9BC00FECBBE /* beepin.mp3 */; };
-		F9456D3922319F640038112F /* HALApi in Resources */ = {isa = PBXBuildFile; fileRef = F9456D3822319F640038112F /* HALApi */; };
 		F969074022821BFD0054FF21 /* RfidConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F969073F22821BFD0054FF21 /* RfidConstants.swift */; };
 		F98DD2C5219F133100B0E57D /* RFIDEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DD2C4219F133100B0E57D /* RFIDEngine.swift */; };
-		F993E15321E40F7300485FE5 /* sso in Resources */ = {isa = PBXBuildFile; fileRef = F993E15121E40F7300485FE5 /* sso */; };
-		F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; };
-		F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F9D0B4582255069E005AE3C2 /* RfidSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D0B4572255069E005AE3C2 /* RfidSoundManager.swift */; };
 		F9F7124322736AC8004157ED /* ping_2_rep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F9F7123E22736AC7004157ED /* ping_2_rep.mp3 */; };
 		F9F7124422736AC8004157ED /* ping_3_rep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F9F7123F22736AC7004157ED /* ping_3_rep.mp3 */; };
@@ -110,13 +110,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		9EC1AC30218B8E4A008BE05E /* Embed Frameworks */ = {
+		9E59B9A8232032CD00C50805 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F9A42C0221CB03920039D43C /* rfid_ios_fw.framework in Embed Frameworks */,
+				9E59B9A7232032CD00C50805 /* rfid_ios_fw.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,6 +142,8 @@
 		85CCB4131F22649C0088BD5D /* sampleBarcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sampleBarcode.png; path = "Project Files/sampleBarcode.png"; sourceTree = "<group>"; };
 		85DDE7071EEB171500700EFC /* Certificates */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Certificates; sourceTree = "<group>"; };
 		85ECB247218B7EFD001F2D44 /* RfidUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RfidUtils.swift; sourceTree = "<group>"; };
+		9EEEEDB32326C60F00116416 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
+		9EEEEDB72326D5C700116416 /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
 		A76AC9536786AC17D6303564 /* Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC174CC71F02DDA4005FBA9A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BC174CC91F02DDB0005FBA9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -195,7 +197,6 @@
 		CC41EF271DB54D6B0059C7C5 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		CC41EF291DB54D6B0059C7C5 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
 		CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSORequest.swift; sourceTree = "<group>"; };
-		CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ssosuccess.json; sourceTree = "<group>"; };
 		CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		CC43DCB41DD39AD000CC4BD2 /* HAL-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HAL-iOS.entitlements"; sourceTree = "<group>"; };
 		CC50DB251DCA21AF00A46576 /* Sled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sled.swift; sourceTree = "<group>"; };
@@ -214,10 +215,8 @@
 		F8E6E3AC92FE0CAFDEECCD5C /* Pods_HAL_iOS_HAL_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F933D21522F0C9B100FECBBE /* ding.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ding.wav; sourceTree = "<group>"; };
 		F933D21722F0C9BC00FECBBE /* beepin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beepin.mp3; sourceTree = "<group>"; };
-		F9456D3822319F640038112F /* HALApi */ = {isa = PBXFileReference; lastKnownFileType = folder; name = HALApi; path = "Git Projects/HALApi"; sourceTree = "<group>"; };
 		F969073F22821BFD0054FF21 /* RfidConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RfidConstants.swift; sourceTree = "<group>"; };
 		F98DD2C4219F133100B0E57D /* RFIDEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RFIDEngine.swift; sourceTree = "<group>"; };
-		F993E15121E40F7300485FE5 /* sso */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sso; path = "Git Projects/sso"; sourceTree = "<group>"; };
 		F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = rfid_ios_fw.framework; path = "HAL-iOS/rfid_ios_fw.framework"; sourceTree = "<group>"; };
 		F9D0B4572255069E005AE3C2 /* RfidSoundManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RfidSoundManager.swift; sourceTree = "<group>"; };
 		F9F7123E22736AC7004157ED /* ping_2_rep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ping_2_rep.mp3; sourceTree = "<group>"; };
@@ -235,7 +234,7 @@
 			files = (
 				BCD2B8651F311B1900F3496D /* libcrypto.a in Frameworks */,
 				BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */,
-				F9A42C0121CB03920039D43C /* rfid_ios_fw.framework in Frameworks */,
+				9E59B9A6232032CD00C50805 /* rfid_ios_fw.framework in Frameworks */,
 				BC174CD21F02DDDB005FBA9A /* UIKit.framework in Frameworks */,
 				BC174CD01F02DDD2005FBA9A /* SystemConfiguration.framework in Frameworks */,
 				BC174CCE1F02DDCA005FBA9A /* Security.framework in Frameworks */,
@@ -312,8 +311,8 @@
 		BCD698231DB7B91400F856CE /* Git Projects */ = {
 			isa = PBXGroup;
 			children = (
-				F9456D3822319F640038112F /* HALApi */,
-				F993E15121E40F7300485FE5 /* sso */,
+				9EEEEDB72326D5C700116416 /* HALApi */,
+				9EEEEDB32326C60F00116416 /* sso */,
 			);
 			name = "Git Projects";
 			sourceTree = "<group>";
@@ -397,7 +396,6 @@
 				CC50DB251DCA21AF00A46576 /* Sled.swift */,
 				851C7F8A207C14BE00F4D5AF /* SplashView.xib */,
 				CC41EF2B1DB54D6B0059C7C5 /* SSORequest.swift */,
-				CC41EF2D1DB54D6B0059C7C5 /* ssosuccess.json */,
 				CC41EF371DB54E070059C7C5 /* SwiftyJSON.swift */,
 				BCE513551F1D0EA40060CAB8 /* Utils.swift */,
 				CC2585621D9AF71C00294506 /* ViewController.swift */,
@@ -489,8 +487,7 @@
 				CC25855A1D9AF71C00294506 /* Frameworks */,
 				CC25855B1D9AF71C00294506 /* Resources */,
 				2ECF74AC60F146BB4403F3F2 /* [CP] Embed Pods Frameworks */,
-				DDB9727A42E151C80F075BAF /* [CP] Copy Pods Resources */,
-				9EC1AC30218B8E4A008BE05E /* Embed Frameworks */,
+				9E59B9A8232032CD00C50805 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -510,7 +507,6 @@
 				CC2585711D9AF71C00294506 /* Frameworks */,
 				CC2585721D9AF71C00294506 /* Resources */,
 				1DE753F7B5FD0D555046339A /* [CP] Embed Pods Frameworks */,
-				F0557628881B0C46EAB9B5BD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -531,7 +527,6 @@
 				CC25857C1D9AF71C00294506 /* Frameworks */,
 				CC25857D1D9AF71C00294506 /* Resources */,
 				067D28A02B211A72FB48550B /* [CP] Embed Pods Frameworks */,
-				DFD17882537E088F9D4CA2CA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -604,7 +599,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB8CA561F3A52AD008EA783 /* Settings.bundle in Resources */,
+				9EEEEDB42326C60F00116416 /* sso in Resources */,
 				851C7F8B207C14BE00F4D5AF /* SplashView.xib in Resources */,
+				9EEEEDB82326D5C700116416 /* HALApi in Resources */,
 				F9F7124422736AC8004157ED /* ping_3_rep.mp3 in Resources */,
 				F9F7124322736AC8004157ED /* ping_2_rep.mp3 in Resources */,
 				48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */,
@@ -613,7 +610,6 @@
 				85CCB4141F22649C0088BD5D /* sampleBarcode.png in Resources */,
 				BC7461E71E40E5B700F4A359 /* Cobranding.png in Resources */,
 				F933D21822F0C9BC00FECBBE /* beepin.mp3 in Resources */,
-				F9456D3922319F640038112F /* HALApi in Resources */,
 				CC25856E1D9AF71C00294506 /* LaunchScreen.storyboard in Resources */,
 				BCD2B85E1F31094300F3496D /* Encryption in Resources */,
 				CC25856B1D9AF71C00294506 /* Assets.xcassets in Resources */,
@@ -621,7 +617,6 @@
 				F933D21622F0C9B100FECBBE /* ding.wav in Resources */,
 				BCD6982B1DB7C34600F856CE /* icons in Resources */,
 				85DDE7081EEB171500700EFC /* Certificates in Resources */,
-				F993E15321E40F7300485FE5 /* sso in Resources */,
 				BC22EE621E203A8300C3F597 /* LOCN.json in Resources */,
 				CC2585661D9AF71C00294506 /* Main.storyboard in Resources */,
 				F9F7124622736AC8004157ED /* ping_0_rep.mp3 in Resources */,
@@ -654,7 +649,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Base64/Base64.framework",
 				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
 			);
@@ -665,7 +660,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		1DE753F7B5FD0D555046339A /* [CP] Embed Pods Frameworks */ = {
@@ -674,7 +669,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Base64/Base64.framework",
 				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
 			);
@@ -685,7 +680,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2ECF74AC60F146BB4403F3F2 /* [CP] Embed Pods Frameworks */ = {
@@ -694,7 +689,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Base64/Base64.framework",
 				"${BUILT_PRODUCTS_DIR}/JWT/JWT.framework",
 			);
@@ -705,7 +700,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		60F1AC6C4E0F62CC3DD60263 /* [CP] Check Pods Manifest.lock */ = {
@@ -742,51 +737,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DDB9727A42E151C80F075BAF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DFD17882537E088F9D4CA2CA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F0557628881B0C46EAB9B5BD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSTests/Pods-HAL-iOS-HAL-iOSTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FE5A3661F5D3FFEB6F7D2920 /* [CP] Check Pods Manifest.lock */ = {
@@ -1019,7 +969,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 85122EDC5C642EA6B46A0C1B /* Pods-HAL-iOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1051,13 +1000,13 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.tutapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HAL-iOS/sled/HAL-iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1066,7 +1015,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DBC30386354F22573AAEE8BF /* Pods-HAL-iOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1098,12 +1046,12 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.tutapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HAL-iOS/sled/HAL-iOS-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

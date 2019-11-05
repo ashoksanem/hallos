@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 import SystemConfiguration.CaptiveNetwork
 
 //@UIApplicationMain
@@ -449,6 +450,10 @@ class AppDelegate: UIResponder, DTDeviceDelegate, UIApplicationDelegate {
                 }));
                 viewController.present(alert, animated: true, completion: nil)
             }
+        }
+        if(version >= "12.0.0")
+        {
+            CLLocationManager().requestWhenInUseAuthorization();
         }
     }
     

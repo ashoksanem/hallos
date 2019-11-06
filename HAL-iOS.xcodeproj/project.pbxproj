@@ -11,6 +11,7 @@
 		48AD2A6B1FDEF32700C2F509 /* defaultBlank.html in Resources */ = {isa = PBXBuildFile; fileRef = 48AD2A6A1FDEF32700C2F509 /* defaultBlank.html */; };
 		48BB01291F66CF470019E881 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 48BB01281F66CF470019E881 /* XMLReader.m */; };
 		60DD681E17AFC28325F14795 /* Pods_HAL_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4658339D45E6C5D2372B8C23 /* Pods_HAL_iOS.framework */; };
+		850AF339237170DF00F3E42E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 850AF338237170DF00F3E42E /* CoreLocation.framework */; };
 		851C7F8B207C14BE00F4D5AF /* SplashView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 851C7F8A207C14BE00F4D5AF /* SplashView.xib */; };
 		8538E5661EF1809800F82E1D /* DataForwarder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8538E5651EF1809700F82E1D /* DataForwarder.swift */; };
 		853DEFB21F2260B600BEDE1D /* PrinterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853DEFB11F2260B600BEDE1D /* PrinterViewController.swift */; };
@@ -134,6 +135,7 @@
 		58776EE70B993FE454A26235 /* Pods_HAL_iOS_HAL_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOS_HAL_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6989151A3C92DF8CFCF6EEF0 /* Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS-HAL-iOSUITests/Pods-HAL-iOS-HAL-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		773E4FA0ADDCA8BAB2127144 /* Pods_HAL_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HAL_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		850AF338237170DF00F3E42E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		85122EDC5C642EA6B46A0C1B /* Pods-HAL-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HAL-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HAL-iOS/Pods-HAL-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		851C7F8A207C14BE00F4D5AF /* SplashView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashView.xib; sourceTree = "<group>"; };
 		8538E5651EF1809700F82E1D /* DataForwarder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataForwarder.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				850AF339237170DF00F3E42E /* CoreLocation.framework in Frameworks */,
 				BCD2B8651F311B1900F3496D /* libcrypto.a in Frameworks */,
 				BCD2B8661F311B1900F3496D /* libssl.a in Frameworks */,
 				9E59B9A6232032CD00C50805 /* rfid_ios_fw.framework in Frameworks */,
@@ -429,6 +432,7 @@
 		CC6EEEAC1DBFE374003D895B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				850AF338237170DF00F3E42E /* CoreLocation.framework */,
 				F9A42C0021CB03920039D43C /* rfid_ios_fw.framework */,
 				BCD2B8631F311B1900F3496D /* libcrypto.a */,
 				BCD2B8641F311B1900F3496D /* libssl.a */,
@@ -554,6 +558,9 @@
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.AccessWiFi = {
+								enabled = 1;
+							};
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 0;
 							};
@@ -876,7 +883,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Pranitha Kota (L32878QEQ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Pranitha Kota (L32878QEQ2)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -933,7 +941,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Pranitha Kota (L32878QEQ2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Pranitha Kota (L32878QEQ2)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -971,8 +980,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "HAL-iOS/HAL-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1000,7 +1011,7 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.tutapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1017,8 +1028,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = "HAL-iOS/HAL-iOS.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1046,7 +1059,7 @@
 					"-ObjC",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.tutapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

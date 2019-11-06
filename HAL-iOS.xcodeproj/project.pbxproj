@@ -556,7 +556,7 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 8AS67DFAXH;
 						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.AccessWiFi = {
 								enabled = 1;
@@ -983,7 +983,7 @@
 				CODE_SIGN_ENTITLEMENTS = "HAL-iOS/HAL-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1014,7 +1014,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = HalDev;
 				SWIFT_OBJC_BRIDGING_HEADER = "HAL-iOS/sled/HAL-iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1031,7 +1031,7 @@
 				CODE_SIGN_ENTITLEMENTS = "HAL-iOS/HAL-iOS.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 8AS67DFAXH;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1062,7 +1062,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.macys.mst.hal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = HalDev;
 				SWIFT_OBJC_BRIDGING_HEADER = "HAL-iOS/sled/HAL-iOS-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
